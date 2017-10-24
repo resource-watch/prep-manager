@@ -14,12 +14,12 @@ import MyRWDatasetsStarred from 'components/app/myrw/datasets/MyRWDatasetsStarre
 const DATASET_SUBTABS = [{
   label: 'Starred',
   value: 'starred',
-  route: 'myrw',
+  route: 'admin_myrw',
   params: { tab: 'datasets', subtab: 'starred' }
 }, {
   label: 'My datasets',
   value: 'my_datasets',
-  route: 'myrw',
+  route: 'admin_myrw',
   params: { tab: 'datasets', subtab: 'my_datasets' }
 }];
 
@@ -57,8 +57,8 @@ function DatasetsIndex(props) {
                   userId: props.user.id
                 }}
                 routes={{
-                  index: 'myrw',
-                  detail: 'myrw_detail'
+                  index: 'admin_myrw',
+                  detail: 'admin_myrw_detail'
                 }}
               />
             }

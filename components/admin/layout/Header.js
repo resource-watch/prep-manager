@@ -33,33 +33,43 @@ export default class Header extends React.Component {
 
 
   render() {
-    const { url } = this.props;
+    const { url, user } = this.props;
 
     const items = [
       {
+        name: 'My PREP',
+        // pathnames: ['/admin/Data', '/admin/DataDetail'],
+        component: <Link route="admin_myrw"><a>MyPREP</a></Link>,
+      },
+      {
         name: 'Data',
         pathnames: ['/admin/Data', '/admin/DataDetail'],
-        component: <Link route="admin_data"><a>Data</a></Link>
+        component: <Link route="admin_data"><a>Data</a></Link>,
+        role: 'ADMIN'
       },
       {
         name: 'Dashboards',
         pathnames: ['/admin/Dashboards', '/admin/DashboardsDetail'],
-        component: <Link route="admin_dashboards"><a>Dashboards</a></Link>
+        component: <Link route="admin_dashboards"><a>Dashboards</a></Link>,
+        role: 'ADMIN'
       },
       {
         name: 'Partners',
         pathnames: ['/admin/Partners', '/admin/PartnersDetail'],
-        component: <Link route="admin_partners"><a>Partners</a></Link>
+        component: <Link route="admin_partners"><a>Partners</a></Link>,
+        role: 'ADMIN'
       },
       {
         name: 'Tools',
         pathnames: ['/admin/Tools', '/admin/ToolsDetail'],
-        component: <Link route="admin_tools"><a>Tools</a></Link>
+        component: <Link route="admin_tools"><a>Tools</a></Link>,
+        role: 'ADMIN'
       },
       {
         name: 'Pages',
         pathnames: ['/admin/Pages', '/admin/PagesDetail'],
-        component: <Link route="admin_pages"><a>Pages</a></Link>
+        component: <Link route="admin_pages"><a>Pages</a></Link>,
+        role: 'ADMIN'
       },
       {
         name: 'My RW',
@@ -96,6 +106,8 @@ export default class Header extends React.Component {
                       const activeClassName = classnames({
                         '-active': item.pathnames && item.pathnames.includes(url.pathname)
                       });
+
+                      if (item.role && user.role !== item.role) return null;
 
                       return (
                         <li key={item.name} className={activeClassName}>

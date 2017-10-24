@@ -76,7 +76,7 @@ export default class WidgetService {
   }
 
   getUserWidgetCollections(user) {
-    return fetch(`${this.opts.apiURL}/vocabulary/widget_collections?application=rw`)
+    return fetch(`${this.opts.apiURL}/vocabulary/widget_collections?application=${[process.env.APPLICATIONS].join(',')}`)
       .then(response => response.json())
       .then((jsonData) => {
         const dataObj = jsonData.data;

@@ -143,7 +143,7 @@ class AreaCard extends React.Component {
 
   @Autobind
   handleEditArea() {
-    Router.pushRoute('myrw_detail', { id: this.props.area.id, tab: 'areas' });
+    Router.pushRoute('admin_myrw_detail', { id: this.props.area.id, tab: 'areas' });
   }
 
   @Autobind
@@ -264,7 +264,7 @@ class AreaCard extends React.Component {
                       >
                         <div className="dataset-name">
                           <Link
-                            route={'explore_detail'}
+                            route={'admin_explore_detail'}
                             params={{ id: datasetObj.id }}
                           >
                             <a>

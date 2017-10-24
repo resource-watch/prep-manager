@@ -45,7 +45,7 @@ export default class DatasetService {
    * Get subscribable datasets
    */
   getSubscribableDatasets(includes = '') {
-    return fetch(`${this.opts.apiURL}/dataset?application=rw&includes=${includes}&subscribable=true&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/dataset?application=${[process.env.APPLICATIONS].join(',')}&includes=${includes}&subscribable=true&page[size]=999`)
       .then(response => response.json())
       .then(jsonData => jsonData.data);
   }
@@ -266,7 +266,8 @@ export default class DatasetService {
    * @returns {object[]}
    */
   static getDatasets(datasetIDs, includes = '', applications = [process.env.APPLICATIONS]) {
-    return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${datasetIDs}&includes=${includes}&application=${applications.join(',')}&page[size]=999`)
+    const ids = datasetIDs && datasetIDs.length ? datasetIDs.join(',') : 'null';
+    return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${ids}&includes=${includes}&application=${applications.join(',')}&page[size]=999`)
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();

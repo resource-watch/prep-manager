@@ -184,7 +184,7 @@ class WidgetsNew extends React.Component {
 
           toastr.error('Error', errorMessage);
         } else {
-          Router.pushRoute('myrw', { tab: 'widgets', subtab: 'my_widgets' });
+          Router.pushRoute('admin_myrw', { tab: 'widgets', subtab: 'my_widgets' });
           toastr.success('Success', 'Widget created successfully!');
         }
       }).catch((err) => {

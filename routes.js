@@ -20,6 +20,10 @@ routes.add('admin_pages_detail', '/admin/pages/:tab/:id/:subtab?', 'admin/PagesD
 // TOOLS
 routes.add('admin_tools', '/admin/tools/:tab?', 'admin/Tools');
 routes.add('admin_tools_detail', '/admin/tools/:tab/:id/:subtab?', 'admin/ToolsDetail');
+// MY RW
+routes.add('admin_myrw', '/admin/myrw/:tab?/:subtab?', 'admin/MyRW');
+routes.add('admin_myrw_detail', '/admin/myrw-detail/:tab?/:id?/:subtab?', 'admin/MyRWDetail');
+
 
 // ========================= APP ROUTES =====================
 routes.add('home', '/', 'app/Home');

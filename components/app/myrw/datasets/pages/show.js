@@ -23,17 +23,17 @@ import DatasetWidgets from 'components/app/myrw/datasets/DatasetWidgets';
 const DATASET_SUBTABS = [{
   label: 'Edit dataset',
   value: 'edit',
-  route: 'myrw_detail',
+  route: 'admin_myrw_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'edit' }
 }, {
   label: 'Metadata',
   value: 'metadata',
-  route: 'myrw_detail',
+  route: 'admin_myrw_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'metadata' }
 }, {
   label: 'Widgets',
   value: 'widgets',
-  route: 'myrw_detail',
+  route: 'admin_myrw_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'widgets' }
 }];
 
@@ -103,7 +103,7 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('myrw', { tab: 'datasets' })}
+                  onSubmit={() => Router.pushRoute('admin_myrw', { tab: 'datasets' })}
                 />
               }
 
@@ -112,7 +112,7 @@ class DatasetsShow extends React.Component {
                   application={process.env.APPLICATIONS}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('myrw', { tab: 'datasets', id })}
+                  onSubmit={() => Router.pushRoute('admin_myrw', { tab: 'datasets', id })}
                 />
               }
 

@@ -17,7 +17,7 @@ function DashboardsNew(props) {
       <DashboardsForm
         basic
         user={user}
-        onSubmit={() => Router.pushRoute('myrw', { tab: 'dashboards' })}
+        onSubmit={() => Router.pushRoute('admin_myrw', { tab: 'dashboards' })}
       />
     </div>
   );

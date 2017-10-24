@@ -14,12 +14,12 @@ import MyRWWidgetsStarred from 'components/app/myrw/widgets/MyRWWidgetsStarred';
 const WIDGET_SUBTABS = [{
   label: 'Starred',
   value: 'starred',
-  route: 'myrw',
+  route: 'admin_myrw',
   params: { tab: 'widgets', subtab: 'starred' }
 }, {
   label: 'My widgets',
   value: 'my_wigets',
-  route: 'myrw',
+  route: 'admin_myrw',
   params: { tab: 'widgets', subtab: 'my_widgets' }
 }];
 

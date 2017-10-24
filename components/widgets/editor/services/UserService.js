@@ -164,7 +164,7 @@ export default class UserService {
    */
   getSubscriptions(token) {
     return new Promise((resolve) => {
-      fetch(`${this.opts.apiURL}/subscriptions?application=rw`, {
+      fetch(`${this.opts.apiURL}/subscriptions?${[process.env.APPLICATIONS].join(',')}`, {
         headers: {
           Authorization: token
         }
@@ -195,7 +195,7 @@ export default class UserService {
    */
   getUserAreas(token) {
     return new Promise((resolve, reject) => {
-      fetch(`${this.opts.apiURL}/area?application=rw`, {
+      fetch(`${this.opts.apiURL}/area?${[process.env.APPLICATIONS].join(',')}`, {
         headers: {
           Authorization: token
         }

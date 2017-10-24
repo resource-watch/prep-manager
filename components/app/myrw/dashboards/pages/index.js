@@ -17,8 +17,8 @@ function DashboardsIndex(props) {
           'filter[user]': user.id
         }}
         routes={{
-          index: 'myrw',
-          detail: 'myrw_detail'
+          index: 'admin_myrw',
+          detail: 'admin_myrw_detail'
         }}
       />
     </div>

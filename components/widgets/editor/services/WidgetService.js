@@ -81,7 +81,7 @@ export default class WidgetService {
   }
 
   getUserWidgetCollections(user) {
-    return fetch(`${this.opts.apiURL}/vocabulary/widget_collections?application=rw`)
+    return fetch(`${this.opts.apiURL}/vocabulary/widget_collections?${[process.env.APPLICATIONS].join(',')}`)
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();

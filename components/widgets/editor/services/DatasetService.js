@@ -31,7 +31,7 @@ export default class DatasetService {
    * Get subscribable datasets
    */
   getSubscribableDatasets(includes = '') {
-    return fetch(`${this.opts.apiURL}/dataset?application=rw&includes=${includes}&subscribable=true&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/dataset?${[process.env.APPLICATIONS].join(',')}&includes=${includes}&subscribable=true&page[size]=999`)
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
