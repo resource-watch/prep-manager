@@ -3,23 +3,20 @@ export const STATE_DEFAULT = {
   stepLength: 1,
   submitting: false,
   loading: false,
-  dataset: {},
+  partners: [],
   form: {
     // STEP 1
-    name: '',
-    partner_type: null,
+    title: '',
+    slug: '',
     summary: '',
-    body: '',
-    website: '',
-    contact_name: '',
-    contact_email: '',
-    // Images
-    logo: '',
-    white_logo: '',
-    cover: '',
-    icon: '',
-    // States
-    featured: false,
+    content: '',
+    image: '',
+    indicator_id: null,
+    insight_ids: [],
+    tool_ids: [],
+    dashboard_ids: [],
+    related_datasets: [],
+    partner_id: null,
     published: false
   }
 };
@@ -43,14 +40,3 @@ export const FORM_ELEMENTS = {
     return valid;
   }
 };
-
-export const PARTNER_TYPES = [{
-  label: 'Partner',
-  value: 'partner'
-}, {
-  label: 'Founding partner',
-  value: 'founding_partners'
-}, {
-  label: 'Funder',
-  value: 'funders'
-}];

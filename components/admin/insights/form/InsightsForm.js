@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Serializer } from 'jsonapi-serializer';
-import { toastr } from 'react-redux-toastr';
 
 // Services
+import InsightsService from 'services/InsightsService';
 import PartnersService from 'services/PartnersService';
+import { toastr } from 'react-redux-toastr';
 
-import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/partners/form/constants';
+// Constants
+import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/insights/form/constants';
 
+// Components
 import Navigation from 'components/form/Navigation';
-import Step1 from 'components/admin/partners/form/steps/Step1';
+import Step1 from 'components/admin/insights/form/steps/Step1';
 import Spinner from 'components/ui/Spinner';
 
-class PartnersForm extends React.Component {
+class InsightsForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -27,28 +29,42 @@ class PartnersForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onStepChange = this.onStepChange.bind(this);
 
-    this.service = new PartnersService({
+    this.service = new InsightsService({
+      authorization: props.authorization
+    });
+    this.partnersService = new PartnersService({
       authorization: props.authorization
     });
   }
 
   componentDidMount() {
     const { id } = this.state;
-    // Get the partners and fill the
-    // state form with its params if the id exists
+
+    const promises = [
+      this.partnersService.fetchAllData()
+    ];
+
+    // Add the dashboard promise if the id exists
     if (id) {
-      this.service.fetchData(id)
-        .then((data) => {
-          this.setState({
-            form: this.setFormFromParams(data),
-            // Stop the loading
-            loading: false
-          });
-        })
-        .catch((err) => {
-          toastr.error('Error', err);
-        });
+      promises.push(this.service.fetchData(id));
     }
+
+    Promise.all(promises)
+      .then((response) => {
+        const partners = response[0];
+        const current = response[1];
+
+        this.setState({
+          // CURRENT DASHBOARD
+          form: (id) ? this.setFormFromParams(current) : this.state.form,
+          loading: false,
+          // OPTIONS
+          partners: partners.map(p => ({ label: p.name, value: p.id }))
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   /**
@@ -79,34 +95,32 @@ class PartnersForm extends React.Component {
           this.service.saveData({
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body: new Serializer('partner', {
-              keyForAttribute: 'dash-case',
-              attributes: Object.keys(this.state.form)
-            }).serialize(this.state.form)
+            body: this.state.form
           })
             .then((data) => {
-              toastr.success('Success', `The partner "${data.id}" - "${data.name}" has been uploaded correctly`);
+              toastr.success('Success', `The insight "${data.id}" - "${data.title}" has been uploaded correctly`);
 
               if (this.props.onSubmit) this.props.onSubmit();
             })
             .catch((err) => {
               this.setState({ submitting: false });
-              toastr.error('Error', `Oops! There was an error, try again. ${err}`);
+              toastr.error('Error', `Oops! There was an error, try again`);
+              console.error(err);
             });
         } else {
           this.setState({
             step: this.state.step + 1
-          });
+          }, () => console.info(this.state));
         }
       } else {
-        toastr.error('Error', 'Fill all the required fields or correct the invalid values');
+        toastr.error('Error', 'Fill all the required fields');
       }
     }, 0);
   }
 
   onChange(obj) {
     const form = Object.assign({}, this.state.form, obj);
-    this.setState({ form });
+    this.setState({ form }, () => console.info(this.state.form));
   }
 
   onStepChange(step) {
@@ -119,28 +133,16 @@ class PartnersForm extends React.Component {
 
     Object.keys(params).forEach((f) => {
       switch (f) {
-        // TODO: if the API doesn't send it we won't need to handle it
-        case 'logo': {
-          if (params[f] && params[f].original !== '/images/original/missing.png') {
-            newForm[f] = params[f].original;
+        case 'partner': {
+          if (params[f]) {
+            newForm.partner_id = params[f].id;
           }
           break;
         }
-        case 'white_logo': {
-          if (params[f] && params[f].original !== '/images/original/missing.png') {
-            newForm[f] = params[f].original;
-          }
-          break;
-        }
-        case 'cover': {
-          if (params[f] && params[f].original !== '/images/original/missing.png') {
-            newForm[f] = params[f].original;
-          }
-          break;
-        }
-        case 'icon': {
-          if (params[f] && params[f].original !== '/images/original/missing.png') {
-            newForm[f] = params[f].original;
+        case 'image': {
+          // TODO: if the API doesn't send it we won't need to handle it
+          if (params[f] && params[f] !== '/images/original/missing.png') {
+            newForm[f] = params[f];
           }
           break;
         }
@@ -164,9 +166,10 @@ class PartnersForm extends React.Component {
 
         {(this.state.step === 1 && !this.state.loading) &&
           <Step1
-            onChange={value => this.onChange(value)}
-            form={this.state.form}
             id={this.state.id}
+            form={this.state.form}
+            partners={this.state.partners}
+            onChange={value => this.onChange(value)}
           />
         }
 
@@ -183,10 +186,10 @@ class PartnersForm extends React.Component {
   }
 }
 
-PartnersForm.propTypes = {
+InsightsForm.propTypes = {
   authorization: PropTypes.string,
   id: PropTypes.string,
   onSubmit: PropTypes.func
 };
 
-export default PartnersForm;
+export default InsightsForm;

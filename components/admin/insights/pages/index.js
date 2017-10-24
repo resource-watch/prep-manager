@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import PartnersTable from 'components/admin/partners/table/PartnersTable';
+import InsightsTable from 'components/admin/insights/table/InsightsTable';
 
-export default function PartnersIndex(props) {
+export default function InsightsIndex(props) {
   const { user } = props;
 
   return (
-    <div className="c-partners-index">
-      <PartnersTable
+    <div className="c-insights-index">
+      <InsightsTable
         application={[process.env.APPLICATIONS]}
         authorization={user.token}
       />
@@ -17,10 +17,10 @@ export default function PartnersIndex(props) {
   );
 }
 
-PartnersIndex.propTypes = {
+InsightsIndex.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-PartnersIndex.defaultProps = {
+InsightsIndex.defaultProps = {
   user: {}
 };

@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 import { get, post, remove } from 'utils/request';
 
-export default class DashboardsService {
+export default class IndicatorsService {
 
   constructor(options = {}) {
     this.opts = options;
@@ -11,7 +11,7 @@ export default class DashboardsService {
   fetchAllData() {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/dashboards/?published=all`,
+        url: `${process.env.API_URL}/indicators/?published=all`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
@@ -32,7 +32,7 @@ export default class DashboardsService {
   fetchData(id) {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/dashboards/${id}`,
+        url: `${process.env.API_URL}/indicators/${id}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
@@ -53,7 +53,7 @@ export default class DashboardsService {
   saveData({ type, body, id }) {
     return new Promise((resolve, reject) => {
       post({
-        url: `${process.env.API_URL}/dashboards/${id}`,
+        url: `${process.env.API_URL}/indicators/${id}`,
         type,
         body,
         headers: [{
@@ -76,7 +76,7 @@ export default class DashboardsService {
   deleteData(id) {
     return new Promise((resolve, reject) => {
       remove({
-        url: `${process.env.API_URL}/dashboards/${id}`,
+        url: `${process.env.API_URL}/indicators/${id}`,
         headers: [{
           key: 'Authorization',
           value: this.opts.authorization

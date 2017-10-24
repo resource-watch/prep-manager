@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FeaturedTD(props) {
+function PublishedTD(props) {
   const { value, index } = props;
 
   return (
@@ -11,9 +11,9 @@ function FeaturedTD(props) {
   );
 }
 
-FeaturedTD.propTypes = {
+PublishedTD.propTypes = {
   value: PropTypes.bool,
   index: PropTypes.string
 };
 
-export default FeaturedTD;
+export default PublishedTD;

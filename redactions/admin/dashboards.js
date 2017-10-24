@@ -16,10 +16,10 @@ const SET_DASHBOARDS_FILTERS = 'dashboards/SET_DASHBOARDS_FILTERS';
  */
 const initialState = {
   dashboards: {
-    list: [], // Actual list of dashboards
+    list: [],       // Actual list of dashboards
     loading: false, // Are we loading the data?
-    error: null, // An error was produced while loading the data
-    filters: [] // Filters for the list of dashboards
+    error: null,    // An error was produced while loading the data
+    filters: []     // Filters for the list of dashboards
   }
 };
 
@@ -76,11 +76,11 @@ export default function (state = initialState, action) {
  * @export
  * @param {string[]} applications Name of the applications to load the dashboards from
  */
-export function getDashboards(options) {
+export function getDashboards() {
   return (dispatch) => {
     dispatch({ type: GET_DASHBOARDS_LOADING });
 
-    service.fetchAllData(options)
+    service.fetchAllData()
       .then((data) => {
         dispatch({ type: GET_DASHBOARDS_SUCCESS, payload: data });
       })

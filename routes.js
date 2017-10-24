@@ -23,7 +23,9 @@ routes.add('admin_tools_detail', '/admin/tools/:tab/:id/:subtab?', 'admin/ToolsD
 // MY RW
 routes.add('admin_myrw', '/admin/myrw/:tab?/:subtab?', 'admin/MyRW');
 routes.add('admin_myrw_detail', '/admin/myrw-detail/:tab?/:id?/:subtab?', 'admin/MyRWDetail');
-
+// INSIGHTS
+routes.add('admin_insights', '/admin/insights/:tab?', 'admin/Insights');
+routes.add('admin_insights_detail', '/admin/insights/:tab/:id/:subtab?', 'admin/InsightsDetail');
 
 // ========================= APP ROUTES =====================
 routes.add('home', '/', 'app/Home');

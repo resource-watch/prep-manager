@@ -4,11 +4,10 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
-import { getInsights, setFilters } from 'redactions/admin/insights';
+import { getDashboards, setFilters } from 'redactions/admin/dashboards';
 
 // Selectors
-import getFilteredInsights from 'selectors/admin/insights';
+import getFilteredDashboards from 'selectors/admin/dashboards';
 
 // Components
 import Spinner from 'components/ui/Spinner';
@@ -21,15 +20,14 @@ import DeleteAction from './actions/DeleteAction';
 
 // TDs
 import TitleTD from './td/TitleTD';
+import PartnerTD from './td/PartnerTD';
 import PublishedTD from './td/PublishedTD';
-import EmbeddableTD from './td/EmbeddableTD';
 
-
-class InsightsTable extends React.Component {
+class DashboardsTable extends React.Component {
 
   componentDidMount() {
     this.props.setFilters([]);
-    this.props.getInsights();
+    this.props.getDashboards();
   }
 
   /**
@@ -47,20 +45,20 @@ class InsightsTable extends React.Component {
 
   /**
    * HELPERS
-   * - getInsights
-   * - getFilteredInsights
+   * - getDashboards
+   * - getFilteredDashboards
   */
-  getInsights() {
-    return this.props.insights;
+  getDashboards() {
+    return this.props.dashboards;
   }
 
-  getFilteredInsights() {
-    return this.props.filteredInsights;
+  getFilteredDashboards() {
+    return this.props.filteredDashboards;
   }
 
   render() {
     return (
-      <div className="c-insights-table">
+      <div className="c-dashboards-table">
         <Spinner className="-light" isLoading={this.props.loading} />
 
         {this.props.error && (
@@ -69,12 +67,12 @@ class InsightsTable extends React.Component {
 
         <SearchInput
           input={{
-            placeholder: 'Search insight'
+            placeholder: 'Search dashboard'
           }}
           link={{
-            label: 'New insight',
-            route: 'admin_insights_detail',
-            params: { tab: 'insights', id: 'new' }
+            label: 'New dashboard',
+            route: 'admin_dashboards_detail',
+            params: { tab: 'dashboards', id: 'new' }
           }}
           onSearch={this.onSearch}
         />
@@ -84,14 +82,14 @@ class InsightsTable extends React.Component {
             columns={[
               { label: 'Title', value: 'title', td: TitleTD },
               { label: 'Attribution', value: 'attribution' },
-              { label: 'Published', value: 'published', td: PublishedTD },
-              { label: 'Embeddable', value: 'embeddable', td: EmbeddableTD }
+              { label: 'Partner', value: 'partner', td: PartnerTD },
+              { label: 'Published', value: 'published', td: PublishedTD }
             ]}
             actions={{
               show: true,
               list: [
-                { name: 'Edit', route: 'admin_insights_detail', params: { tab: 'insights', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
-                { name: 'Remove', route: 'admin_insights_detail', params: { tab: 'insights', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
+                { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
             sort={{
@@ -99,7 +97,7 @@ class InsightsTable extends React.Component {
               value: 1
             }}
             filters={false}
-            data={this.getFilteredInsights()}
+            data={this.getFilteredDashboards()}
             pageSize={20}
             pagination={{
               enabled: true,
@@ -115,36 +113,36 @@ class InsightsTable extends React.Component {
   }
 }
 
-InsightsTable.defaultProps = {
+DashboardsTable.defaultProps = {
   columns: [],
   actions: {},
   // Store
-  insights: [],
-  filteredInsights: []
+  dashboards: [],
+  filteredDashboards: []
 };
 
-InsightsTable.propTypes = {
+DashboardsTable.propTypes = {
   authorization: PropTypes.string,
   // Store
   loading: PropTypes.bool.isRequired,
-  insights: PropTypes.array.isRequired,
-  filteredInsights: PropTypes.array.isRequired,
+  dashboards: PropTypes.array.isRequired,
+  filteredDashboards: PropTypes.array.isRequired,
   error: PropTypes.string,
 
   // Actions
-  getInsights: PropTypes.func.isRequired,
+  getDashboards: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  loading: state.insights.insights.loading,
-  insights: state.insights.insights.list,
-  filteredInsights: getFilteredInsights(state),
-  error: state.insights.insights.error
+  loading: state.dashboards.dashboards.loading,
+  dashboards: state.dashboards.dashboards.list,
+  filteredDashboards: getFilteredDashboards(state),
+  error: state.dashboards.dashboards.error
 });
 const mapDispatchToProps = dispatch => ({
-  getInsights: () => dispatch(getInsights()),
+  getDashboards: () => dispatch(getDashboards()),
   setFilters: filters => dispatch(setFilters(filters))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InsightsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardsTable);
