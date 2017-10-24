@@ -37,11 +37,6 @@ export default class Header extends React.Component {
 
     const items = [
       {
-        name: 'My PREP',
-        // pathnames: ['/admin/Data', '/admin/DataDetail'],
-        component: <Link route="admin_myrw"><a>MyPREP</a></Link>,
-      },
-      {
         name: 'Data',
         pathnames: ['/admin/Data', '/admin/DataDetail'],
         component: <Link route="admin_data"><a>Data</a></Link>,
