@@ -1,0 +1,195 @@
+.page-dashboards {
+
+  .info {
+    position: relative; // Needed for the spinner
+    padding: 50px 0 70px;
+    background-color: $bg-color-2;
+  }
+
+  .error {
+    text-align: center;
+    font-weight: $font-weight-bold;
+  }
+
+  .dashboards-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+      margin: 0 20px 20px 0;
+      flex-basis: calc((100% - 5 * 20px) / 6);
+      height: 135px;
+      border-radius: 4px;
+      background-color: $battleship-grey;
+      background-size: cover;
+      background-position: center center;
+
+      &:nth-of-type(6n) {
+        margin-right: 0;
+      }
+
+      // The input is just here for an accessibility matter
+      // we don't want it to be visually present
+      input[type="radio"] {
+        position: absolute;
+        top: 0;
+        left: -10000px;
+
+        &:focus + .content {
+          border: 1px solid $color-primary;
+        }
+      }
+
+      .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        width: 100%;
+        height: 100%;
+        padding: 15px 20px;
+        font-size: $font-size-extra-big;
+        font-weight: $font-weight-bold;
+        color: $color-white;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      &.-active .content {
+        background-color: rgba($color-secondary, .9);
+      }
+
+      &.-disabled {
+        opacity: .3;
+
+        .content { cursor: auto; }
+      }
+
+      &.-toggle {
+        background-color: transparent;
+        border: 1px solid $color-primary;
+
+        // .-toggle is a button and buttons can't be flex
+        // containers, that's why we have an extra span
+        // to align the text at the bottom
+        .content {
+          display: block;
+          color: $color-primary;
+          cursor: pointer;
+
+          &:focus {
+            background: rgba($color-primary, .2);
+          }
+
+          span {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            height: 100%;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard-info {
+    padding-top: 30px;
+
+    p {
+      margin: 10px 0 0;
+      line-height: 1.625;
+    }
+  }
+
+  .widgets-list {
+    // For some reasons, because .info has a relative position,
+    // if this selector doesn't have it too, the cards inside of
+    // it are cut at the top (probably a conflict with the
+    // negative margin)
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: -20px;
+
+    .c-dashboard-card {
+      flex-basis: calc(50% - 10px);
+      margin-bottom: 20px;
+    }
+  }
+
+  .user-content {
+    margin-top: 30px;
+
+    .widget-layout {
+      margin: map-get($grid-column-gutter, 'small') 0;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 383px;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 4px;
+
+      @media screen and (min-width: $grid-row-width) {
+        max-width: $grid-row-width;
+        max-height: 100vh; // Improvement for portrait images
+        margin: 0 auto; // Needed for portrait images
+        // The following 3 lines are used to center the photo
+        // with the content
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    .dashboard-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      margin: 50px 0;
+      padding: 0;
+
+      @media screen and (min-width: $grid-row-width) {
+        width: $grid-row-width;
+        // The following 3 lines are used to center the photo
+        // with the content
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @for $i from 1 through 2 {
+        > .dashboard-column-#{$i} {
+          flex-basis: 100%;
+          flex-shrink: 0;
+          flex-grow: 0;
+
+          @media screen and (min-width: map-get($breakpoints, medium)) {
+            flex-basis: calc(#{100% / $i} - #{(($i - 1) * 20px) / $i});
+          }
+
+          & + .dashboard-column-#{$i} {
+            margin-top: 20px;
+
+            @media screen and (min-width: map-get($breakpoints, medium)) {
+              margin-top: 0;
+              margin-left: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

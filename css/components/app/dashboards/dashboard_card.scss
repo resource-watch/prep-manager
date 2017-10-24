@@ -1,0 +1,78 @@
+.c-dashboard-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+  border: 1px solid rgba($color-black, .1);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px 0 rgba($color-black, .05);
+
+  > header {
+    padding: 15px;
+    border-bottom: 2px solid rgba($color-black, .05);
+
+    .header-container {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+
+      .c-icon {
+        cursor: pointer;
+      }
+    }
+
+    .categories {
+      margin: 5px 0 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: $font-size-small-medium;
+        font-weight: $font-weight-bold;
+        color: $color-secondary;
+
+        &:not(:last-of-type)::after {
+          display: inline-block;
+          margin: 0 .5ch;
+          color: $color-text-2;
+          content: '+';
+        }
+      }
+    }
+  }
+
+  .widget-container {
+    position: relative;
+    display: flex;
+    padding: 15px;
+    min-height: 300px;
+    flex-grow: 1;
+
+    > * {
+      flex-basis: 100%;
+    }
+
+    > .message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .no-data,
+      .error {
+        font-weight: $font-weight-bold;
+        text-align: center;
+
+        span {
+          display: block;
+          font-weight: $font-weight-regular;
+          font-size: $font-size-default;
+        }
+      }
+    }
+
+    .c-chart {
+      height: auto;
+    }
+  }
+}

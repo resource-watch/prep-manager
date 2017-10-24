@@ -1,0 +1,71 @@
+/*
+* Project settings
+* ================
+*
+* This file doesn't include grid system configuration,
+* in this case you should take a look '_foundation_settings' file.
+*/
+
+// Bourbon settings
+$output-bourbon-deprecation-warnings: false;
+@import "../node_modules/bourbon/app/assets/stylesheets/settings/px-to-em";
+@import "../node_modules/bourbon/app/assets/stylesheets/functions/strip-units";
+@import "../node_modules/bourbon/app/assets/stylesheets/functions/px-to-rem";
+
+// It should be removed
+@import "deprecated";
+
+// Colors
+$dark-pink: #c32d7b;
+$yellow: #FAB72E;
+$blue-turquoise: #3bb2d0;
+$charcoal-grey: #393f44;
+$dove-grey: #717171;
+$light-grey: #CACCD0;
+$porcelain: #F4F6F7;
+$white: #ffffff;
+$black: #000;
+$sea-blue: #2C75B0;
+
+// Theme
+$base-font-color: $charcoal-grey;
+$header-font-color: $color-primary;
+$link-font-color: $sea-blue;
+$active-font-color: $yellow;
+$ui-font-color: $dove-grey;
+$alt-font-color: $white;
+$ui-bg-color: $porcelain;
+$base-bg-color: $white;
+
+$border-color-1: rgba(26, 28, 34, 0.1);
+$border-color-2: rgba(202, 204,208, 0.85);; // For inputs
+$alt-border-color: $white;
+
+$color-primary: $dark-pink;
+$color-secondary: $blue-turquoise;
+$primary-color: $color-primary;
+$secondary-color: $color-secondary;
+
+// Typography
+$font-size-extra-small: 12px;
+$font-size-small: 13px;
+$font-size-normal: 14px;
+$font-size-medium: 16px;
+$font-size-big: 21px;
+
+$font-size-h1: 64px;
+$font-size-h2: 42px;
+$font-size-h3: 26px;
+$font-size-h4: 16px;
+
+$body-font-color: $base-font-color;
+$body-font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans;
+$global-weight-normal: normal;
+$global-lineheight: 1.625;
+$global-font-size: $font-size-medium;
+
+// Layout
+$margin-size-extra-small: 15px;
+$margin-size-small: 30px;
+$margin-size: 50px;
+$margin-size-big: 100px;

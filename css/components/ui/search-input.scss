@@ -1,0 +1,20 @@
+.c-search-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+
+  > .c-field {
+    position: relative;
+    margin-right: 20px;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(0, -50%);
+      fill: $color-text-1;
+    }
+  }
+}

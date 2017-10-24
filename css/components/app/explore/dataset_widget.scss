@@ -1,0 +1,134 @@
+.c-dataset-list-item {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex: 1 0 auto;
+  background: $ui-bg-color;
+  box-shadow: 0 0 0 rgba(0,0,0,0.1);
+  transition: all 0.3s;
+
+  .info {
+    background: $color-white;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .detail {
+      font-size: $font-size-normal;
+      padding: $margin-size-extra-small;
+
+      a {
+        text-decoration: none;
+        color: $color-text-1;
+      }
+
+      p {
+        word-break: break-word;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .actions {
+      padding-left: $margin-size-extra-small;
+      padding-bottom: $margin-size-extra-small;
+      padding-right: $margin-size-extra-small;
+    }
+  }
+
+  &.-list {
+    .info {
+      flex-direction: row;
+
+      .detail {
+        padding-left: 0px;
+
+        a {
+          text-decoration: none;
+        }
+
+        @media screen and (min-width: map-get($breakpoints, medium)) {
+          max-width: calc(100% - 150px);
+        }
+
+        .title-container {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          h4 {
+            margin-bottom: 0px;
+          }
+
+          .tags-button {
+            position: relative;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    .actions {
+      margin-top: 10px;
+      margin-right: 0px;
+      min-width: 145px;
+    }
+
+    &:hover {
+      .info {
+        .detail {
+          a {
+            color: darken($color-text-1, 10%);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &.-grid {
+    border: 1px solid $border-color-1;
+    border-radius: 4px;
+
+    .info {
+      flex-direction: column;
+    }
+
+    &:hover {
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+      transform: translateY(-4px);
+    }
+  }
+
+  .tags-button {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 4;
+    cursor: pointer;
+    fill: $charcoal-grey;
+  }
+
+  .favorite-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 4;
+    cursor: pointer;
+
+    svg {
+
+      &.-filled {
+        fill: $yellow;
+      }
+
+      &.-empty {
+        fill: $dove-grey;
+      }
+    }
+  }
+}

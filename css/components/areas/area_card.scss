@@ -1,0 +1,86 @@
+.c-area-card {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 20px;
+
+  h4, h5 {
+    margin: 0px;
+  }
+
+  .border-container {
+    flex: 1;
+    border: 1px solid $color-grey;
+
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: calc(100% - 200px);
+      padding: 15px;
+
+      .name-container {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+        min-height: 20px;
+      }
+
+      .subscriptions-container {
+
+        .datasets-list {
+          max-height: 80px;
+
+          .dataset-element {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+
+        .subscription-status {
+          display: flex;
+          justify-content: space-between;
+
+          .pending-label {
+            color: $color-blue-turquoise;
+          }
+        }
+
+        .new-subscription-container {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        a {
+          color: $dove-grey;
+          cursor: pointer;
+        }
+      }
+
+      .actions-div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 0px;
+
+        a {
+          color: $color-dark-pink;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &.blue-background {
+      background-color: #F5FBFC;
+    }
+  }
+}

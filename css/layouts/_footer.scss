@@ -1,0 +1,123 @@
+.l-footer {
+  margin-top: $margin-size;
+
+  .footer-logo {
+    margin-bottom: $margin-size-small;
+  }
+
+  .footer-intro {
+    position: relative;
+    padding: $margin-size 0;
+
+    border-top: 1px solid $border-color-1;
+
+    .title {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      padding-left: 24px;
+      padding-right: 38px;
+
+      color: $ui-font-color;
+      font-size: $font-size-small;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      transform: translate(-50%, -10px);
+      background-color: $base-bg-color;
+
+      a {
+        position: relative;
+        color: $dove-grey;
+
+        &:after {
+          content: '';
+          position: absolute;
+          right: -17px;
+          top: 4px;
+          width: 7px;
+          height: 7px;
+          transform: rotate(45deg);
+          border-top: 2px solid $dove-grey;
+          border-right: 2px solid $dove-grey;
+        }
+      }
+    }
+  }
+
+  .footer-main {
+    border-top: 1px solid $border-color-1;
+    padding: $margin-size 0;
+
+    color: $ui-font-color;
+  }
+
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    padding: 0 0 $margin-size;
+
+    ul {
+      display: inline-flex;
+      justify-content: flex-start;
+
+      li {
+        margin-left: 10px;
+        &:first-child { margin-left: 0; }
+      }
+    }
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $color-text-1;
+      border-radius: 50%;
+      padding: 10px;
+      fill: $color-text-1;
+      background: transparent;
+
+      &:hover {
+        background: $color-text-1;
+        fill: $color-white;
+      }
+    }
+  }
+
+  .footer-lower {
+    background-color: #333333;
+
+    p {
+      font-size: 14px;
+      margin: 0;
+      line-height: 24px;
+      margin-bottom: 5px;
+
+      &:last-child { margin-bottom: 0; }
+
+      &.-bold {
+        font-weight: bold;
+      }
+    }
+
+
+    .footer-container {
+      padding: 55px 0;
+      color: $color-white;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-item {
+      display: flex;
+      justify-content: center;
+      flex-flow: column;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+}

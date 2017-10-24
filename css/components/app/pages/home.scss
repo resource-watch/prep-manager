@@ -1,0 +1,72 @@
+.page-home {
+  .video-intro {
+    position: relative;
+    width: 100%;
+    height: 390px;
+    overflow: hidden;
+
+    .video-foreground,
+    .video-foreground iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .video-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.2);
+
+      color: $alt-font-color;
+      font-size: $font-size-big;
+      text-align: center;
+      text-shadow: 0 2px 1px rgba(0, 0, 0, .2);
+
+      z-index: 1;
+
+      h1 {
+        color: $alt-font-color;
+      }
+    }
+
+    @media screen and (min-width: map-get($breakpoints, medium)) {
+      height: 560px;
+    }
+  }
+
+  @media (min-aspect-ratio: 16/9) {
+    .video-intro >.video-foreground { height: 300%; top: -100%; }
+  }
+  @media (max-aspect-ratio: 16/9) {
+    .video-intro > .video-foreground { height: 250%; top: -75%; }
+  }
+
+  .explore-cards .c-card-static {
+    height: 590px;
+    margin-top: $margin-size;
+  }
+}
+
+.insight-cards {
+  .c-card-static {
+    margin-top: $margin-size;
+    height: 590px;
+  }
+
+  .dual {
+    margin-top: $margin-size;
+    .c-card-static {
+      margin-top: $margin-size-extra-small;
+      height: 288px;
+    }
+  }
+}

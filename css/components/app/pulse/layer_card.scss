@@ -1,0 +1,58 @@
+.c-layer-card {
+  position: absolute;
+  top: 200px;
+  left: 50px;
+  padding: 20px;
+  background-color: $color-white;
+  max-width: 400px;
+  max-height: 550px;
+  border-radius: 4px;
+
+  h3, h5 {
+    color: $color-dark-pink;
+  }
+
+  h5 {
+    margin: 0px;
+  }
+
+  &.-hidden {
+    display: none;
+  }
+
+  .description {
+    max-height: 50px;
+    overflow: auto;
+
+    p {
+      margin-bottom: 0px;
+    }
+  }
+
+  .widget-card {
+    cursor: pointer;
+    width: 100%;
+
+    .c-chart {
+      overflow: auto;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .link_button {
+      text-transform: uppercase;
+      color: $color-dark-pink;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .subscribe-text {
+      color: $dark-pink;
+      font-style: italic;
+    }
+  }
+}

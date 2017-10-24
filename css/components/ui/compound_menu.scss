@@ -1,0 +1,22 @@
+.c-compound-menu .submenu {
+  padding: 0;
+  margin: 0 0 $margin-size 0;
+  list-style: none;
+
+  .item {
+    padding: 0;
+    margin: 0;
+
+    a {
+      color: $ui-font-color;
+    }
+
+    &.title a {
+      color: $header-font-color;
+    }
+  }
+
+  @media screen and (min-width: map-get($breakpoints, medium)) {
+    margin-bottom: 0;
+  }
+}

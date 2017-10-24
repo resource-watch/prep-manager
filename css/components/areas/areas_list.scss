@@ -1,0 +1,19 @@
+.c-areas-list {
+
+  .actions-div {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .card-container {
+    display: flex;
+    height: 100%;
+  }
+
+  .no-areas-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
