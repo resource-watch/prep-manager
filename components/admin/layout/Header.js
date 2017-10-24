@@ -54,25 +54,19 @@ export default class Header extends React.Component {
         role: 'ADMIN'
       },
       {
+        name: 'Insights',
+        pathnames: ['/admin/Dashboards', '/admin/DashboardsDetail'],
+        component: <Link route="admin_dashboards"><a>Dashboards</a></Link>,
+        role: 'ADMIN'
+      },
+      {
         name: 'Partners',
         pathnames: ['/admin/Partners', '/admin/PartnersDetail'],
         component: <Link route="admin_partners"><a>Partners</a></Link>,
         role: 'ADMIN'
       },
       {
-        name: 'Tools',
-        pathnames: ['/admin/Tools', '/admin/ToolsDetail'],
-        component: <Link route="admin_tools"><a>Tools</a></Link>,
-        role: 'ADMIN'
-      },
-      {
-        name: 'Pages',
-        pathnames: ['/admin/Pages', '/admin/PagesDetail'],
-        component: <Link route="admin_pages"><a>Pages</a></Link>,
-        role: 'ADMIN'
-      },
-      {
-        name: 'My RW',
+        name: 'User',
         component: <HeaderUser
           user={this.props.user}
           active={this.state.myrwActive}

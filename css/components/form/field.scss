@@ -38,6 +38,10 @@
     font-size: 12px;
   }
 
+  > textarea {
+    min-height: 150px;
+  }
+
   > input,
   > textarea,
   > select,

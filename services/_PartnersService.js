@@ -1,8 +1,10 @@
 import 'isomorphic-fetch';
 import { get, post, remove } from 'utils/request';
 
-export default class PartnersService {
+import sortBy from 'lodash/sortBy';
+import { Deserializer } from 'jsonapi-serializer';
 
+export default class PartnersService {
   constructor(options = {}) {
     this.opts = options;
   }
@@ -20,7 +22,11 @@ export default class PartnersService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          resolve(response);
+          new Deserializer({
+            keyForAttribute: 'underscore_case'
+          }).deserialize(response, (err, partners) => {
+            resolve(sortBy(partners, 'name'));
+          });
         },
         onError: (error) => {
           reject(error);
@@ -41,7 +47,11 @@ export default class PartnersService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          resolve(response);
+          new Deserializer({
+            keyForAttribute: 'underscore_case'
+          }).deserialize(response, (err, partner) => {
+            resolve(partner);
+          });
         },
         onError: (error) => {
           reject(error);
@@ -64,7 +74,11 @@ export default class PartnersService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          resolve(response);
+          new Deserializer({
+            keyForAttribute: 'underscore_case'
+          }).deserialize(response, (err, partner) => {
+            resolve(partner);
+          });
         },
         onError: (error) => {
           reject(error);

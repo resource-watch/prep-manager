@@ -4,25 +4,27 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
+
 
 // Components
 import PartnersForm from 'components/admin/partners/form/PartnersForm';
 
-function PartnersNew(props) {
-  const { user } = props;
+function PartnersShow(props) {
+  const { id, user } = props;
 
   return (
-    <div className="c-partners-new">
+    <div className="c-partners-show">
       <PartnersForm
+        id={id}
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_resources', { tab: 'partners' })}
+        onSubmit={() => Router.pushRoute('admin_partners', { tab: 'partners' })}
       />
     </div>
   );
 }
 
-PartnersNew.propTypes = {
+PartnersShow.propTypes = {
+  id: PropTypes.string,
   // Store
   user: PropTypes.object.isRequired
 };
@@ -31,4 +33,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, null)(PartnersNew);
+export default connect(mapStateToProps, null)(PartnersShow);

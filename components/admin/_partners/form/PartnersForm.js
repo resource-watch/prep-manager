@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Serializer } from 'jsonapi-serializer';
+import { toastr } from 'react-redux-toastr';
 
 // Services
 import PartnersService from 'services/PartnersService';
-import { toastr } from 'react-redux-toastr';
 
 import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/partners/form/constants';
 
@@ -46,7 +46,7 @@ class PartnersForm extends React.Component {
           });
         })
         .catch((err) => {
-          console.error(err);
+          toastr.error('Error', err);
         });
     }
   }
@@ -79,7 +79,10 @@ class PartnersForm extends React.Component {
           this.service.saveData({
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body: this.state.form
+            body: new Serializer('partner', {
+              keyForAttribute: 'dash-case',
+              attributes: Object.keys(this.state.form)
+            }).serialize(this.state.form)
           })
             .then((data) => {
               toastr.success('Success', `The partner "${data.id}" - "${data.name}" has been uploaded correctly`);
@@ -88,23 +91,22 @@ class PartnersForm extends React.Component {
             })
             .catch((err) => {
               this.setState({ submitting: false });
-              toastr.error('Error', `Oops! There was an error, try again`);
-              console.error(err);
+              toastr.error('Error', `Oops! There was an error, try again. ${err}`);
             });
         } else {
           this.setState({
             step: this.state.step + 1
-          }, () => console.info(this.state));
+          });
         }
       } else {
-        toastr.error('Error', 'Fill all the required fields');
+        toastr.error('Error', 'Fill all the required fields or correct the invalid values');
       }
     }, 0);
   }
 
   onChange(obj) {
     const form = Object.assign({}, this.state.form, obj);
-    this.setState({ form }, () => console.info(this.state.form));
+    this.setState({ form });
   }
 
   onStepChange(step) {
@@ -118,21 +120,27 @@ class PartnersForm extends React.Component {
     Object.keys(params).forEach((f) => {
       switch (f) {
         // TODO: if the API doesn't send it we won't need to handle it
-        case 'thumbnail': {
-          if (params[f] && params[f] !== '/thumbnails/original/missing.png') {
-            newForm[f] = params[f];
-          }
-          break;
-        }
         case 'logo': {
-          if (params[f] && params[f] !== '/logos/original/missing.png') {
-            newForm[f] = params[f];
+          if (params[f] && params[f].original !== '/images/original/missing.png') {
+            newForm[f] = params[f].original;
           }
           break;
         }
         case 'white_logo': {
-          if (params[f] && params[f] !== '/white_logos/original/missing.png') {
-            newForm[f] = params[f];
+          if (params[f] && params[f].original !== '/images/original/missing.png') {
+            newForm[f] = params[f].original;
+          }
+          break;
+        }
+        case 'cover': {
+          if (params[f] && params[f].original !== '/images/original/missing.png') {
+            newForm[f] = params[f].original;
+          }
+          break;
+        }
+        case 'icon': {
+          if (params[f] && params[f].original !== '/images/original/missing.png') {
+            newForm[f] = params[f].original;
           }
           break;
         }

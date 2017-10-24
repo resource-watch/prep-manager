@@ -4,7 +4,7 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
+
 import { getPartners, setFilters } from 'redactions/admin/partners';
 
 // Selectors
@@ -25,7 +25,6 @@ import PublishedTD from './td/PublishedTD';
 import FeaturedTD from './td/FeaturedTD';
 
 class PartnersTable extends React.Component {
-
   componentDidMount() {
     this.props.setFilters([]);
     this.props.getPartners();
@@ -72,7 +71,7 @@ class PartnersTable extends React.Component {
           }}
           link={{
             label: 'New partner',
-            route: 'admin_resources_detail',
+            route: 'admin_partners_detail',
             params: { tab: 'partners', id: 'new' }
           }}
           onSearch={this.onSearch}
@@ -100,13 +99,12 @@ class PartnersTable extends React.Component {
             filters={false}
             data={this.getFilteredPartners()}
             pageSize={20}
+            onRowDelete={() => this.props.getPartners()}
             pagination={{
               enabled: true,
               pageSize: 20,
               page: 0
             }}
-            onToggleSelectedRow={(ids) => { console.info(ids); }}
-            onRowDelete={(id) => { console.info(id); }}
           />
         )}
       </div>
