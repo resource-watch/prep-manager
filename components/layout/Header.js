@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import { Link } from 'routes';
@@ -18,7 +19,7 @@ export default class Header extends React.Component {
               </Link>
             </div>
             <div className="column small-2 medium-8">
-              <MainNav />
+              <MainNav user={this.props.user} />
             </div>
           </div>
         </div>
@@ -26,3 +27,8 @@ export default class Header extends React.Component {
     );
   }
 }
+
+
+Header.propTypes = {
+  user: PropTypes.object
+};
