@@ -14,6 +14,7 @@ import { updateIsLoading } from 'redactions/page';
 
 // Components
 import Header from 'components/layout/Header';
+import Footer from 'components/layout/Footer';
 import Head from 'components/admin/layout/head';
 import Icons from 'components/admin/layout/icons';
 import Modal from 'components/ui/Modal';
@@ -68,6 +69,8 @@ class Layout extends React.Component {
         <div className="container">
           { this.props.children }
         </div>
+
+        <Footer />
 
         <Tooltip />
 
