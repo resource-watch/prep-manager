@@ -137,7 +137,7 @@ class AreasList extends React.Component {
         <div className="l-container">
           <Spinner isLoading={loading || !areasMerged} className="-small -light" />
           <div className="actions-div">
-            <Link route="admin_myrw_detail" params={{ id: 'new', tab: 'areas' }}>
+            <Link route="admin_myprep_detail" params={{ id: 'new', tab: 'areas' }}>
               <a className="c-button -primary">
                 New
               </a>

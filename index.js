@@ -64,7 +64,7 @@ function isAuthenticated(req, res, nextAction) {
 function isAdmin(req, res, nextAction) {
   if (req.user.role === 'ADMIN') return nextAction();
   // if they aren't redirect them to the home page
-  return res.redirect('/myrw');
+  return res.redirect('/myprep');
 }
 
 // Configuring session and cookie options
@@ -135,7 +135,7 @@ app.prepare()
     // Authentication
     server.get('/auth', auth.authenticate({ failureRedirect: '/login' }), (req, res) => {
       if (req.user.role === 'ADMIN' && /admin/.test(req.session.referrer)) return res.redirect('/admin');
-      return res.redirect('/myrw');
+      return res.redirect('/myprep');
     });
     server.get('/login', auth.login);
     server.get('/logout', (req, res) => {
@@ -145,8 +145,8 @@ app.prepare()
 
     // Routes with required authentication
     server.get('/auth/user', (req, res) => res.json(req.user || {}));
-    server.get('/myrw-detail*?', isAuthenticated, handleUrl); // TODO: review these routes
-    server.get('/myrw*?', isAuthenticated, handleUrl);
+    server.get('/myprep-detail*?', isAuthenticated, handleUrl); // TODO: review these routes
+    server.get('/myprep*?', isAuthenticated, handleUrl);
     server.get('/admin*?', isAuthenticated, isAdmin, handleUrl);
 
     server.use(handle);

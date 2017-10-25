@@ -22,7 +22,7 @@ class Header extends React.Component {
     this.state = {
       dataActive: false,
       aboutActive: false,
-      myrwActive: false
+      myprepActive: false
     };
 
     this.listeners = {};
@@ -41,7 +41,7 @@ class Header extends React.Component {
   // This function is debounced. If you don't do that insane things will happen
   toggleDropdown(specificDropdown, to) {
     this.setState({
-      ...{ dataActive: false, aboutActive: false, myrwActive: false },
+      ...{ dataActive: false, aboutActive: false, myprepActive: false },
       [specificDropdown]: to
     });
   }
@@ -83,9 +83,9 @@ class Header extends React.Component {
         name: 'Personal Area',
         component: <HeaderUser
           user={this.props.user}
-          active={this.state.myrwActive}
-          onMouseEnter={() => this.toggleDropdown('myrwActive', true)}
-          onMouseLeave={() => this.toggleDropdown('myrwActive', false)}
+          active={this.state.myprepActive}
+          onMouseEnter={() => this.toggleDropdown('myprepActive', true)}
+          onMouseLeave={() => this.toggleDropdown('myprepActive', false)}
         />
       }
     ];
