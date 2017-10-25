@@ -18,7 +18,20 @@ $banner-padding-size: 70px;
   background-size: cover;
 
   &.-myprep {
-    min-height: 500px;
+    min-height: 430px;
+    padding: 98px 0 40px;
+
+    .c-title {
+      padding-bottom: 40px;
+    }
+
+    > div {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
   }
 
   h1, h2, h3 {

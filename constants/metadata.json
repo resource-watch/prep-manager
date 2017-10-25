@@ -160,10 +160,10 @@
   {
     "name": "myprep",
     "pathname": "myprep",
-    "metaTitle": "My Prep",
+    "metaTitle": "My PReP",
     "metaDescription": "",
-    "title": "My Prep",
+    "title": "My PReP",
     "bannerSize": "small",
-    "bannerBg": ""
+    "bannerBg": "/static/images/backgrounds/myprep.jpg"
   }
 ]
