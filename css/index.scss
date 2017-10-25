@@ -31,6 +31,7 @@
   "layouts/page",
   "layouts/section",
   "layouts/header",
+  "layouts/header-app",
   "layouts/content",
   "layouts/postcontent",
   "layouts/footer",
@@ -56,6 +57,7 @@
 @import "./components/ui/icon";
 @import "./components/ui/legend";
 @import "./components/ui/modal";
+@import "./components/ui/nav";
 @import "./components/ui/paginator";
 @import "./components/ui/related-content";
 @import "./components/ui/search-input";
