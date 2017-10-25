@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Services
-import ToolsService from 'services/ToolsService';
-import PartnersService from 'services/PartnersService';
+import IndicatorsService from 'services/IndicatorsService';
+import WidgetsService from 'services/WidgetsService';
 import { toastr } from 'react-redux-toastr';
 
 // Constants
-import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/tools/form/constants';
+import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/indicators/form/constants';
 
 // Components
 import Navigation from 'components/form/Navigation';
-import Step1 from 'components/admin/tools/form/steps/Step1';
+import Step1 from 'components/admin/indicators/form/steps/Step1';
 import Spinner from 'components/ui/Spinner';
 
-class ToolsForm extends React.Component {
+class IndicatorsForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,19 +29,15 @@ class ToolsForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onStepChange = this.onStepChange.bind(this);
 
-    this.service = new ToolsService({
-      authorization: props.authorization
-    });
-    this.partnersService = new PartnersService({
-      authorization: props.authorization
-    });
+    this.service = new IndicatorsService({ authorization: props.authorization });
+    this.widgetsService = new WidgetsService({ authorization: props.authorization });
   }
 
   componentDidMount() {
     const { id } = this.state;
 
     const promises = [
-      this.partnersService.fetchAllData()
+      this.widgetsService.fetchAllData()
     ];
 
     // Add the dashboard promise if the id exists
@@ -51,7 +47,7 @@ class ToolsForm extends React.Component {
 
     Promise.all(promises)
       .then((response) => {
-        const partners = response[0];
+        const widgets = response[0];
         const current = response[1];
 
         this.setState({
@@ -59,7 +55,7 @@ class ToolsForm extends React.Component {
           form: (id) ? this.setFormFromParams(current) : this.state.form,
           loading: false,
           // OPTIONS
-          partners: partners.map(p => ({ label: p.name, value: p.id }))
+          widgets: widgets.map(p => ({ label: p.title, value: p.id }))
         });
       })
       .catch((err) => {
@@ -98,7 +94,7 @@ class ToolsForm extends React.Component {
             body: this.state.form
           })
             .then((data) => {
-              toastr.success('Success', `The tool "${data.id}" - "${data.title}" has been uploaded correctly`);
+              toastr.success('Success', `The indicator "${data.id}" - "${data.title}" has been uploaded correctly`);
 
               if (this.props.onSubmit) this.props.onSubmit();
             })
@@ -133,9 +129,9 @@ class ToolsForm extends React.Component {
 
     Object.keys(params).forEach((f) => {
       switch (f) {
-        case 'partner': {
+        case 'widgets': {
           if (params[f]) {
-            newForm.partner_id = params[f].id;
+            newForm.widget_ids = params[f].map(w => w.id);
           }
           break;
         }
@@ -159,7 +155,7 @@ class ToolsForm extends React.Component {
           <Step1
             id={this.state.id}
             form={this.state.form}
-            partners={this.state.partners}
+            widgets={this.state.widgets}
             onChange={value => this.onChange(value)}
           />
         }
@@ -177,10 +173,10 @@ class ToolsForm extends React.Component {
   }
 }
 
-ToolsForm.propTypes = {
+IndicatorsForm.propTypes = {
   authorization: PropTypes.string,
   id: PropTypes.string,
   onSubmit: PropTypes.func
 };
 
-export default ToolsForm;
+export default IndicatorsForm;

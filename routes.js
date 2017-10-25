@@ -20,6 +20,9 @@ routes.add('admin_pages_detail', '/admin/pages/:tab/:id/:subtab?', 'admin/PagesD
 // TOOLS
 routes.add('admin_tools', '/admin/tools/:tab?', 'admin/Tools');
 routes.add('admin_tools_detail', '/admin/tools/:tab/:id/:subtab?', 'admin/ToolsDetail');
+// INDICATORS
+routes.add('admin_indicators', '/admin/indicators/:tab?', 'admin/Indicators');
+routes.add('admin_indicators_detail', '/admin/indicators/:tab/:id/:subtab?', 'admin/IndicatorsDetail');
 // MY RW
 routes.add('admin_myrw', '/myrw/:tab?/:subtab?', 'admin/MyRW');
 routes.add('admin_myrw_detail', '/myrw-detail/:tab?/:id?/:subtab?', 'admin/MyRWDetail');

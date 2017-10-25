@@ -1,10 +1,8 @@
 import 'isomorphic-fetch';
 import { get, post, remove } from 'utils/request';
 
-import sortBy from 'lodash/sortBy';
-import { Deserializer } from 'jsonapi-serializer';
-
 export default class ToolsService {
+
   constructor(options = {}) {
     this.opts = options;
   }
@@ -22,11 +20,7 @@ export default class ToolsService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          new Deserializer({
-            keyForAttribute: 'underscore_case'
-          }).deserialize(response, (err, tools) => {
-            resolve(sortBy(tools, 'name'));
-          });
+          resolve(response);
         },
         onError: (error) => {
           reject(error);
@@ -47,11 +41,7 @@ export default class ToolsService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          new Deserializer({
-            keyForAttribute: 'underscore_case'
-          }).deserialize(response, (err, tool) => {
-            resolve(tool);
-          });
+          resolve(response);
         },
         onError: (error) => {
           reject(error);
@@ -74,11 +64,7 @@ export default class ToolsService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          new Deserializer({
-            keyForAttribute: 'underscore_case'
-          }).deserialize(response, (err, tool) => {
-            resolve(tool);
-          });
+          resolve(response);
         },
         onError: (error) => {
           reject(error);

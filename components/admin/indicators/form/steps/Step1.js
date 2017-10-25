@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Constants
-import { FORM_ELEMENTS } from 'components/admin/tools/form/constants';
+import { FORM_ELEMENTS } from 'components/admin/indicators/form/constants';
 
 // Components
 import Field from 'components/form/Field';
@@ -62,35 +62,35 @@ class Step1 extends React.Component {
           {TextArea}
         </Field>
 
-        {/* URL */}
+        {/* CONTENT */}
         <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.url = c; }}
-          onChange={value => this.props.onChange({ url: value })}
-          validations={['url']}
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.content = c; }}
+          onChange={value => this.props.onChange({ content: value })}
           className="-fluid"
           properties={{
-            name: 'url',
-            label: 'Url',
-            default: this.state.form.url
+            name: 'content',
+            label: 'Content',
+            default: this.state.form.content
           }}
         >
-          {Input}
+          {TextArea}
         </Field>
 
-        {/* PARTNER */}
+        {/* WIDGETS */}
         <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.partner_id = c; }}
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.widget_ids = c; }}
           onChange={value => this.props.onChange({
-            partner_id: value
+            widget_ids: value
           })}
           className="-fluid"
-          options={this.props.partners}
+          options={this.props.widgets}
           properties={{
-            name: 'partner_id',
-            label: 'Partner',
-            default: this.state.form.partner_id,
-            value: this.state.form.partner_id,
-            instanceId: 'selectToolType'
+            name: 'widget_ids',
+            label: 'Widgets',
+            multi: true,
+            default: this.state.form.widget_ids,
+            value: this.state.form.widget_ids,
+            instanceId: 'selectWidgets'
           }}
         >
           {Select}
@@ -102,7 +102,7 @@ class Step1 extends React.Component {
           onChange={value => this.props.onChange({ published: value.checked })}
           properties={{
             name: 'published',
-            label: 'Do you want to set this tool as published?',
+            label: 'Do you want to set this indicator as published?',
             value: 'published',
             title: 'Published',
             defaultChecked: this.props.form.published,
@@ -120,7 +120,7 @@ class Step1 extends React.Component {
 Step1.propTypes = {
   id: PropTypes.string,
   form: PropTypes.object,
-  partners: PropTypes.array,
+  widgets: PropTypes.array,
   onChange: PropTypes.func
 };
 

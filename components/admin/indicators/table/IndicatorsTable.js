@@ -5,10 +5,10 @@ import { Autobind } from 'es-decorators';
 // Redux
 import { connect } from 'react-redux';
 import { initStore } from 'store';
-import { getTools, setFilters } from 'redactions/admin/tools';
+import { getIndicators, setFilters } from 'redactions/admin/indicators';
 
 // Selectors
-import getFilteredTools from 'selectors/admin/tools';
+import getFilteredIndicators from 'selectors/admin/indicators';
 
 // Components
 import Spinner from 'components/ui/Spinner';
@@ -23,11 +23,11 @@ import DeleteAction from './actions/DeleteAction';
 import TitleTD from './td/TitleTD';
 import PublishedTD from './td/PublishedTD';
 
-class ToolsTable extends React.Component {
+class IndicatorsTable extends React.Component {
 
   componentDidMount() {
     this.props.setFilters([]);
-    this.props.getTools();
+    this.props.getIndicators();
   }
 
   /**
@@ -45,20 +45,20 @@ class ToolsTable extends React.Component {
 
   /**
    * HELPERS
-   * - getTools
-   * - getFilteredTools
+   * - getIndicators
+   * - getFilteredIndicators
   */
-  getTools() {
-    return this.props.tools;
+  getIndicators() {
+    return this.props.indicators;
   }
 
-  getFilteredTools() {
-    return this.props.filteredTools;
+  getFilteredIndicators() {
+    return this.props.filteredIndicators;
   }
 
   render() {
     return (
-      <div className="c-tools-table">
+      <div className="c-indicators-table">
         <Spinner className="-light" isLoading={this.props.loading} />
 
         {this.props.error && (
@@ -67,12 +67,12 @@ class ToolsTable extends React.Component {
 
         <SearchInput
           input={{
-            placeholder: 'Search tool'
+            placeholder: 'Search indicator'
           }}
           link={{
-            label: 'New tool',
+            label: 'New indicator',
             route: 'admin_dashboards_detail',
-            params: { tab: 'tools', id: 'new' }
+            params: { tab: 'indicators', id: 'new' }
           }}
           onSearch={this.onSearch}
         />
@@ -81,14 +81,13 @@ class ToolsTable extends React.Component {
           <CustomTable
             columns={[
               { label: 'Title', value: 'title', td: TitleTD },
-              { label: 'Attribution', value: 'attribution' },
               { label: 'Published', value: 'published', td: PublishedTD }
             ]}
             actions={{
               show: true,
               list: [
-                { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'tools', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
-                { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'tools', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
+                { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'indicators', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'indicators', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
             sort={{
@@ -96,7 +95,7 @@ class ToolsTable extends React.Component {
               value: 1
             }}
             filters={false}
-            data={this.getFilteredTools()}
+            data={this.getFilteredIndicators()}
             pageSize={20}
             pagination={{
               enabled: true,
@@ -112,36 +111,36 @@ class ToolsTable extends React.Component {
   }
 }
 
-ToolsTable.defaultProps = {
+IndicatorsTable.defaultProps = {
   columns: [],
   actions: {},
   // Store
-  tools: [],
-  filteredTools: []
+  indicators: [],
+  filteredIndicators: []
 };
 
-ToolsTable.propTypes = {
+IndicatorsTable.propTypes = {
   authorization: PropTypes.string,
   // Store
   loading: PropTypes.bool.isRequired,
-  tools: PropTypes.array.isRequired,
-  filteredTools: PropTypes.array.isRequired,
+  indicators: PropTypes.array.isRequired,
+  filteredIndicators: PropTypes.array.isRequired,
   error: PropTypes.string,
 
   // Actions
-  getTools: PropTypes.func.isRequired,
+  getIndicators: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  loading: state.tools.tools.loading,
-  tools: state.tools.tools.list,
-  filteredTools: getFilteredTools(state),
-  error: state.tools.tools.error
+  loading: state.indicators.indicators.loading,
+  indicators: state.indicators.indicators.list,
+  filteredIndicators: getFilteredIndicators(state),
+  error: state.indicators.indicators.error
 });
 const mapDispatchToProps = dispatch => ({
-  getTools: () => dispatch(getTools()),
+  getIndicators: () => dispatch(getIndicators()),
   setFilters: filters => dispatch(setFilters(filters))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToolsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(IndicatorsTable);

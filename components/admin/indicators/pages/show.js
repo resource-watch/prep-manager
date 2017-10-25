@@ -7,23 +7,23 @@ import { connect } from 'react-redux';
 import { initStore } from 'store';
 
 // Components
-import ToolsForm from 'components/admin/tools/form/ToolsForm';
+import IndicatorsForm from 'components/admin/indicators/form/IndicatorsForm';
 
-function ToolsShow(props) {
+function IndicatorsShow(props) {
   const { id, user } = props;
 
   return (
-    <div className="c-tools-show">
-      <ToolsForm
+    <div className="c-indicators-show">
+      <IndicatorsForm
         id={id}
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'tools' })}
+        onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'indicators' })}
       />
     </div>
   );
 }
 
-ToolsShow.propTypes = {
+IndicatorsShow.propTypes = {
   id: PropTypes.string,
   // Store
   user: PropTypes.object.isRequired
@@ -33,4 +33,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, null)(ToolsShow);
+export default connect(mapStateToProps, null)(IndicatorsShow);

@@ -8,9 +8,8 @@ export const STATE_DEFAULT = {
     // STEP 1
     title: '',
     summary: '',
-    url: '',
-    partner: {},
-    partner_id: null,
+    content: '',
+    widget_ids: [],
     published: false
   }
 };

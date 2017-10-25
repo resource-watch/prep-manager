@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Services
-import ToolsService from 'services/ToolsService';
+import IndicatorsService from 'services/IndicatorsService';
 import { toastr } from 'react-redux-toastr';
 
 class DeleteAction extends React.Component {
@@ -13,7 +13,7 @@ class DeleteAction extends React.Component {
     this.handleOnClickDelete = this.handleOnClickDelete.bind(this);
 
     // SERVICES
-    this.service = new ToolsService();
+    this.service = new IndicatorsService();
   }
 
   handleOnClickDelete(e) {
@@ -26,10 +26,10 @@ class DeleteAction extends React.Component {
         this.service.deleteData(data.id)
           .then(() => {
             this.props.onRowDelete(data.id);
-            toastr.success('Success', `The tool "${data.id}" - "${data.title}" has been removed correctly`);
+            toastr.success('Success', `The indicator "${data.id}" - "${data.title}" has been removed correctly`);
           })
           .catch((err) => {
-            toastr.error('Error', `The tool "${data.id}" - "${data.title}" was not deleted. Try again`);
+            toastr.error('Error', `The indicator "${data.id}" - "${data.title}" was not deleted. Try again`);
             console.error(err);
           });
       },

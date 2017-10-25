@@ -49,9 +49,21 @@ export default class Header extends React.Component {
         role: 'ADMIN'
       },
       {
+        name: 'Indicators',
+        pathnames: ['/admin/Indicators', '/admin/IndicatorsDetail'],
+        component: <Link route="admin_indicators"><a>Indicators (Data)</a></Link>,
+        role: 'ADMIN'
+      },
+      {
         name: 'Insights',
         pathnames: ['/admin/Insights', '/admin/InsightsDetail'],
-        component: <Link route="admin_insights"><a>Insights</a></Link>,
+        component: <Link route="admin_insights"><a>Stories</a></Link>,
+        role: 'ADMIN'
+      },
+      {
+        name: 'Tools',
+        pathnames: ['/admin/Tools', '/admin/ToolsDetail'],
+        component: <Link route="admin_tools"><a>Tools</a></Link>,
         role: 'ADMIN'
       },
       {
