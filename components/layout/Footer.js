@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import SocialNav from 'components/ui/SocialNav';
 import SecondaryNav from 'components/ui/SecondaryNav';
+import PartnersSlider from 'components/partners/PartnersSlider';
 
 export default class Footer extends React.Component {
   render() {
@@ -12,7 +13,7 @@ export default class Footer extends React.Component {
         <div className="l-footer-top -inverse">
           <div className="row">
             <div className="column small-12">
-              {/* <PartnersSlider route="myprep" /> */}
+              <PartnersSlider route="myprep" />
             </div>
           </div>
         </div>

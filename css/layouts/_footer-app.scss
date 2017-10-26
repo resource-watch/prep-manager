@@ -4,6 +4,10 @@ $footer-border-color: $dark-slate-blue;
 .l-footer-app {
   background-color: $footer-bg-color;
 
+  .row {
+    max-width: rem($max-width);
+  }
+
   .l-footer-top {
     padding: $small-margin 0;
   }
