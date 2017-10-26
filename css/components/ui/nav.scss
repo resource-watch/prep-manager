@@ -28,11 +28,10 @@
       & > a {
         display: block;
         padding: 38px 0;
-
+        font-size: 15px;
+        line-height: 15px;
         color: $inverse-font-color;
-
         border-top: 5px solid transparent;
-
         transition: all .3s ease-out;
 
         .l-header-nav.-short & {

@@ -25,6 +25,12 @@ $header-bg-color: $dark-slate-blue-2;
       height: $header-height-short;
     }
 
+    .c-nav {
+      a {
+        
+      }
+    }
+
     .logo {
       position: relative;
       display: block;
@@ -41,6 +47,7 @@ $header-bg-color: $dark-slate-blue-2;
         font-weight: bold;
         font-style: italic;
         font-size: 12px;
+        color: $yellow;
       }
     }
 

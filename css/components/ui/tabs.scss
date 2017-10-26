@@ -10,7 +10,9 @@
     width: 100%;
     padding: 10px 0 14px;
     border: none;
-    font-size: $font-size-medium;
+    font-size: $font-size-small;
+    text-transform: uppercase;
+    font-weight: bold;
     color: $color-white;
     outline: none;
     text-decoration: none;
@@ -24,7 +26,7 @@
     &:after {
       content: "";
       display: block;
-      width: 100%;
+      width: 50%;
       height: 0px;
       position: absolute;
       bottom: 0;
@@ -43,7 +45,7 @@
       color: $color-mango;
 
       &:after {
-        height: 5px;
+        height: 3px;
         opacity: 1;
       }
     }
