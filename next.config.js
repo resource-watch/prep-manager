@@ -47,6 +47,8 @@ module.exports = {
 
     config.plugins.push(
       new webpack.DefinePlugin({
+        'process.env.facebookUser': JSON.stringify(process.env.FACEBOOK_USER),
+        'process.env.twitterUser': JSON.stringify(process.env.TWITTER_USER),
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
         'process.env.APPLICATIONS': JSON.stringify(process.env.APPLICATIONS),
         'process.env.API_URL': JSON.stringify(process.env.API_URL),
