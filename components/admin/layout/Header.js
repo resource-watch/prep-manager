@@ -14,7 +14,7 @@ export default class Header extends React.Component {
     super(props);
 
     this.state = {
-      myrwActive: false
+      myprepActive: false
     };
 
     this.listeners = {};
@@ -26,7 +26,7 @@ export default class Header extends React.Component {
   // This function is debounced. If you don't do that insane things will happen
   toggleDropdown(specificDropdown, to) {
     this.setState({
-      ...{ myrwActive: false },
+      ...{ myprepActive: false },
       [specificDropdown]: to
     });
   }
@@ -76,9 +76,9 @@ export default class Header extends React.Component {
         name: 'User',
         component: <HeaderUser
           user={this.props.user}
-          active={this.state.myrwActive}
-          onMouseEnter={() => this.toggleDropdown('myrwActive', true)}
-          onMouseLeave={() => this.toggleDropdown('myrwActive', false)}
+          active={this.state.myprepActive}
+          onMouseEnter={() => this.toggleDropdown('myprepActive', true)}
+          onMouseLeave={() => this.toggleDropdown('myprepActive', false)}
         />
       }
     ];

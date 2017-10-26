@@ -24,8 +24,8 @@ routes.add('admin_tools_detail', '/admin/tools/:tab/:id/:subtab?', 'admin/ToolsD
 routes.add('admin_indicators', '/admin/indicators/:tab?', 'admin/Indicators');
 routes.add('admin_indicators_detail', '/admin/indicators/:tab/:id/:subtab?', 'admin/IndicatorsDetail');
 // MY RW
-routes.add('admin_myrw', '/myrw/:tab?/:subtab?', 'admin/MyRW');
-routes.add('admin_myrw_detail', '/myrw-detail/:tab?/:id?/:subtab?', 'admin/MyRWDetail');
+routes.add('admin_myprep', '/myprep/:tab?/:subtab?', 'admin/MyPREP');
+routes.add('admin_myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'admin/MyPREPDetail');
 // INSIGHTS
 routes.add('admin_insights', '/admin/insights/:tab?', 'admin/Insights');
 routes.add('admin_insights_detail', '/admin/insights/:tab/:id/:subtab?', 'admin/InsightsDetail');
@@ -56,8 +56,8 @@ routes.add('get_involved', '/get-involved', 'app/GetInvolved');
 routes.add('get_involved_detail', '/get-involved/:id', 'app/GetInvolvedDetail');
 
 // ------ MY RW ------------
-// routes.add('myrw', '/myrw/:tab?/:subtab?', 'app/MyRW');
-// routes.add('myrw_detail', '/myrw-detail/:tab?/:id?/:subtab?', 'app/MyRWDetail');
+// routes.add('myprep', '/myprep/:tab?/:subtab?', 'app/MyPREP');
+// routes.add('myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'app/MyPREPDetail');
 
 // ------ EMBED -------------
 routes.add('embed_widget', '/embed/widget/:id', 'app/embed/EmbedWidget');

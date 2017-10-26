@@ -189,9 +189,9 @@ class SaveWidgetModal extends React.Component {
    * "Check my widgets" button
    */
   @Autobind
-  handleGoToMyRW() {
+  handleGoToMyPREP() {
     this.props.toggleModal(false);
-    Router.pushRoute('myrw', { tab: 'widgets', subtab: 'my_widgets' });
+    Router.pushRoute('myprep', { tab: 'widgets', subtab: 'my_widgets' });
   }
 
   render() {
@@ -284,7 +284,7 @@ class SaveWidgetModal extends React.Component {
             </Button>
             <Button
               properties={{ className: '-secondary' }}
-              onClick={this.handleGoToMyRW}
+              onClick={this.handleGoToMyPREP}
             >
               Check my widgets
             </Button>

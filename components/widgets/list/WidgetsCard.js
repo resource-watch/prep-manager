@@ -291,7 +291,7 @@ class WidgetCard extends React.Component {
 
   @Autobind
   handleEditWidget() {
-    Router.pushRoute('myrw_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
+    Router.pushRoute('myprep_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
   }
 
   @Autobind
@@ -384,7 +384,7 @@ class WidgetCard extends React.Component {
         {/* Actual widget */}
         { mode === 'thumbnail'
           ? (
-            <Link route="myrw_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
+            <Link route="myprep_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
               <a>{this.getWidget()}</a>
             </Link>
           )
@@ -395,12 +395,12 @@ class WidgetCard extends React.Component {
           <div className="detail">
             {/* Title */}
             <Title className="-default -primary">
-              <Link route="myrw_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
+              <Link route="myprep_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
                 <a>{widget.name}</a>
               </Link>
             </Title>
             <p>
-              <Link route="myrw_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
+              <Link route="myprep_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
                 <a>{WidgetCard.getDescription(widget.description)}</a>
               </Link>
             </p>

@@ -92,14 +92,14 @@ class AreasForm extends React.Component {
       if (mode === 'new') {
         this.userService.createNewArea(name, geostore, user.token)
           .then(() => {
-            Router.pushRoute('admin_myrw', { tab: 'areas' });
+            Router.pushRoute('admin_myprep', { tab: 'areas' });
             toastr.success('Success', 'Area successfully created!');
           })
           .catch(err => this.setState({ error: err, loading: false }));
       } else if (mode === 'edit') {
         this.userService.updateArea(id, name, user.token)
           .then(() => {
-            Router.pushRoute('admin_myrw', { tab: 'areas' });
+            Router.pushRoute('admin_myprep', { tab: 'areas' });
             toastr.success('Success', 'Area successfully updated!');
           })
           .catch(err => this.setState({ error: err, loading: false }));
@@ -215,7 +215,7 @@ class AreasForm extends React.Component {
             </div>
           }
           <div className="buttons-div">
-            <button onClick={() => Router.pushRoute('admin_myrw', { tab: 'areas' })} className="c-btn -secondary">
+            <button onClick={() => Router.pushRoute('admin_myprep', { tab: 'areas' })} className="c-btn -secondary">
               Cancel
             </button>
             <button type="submit" className="c-btn -primary">

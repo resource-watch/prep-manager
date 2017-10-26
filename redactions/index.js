@@ -16,7 +16,7 @@ export { default as page } from './page';
 export { default as insights } from './admin/insights';
 export { default as clientDashboards } from './dashboards';
 export { default as dashboardDetail } from './dashboardDetail';
-export { default as myrwdetail } from './myrwdetail';
+export { default as myprepdetail } from './myprepdetail';
 
 // Admin
 export { default as datasets } from './admin/datasets';

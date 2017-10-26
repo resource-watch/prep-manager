@@ -143,7 +143,7 @@ class AreaCard extends React.Component {
 
   @Autobind
   handleEditArea() {
-    Router.pushRoute('admin_myrw_detail', { id: this.props.area.id, tab: 'areas' });
+    Router.pushRoute('admin_myprep_detail', { id: this.props.area.id, tab: 'areas' });
   }
 
   @Autobind
