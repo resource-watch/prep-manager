@@ -159,7 +159,7 @@ class MyPREPEditProfile extends React.Component {
               <Button
                 properties={{
                   type: 'button',
-                  className: '-a -end'
+                  className: '-app'
                 }}
                 onClick={this.triggerSaveProfile}
               >

@@ -37,7 +37,8 @@ class SearchInput extends React.Component {
 
   render() {
     const { value } = this.state;
-    const { link, input } = this.props;
+    const { link, input, buttonClass } = this.props;
+    console.log(buttonClass);
 
     return (
       <div className="c-search-input">
@@ -53,7 +54,7 @@ class SearchInput extends React.Component {
         </div>
         {link.route &&
           <Link route={link.route} params={link.params}>
-            <a className="c-button -primary">{link.label}</a>
+            <a className={`c-button ${buttonClass}`}>{link.label}</a>
           </Link>
         }
       </div>
@@ -62,6 +63,7 @@ class SearchInput extends React.Component {
 }
 
 SearchInput.propTypes = {
+  buttonClass: PropTypes.string,
   input: PropTypes.object.isRequired,
   link: PropTypes.object.isRequired,
   onSearch: PropTypes.func.isRequired
@@ -69,7 +71,8 @@ SearchInput.propTypes = {
 
 SearchInput.defaultProps = {
   input: {},
-  link: {}
+  link: {},
+  buttonClass: '-primary'
 };
 
 export default SearchInput;

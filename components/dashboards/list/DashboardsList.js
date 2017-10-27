@@ -57,6 +57,7 @@ class DashboardsList extends React.Component {
             route: routes.detail,
             params: { tab: 'dashboards', id: 'new' }
           }}
+          buttonClass="-app"
           onSearch={this.onSearch}
         />
 

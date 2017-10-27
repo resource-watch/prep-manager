@@ -32,7 +32,8 @@
           }
 
           &.-active {
-            color: $color-primary;
+            color: $dark-yellow;
+            font-weight: bold;
           }
         }
       }

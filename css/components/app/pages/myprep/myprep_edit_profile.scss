@@ -77,18 +77,5 @@
         height: 20px;
       }
     }
-
-    button {
-      text-transform: uppercase;
-      font-size: $font-size-small;
-      line-height: 13px;
-      font-weight: bold;
-      height: auto;
-      color: $base-font-color;
-      border-radius: 0;
-      border: 2px solid $dark-yellow;
-      background-color: $white;
-      padding: 12px 32px;
-    }
   }
 }
