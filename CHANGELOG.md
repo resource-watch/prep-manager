@@ -100,4 +100,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Styles for search results
 - Change MyRW to MyPReP references
 - Change README
-- Change Dashboard detail sections form tabs to scroll
+- Change Dashboard detail sections from tabs to smooth scroll
