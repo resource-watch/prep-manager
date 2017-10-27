@@ -7,7 +7,7 @@ import { initStore } from 'store';
 
 // Components
 import Page from 'components/app/layout/Page';
-import Layout from 'components/app/layout/Layout';
+import Layout from 'components/layout/Layout';
 import Tabs from 'components/ui/Tabs';
 import Title from 'components/ui/Title';
 
