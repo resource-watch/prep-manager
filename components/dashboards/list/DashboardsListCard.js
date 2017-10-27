@@ -9,6 +9,10 @@ import Title from 'components/ui/Title';
 class DashboardsListCard extends React.Component {
   render() {
     const { dashboard, routes } = this.props;
+    console.log(dashboard);
+    const imgSrc = dashboard.partner.logo && dashboard.partner.logo !== '' ?
+      dashboard.partner.logo :
+      dashboard.partner.thumbnail;
 
     return (
       <div className="c-card">
@@ -20,19 +24,23 @@ class DashboardsListCard extends React.Component {
             >
               <a>
                 <Title className="-default">
-                  {dashboard.name}
+                  {dashboard.title}
                 </Title>
               </a>
             </Link>
-            <Title className="-small">
-              {dashboard.provider}
-            </Title>
           </header>
 
           <div className="card-content">
-            {dashboard.published && 'published' }
-            {!dashboard.published && 'not published' }
+            <p dangerouslySetInnerHTML={{__html: dashboard.summary || dashboard.content }} />
+
+            <div className="card-logo-container">
+              <img className="logo" src={dashboard.partner.logo} alt={dashboard.partner.name} />
+            </div>
           </div>
+
+          <footer className="card-footer">
+            <span>{dashboard.attribution}</span>
+          </footer>
         </div>
       </div>
     );

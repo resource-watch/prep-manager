@@ -64,7 +64,7 @@ class DashboardsList extends React.Component {
         <div className="l-row row list">
           {dashboards.map(dashboard => (
             <div
-              className="column list-item small-12 medium-4"
+              className="column list-item small-12"
               key={dashboard.id}
             >
               <DashboardsListCard

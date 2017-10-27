@@ -117,6 +117,7 @@ class MyPREPDetail extends Page {
   */
   getName() {
     const { tab, id, data } = this.state;
+    console.log(data);
 
     if (id === 'new') {
       return `New ${singular(tab)}`;
@@ -130,16 +131,18 @@ class MyPREPDetail extends Page {
       return data.attributes.name;
     }
 
+
     return '-';
   }
 
   render() {
     const { url, user, myprepdetail } = this.props;
     const { tab, subtab, id } = this.state;
+    const name = this.getName();
 
     return (
       <Layout
-        title={this.getName()}
+        title={name}
         description="Data detail..."
         user={user}
         url={url}
@@ -154,7 +157,7 @@ class MyPREPDetail extends Page {
                     items={[{ name: capitalizeFirstLetter(tab), route: 'admin_myprep', params: { tab } }]}
                   />
                   <Title className="-primary -huge page-header-title" >
-                    {this.getName()}
+                    {name}
                   </Title>
                   {myprepdetail.dataset &&
                     <div className="page-header-info">

@@ -69,7 +69,9 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
     }
   }
 
-  &.-app {
+  &.-app,
+  &.-secondary.-expanded,
+  &.-secondary.-compressed {
     text-transform: uppercase;
     font-size: $font-size-small;
     line-height: 13px;
@@ -79,7 +81,11 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
     border-radius: 0;
     border: 2px solid $dark-yellow;
     background-color: $white;
-    padding: 12px 32px;
+    padding: 14px 32px;
+  }
+
+  &.-secondary.-compressed {
+    padding: 10px 20px;
   }
 
   &.-b, &.-secondary {
