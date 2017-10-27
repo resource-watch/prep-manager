@@ -1,24 +1,13 @@
-![screen shot 2017-06-08 at 9 25 50 am](https://user-images.githubusercontent.com/545342/26916938-86333e38-4c2c-11e7-952c-012bd65700a5.png)
+# Partnership for Resilience and Preparedness
 
-# Resource Watch
+[![Build Status](https://travis-ci.org/resource-watch/prep-app.svg?branch=master)](https://travis-ci.org/resource-watch/prep-app)
 
-## Useful links
+![PREP](screenshot.png?raw=true "Partnership for Resilience and Preparedness")
 
-* [RW API documentation](https://resource-watch.github.io/doc-api/)
-* [Basecamp](https://basecamp.com/1756858/projects/8955129)
-* [PivotalTracker](https://www.pivotaltracker.com/n/projects/1374154)
-* [PostMan recipes](https://www.getpostman.com/collections/5f3e83c82ad5a6066657)
-* [Invision Designs/Wireframes](https://projects.invisionapp.com/d/main/default/#/projects/prototypes/11337456)
+The Climate Partnership for Resilience and Preparedness (C-PREP) is a public-private collaboration whose mission is to help planners, investors, and resource managers around the globe rapidly assess and incorporate climate risks into their decisions by enhancing access to the best available data, and insights on climate change. Climate assessments have traditionally focused on building the case for climate action by publishing static written reports. Users of climate risk data have depended on science ‘translators’ to communicate key messages from assessments and related reports, without having direct access to the underlying data sets.
 
-### Related repositories
+Today, with growing demand to manage climate risks, assessments need to move beyond making the case for action through words and pictures, to enabling action by guiding users to relevant data and tools. To meet this need, C-PREP will leverage innovations in information and communication technology to enable climate assessment and planning teams to easily develop on-line reports with direct access to useable, continuously updated information, through customizable modern web and mobile apps. It will also provide the building blocks for countries, states, and communities to develop their own climate-risk dashboards: customized online sites containing data, information, tools, and other dynamic resources needed to mainstream climate-risk information into planning and investment decisions.
 
-* [resource-watch/graph](https://github.com/resource-watch/graph) _Knowledge graph and future recommendation system_
-
-### DEPRECATED repositories
-
-* [resource-watch-app](https://github.com/resource-watch/resource-watch-app/) _Old repository for the app_ 
-* [resource-watch-manager](https://github.com/resource-watch/resource-watch-manager/) _Old repository for the back office_ 
-* [rw-components](https://github.com/resource-watch/rw-components/) _Old repository used to store components that were used in both resource-watch-app and resource-watch-manager_ 
 
 # Architecture
 
