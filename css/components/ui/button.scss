@@ -71,7 +71,8 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
 
   &.-app,
   &.-secondary.-expanded,
-  &.-secondary.-compressed {
+  &.-secondary.-compressed,
+  &.-b.-compressed {
     text-transform: uppercase;
     font-size: $font-size-small;
     line-height: 13px;
@@ -84,7 +85,8 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
     padding: 14px 32px;
   }
 
-  &.-secondary.-compressed {
+  &.-secondary.-compressed,
+  &.-b.-compressed {
     padding: 10px 20px;
   }
 
