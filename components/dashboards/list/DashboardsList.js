@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'routes';
 
 // Redux
 import { connect } from 'react-redux';
@@ -73,6 +74,11 @@ class DashboardsList extends React.Component {
               />
             </div>
           ))}
+          <div className="buttons-container">
+            <Link>
+              <a className="c-button -app" href="/dashboards">Got to dashboards</a>
+            </Link>
+          </div>
         </div>
       </div>
     );

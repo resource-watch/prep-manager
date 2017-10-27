@@ -38,7 +38,6 @@ class SearchInput extends React.Component {
   render() {
     const { value } = this.state;
     const { link, input, buttonClass } = this.props;
-    console.log(buttonClass);
 
     return (
       <div className="c-search-input">

@@ -9,7 +9,6 @@ import Title from 'components/ui/Title';
 class DashboardsListCard extends React.Component {
   render() {
     const { dashboard, routes } = this.props;
-    console.log(dashboard);
     const imgSrc = dashboard.partner.logo && dashboard.partner.logo !== '' ?
       dashboard.partner.logo :
       dashboard.partner.thumbnail;
