@@ -99,7 +99,6 @@ export default class Header extends React.Component {
                         <img src="/static/images/logo-cms.png" alt="Logo PREP" />
                       </div>
                       <h1 className="brand-title">Resource Watch</h1>
-                      <div className="brand-beta">beta</div>
                     </a>
                   </Link>
                 </div>
