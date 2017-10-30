@@ -91,7 +91,8 @@
 
       > li {
         position: relative;
-        // margin-left: $margin-size;
+        display: flex;
+        align-items: center;
         color: $alt-font-color;
         padding: 7px 10px;
 
