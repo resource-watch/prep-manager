@@ -6,13 +6,13 @@ function SecondaryNav() {
     <nav className="c-nav -secondary">
       <ul>
         <li>
-          <Link to="/partners">Partners</Link>
+          <Link to="/partners"><a>Partners</a></Link>
         </li>
         <li>
-          <Link to="/contact">Contact</Link>
+          <Link to="/contact"><a>Contact</a></Link>
         </li>
         <li>
-          <Link to="/faqs">FAQS</Link>
+          <Link to="/faqs"><a>FAQS</a></Link>
         </li>
       </ul>
     </nav>
