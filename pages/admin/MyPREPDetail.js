@@ -21,7 +21,7 @@ import UserService from 'services/UserService';
 
 // Layout
 import Page from 'components/admin/layout/Page';
-import Layout from 'components/admin/layout/Layout';
+import Layout from 'components/layout/Layout';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 
 // Tabs
