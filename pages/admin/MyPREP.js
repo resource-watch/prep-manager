@@ -103,8 +103,8 @@ class MyPREP extends Page {
 
     return (
       <Layout
-        title="My Resource Watch Edit Profile"
-        description="My Resource Watch Edit Profile description"
+        title="My PReP Edit Profile"
+        description="My PReP Edit Profile description"
         url={url}
         user={user}
         pageHeader
