@@ -62,7 +62,7 @@ export default function SubmitAnInsight({ insights }) {
                 <Link
                   route="insights"
                 >
-                  <a className="c-button -primary -fullwidth">More insights</a>
+                  <a className="c-button -primary -fullwidth">More stories</a>
                 </Link>
               </div>
             </div>

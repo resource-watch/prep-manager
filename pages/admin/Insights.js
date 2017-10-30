@@ -19,7 +19,7 @@ import Title from 'components/ui/Title';
 
 // Contants
 const DATA_TABS = [{
-  label: 'Insights',
+  label: 'Stories',
   value: 'insights',
   route: 'admin_insights',
   params: { tab: 'insights' }
@@ -68,8 +68,8 @@ class Insights extends Page {
 
     return (
       <Layout
-        title="Insights"
-        description="Insights description..."
+        title="Stories"
+        description="Stories description..."
         user={user}
         url={url}
       >
@@ -80,7 +80,7 @@ class Insights extends Page {
               <div className="small-12">
                 <div className="page-header-content -padding-b-0">
                   <Title className="-primary -huge page-header-title" >
-                    Insights
+                    Stories
                   </Title>
                   <Tabs
                     options={DATA_TABS}

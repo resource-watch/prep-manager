@@ -101,3 +101,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Change MyRW to MyPReP references
 - Change README
 - Change Dashboard detail sections from tabs to smooth scroll
+- Change Insights label to Stories

@@ -4,7 +4,7 @@ class MyPREPInsightsMy extends React.Component {
   render() {
     return (
       <div>
-        My Insights
+        My Stories
       </div>
     );
   }
