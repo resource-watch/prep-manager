@@ -157,7 +157,7 @@ class MyPREPWidgetsMy extends React.Component {
               <div className="left-container">
                 <button
                   className="c-btn -app"
-                  onClick={() => Router.pushRoute('myprep_detail', { tab: 'widgets', id: 'new' })}
+                  onClick={() => Router.pushRoute('admin_myprep_detail', { tab: 'widgets', id: 'new' })}
                 >
                   New widget
                 </button>
