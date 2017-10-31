@@ -117,7 +117,6 @@ class MyPREPDetail extends Page {
   */
   getName() {
     const { tab, id, data } = this.state;
-    console.log(data);
 
     if (id === 'new') {
       return `New ${singular(tab)}`;

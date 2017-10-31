@@ -500,6 +500,10 @@ ColumnBox.propTypes = {
   toggleTooltip: PropTypes.func.isRequired
 };
 
+ColumnBox.defaultProps = {
+  description: ''
+};
+
 const mapStateToProps = state => ({
   widgetEditor: state.widgetEditor
 });
