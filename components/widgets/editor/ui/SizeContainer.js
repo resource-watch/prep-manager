@@ -60,7 +60,7 @@ class SizeContainer extends React.Component {
           {size &&
             <ColumnBox
               name={size.name}
-              alias={size.alias}
+              alias={`${size.alias}`}
               type={size.type}
               closable
               configurable

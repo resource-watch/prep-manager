@@ -13,7 +13,7 @@ function calculateBounds(center, zoom, size) {
 
   const map = L.map(el, { center: [20, -20], zoom });
   const bbox = map.getBounds().toBBoxString();
-  console.log(bbox);
+  // console.log(bbox);
 
   setTimeout(() => {
     console.log(map.getBounds().toBBoxString());
