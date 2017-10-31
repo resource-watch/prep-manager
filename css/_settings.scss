@@ -18,8 +18,9 @@ $output-bourbon-deprecation-warnings: false;
 // Colors
 $dark-pink: #1a3e62;
 $yellow: #FAB72E;
-$blue-turquoise: #3bb2d0;
-$charcoal-grey: #393f44;
+$dark-yellow: #EFA600;
+$blue-turquoise: #26b5cd;
+$charcoal-grey: #263E57;
 $dove-grey: #717171;
 $light-grey: #CACCD0;
 $porcelain: #F4F6F7;
@@ -43,7 +44,8 @@ $base-bg-color: $white;
 $inverse-font-color: $white;
 
 $border-color-1: rgba(26, 28, 34, 0.1);
-$border-color-2: rgba(202, 204,208, 0.85);; // For inputs
+$border-color-2: #EEEEEE; // For inputs
+$border-color-3: #333333;
 $alt-border-color: $white;
 
 $color-primary: $dark-pink;
@@ -66,7 +68,7 @@ $font-size-h3: 26px;
 $font-size-h4: 16px;
 
 $body-font-color: $base-font-color;
-$body-font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans;
+$body-font-family: "Open Sans", Helvetica, Arial, sans-serif;;
 $font-family-2: "PT Serif", Georgia, serif;
 $global-weight-normal: normal;
 $global-lineheight: 1.625;

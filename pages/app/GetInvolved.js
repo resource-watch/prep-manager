@@ -46,7 +46,7 @@ const cards = [
   {
     id: 'join',
     title: 'Join the community',
-    intro: ['Resource Watch is an open platform for everyone to explore data and insights about our planet.'],
+    intro: ['PReP is an open platform for everyone to explore data and stories about our planet.'],
     buttons: [
       {
         text: 'Join the community',

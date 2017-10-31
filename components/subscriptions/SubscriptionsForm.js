@@ -243,7 +243,7 @@ class SubscriptionsForm extends React.Component {
             <button onClick={() => Router.pushRoute('myprep', { tab: 'areas' })} className="c-btn -secondary">
               Cancel
             </button>
-            <button type="submit" className="c-btn -primary">
+            <button type="submit" className="c-btn -app">
               Subscribe
             </button>
           </div>

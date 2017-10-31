@@ -98,7 +98,7 @@ class InsightsForm extends React.Component {
             body: this.state.form
           })
             .then((data) => {
-              toastr.success('Success', `The insight "${data.id}" - "${data.title}" has been uploaded correctly`);
+              toastr.success('Success', `The story "${data.id}" - "${data.title}" has been uploaded correctly`);
 
               if (this.props.onSubmit) this.props.onSubmit();
             })

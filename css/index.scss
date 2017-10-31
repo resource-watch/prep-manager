@@ -79,6 +79,7 @@
 @import "./components/ui/tree_selector";
 @import "./components/ui/zoom_control";
 @import "./components/ui/progress-bar";
+@import "./components/ui/dashboard-list";
 
 // Modal
 @import "./components/modal/save_widget_modal";
@@ -211,6 +212,9 @@
 @import "./components/app/pages/develop_app";
 @import "./components/app/pages/apps";
 @import "./components/app/pages/p-app-detail";
+
+// MYPREP
+@import "./components/app/myprep/profiles-tab";
 
 
 // LAYOUT

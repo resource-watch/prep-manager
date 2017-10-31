@@ -13,6 +13,7 @@ function ProfileTab(props) {
 
   return (
     <div className="c-profiles-tab">
+      <h1 className="tab-title">Edit profile</h1>
       {!id && user.token &&
         <ProfilesIndex tab={tab} subtab={subtab} id={id} user={user} />
       }

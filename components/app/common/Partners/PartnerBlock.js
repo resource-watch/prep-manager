@@ -18,7 +18,9 @@ function PartnerBlock(props) {
           route={'partner'}
           params={{ id: partner.slug }}
         >
-          <img src={imgPath} className="logo" title={partner.name} alt={partner.name} />
+          <a>
+            <img src={imgPath} className="logo" title={partner.name} alt={partner.name} />
+          </a>
         </Link>
       </div>
       <p>{partner.summary}</p>

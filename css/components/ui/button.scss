@@ -1,4 +1,4 @@
-$btn-bg-hover-color: rgba(195, 45, 123,0.05);
+$btn-bg-hover-color: #fbf4e3;
 $btn-bg-hover-alt-color: rgba(255, 255, 255, 0.1);
 $btn-border-color: rgba(195, 45, 123, 0.3);
 $btn-border-alt-color: rgba(255, 255, 255, 0.3);
@@ -11,8 +11,7 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
   justify-content: center;
   padding: 4px;
 
-  border: 1px solid transparent;
-  border-radius: 4px;
+  border: 2px solid transparent;
   outline: none;
 
   background: none;
@@ -37,13 +36,21 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
   }
 
+  &.-primary {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: $font-size-small;
+    line-height: 13px;
+    background-color: $yellow;
+  }
+
   &.-a, &.-b, &.-c,
   &.-primary, &.-secondary, &.-tertiary {
     padding: 0 $margin-size-small;
     height: 45px;
   }
 
-  &.-a, &.-primary {
+  &.-a {
     color: $alt-font-color;
     background-color: $color-primary;
 
@@ -62,10 +69,35 @@ $btn-hover-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
     }
   }
 
+  &.-app,
+  &.-secondary.-expanded,
+  &.-secondary.-compressed,
+  &.-b.-compressed {
+    text-transform: uppercase;
+    font-size: $font-size-small;
+    line-height: 13px;
+    font-weight: bold;
+    height: auto;
+    color: $base-font-color;
+    border-radius: 0;
+    border: 2px solid $dark-yellow;
+    background-color: $white;
+    padding: 14px 32px;
+
+    &:hover {
+      background-color: $btn-bg-hover-color;
+    }
+  }
+
+  &.-secondary.-compressed,
+  &.-b.-compressed {
+    padding: 10px 20px;
+  }
+
   &.-b, &.-secondary {
     color: $color-primary;
     background-color: $base-bg-color;
-    border-color: $btn-border-color;
+    border-color: $dark-yellow;
     &:hover {
       background-color: $btn-bg-hover-color;
     }

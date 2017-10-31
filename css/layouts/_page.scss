@@ -94,7 +94,8 @@
 
     @media screen and (min-width: map-get($breakpoints, medium)) {
       .page-header-content {
-        padding: $margin-size 0;
+        padding: 40px 0;
+
         h1 {
           margin-bottom: inherit;
         }

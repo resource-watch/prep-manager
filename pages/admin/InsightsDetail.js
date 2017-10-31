@@ -112,11 +112,12 @@ class Insights extends Page {
   render() {
     const { url, user } = this.props;
     const { tab, subtab, id } = this.state;
+    const name = this.getName();
 
     return (
       <Layout
-        title={this.getName()}
-        description="Insights detail..."
+        title={name === 'insights' ? 'Stories' : name}
+        description="Stories detail..."
         user={user}
         url={url}
       >
@@ -130,7 +131,7 @@ class Insights extends Page {
                     items={[{ name: capitalizeFirstLetter(tab), route: 'admin_insights', params: { tab } }]}
                   />
                   <Title className="-primary -huge page-header-title" >
-                    {this.getName()}
+                    {name}
                   </Title>
                 </div>
               </div>
