@@ -31,9 +31,11 @@
   "layouts/page",
   "layouts/section",
   "layouts/header",
+  "layouts/header-app",
   "layouts/content",
   "layouts/postcontent",
   "layouts/footer",
+  "layouts/footer-app",
   "layouts/sidebar",
   "layouts/map",
   "layouts/static";
@@ -41,6 +43,8 @@
 // Components
 // UI
 @import '../node_modules/react-redux-toastr/src/styles/index';
+@import "../node_modules/slick-carousel/slick/slick.css";
+@import "../node_modules/slick-carousel/slick/slick-theme.css";
 @import '../node_modules/rc-slider/assets/index';
 @import "./components/ui/aside";
 @import "./components/ui/avatar";
@@ -56,6 +60,7 @@
 @import "./components/ui/icon";
 @import "./components/ui/legend";
 @import "./components/ui/modal";
+@import "./components/ui/nav";
 @import "./components/ui/paginator";
 @import "./components/ui/related-content";
 @import "./components/ui/search-input";
@@ -92,6 +97,9 @@
 @import "./components/areas/areas_list";
 @import "./components/areas/area_card";
 @import "./components/areas/area_actions_tooltip";
+
+// Partners
+@import "./components/partners/partners-slider";
 
 // Subscriptions
 @import "./components/subscriptions/subscriptions_form";

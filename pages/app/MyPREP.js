@@ -7,7 +7,7 @@ import { initStore } from 'store';
 
 // Components
 import Page from 'components/app/layout/Page';
-import Layout from 'components/app/layout/Layout';
+import Layout from 'components/layout/Layout';
 import Tabs from 'components/ui/Tabs';
 import Title from 'components/ui/Title';
 
@@ -76,8 +76,8 @@ class MyPREP extends Page {
 
     return (
       <Layout
-        title="My Resource Watch Edit Profile"
-        description="My Resource Watch Edit Profile description"
+        title="My PReP Edit Profile"
+        description="My PReP Edit Profile description"
         url={url}
         user={user}
         pageHeader

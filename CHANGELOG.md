@@ -50,7 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Explore: favorite datasets
 - Explore detail: favorite dataset
-- MyPrep Dataset favorites
+- MyRW Dataset favorites
 - Explore detail tags section
 - Favorite widget functionality at Embed widget page
 - Styles for LayerInfoModal component
@@ -85,6 +85,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Tool admin page added to CMS.
 - Added support for timeline in one layer `Standarized Precipitation Index`
 - Tool page connected to BO
+- Added My PReP header
+- Added My PReP footer with partners
 
 ### Changed
 
@@ -96,3 +98,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Unique components for Legend and Map
 - Basemaps by default doesn't have labels
 - Styles for search results
+- Change MyRW to MyPReP references
+- Change README
+- Change Dashboard detail sections from tabs to smooth scroll

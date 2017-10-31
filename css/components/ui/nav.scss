@@ -1,0 +1,161 @@
+.c-nav {
+  width: 100%;
+
+  &.-main, &.-secondary {
+    & > ul {
+      justify-content: flex-end;
+    }
+  }
+
+  > ul {
+    display: flex;
+
+    li {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &.-main {
+    & > ul > li {
+      margin-left: 1rem;
+      margin-right: 1rem;
+
+      color: $inverse-font-color;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      line-height: 1;
+      text-transform: uppercase;
+
+      & > a {
+        display: block;
+        padding: 38px 0;
+
+        color: $inverse-font-color;
+
+        border-top: 5px solid transparent;
+
+        transition: all .3s ease-out;
+
+        .l-header-nav.-short & {
+          padding: 20px 0;
+        }
+      }
+
+      & > a.-current,
+      & > a:hover {
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      &:nth-of-type(1), &:nth-of-type(5) {
+        > a:hover, > a.-current {
+          border-top-color: $secondary-color;
+        }
+      }
+     &:nth-of-type(3), &:nth-of-type(6) {
+        > a:hover, > a.-current {
+          border-top-color: $thirth-color;
+        }
+      }
+      &:nth-of-type(4),  &:nth-of-type(2) {
+        > a:hover, > a.-current {
+          border-top-color: $fourth-color;
+        }
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &.-secondary {
+    .column {
+      display: flex;
+    }
+
+    & > ul > li {
+      position: relative;
+      margin-left: .5rem;
+      margin-right: .5rem;
+
+      color: $inverse-font-color;
+      font-size: $small-font-size;
+      font-weight: bold;
+      line-height: 1;
+      text-transform: uppercase;
+
+      & > a {
+        color: $inverse-font-color;
+      }
+
+      &:after {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        margin-left: .5rem;
+        width: 1px;
+        height: 100%;
+
+        background-color: $yellow;
+
+        .-theme-2 & { background-color: $thirth-color; }
+        .-theme-3 & { background-color: $fourth-color; }
+
+        content: "";
+      }
+
+      &:last-child {
+        margin-right: 0;
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.-social {
+    color: $inverse-font-color;
+
+    .column {
+      display: flex;
+    }
+
+    & > ul {
+      align-items: center;
+    }
+
+    & > ul > li {
+      display: flex;
+      margin-right: 1rem;
+      > span {
+        margin-right: .5rem;
+      }
+
+      > a {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .powered-by {
+      position: relative;
+      margin-top: rem(5);
+
+      &:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: rem(6);
+        right: 100%;
+        margin-right: .5rem;
+        width: 1px;
+        height: rem(13);
+
+        background-color: $yellow;
+      }
+    }
+  }
+}
