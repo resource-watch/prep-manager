@@ -76,26 +76,6 @@ class Step1 extends React.Component {
           {TextArea}
         </Field>
 
-        {/* WIDGETS */}
-        <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.widget_ids = c; }}
-          onChange={value => this.props.onChange({
-            widget_ids: value
-          })}
-          className="-fluid"
-          options={this.props.widgets}
-          properties={{
-            name: 'widget_ids',
-            label: 'Widgets',
-            multi: true,
-            default: this.state.form.widget_ids,
-            value: this.state.form.widget_ids,
-            instanceId: 'selectWidgets'
-          }}
-        >
-          {Select}
-        </Field>
-
         {/* PUBLISHED */}
         <Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}

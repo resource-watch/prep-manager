@@ -9,7 +9,6 @@ export const STATE_DEFAULT = {
     title: '',
     summary: '',
     content: '',
-    widget_ids: [],
     published: false
   }
 };

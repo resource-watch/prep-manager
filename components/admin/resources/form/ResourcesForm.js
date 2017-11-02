@@ -30,37 +30,31 @@ class ResourcesForm extends React.Component {
     this.onStepChange = this.onStepChange.bind(this);
 
     this.service = new ResourcesService({ authorization: props.authorization });
-    // this.widgetsService = new WidgetsService({ authorization: props.authorization });
   }
 
   componentDidMount() {
-    // const { id } = this.state;
-    //
-    // const promises = [
-    //   this.widgetsService.fetchAllData()
-    // ];
-    //
-    // // Add the dashboard promise if the id exists
-    // if (id) {
-    //   promises.push(this.service.fetchData(id));
-    // }
-    //
-    // Promise.all(promises)
-    //   .then((response) => {
-    //     const widgets = response[0];
-    //     const current = response[1];
-    //
-    //     this.setState({
-    //       // CURRENT DASHBOARD
-    //       form: (id) ? this.setFormFromParams(current) : this.state.form,
-    //       loading: false,
-    //       // OPTIONS
-    //       widgets: widgets.map(p => ({ label: p.title, value: p.id }))
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    const { id } = this.state;
+
+    const promises = [];
+
+    // Add the dashboard promise if the id exists
+    if (id) {
+      promises.push(this.service.fetchData(id));
+    }
+
+    Promise.all(promises)
+      .then((response) => {
+        const current = response[0];
+
+        this.setState({
+          // CURRENT DASHBOARD
+          form: (id) ? this.setFormFromParams(current) : this.state.form,
+          loading: false
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   /**
