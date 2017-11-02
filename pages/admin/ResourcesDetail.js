@@ -8,7 +8,7 @@ import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
 
 // Services
-import IndicatorsService from 'services/IndicatorsService';
+import ResourcesService from 'services/ResourcesService';
 
 // Utils
 import { capitalizeFirstLetter } from 'utils/utils';
@@ -18,13 +18,13 @@ import Page from 'components/admin/layout/Page';
 import Layout from 'components/admin/layout/Layout';
 
 // Tabs
-import IndicatorsTab from 'components/admin/indicators/IndicatorsTab';
+import ResourcesTab from 'components/admin/resources/ResourcesTab';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 
 // Components
 import Title from 'components/ui/Title';
 
-class IndicatorsDetail extends Page {
+class ResourcesDetail extends Page {
   constructor(props) {
     super(props);
 
@@ -41,9 +41,9 @@ class IndicatorsDetail extends Page {
     this.service = null;
 
     switch (tab) {
-      case 'indicators':
+      case 'resources':
         if (id !== 'new') {
-          this.service = new IndicatorsService({
+          this.service = new ResourcesService({
             authorization: props.user.token
           });
         }
@@ -101,7 +101,7 @@ class IndicatorsDetail extends Page {
     return (
       <Layout
         title={this.getName()}
-        description="Indicators detail..."
+        description="Resources detail..."
         user={user}
         url={url}
       >
@@ -112,7 +112,7 @@ class IndicatorsDetail extends Page {
               <div className="column small-12">
                 <div className="page-header-content">
                   <Breadcrumbs
-                    items={[{ name: capitalizeFirstLetter(tab), route: 'admin_indicators', params: { tab } }]}
+                    items={[{ name: capitalizeFirstLetter(tab), route: 'admin_resources', params: { tab } }]}
                   />
                   <Title className="-primary -huge page-header-title" >
                     {this.getName()}
@@ -126,8 +126,8 @@ class IndicatorsDetail extends Page {
           <div className="l-container">
             <div className="row">
               <div className="column small-12">
-                {tab === 'indicators' &&
-                  <IndicatorsTab tab={tab} subtab={subtab} id={id} />
+                {tab === 'resources' &&
+                  <ResourcesTab tab={tab} subtab={subtab} id={id} />
                 }
               </div>
             </div>
@@ -138,10 +138,10 @@ class IndicatorsDetail extends Page {
   }
 }
 
-IndicatorsDetail.propTypes = {
+ResourcesDetail.propTypes = {
   user: PropTypes.object,
   url: PropTypes.object
 };
 
 
-export default withRedux(initStore, null, null)(IndicatorsDetail);
+export default withRedux(initStore, null, null)(ResourcesDetail);

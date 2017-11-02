@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
 
 // Components
 import IndicatorsForm from 'components/admin/indicators/form/IndicatorsForm';
@@ -17,7 +16,7 @@ function IndicatorsShow(props) {
       <IndicatorsForm
         id={id}
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'indicators' })}
+        onSubmit={() => Router.pushRoute('admin_indicators', { tab: 'indicators' })}
       />
     </div>
   );

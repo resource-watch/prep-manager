@@ -6,22 +6,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Components
-import ToolsForm from 'components/admin/tools/form/ToolsForm';
+import ResourcesForm from 'components/admin/resources/form/ResourcesForm';
 
-function ToolsNew(props) {
+function ResourcesNew(props) {
   const { user } = props;
 
   return (
-    <div className="c-tools-new">
-      <ToolsForm
+    <div className="c-resources-new">
+      <ResourcesForm
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_tools', { tab: 'tools' })}
+        onSubmit={() => Router.pushRoute('admin_resources', { tab: 'resources' })}
       />
     </div>
   );
 }
 
-ToolsNew.propTypes = {
+ResourcesNew.propTypes = {
   // Store
   user: PropTypes.object.isRequired
 };
@@ -30,4 +30,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, null)(ToolsNew);
+export default connect(mapStateToProps, null)(ResourcesNew);

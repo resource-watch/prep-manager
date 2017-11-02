@@ -67,6 +67,12 @@ export default class Header extends React.Component {
         role: 'ADMIN'
       },
       {
+        name: 'Resources',
+        pathnames: ['/admin/Resources', '/admin/ResourcesDetail'],
+        component: <Link route="admin_resources"><a>Resources</a></Link>,
+        role: 'ADMIN'
+      },
+      {
         name: 'Partners',
         pathnames: ['/admin/Partners', '/admin/PartnersDetail'],
         component: <Link route="admin_partners"><a>Partners</a></Link>,
