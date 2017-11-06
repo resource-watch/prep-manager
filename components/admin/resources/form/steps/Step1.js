@@ -79,21 +79,27 @@ class Step1 extends React.Component {
         </Field>
 
         {/* PHOTO */}
-        <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.photo = c; }}
-          onChange={(value) => {
-            this.props.onChange({ photo: value });
-          }}
-          className="-fluid"
-          properties={{
-            name: 'photo',
-            label: 'Photo',
-            placeholder: 'Browse file',
-            default: this.state.form.photo
-          }}
-        >
-          {FileImage}
-        </Field>
+        <div className="c-field-row">
+          <div className="row l-row">
+            <div className="column small-12 medium-4">
+              <Field
+                ref={(c) => { if (c) FORM_ELEMENTS.elements.photo = c; }}
+                onChange={(value) => {
+                  this.props.onChange({ photo: value });
+                }}
+                className="-fluid"
+                properties={{
+                  name: 'photo',
+                  label: 'Photo',
+                  placeholder: 'Browse file',
+                  default: this.state.form.photo
+                }}
+              >
+                {FileImage}
+              </Field>
+            </div>
+          </div>
+        </div>
       </fieldset>
     );
   }

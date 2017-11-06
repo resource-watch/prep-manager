@@ -9,7 +9,7 @@ export const STATE_DEFAULT = {
     title: '',
     description: '',
     url: '',
-    photo: false
+    photo: ''
   }
 };
 
