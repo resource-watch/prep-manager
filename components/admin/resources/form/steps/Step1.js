@@ -8,8 +8,8 @@ import { FORM_ELEMENTS } from 'components/admin/resources/form/constants';
 import Field from 'components/form/Field';
 import Input from 'components/form/Input';
 import TextArea from 'components/form/TextArea';
-import Select from 'components/form/SelectInput';
-import Checkbox from 'components/form/Checkbox';
+import FileImage from 'components/form/FileImage';
+
 
 class Step1 extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class Step1 extends React.Component {
 
     return (
       <fieldset className="c-field-container">
-        {/* NAME */}
+        {/* TITLE */}
         <Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.title = c; }}
           onChange={value => this.props.onChange({ title: value })}
@@ -48,50 +48,52 @@ class Step1 extends React.Component {
           {Input}
         </Field>
 
-        {/* SUMMARY */}
+        {/* DESCRIPTION */}
         <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.summary = c; }}
-          onChange={value => this.props.onChange({ summary: value })}
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.description = c; }}
+          onChange={value => this.props.onChange({ description: value })}
           className="-fluid"
           properties={{
-            name: 'summary',
-            label: 'Summary',
-            default: this.state.form.summary
+            name: 'description',
+            label: 'Description',
+            default: this.state.form.description
           }}
         >
           {TextArea}
         </Field>
 
-        {/* CONTENT */}
+        {/* URL */}
         <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.content = c; }}
-          onChange={value => this.props.onChange({ content: value })}
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.url = c; }}
+          onChange={value => this.props.onChange({ url: value })}
+          validations={['url']}
           className="-fluid"
           properties={{
-            name: 'content',
-            label: 'Content',
-            default: this.state.form.content
+            name: 'url',
+            label: 'Url',
+            type: 'text',
+            default: this.state.form.url
           }}
         >
-          {TextArea}
+          {Input}
         </Field>
 
-        {/* PUBLISHED */}
+        {/* PHOTO */}
         <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
-          onChange={value => this.props.onChange({ published: value.checked })}
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.photo = c; }}
+          onChange={(value) => {
+            this.props.onChange({ photo: value });
+          }}
+          className="-fluid"
           properties={{
-            name: 'published',
-            label: 'Do you want to set this resource as published?',
-            value: 'published',
-            title: 'Published',
-            defaultChecked: this.props.form.published,
-            checked: this.props.form.published
+            name: 'photo',
+            label: 'Photo',
+            placeholder: 'Browse file',
+            default: this.state.form.photo
           }}
         >
-          {Checkbox}
+          {FileImage}
         </Field>
-
       </fieldset>
     );
   }
@@ -100,7 +102,6 @@ class Step1 extends React.Component {
 Step1.propTypes = {
   id: PropTypes.string,
   form: PropTypes.object,
-  widgets: PropTypes.array,
   onChange: PropTypes.func
 };
 

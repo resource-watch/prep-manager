@@ -7,9 +7,9 @@ export const STATE_DEFAULT = {
   form: {
     // STEP 1
     title: '',
-    summary: '',
-    content: '',
-    published: false
+    description: '',
+    url: '',
+    photo: false
   }
 };
 
