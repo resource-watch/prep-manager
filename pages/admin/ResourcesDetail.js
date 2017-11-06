@@ -97,10 +97,11 @@ class ResourcesDetail extends Page {
   render() {
     const { url, user } = this.props;
     const { tab, subtab, id } = this.state;
+    const name = this.getName();
 
     return (
       <Layout
-        title={this.getName()}
+        title={name}
         description="Resources detail..."
         user={user}
         url={url}
@@ -115,7 +116,7 @@ class ResourcesDetail extends Page {
                     items={[{ name: capitalizeFirstLetter(tab), route: 'admin_resources', params: { tab } }]}
                   />
                   <Title className="-primary -huge page-header-title" >
-                    {this.getName()}
+                    {name}
                   </Title>
                 </div>
               </div>
