@@ -72,7 +72,7 @@ class InsightsTable extends React.Component {
             placeholder: 'Search insight'
           }}
           link={{
-            label: 'New insight',
+            label: 'New story',
             route: 'admin_insights_detail',
             params: { tab: 'insights', id: 'new' }
           }}

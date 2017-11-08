@@ -43,6 +43,13 @@
         );
     }
 
+    &.-myprep {
+      padding: 0;
+      background-color: transparent;
+      background-image: none;
+      margin: -98px 0 0;
+    }
+
     .page-header-content {
       color: $alt-font-color;
       padding: $margin-size-extra-small 0;
@@ -87,7 +94,8 @@
 
     @media screen and (min-width: map-get($breakpoints, medium)) {
       .page-header-content {
-        padding: $margin-size 0;
+        padding: 40px 0;
+
         h1 {
           margin-bottom: inherit;
         }

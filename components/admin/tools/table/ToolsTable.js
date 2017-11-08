@@ -4,7 +4,7 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-
+import { initStore } from 'store';
 import { getTools, setFilters } from 'redactions/admin/tools';
 
 // Selectors
@@ -24,6 +24,7 @@ import TitleTD from './td/TitleTD';
 import PublishedTD from './td/PublishedTD';
 
 class ToolsTable extends React.Component {
+
   componentDidMount() {
     this.props.setFilters([]);
     this.props.getTools();
@@ -38,7 +39,7 @@ class ToolsTable extends React.Component {
     if (!value.length) {
       this.props.setFilters([]);
     } else {
-      this.props.setFilters([{ key: 'name', value }]);
+      this.props.setFilters([{ key: 'title', value }]);
     }
   }
 
@@ -70,7 +71,7 @@ class ToolsTable extends React.Component {
           }}
           link={{
             label: 'New tool',
-            route: 'admin_tools_detail',
+            route: 'admin_dashboards_detail',
             params: { tab: 'tools', id: 'new' }
           }}
           onSearch={this.onSearch}
@@ -79,14 +80,15 @@ class ToolsTable extends React.Component {
         {!this.props.error && (
           <CustomTable
             columns={[
-              { label: 'Name', value: 'title', td: TitleTD },
+              { label: 'Title', value: 'title', td: TitleTD },
+              { label: 'Attribution', value: 'attribution' },
               { label: 'Published', value: 'published', td: PublishedTD }
             ]}
             actions={{
               show: true,
               list: [
-                { name: 'Edit', route: 'admin_tools_detail', params: { tab: 'tools', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
-                { name: 'Remove', route: 'admin_tools_detail', params: { tab: 'tools', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
+                { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'tools', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'tools', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
             sort={{
@@ -96,12 +98,13 @@ class ToolsTable extends React.Component {
             filters={false}
             data={this.getFilteredTools()}
             pageSize={20}
-            onRowDelete={() => this.props.getTools()}
             pagination={{
               enabled: true,
               pageSize: 20,
               page: 0
             }}
+            onToggleSelectedRow={(ids) => { console.info(ids); }}
+            onRowDelete={(id) => { console.info(id); }}
           />
         )}
       </div>

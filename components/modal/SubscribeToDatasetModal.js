@@ -57,7 +57,7 @@ class SubscribeToDatasetModal extends React.Component {
     if (value && value.value === 'upload_area') {
       this.setState({ loading: true });
       this.props.toggleModal(false);
-      Router.pushRoute('myrw_detail', {
+      Router.pushRoute('myprep_detail', {
         tab: 'areas',
         id: 'new',
         subscribeToDataset: { dataset: this.props.dataset.id, type: this.state.selectedType } });
@@ -124,7 +124,7 @@ class SubscribeToDatasetModal extends React.Component {
               toastr.confirm(`There already exist a subscription for the selected area.
                 Do you want to update it? `, {
                   onOk: () => {
-                    Router.pushRoute('myrw', { tab: 'areas' });
+                    Router.pushRoute('myprep', { tab: 'areas' });
                   },
                   onCancel: () => {
                     this.setState({ loading: false });
@@ -211,7 +211,7 @@ class SubscribeToDatasetModal extends React.Component {
       saved: false
     });
     this.props.toggleModal(false);
-    Router.pushRoute('myrw', { tab: 'areas' });
+    Router.pushRoute('myprep', { tab: 'areas' });
   }
 
   @Autobind

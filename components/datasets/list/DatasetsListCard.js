@@ -38,6 +38,7 @@ class DatasetsListCard extends React.Component {
   render() {
     const { dataset, routes } = this.props;
     const metadata = dataset.metadata[0];
+
     return (
       <div className="c-card c-datasets-list-card">
         <div className="card-container">

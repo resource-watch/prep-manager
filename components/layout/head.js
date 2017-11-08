@@ -1,10 +1,11 @@
+import React from 'react';
 import HeadNext from 'next/head';
 
 const Head = () => {
-  return () {
+  return (
     <HeadNext>
-      <meta charset="utf-8" />
-      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <meta charSet="utf-8" />
+      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <title>Partnership for Resilience and Preparedness</title>
       <meta name="description" content="" />
       <meta name="viewport" content="width=1024" />
@@ -14,7 +15,7 @@ const Head = () => {
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" media="all" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.6/slick.css" media="all" />
     </HeadNext>
-  }
+  );
 };
 
 export default Head;

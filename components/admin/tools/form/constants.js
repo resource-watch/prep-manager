@@ -3,17 +3,14 @@ export const STATE_DEFAULT = {
   stepLength: 1,
   submitting: false,
   loading: false,
-  dataset: {},
+  partners: [],
   form: {
     // STEP 1
     title: '',
     summary: '',
-    description: '',
-    content: '',
     url: '',
-    // Images
-    thumbnail: '',
-    // States
+    partner: {},
+    partner_id: null,
     published: false
   }
 };

@@ -56,7 +56,7 @@ class ColorContainer extends React.Component {
           {color &&
             <ColumnBox
               name={color.name}
-              alias={color.alias}
+              alias={`${color.alias}`}
               type={color.type}
               closable
               configurable

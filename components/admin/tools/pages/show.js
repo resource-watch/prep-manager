@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
+import { initStore } from 'store';
 
 // Components
 import ToolsForm from 'components/admin/tools/form/ToolsForm';
@@ -16,7 +17,7 @@ function ToolsShow(props) {
       <ToolsForm
         id={id}
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_tools', { tab: 'tools' })}
+        onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'tools' })}
       />
     </div>
   );

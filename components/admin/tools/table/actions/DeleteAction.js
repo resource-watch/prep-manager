@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Services
 import ToolsService from 'services/ToolsService';
 import { toastr } from 'react-redux-toastr';
 
 class DeleteAction extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -13,16 +13,11 @@ class DeleteAction extends React.Component {
     this.handleOnClickDelete = this.handleOnClickDelete.bind(this);
 
     // SERVICES
-    this.service = new ToolsService({
-      authorization: props.authorization
-    });
+    this.service = new ToolsService();
   }
 
   handleOnClickDelete(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    e && e.preventDefault() && e.stopPropagation();
 
     const { data } = this.props;
 
@@ -34,25 +29,26 @@ class DeleteAction extends React.Component {
             toastr.success('Success', `The tool "${data.id}" - "${data.title}" has been removed correctly`);
           })
           .catch((err) => {
-            toastr.error('Error', `The tool "${data.id}" - "${data.title}" was not deleted. Try again. ${err}`);
+            toastr.error('Error', `The tool "${data.id}" - "${data.title}" was not deleted. Try again`);
+            console.error(err);
           });
-      }
+      },
+      onCancel: () => console.info('canceled')
     });
   }
 
   render() {
     return (
       <span>
-        <a className="c-btn" href="#delete-dataset" onClick={this.handleOnClickDelete}> Remove </a>
+        <a href="#delete-dataset" onClick={this.handleOnClickDelete}> Remove </a>
       </span>
     );
   }
 }
 
 DeleteAction.propTypes = {
-  data: PropTypes.object,
-  authorization: PropTypes.string,
-  onRowDelete: PropTypes.func
+  data: React.PropTypes.object,
+  onRowDelete: React.PropTypes.func
 };
 
 export default DeleteAction;

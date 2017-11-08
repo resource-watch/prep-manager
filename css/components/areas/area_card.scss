@@ -12,7 +12,7 @@
 
   .border-container {
     flex: 1;
-    border: 1px solid $color-grey;
+    border: 2px solid $border-color-2;
 
     .map-container {
       position: relative;
@@ -73,7 +73,7 @@
         margin-bottom: 0px;
 
         a {
-          color: $color-dark-pink;
+          color: $dark-yellow;
           cursor: pointer;
         }
       }

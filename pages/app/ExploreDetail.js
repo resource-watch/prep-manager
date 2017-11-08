@@ -723,7 +723,7 @@ class ExploreDetail extends Page {
           {/* <div className="c-page-section related-insights">
             <div className="row">
               <div className="column small-12">
-                <h2 className="c-text title -thin">Related Insights</h2>
+                <h2 className="c-text title -thin">Related Stories</h2>
               </div>
             </div>
           </div> */}

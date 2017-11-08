@@ -18,14 +18,18 @@ $output-bourbon-deprecation-warnings: false;
 // Colors
 $dark-pink: #1a3e62;
 $yellow: #FAB72E;
-$blue-turquoise: #3bb2d0;
-$charcoal-grey: #393f44;
+$dark-yellow: #EFA600;
+$blue-turquoise: #26b5cd;
+$charcoal-grey: #263E57;
 $dove-grey: #717171;
 $light-grey: #CACCD0;
 $porcelain: #F4F6F7;
 $white: #ffffff;
 $black: #000;
 $sea-blue: #2C75B0;
+$dark-slate-blue: #1a3e62;
+$dark-slate-blue-2: #173554;
+$navy: #001e3c;
 
 // Theme
 $base-font-color: $charcoal-grey;
@@ -37,14 +41,19 @@ $alt-font-color: $white;
 $ui-bg-color: $porcelain;
 $base-bg-color: $white;
 
+$inverse-font-color: $white;
+
 $border-color-1: rgba(26, 28, 34, 0.1);
-$border-color-2: rgba(202, 204,208, 0.85);; // For inputs
+$border-color-2: #EEEEEE; // For inputs
+$border-color-3: #333333;
 $alt-border-color: $white;
 
 $color-primary: $dark-pink;
 $color-secondary: $blue-turquoise;
 $primary-color: $color-primary;
 $secondary-color: $color-secondary;
+$thirth-color: #6bbf51;
+$fourth-color: #25b5cd;
 
 // Typography
 $font-size-extra-small: 12px;
@@ -59,12 +68,24 @@ $font-size-h3: 26px;
 $font-size-h4: 16px;
 
 $body-font-color: $base-font-color;
-$body-font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans;
+$body-font-family: "Open Sans", Helvetica, Arial, sans-serif;;
+$font-family-2: "PT Serif", Georgia, serif;
 $global-weight-normal: normal;
 $global-lineheight: 1.625;
 $global-font-size: $font-size-medium;
 
+// Margins
+$large-margin: 80px;
+$medium-margin: 50px;
+$small-margin: 30px;
+
+$max-width: 1136;
+
 // Layout
+$header-height: 96px;
+$header-height-short: 60px;
+$header-height-tools: 30px;
+
 $margin-size-extra-small: 15px;
 $margin-size-small: 30px;
 $margin-size: 50px;

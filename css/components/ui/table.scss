@@ -8,11 +8,10 @@ $table-font-size: $font-size-normal;
     border-spacing:0;
     width: 100%;
     padding: 0;
-    border-radius: 4px;
     overflow: hidden;
-    border-top: 1px solid $border-color-1;
-    border-left: 1px solid $border-color-1;
-    border-right: 1px solid $border-color-1;
+    border-top: 2px solid $border-color-2;
+    border-left: 2px solid $border-color-2;
+    border-right: 2px solid $border-color-2;
 
     font-size: $table-font-size;
 
@@ -31,7 +30,7 @@ $table-font-size: $font-size-normal;
     // }
 
     td, th {
-      border-bottom: 1px solid $border-color-1;
+      border-bottom: 2px solid $border-color-2;
     }
 
     thead {
@@ -40,7 +39,7 @@ $table-font-size: $font-size-normal;
       th {
         position: relative;
         font-size: $table-font-size;
-        color: $color-text-1;
+        color: $base-font-color;
         font-weight: bold;
         white-space: nowrap;
 
@@ -64,6 +63,7 @@ $table-font-size: $font-size-normal;
       td {
         width: 100%; // It will force the tds to be expanded along the table
         padding: $table-column-padding;
+        line-height: 18px;
       }
 
       .individual-actions {
@@ -77,6 +77,13 @@ $table-font-size: $font-size-normal;
 
             &:last-child {
               margin: 0;
+            }
+
+            a {
+              &:hover {
+                color: $dark-yellow;
+                text-decoration: none;
+              }
             }
           }
         }
@@ -119,8 +126,8 @@ $table-font-size: $font-size-normal;
       text-decoration: none;
 
       &:hover {
-        color: darken($color-text-1, 10%);
-        text-decoration: underline;
+        color: $dark-yellow;
+        text-decoration: none;
       }
     }
   }

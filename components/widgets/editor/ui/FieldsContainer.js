@@ -12,11 +12,11 @@ const FieldsContainer = (props) => {
             <ColumnBox
               key={val.columnName}
               name={val.columnName}
-              alias={val.alias}
+              alias={`${val.alias}`}
               type={val.columnType}
               datasetID={dataset}
               tableName={tableName}
-              description={val.description}
+              description={`${val.description}`}
             />
           )
         )

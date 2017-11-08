@@ -16,7 +16,7 @@ export { default as page } from './page';
 export { default as insights } from './admin/insights';
 export { default as clientDashboards } from './dashboards';
 export { default as dashboardDetail } from './dashboardDetail';
-export { default as myrwdetail } from './myrwdetail';
+export { default as myprepdetail } from './myprepdetail';
 
 // Admin
 export { default as datasets } from './admin/datasets';
@@ -26,6 +26,7 @@ export { default as dashboards } from './admin/dashboards';
 export { default as partners } from './admin/partners';
 export { default as pages } from './admin/pages';
 export { default as tools } from './admin/tools';
+export { default as indicators } from './admin/indicators';
 export { default as sources } from './admin/sources';
 
 // Toastr

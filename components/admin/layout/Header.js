@@ -14,7 +14,7 @@ export default class Header extends React.Component {
     super(props);
 
     this.state = {
-      myrwActive: false
+      myprepActive: false
     };
 
     this.listeners = {};
@@ -26,7 +26,7 @@ export default class Header extends React.Component {
   // This function is debounced. If you don't do that insane things will happen
   toggleDropdown(specificDropdown, to) {
     this.setState({
-      ...{ myrwActive: false },
+      ...{ myprepActive: false },
       [specificDropdown]: to
     });
   }
@@ -49,9 +49,21 @@ export default class Header extends React.Component {
         role: 'ADMIN'
       },
       {
+        name: 'Indicators',
+        pathnames: ['/admin/Indicators', '/admin/IndicatorsDetail'],
+        component: <Link route="admin_indicators"><a>Indicators (Data)</a></Link>,
+        role: 'ADMIN'
+      },
+      {
         name: 'Insights',
         pathnames: ['/admin/Insights', '/admin/InsightsDetail'],
-        component: <Link route="admin_insights"><a>Insights</a></Link>,
+        component: <Link route="admin_insights"><a>Stories</a></Link>,
+        role: 'ADMIN'
+      },
+      {
+        name: 'Tools',
+        pathnames: ['/admin/Tools', '/admin/ToolsDetail'],
+        component: <Link route="admin_tools"><a>Tools</a></Link>,
         role: 'ADMIN'
       },
       {
@@ -64,9 +76,9 @@ export default class Header extends React.Component {
         name: 'User',
         component: <HeaderUser
           user={this.props.user}
-          active={this.state.myrwActive}
-          onMouseEnter={() => this.toggleDropdown('myrwActive', true)}
-          onMouseLeave={() => this.toggleDropdown('myrwActive', false)}
+          active={this.state.myprepActive}
+          onMouseEnter={() => this.toggleDropdown('myprepActive', true)}
+          onMouseLeave={() => this.toggleDropdown('myprepActive', false)}
         />
       }
     ];
@@ -87,7 +99,6 @@ export default class Header extends React.Component {
                         <img src="/static/images/logo-cms.png" alt="Logo PREP" />
                       </div>
                       <h1 className="brand-title">Resource Watch</h1>
-                      <div className="brand-beta">beta</div>
                     </a>
                   </Link>
                 </div>

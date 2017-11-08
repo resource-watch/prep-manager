@@ -16,10 +16,10 @@ const SET_TOOLS_FILTERS = 'tools/SET_TOOLS_FILTERS';
  */
 const initialState = {
   tools: {
-    list: [], // Actual list of tools
+    list: [],       // Actual list of tools
     loading: false, // Are we loading the data?
-    error: null, // An error was produced while loading the data
-    filters: [] // Filters for the list of tools
+    error: null,    // An error was produced while loading the data
+    filters: []     // Filters for the list of tools
   }
 };
 

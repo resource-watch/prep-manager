@@ -96,7 +96,7 @@ class SubscriptionsForm extends React.Component {
       const areaObj = geostore ? { type: 'geostore', id: geostore } : { type: 'iso', id: selectedArea.value };
       this.userService.createSubscriptionToDataset(selectedDataset.id, selectedType.value, areaObj, user, name) //eslint-disable-line
         .then(() => {
-          Router.pushRoute('myrw', { tab: 'areas' });
+          Router.pushRoute('myprep', { tab: 'areas' });
           toastr.success('Success', 'Subscription successfully created!');
         })
         .catch(err => this.setState({ error: err, loading: false }));
@@ -240,10 +240,10 @@ class SubscriptionsForm extends React.Component {
             />
           </div>
           <div className="buttons-div">
-            <button onClick={() => Router.pushRoute('myrw', { tab: 'areas' })} className="c-btn -secondary">
+            <button onClick={() => Router.pushRoute('myprep', { tab: 'areas' })} className="c-btn -secondary">
               Cancel
             </button>
-            <button type="submit" className="c-btn -primary">
+            <button type="submit" className="c-btn -app">
               Subscribe
             </button>
           </div>

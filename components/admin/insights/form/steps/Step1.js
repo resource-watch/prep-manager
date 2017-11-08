@@ -178,7 +178,7 @@ class Step1 extends React.Component {
           onChange={value => this.props.onChange({ published: value.checked })}
           properties={{
             name: 'published',
-            label: 'Do you want to set this insight as published?',
+            label: 'Do you want to set this story as published?',
             value: 'published',
             title: 'Published',
             defaultChecked: this.props.form.published,
@@ -194,7 +194,7 @@ class Step1 extends React.Component {
           onChange={value => this.props.onChange({ embeddable: value.checked })}
           properties={{
             name: 'embeddable',
-            label: 'Do you want to set this insight as embeddable?',
+            label: 'Do you want to set this story as embeddable?',
             value: 'embeddable',
             title: 'Embeddable',
             defaultChecked: this.props.form.embeddable,

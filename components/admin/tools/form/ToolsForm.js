@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Serializer } from 'jsonapi-serializer';
 
 // Services
 import ToolsService from 'services/ToolsService';
+import PartnersService from 'services/PartnersService';
 import { toastr } from 'react-redux-toastr';
 
+// Constants
 import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/tools/form/constants';
 
 // Components
@@ -31,25 +32,39 @@ class ToolsForm extends React.Component {
     this.service = new ToolsService({
       authorization: props.authorization
     });
+    this.partnersService = new PartnersService({
+      authorization: props.authorization
+    });
   }
 
   componentDidMount() {
     const { id } = this.state;
-    // Get the tools and fill the
-    // state form with its params if the id exists
+
+    const promises = [
+      this.partnersService.fetchAllData()
+    ];
+
+    // Add the dashboard promise if the id exists
     if (id) {
-      this.service.fetchData(id)
-        .then((data) => {
-          this.setState({
-            form: this.setFormFromParams(data),
-            // Stop the loading
-            loading: false
-          });
-        })
-        .catch((err) => {
-          toastr.error('Error', err);
-        });
+      promises.push(this.service.fetchData(id));
     }
+
+    Promise.all(promises)
+      .then((response) => {
+        const partners = response[0];
+        const current = response[1];
+
+        this.setState({
+          // CURRENT DASHBOARD
+          form: (id) ? this.setFormFromParams(current) : this.state.form,
+          loading: false,
+          // OPTIONS
+          partners: partners.map(p => ({ label: p.name, value: p.id }))
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   /**
@@ -80,10 +95,7 @@ class ToolsForm extends React.Component {
           this.service.saveData({
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body: new Serializer('tool', {
-              keyForAttribute: 'dash-case',
-              attributes: Object.keys(this.state.form)
-            }).serialize(this.state.form)
+            body: this.state.form
           })
             .then((data) => {
               toastr.success('Success', `The tool "${data.id}" - "${data.title}" has been uploaded correctly`);
@@ -92,22 +104,23 @@ class ToolsForm extends React.Component {
             })
             .catch((err) => {
               this.setState({ submitting: false });
-              toastr.error('Error', 'Oops! There was an error, try again', err);
+              toastr.error('Error', `Oops! There was an error, try again`);
+              console.error(err);
             });
         } else {
           this.setState({
             step: this.state.step + 1
-          });
+          }, () => console.info(this.state));
         }
       } else {
-        toastr.error('Error', 'Fill all the required fields or correct the invalid values');
+        toastr.error('Error', 'Fill all the required fields');
       }
     }, 0);
   }
 
   onChange(obj) {
     const form = Object.assign({}, this.state.form, obj);
-    this.setState({ form });
+    this.setState({ form }, () => console.info(this.state.form));
   }
 
   onStepChange(step) {
@@ -120,16 +133,14 @@ class ToolsForm extends React.Component {
 
     Object.keys(params).forEach((f) => {
       switch (f) {
-        // TODO: if the API doesn't send it we won't need to handle it
-        case 'thumbnail': {
-          if (params[f] && params[f].original !== '/images/original/missing.png') {
-            newForm[f] = params[f].original;
+        case 'partner': {
+          if (params[f]) {
+            newForm.partner_id = params[f].id;
           }
           break;
         }
         default: {
-          if ((typeof params[f] !== 'undefined' || params[f] !== null) ||
-              (typeof this.state.form[f] !== 'undefined' || this.state.form[f] !== null)) {
+          if (params[f] || this.state.form[f]) {
             newForm[f] = params[f] || this.state.form[f];
           }
         }
@@ -146,9 +157,10 @@ class ToolsForm extends React.Component {
 
         {(this.state.step === 1 && !this.state.loading) &&
           <Step1
-            onChange={value => this.onChange(value)}
-            form={this.state.form}
             id={this.state.id}
+            form={this.state.form}
+            partners={this.state.partners}
+            onChange={value => this.onChange(value)}
           />
         }
 

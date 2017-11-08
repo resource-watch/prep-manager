@@ -26,10 +26,10 @@ class DeleteAction extends React.Component {
         this.service.deleteData(data.id)
           .then(() => {
             this.props.onRowDelete(data.id);
-            toastr.success('Success', `The insight "${data.id}" - "${data.title}" has been removed correctly`);
+            toastr.success('Success', `The story "${data.id}" - "${data.title}" has been removed correctly`);
           })
           .catch((err) => {
-            toastr.error('Error', `The insight "${data.id}" - "${data.title}" was not deleted. Try again`);
+            toastr.error('Error', `The story "${data.id}" - "${data.title}" was not deleted. Try again`);
             console.error(err);
           });
       },

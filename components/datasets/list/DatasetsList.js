@@ -69,6 +69,7 @@ class DatasetsList extends React.Component {
             route: routes.detail,
             params: { tab: 'datasets', id: 'new' }
           }}
+          buttonClass="-app"
           onSearch={this.onSearch}
         />
 

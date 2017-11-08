@@ -63,7 +63,7 @@ class HeaderUser extends React.Component {
             }}
           >
             {/* First child: This is what the item will be tethered to */}
-            <Link route="myrw">
+            <Link route="admin_myprep">
               <a
                 onMouseEnter={this.props.onMouseEnter}
                 onMouseLeave={this.props.onMouseLeave}
@@ -80,7 +80,7 @@ class HeaderUser extends React.Component {
                 onMouseLeave={this.props.onMouseLeave}
               >
                 <li className="header-dropdown-list-item">
-                  <Link route="myrw">
+                  <Link route="admin_myprep">
                     <a>Profile</a>
                   </Link>
                 </li>

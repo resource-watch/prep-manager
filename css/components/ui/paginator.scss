@@ -240,4 +240,10 @@
       }
     }
   }
+
+  .rc-pagination-item {
+    background-color: $dark-yellow;
+    border-color: $dark-yellow;
+    border-radius: 0;
+  }
 }

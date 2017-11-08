@@ -3,11 +3,11 @@ FROM node:8.1.2
 ENV NODE_ENV production
 ENV WRI_API_URL https://api.resourcewatch.org/v1
 ENV BASEMAP_TILE_URL https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
-ENV API_URL https://staging.resourcewatch.org/api
+ENV API_URL https://beta.prepdata.org/api
 ENV CONTROL_TOWER_URL https://production-api.globalforestwatch.org
-ENV CALLBACK_URL https://staging.resourcewatch.org/auth
+ENV CALLBACK_URL https://beta.prepdata.org/auth
 ENV STATIC_SERVER_URL=
-ENV APPLICATIONS rw
+ENV APPLICATIONS prep
 ENV OPBEAT_ORG_ID 17ab8eb501d2418a81f3167c10407e90
 ENV OPBEAT_APP_ID 7170680c2a
 ENV ADD_SEARCH_KEY cb7e797b8a3c0d09c323955f0c4f957a

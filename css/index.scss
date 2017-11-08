@@ -31,9 +31,11 @@
   "layouts/page",
   "layouts/section",
   "layouts/header",
+  "layouts/header-app",
   "layouts/content",
   "layouts/postcontent",
   "layouts/footer",
+  "layouts/footer-app",
   "layouts/sidebar",
   "layouts/map",
   "layouts/static";
@@ -41,6 +43,8 @@
 // Components
 // UI
 @import '../node_modules/react-redux-toastr/src/styles/index';
+@import "../node_modules/slick-carousel/slick/slick.css";
+@import "../node_modules/slick-carousel/slick/slick-theme.css";
 @import '../node_modules/rc-slider/assets/index';
 @import "./components/ui/aside";
 @import "./components/ui/avatar";
@@ -56,6 +60,7 @@
 @import "./components/ui/icon";
 @import "./components/ui/legend";
 @import "./components/ui/modal";
+@import "./components/ui/nav";
 @import "./components/ui/paginator";
 @import "./components/ui/related-content";
 @import "./components/ui/search-input";
@@ -74,6 +79,7 @@
 @import "./components/ui/tree_selector";
 @import "./components/ui/zoom_control";
 @import "./components/ui/progress-bar";
+@import "./components/ui/dashboard-list";
 
 // Modal
 @import "./components/modal/save_widget_modal";
@@ -92,6 +98,9 @@
 @import "./components/areas/areas_list";
 @import "./components/areas/area_card";
 @import "./components/areas/area_actions_tooltip";
+
+// Partners
+@import "./components/partners/partners-slider";
 
 // Subscriptions
 @import "./components/subscriptions/subscriptions_form";
@@ -204,6 +213,9 @@
 @import "./components/app/pages/apps";
 @import "./components/app/pages/p-app-detail";
 
+// MYPREP
+@import "./components/app/myprep/profiles-tab";
+
 
 // LAYOUT
 // @import "./components/app/layout/page";
@@ -238,17 +250,17 @@
 // DASHBOARDS
 @import './components/app/dashboards/dashboard_card';
 
-// MyRW
-// @import "./components/app/pages/myrw/activity";
-@import "./components/app/pages/myrw/myrw_edit_profile";
-@import "./components/app/pages/myrw/myrw_subscriptions";
-@import "./components/app/pages/myrw/myrw_widgets";
-@import "./components/app/pages/myrw/myrw_widgets_my";
-@import "./components/app/pages/myrw/myrw_widgets_starred";
-@import "./components/app/pages/myrw/myrw_widgets_edit";
-@import "./components/app/pages/myrw/myrw_widgets_new";
-@import "./components/app/pages/myrw/myrw_dataset_widgets";
-@import "./components/app/pages/myrw/myrw_datasets_starred";
+// MyPREP
+// @import "./components/app/pages/myprep/activity";
+@import "./components/app/pages/myprep/myprep_edit_profile";
+@import "./components/app/pages/myprep/myprep_subscriptions";
+@import "./components/app/pages/myprep/myprep_widgets";
+@import "./components/app/pages/myprep/myprep_widgets_my";
+@import "./components/app/pages/myprep/myprep_widgets_starred";
+@import "./components/app/pages/myprep/myprep_widgets_edit";
+@import "./components/app/pages/myprep/myprep_widgets_new";
+@import "./components/app/pages/myprep/myprep_dataset_widgets";
+@import "./components/app/pages/myprep/myprep_datasets_starred";
 
 // Embed
 @import "./components/app/pages/embed/embed_widget";
