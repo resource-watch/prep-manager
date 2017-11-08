@@ -83,17 +83,6 @@ if (prod) {
   });
 }
 
-// Using basic auth in prod mode
-if (prod) {
-  server.use(checkBasicAuth([{
-    name: process.env.USERNAME,
-    pass: process.env.PASSWORD
-  }, {
-    name: process.env.RW_USERNAME,
-    pass: process.env.RW_PASSWORD
-  }]));
-}
-
 // configure Express
 server.use(cookieParser());
 server.use(bodyParser.urlencoded({ extended: false }));
