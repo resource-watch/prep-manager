@@ -14,10 +14,6 @@ spec:
         name: {name}-staging
     spec:
       containers:
-        resources:
-          requests:
-            memory: "0Mi"
-            cpu: "0m"
       - name: {name}-staging
         image: vizzuality/{name}
         imagePullPolicy: Always
