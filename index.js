@@ -79,7 +79,7 @@ if (prod) {
   sessionOptions.store = new RedisStore({
     client: redisClient,
     logErrors: true,
-    prefix: 'resourcewatch_sess_'
+    prefix:  `prep_sess_${process.env.NODE_ENV}_`
   });
 }
 

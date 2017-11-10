@@ -23,6 +23,8 @@ spec:
           limits:
             memory: "1Gi"
         env:
+          - name: NODE_ENV
+            value: "prod"
           - name: SECRET
             valueFrom:
                 secretKeyRef:

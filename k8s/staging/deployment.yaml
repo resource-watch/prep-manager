@@ -22,6 +22,8 @@ spec:
             memory: "0Mi"
             cpu: "0m"
         env:
+          - name: NODE_ENV
+            value: "staging"
           - name: SECRET
             valueFrom:
                 secretKeyRef:
@@ -47,6 +49,11 @@ spec:
                 secretKeyRef:
                   name: appsecrets
                   key: RW_PASSWORD
+          - name: REDIS_URL
+            valueFrom:
+                secretKeyRef:
+                  name: dbsecrets
+                  key: REDIS_URI
         ports:
           - containerPort: 3000
       restartPolicy: Always
