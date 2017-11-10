@@ -22,7 +22,7 @@ spec:
             memory: "0Mi"
             cpu: "0m"
         env:
-          - name: NODE_ENV
+          - name: SESSION_ENV
             value: "staging"
           - name: SECRET
             valueFrom:

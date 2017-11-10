@@ -23,8 +23,8 @@ spec:
           limits:
             memory: "1Gi"
         env:
-          - name: NODE_ENV
-            value: "preproduction"
+          - name: SESSION_ENV
+            value: "production"
           - name: SECRET
             valueFrom:
                 secretKeyRef:
