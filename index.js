@@ -79,19 +79,8 @@ if (prod) {
   sessionOptions.store = new RedisStore({
     client: redisClient,
     logErrors: true,
-    prefix: 'resourcewatch_sess_'
+    prefix:  `prep_sess_${process.env.SESSION_ENV}_`
   });
-}
-
-// Using basic auth in prod mode
-if (prod) {
-  server.use(checkBasicAuth([{
-    name: process.env.USERNAME,
-    pass: process.env.PASSWORD
-  }, {
-    name: process.env.RW_USERNAME,
-    pass: process.env.RW_PASSWORD
-  }]));
 }
 
 // configure Express
