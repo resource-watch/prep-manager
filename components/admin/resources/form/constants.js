@@ -32,3 +32,17 @@ export const FORM_ELEMENTS = {
     return valid;
   }
 };
+
+export const RESOURCES_TYPES = [
+  {
+    label: 'Understanding impacts of climate change',
+    value: 'Understanding impacts of climate change'
+  }, {
+    label: 'Climate resilience tools and services',
+    value: 'Climate resilience tools and services'
+  },
+  {
+    label: 'Climate data portals',
+    value: 'Climate data portals'
+  }
+];
