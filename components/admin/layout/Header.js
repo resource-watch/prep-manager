@@ -8,13 +8,15 @@ import { Link } from 'routes';
 
 // Components
 import HeaderUser from 'components/app/layout/header/HeaderUser';
+import HeaderDropdownDashboards from 'components/admin/layout/header/HeaderDropdownDashboards';
 
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      myprepActive: false
+      myprepActive: false,
+      dashboardsActive: false
     };
 
     this.listeners = {};
@@ -45,25 +47,11 @@ export default class Header extends React.Component {
       {
         name: 'Dashboards',
         pathnames: ['/admin/Dashboards', '/admin/DashboardsDetail'],
-        component: <Link route="admin_dashboards"><a>Dashboards</a></Link>,
-        role: 'ADMIN'
-      },
-      {
-        name: 'Indicators',
-        pathnames: ['/admin/Indicators', '/admin/IndicatorsDetail'],
-        component: <Link route="admin_indicators"><a>Indicators (Data)</a></Link>,
-        role: 'ADMIN'
-      },
-      {
-        name: 'Insights',
-        pathnames: ['/admin/Insights', '/admin/InsightsDetail'],
-        component: <Link route="admin_insights"><a>Stories</a></Link>,
-        role: 'ADMIN'
-      },
-      {
-        name: 'Tools',
-        pathnames: ['/admin/Tools', '/admin/ToolsDetail'],
-        component: <Link route="admin_tools"><a>Tools</a></Link>,
+        component: <HeaderDropdownDashboards
+          active={this.state.dashboardsActive}
+          onMouseEnter={() => this.toggleDropdown('dashboardsActive', true)}
+          onMouseLeave={() => this.toggleDropdown('dashboardsActive', false)}
+        />,
         role: 'ADMIN'
       },
       {
