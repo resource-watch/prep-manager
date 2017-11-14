@@ -92,7 +92,7 @@ class Step1 extends React.Component {
                   name: 'photo',
                   label: 'Photo',
                   placeholder: 'Browse file',
-                  default: this.state.form.photo
+                  default: this.state.form.photo.thumb
                 }}
               >
                 {FileImage}
