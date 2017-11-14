@@ -9,6 +9,7 @@ import Field from 'components/form/Field';
 import Input from 'components/form/Input';
 import TextArea from 'components/form/TextArea';
 import FileImage from 'components/form/FileImage';
+import Checkbox from 'components/form/Checkbox';
 
 
 class Step1 extends React.Component {
@@ -46,6 +47,22 @@ class Step1 extends React.Component {
           }}
         >
           {Input}
+        </Field>
+
+        {/* PUBLISHED */}
+        <Field
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
+          onChange={value => this.props.onChange({ published: value.checked })}
+          properties={{
+            name: 'published',
+            label: 'Do you want to publish this resource?',
+            value: 'published',
+            title: 'Published',
+            defaultChecked: this.props.form.published,
+            checked: this.props.form.published
+          }}
+        >
+          {Checkbox}
         </Field>
 
         {/* DESCRIPTION */}
