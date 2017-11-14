@@ -83,19 +83,20 @@ export default class Header extends React.Component {
           {/* We will load the script generated */}
         </div>
         <div className="l-container">
-          <div className="row">
-            <div className="column small-12">
-              <div className="header-main">
+          <div className="header-main">
+            <div className="row">
+              <div className="column small-3">
                 <div className="header-logo -main">
                   <Link route="home">
                     <a>
                       <div className="brand-logo">
                         <img src="/static/images/logo-cms.png" alt="Logo PREP" />
                       </div>
-                      <h1 className="brand-title">Resource Watch</h1>
                     </a>
                   </Link>
                 </div>
+              </div>
+              <div className="column small-8 small-offset-1">
                 <nav className="header-menu">
                   <ul>
                     {items.map((item) => {
