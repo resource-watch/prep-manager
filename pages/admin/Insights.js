@@ -78,7 +78,7 @@ class Insights extends Page {
           <div className="l-container">
             <div className="row">
               <div className="small-12">
-                <div className="page-header-content -padding-b-0">
+                <div className="page-header-content -with-tabs">
                   <Title className="-primary -huge page-header-title" >
                     Stories
                   </Title>

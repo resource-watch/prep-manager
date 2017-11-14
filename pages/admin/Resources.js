@@ -30,6 +30,7 @@ class Resources extends Page {
 
     const { url } = props;
 
+
     this.state = {
       tab: url.query.tab || 'resources',
       id: url.query.id,
@@ -60,24 +61,32 @@ class Resources extends Page {
       >
         {/* PAGE HEADER */}
         <div className="c-page-header -admin">
-          <div className="l-container">
-            <div className="page-header-content -with-tabs">
-              <Title className="-primary -huge page-header-title" >
-                Resources
-              </Title>
-              <Tabs
-                options={DATA_TABS}
-                defaultSelected={tab}
-                selected={tab}
-              />
+          <div className="row">
+            <div className="small-12">
+              <div className="l-container">
+                <div className="page-header-content -with-tabs">
+                  <Title className="-primary -huge page-header-title" >
+                    Resources
+                  </Title>
+                  <Tabs
+                    options={DATA_TABS}
+                    defaultSelected={tab}
+                    selected={tab}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="c-page-section">
-          <div className="l-container">
-            {tab === 'resources' &&
-              <ResourcesTab tab={tab} subtab={subtab} id={id} />
-            }
+          <div className="row">
+            <div className="small-12">
+              <div className="l-container">
+                {tab === 'resources' &&
+                  <ResourcesTab tab={tab} subtab={subtab} id={id} />
+                }
+              </div>
+            </div>
           </div>
         </div>
       </Layout>
