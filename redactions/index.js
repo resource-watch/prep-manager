@@ -27,6 +27,7 @@ export { default as partners } from './admin/partners';
 export { default as pages } from './admin/pages';
 export { default as tools } from './admin/tools';
 export { default as indicators } from './admin/indicators';
+export { default as resources } from './admin/resources';
 export { default as sources } from './admin/sources';
 
 // Toastr
