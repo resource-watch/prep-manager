@@ -9,6 +9,7 @@ import { initStore } from 'store';
 import Page from 'components/admin/layout/Page';
 import Layout from 'components/admin/layout/Layout';
 import Tabs from 'components/ui/Tabs';
+import Title from 'components/ui/Title';
 
 // Tabs
 import DatasetsTab from 'components/admin/datasets/DatasetsTab';
@@ -77,7 +78,9 @@ class Data extends Page {
             <div className="row">
               <div className="column small-12">
                 <div className="page-header-content -with-tabs">
-                  <h1>Data</h1>
+                  <Title className="-primary -huge page-header-title" >
+                    Data
+                  </Title>
                   <Tabs
                     options={DATA_TABS}
                     defaultSelected={tab}
