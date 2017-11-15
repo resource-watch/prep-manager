@@ -4,11 +4,10 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
-import { getIndicators, setFilters } from 'redactions/admin/indicators';
+import { getResources, setFilters } from 'redactions/admin/resources';
 
 // Selectors
-import getFilteredIndicators from 'selectors/admin/indicators';
+import getFilteredResources from 'selectors/admin/resources';
 
 // Components
 import Spinner from 'components/ui/Spinner';
@@ -21,13 +20,14 @@ import DeleteAction from './actions/DeleteAction';
 
 // TDs
 import TitleTD from './td/TitleTD';
+import TypeTD from './td/TypeTD';
 import PublishedTD from './td/PublishedTD';
 
-class IndicatorsTable extends React.Component {
 
+class ResourcesTable extends React.Component {
   componentDidMount() {
     this.props.setFilters([]);
-    this.props.getIndicators();
+    this.props.getResources();
   }
 
   /**
@@ -45,20 +45,20 @@ class IndicatorsTable extends React.Component {
 
   /**
    * HELPERS
-   * - getIndicators
-   * - getFilteredIndicators
+   * - getResources
+   * - getFilteredResources
   */
-  getIndicators() {
-    return this.props.indicators;
+  getResources() {
+    return this.props.resources;
   }
 
-  getFilteredIndicators() {
-    return this.props.filteredIndicators;
+  getFilteredResources() {
+    return this.props.filteredResources;
   }
 
   render() {
     return (
-      <div className="c-indicators-table">
+      <div className="c-resources-table">
         <Spinner className="-light" isLoading={this.props.loading} />
 
         {this.props.error && (
@@ -67,12 +67,12 @@ class IndicatorsTable extends React.Component {
 
         <SearchInput
           input={{
-            placeholder: 'Search indicator'
+            placeholder: 'Search resources'
           }}
           link={{
-            label: 'New indicator',
-            route: 'admin_indicators_detail',
-            params: { tab: 'indicators', id: 'new' }
+            label: 'New resource',
+            route: 'admin_resources_detail',
+            params: { tab: 'resources', id: 'new' }
           }}
           onSearch={this.onSearch}
         />
@@ -81,13 +81,15 @@ class IndicatorsTable extends React.Component {
           <CustomTable
             columns={[
               { label: 'Title', value: 'title', td: TitleTD },
+              { label: 'Type', value: 'resource_type', td: TypeTD },
               { label: 'Published', value: 'published', td: PublishedTD }
+
             ]}
             actions={{
               show: true,
               list: [
-                { name: 'Edit', route: 'admin_indicators_detail', params: { tab: 'indicators', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
-                { name: 'Remove', route: 'admin_indicators_detail', params: { tab: 'indicators', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
+                { name: 'Edit', route: 'admin_resources_detail', params: { tab: 'resources', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Remove', route: 'admin_resources_detail', params: { tab: 'resources', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
             sort={{
@@ -95,7 +97,7 @@ class IndicatorsTable extends React.Component {
               value: 1
             }}
             filters={false}
-            data={this.getFilteredIndicators()}
+            data={this.getFilteredResources()}
             pageSize={20}
             pagination={{
               enabled: true,
@@ -111,36 +113,36 @@ class IndicatorsTable extends React.Component {
   }
 }
 
-IndicatorsTable.defaultProps = {
+ResourcesTable.defaultProps = {
   columns: [],
   actions: {},
   // Store
-  indicators: [],
-  filteredIndicators: []
+  resources: [],
+  filteredResources: []
 };
 
-IndicatorsTable.propTypes = {
+ResourcesTable.propTypes = {
   authorization: PropTypes.string,
   // Store
   loading: PropTypes.bool.isRequired,
-  indicators: PropTypes.array.isRequired,
-  filteredIndicators: PropTypes.array.isRequired,
+  resources: PropTypes.array.isRequired,
+  filteredResources: PropTypes.array.isRequired,
   error: PropTypes.string,
 
   // Actions
-  getIndicators: PropTypes.func.isRequired,
+  getResources: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  loading: state.indicators.indicators.loading,
-  indicators: state.indicators.indicators.list,
-  filteredIndicators: getFilteredIndicators(state),
-  error: state.indicators.indicators.error
+  loading: state.resources.resources.loading,
+  resources: state.resources.resources.list,
+  filteredResources: getFilteredResources(state),
+  error: state.resources.resources.error
 });
 const mapDispatchToProps = dispatch => ({
-  getIndicators: () => dispatch(getIndicators()),
+  getResources: () => dispatch(getResources()),
   setFilters: filters => dispatch(setFilters(filters))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(IndicatorsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ResourcesTable);

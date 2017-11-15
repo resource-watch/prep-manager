@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Redux
 import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
-import { setUser } from 'redactions/user';
-import { setRouter } from 'redactions/routes';
 
 // Layout
 import Page from 'components/admin/layout/Page';
@@ -12,41 +11,28 @@ import Layout from 'components/admin/layout/Layout';
 import Tabs from 'components/ui/Tabs';
 
 // Tabs
-import InsightsTab from 'components/admin/insights/InsightsTab';
+import ResourcesTab from 'components/admin/resources/ResourcesTab';
 
 // Components
 import Title from 'components/ui/Title';
 
 // Contants
 const DATA_TABS = [{
-  label: 'Stories',
-  value: 'insights',
-  route: 'admin_insights',
-  params: { tab: 'insights' }
+  label: 'Resources',
+  value: 'resources',
+  route: 'admin_resources',
+  params: { tab: 'resources' }
 }];
 
-class Insights extends Page {
-  static async getInitialProps({ asPath, pathname, req, store, query, isServer }) {
-    const tab = query.tab || 'datasets';
-    const { id, subtab } = query;
-    const routes = { asPath, pathname, id, subtab, tab };
-    const { user } = isServer ? req : store.getState();
-
-    if (isServer) {
-      store.dispatch(setUser(user));
-      store.dispatch(setRouter(routes));
-    }
-
-    return { user, tab, id, subtab, isServer };
-  }
-
+class Resources extends Page {
   constructor(props) {
     super(props);
 
     const { url } = props;
 
+
     this.state = {
-      tab: url.query.tab || 'insights',
+      tab: url.query.tab || 'resources',
       id: url.query.id,
       subtab: url.query.subtab
     };
@@ -56,7 +42,7 @@ class Insights extends Page {
     const { url } = nextProps;
 
     this.setState({
-      tab: url.query.tab || 'insights',
+      tab: url.query.tab || 'resources',
       id: url.query.id,
       subtab: url.query.subtab
     });
@@ -68,19 +54,19 @@ class Insights extends Page {
 
     return (
       <Layout
-        title="Stories"
-        description="Stories description..."
+        title="Resources"
+        description="Resources description..."
         user={user}
         url={url}
       >
         {/* PAGE HEADER */}
         <div className="c-page-header -admin">
-          <div className="l-container">
-            <div className="row">
-              <div className="small-12">
+          <div className="row">
+            <div className="small-12">
+              <div className="l-container">
                 <div className="page-header-content -with-tabs">
                   <Title className="-primary -huge page-header-title" >
-                    Stories
+                    Resources
                   </Title>
                   <Tabs
                     options={DATA_TABS}
@@ -93,11 +79,11 @@ class Insights extends Page {
           </div>
         </div>
         <div className="c-page-section">
-          <div className="l-container">
-            <div className="row">
-              <div className="small-12">
-                {tab === 'insights' &&
-                  <InsightsTab tab={tab} subtab={subtab} id={id} />
+          <div className="row">
+            <div className="small-12">
+              <div className="l-container">
+                {tab === 'resources' &&
+                  <ResourcesTab tab={tab} subtab={subtab} id={id} />
                 }
               </div>
             </div>
@@ -108,10 +94,9 @@ class Insights extends Page {
   }
 }
 
-Insights.propTypes = {
+Resources.propTypes = {
   user: PropTypes.object,
   url: PropTypes.object
 };
 
-
-export default withRedux(initStore)(Insights);
+export default withRedux(initStore, null, null)(Resources);

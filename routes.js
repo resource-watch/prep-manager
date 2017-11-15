@@ -23,7 +23,10 @@ routes.add('admin_tools_detail', '/admin/tools/:tab/:id/:subtab?', 'admin/ToolsD
 // INDICATORS
 routes.add('admin_indicators', '/admin/indicators/:tab?', 'admin/Indicators');
 routes.add('admin_indicators_detail', '/admin/indicators/:tab/:id/:subtab?', 'admin/IndicatorsDetail');
-// MY RW
+// INDICATORS
+routes.add('admin_resources', '/admin/resources/:tab?', 'admin/Resources');
+routes.add('admin_resources_detail', '/admin/resources/:tab/:id/:subtab?', 'admin/ResourcesDetail');
+// MY PREP
 routes.add('admin_myprep', '/myprep/:tab?/:subtab?', 'admin/MyPREP');
 routes.add('admin_myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'admin/MyPREPDetail');
 // INSIGHTS
