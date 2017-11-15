@@ -25,6 +25,8 @@ class Step1 extends React.Component {
       id: props.id,
       form: { ...initialFormState, ...props.form }
     };
+
+    this.props.onChange(this.state.form);
   }
 
   componentWillReceiveProps(nextProps) {
