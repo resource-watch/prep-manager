@@ -4,7 +4,6 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
 import { getIndicators, setFilters } from 'redactions/admin/indicators';
 
 // Selectors
@@ -24,7 +23,6 @@ import TitleTD from './td/TitleTD';
 import PublishedTD from './td/PublishedTD';
 
 class IndicatorsTable extends React.Component {
-
   componentDidMount() {
     this.props.setFilters([]);
     this.props.getIndicators();
