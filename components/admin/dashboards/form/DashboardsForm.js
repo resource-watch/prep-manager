@@ -126,7 +126,7 @@ class DashboardsForm extends React.Component {
             })
             .catch((err) => {
               this.setState({ submitting: false });
-              toastr.error('Error', `Oops! There was an error, try again`);
+              toastr.error('Error', 'Oops! There was an error, try again');
               console.error(err);
             });
         } else {

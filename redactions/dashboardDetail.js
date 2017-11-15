@@ -1,8 +1,6 @@
 /* global config */
 import 'isomorphic-fetch';
-import find from 'lodash/find';
 import DashboardsService from 'services/DashboardsService';
-import DASHBOARDS from 'utils/dashboards/config';
 
 const service = new DashboardsService();
 
@@ -59,10 +57,6 @@ export function getDashboard(slug) {
   return (dispatch) => {
     // Waiting for fetch from server -> Dispatch loading
     dispatch({ type: GET_DASHBOARD_LOADING });
-
-    const staticDashboards = find(DASHBOARDS, { slug });
-
-    if (staticDashboards) return dispatch({ type: GET_DASHBOARD_SUCCESS, payload: staticDashboards });
 
     return service.fetchData({ id: slug })
       .then((data) => {
