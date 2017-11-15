@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Constants
-import { FORM_ELEMENTS } from 'components/admin/resources/form/constants';
+import { FORM_ELEMENTS, RESOURCES_TYPES } from 'components/admin/resources/form/constants';
 
 // Components
 import Field from 'components/form/Field';
 import Input from 'components/form/Input';
 import TextArea from 'components/form/TextArea';
 import FileImage from 'components/form/FileImage';
+import Select from 'components/form/SelectInput';
 import Checkbox from 'components/form/Checkbox';
 
 
@@ -63,6 +64,27 @@ class Step1 extends React.Component {
           }}
         >
           {Checkbox}
+        </Field>
+
+        {/* TYPE */}
+        <Field
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.resource_type = c; }}
+          onChange={value => this.props.onChange({
+            resource_type: value
+          })}
+          validations={['required']}
+          className="-fluid"
+          options={RESOURCES_TYPES}
+          properties={{
+            name: 'resource_type',
+            label: 'Resource Type',
+            default: this.state.form.resource_type,
+            value: this.state.form.resource_type,
+            required: true,
+            instanceId: 'selectResourceType'
+          }}
+        >
+          {Select}
         </Field>
 
         {/* DESCRIPTION */}
