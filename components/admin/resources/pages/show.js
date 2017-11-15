@@ -16,7 +16,7 @@ function ResourcesShow(props) {
       <ResourcesForm
         id={id}
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'resources' })}
+        onSubmit={() => Router.pushRoute('admin_resources', { tab: 'resources' })}
       />
     </div>
   );
