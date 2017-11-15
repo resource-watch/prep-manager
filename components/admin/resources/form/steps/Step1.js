@@ -17,14 +17,20 @@ class Step1 extends React.Component {
   constructor(props) {
     super(props);
 
+    const initialFormState = {
+      resource_type: RESOURCES_TYPES[0].value
+    };
+
     this.state = {
       id: props.id,
-      form: props.form
+      form: { ...initialFormState, ...props.form }
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ form: nextProps.form });
+    this.setState({
+      form: { ...this.state.form, ...nextProps.form }
+    });
   }
 
   render() {
