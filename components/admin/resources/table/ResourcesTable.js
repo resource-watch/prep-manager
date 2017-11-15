@@ -20,6 +20,7 @@ import DeleteAction from './actions/DeleteAction';
 
 // TDs
 import TitleTD from './td/TitleTD';
+import TypeTD from './td/TypeTD';
 import PublishedTD from './td/PublishedTD';
 
 
@@ -80,7 +81,9 @@ class ResourcesTable extends React.Component {
           <CustomTable
             columns={[
               { label: 'Title', value: 'title', td: TitleTD },
+              { label: 'Type', value: 'resource_type', td: TypeTD },
               { label: 'Published', value: 'published', td: PublishedTD }
+
             ]}
             actions={{
               show: true,
