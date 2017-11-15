@@ -57,7 +57,7 @@ class DashboardsDetail extends Page {
     const { id } = this.state;
 
     if (this.service) {
-      this.service.fetchData({ id })
+      this.service.fetchData(id)
         .then((data) => {
           this.setState({
             data: data || {}
@@ -87,8 +87,8 @@ class DashboardsDetail extends Page {
       return `New ${singular(tab)}`;
     }
 
-    if (data.name) {
-      return data.name;
+    if (data.title) {
+      return data.title;
     }
 
     return '-';

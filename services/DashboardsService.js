@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 import { get, post, remove } from 'utils/request';
 
 export default class DashboardsService {
-
   constructor(options = {}) {
     this.opts = options;
   }

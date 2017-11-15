@@ -64,7 +64,7 @@ class DatasetsForm extends React.Component {
                   loadingColumns: false
                 });
               })
-              .catch((err) => {
+              .catch(() => {
                 this.setState({ loadingColumns: false });
               });
           } else {
