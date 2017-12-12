@@ -265,7 +265,7 @@ class Step1 extends React.Component {
             options={this.setProviderOptions()}
             properties={{
               name: 'provider',
-              label: 'Provider',
+              label: 'Format',
               default: this.state.form.provider,
               value: this.state.form.provider,
               disabled: !!this.state.dataset,
