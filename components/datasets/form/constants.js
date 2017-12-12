@@ -59,39 +59,43 @@ export const PROVIDER_TYPES_DICTIONARY = {
   }
 };
 
-export const STATE_DEFAULT = {
-  step: 1,
-  stepLength: 1,
-  submitting: false,
-  loading: false,
-  dataset: {},
-  form: {
-    authorization: '',
-    // STEP 1
-    name: '',
-    subtitle: '',
-    application: [],
-    type: 'tabular',
-    provider: null,
-    connectorType: '',
-    connectorUrlHint: '',
-    published: false,
-    geoInfo: false,
-    verified: false,
-    env: 'preproduction',
-    tableName: '',
-    widgetRelevantProps: [],
-    layerRelevantProps: [],
-    connectorUrl: '',
-    dataPath: '',
-    legend: {
-      lat: undefined,
-      long: undefined,
-      date: [],
-      country: []
+export function getDefaultState(props = {}) {
+  const { basic } = props;
+
+  return {
+    step: 1,
+    stepLength: 1,
+    submitting: false,
+    loading: false,
+    dataset: {},
+    form: {
+      authorization: '',
+      // STEP 1
+      name: '',
+      subtitle: '',
+      application: [],
+      type: 'tabular',
+      provider: null,
+      connectorType: '',
+      connectorUrlHint: '',
+      published: false,
+      geoInfo: false,
+      verified: false,
+      env: basic ? 'production' : 'preproduction',
+      tableName: '',
+      widgetRelevantProps: [],
+      layerRelevantProps: [],
+      connectorUrl: '',
+      dataPath: '',
+      legend: {
+        lat: undefined,
+        long: undefined,
+        date: [],
+        country: []
+      }
     }
-  }
-};
+  };
+}
 
 export const DATASET_TYPES = [
   {
