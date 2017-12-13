@@ -51,13 +51,6 @@ class Data extends Page {
     };
   }
 
-  componentWillMount() {
-    const { url } = this.props;
-    const { token } = url.query || {};
-
-    if (token) localStorage.setItem('token', token);
-  }
-
   componentWillReceiveProps(nextProps) {
     const { url } = nextProps;
 
@@ -66,6 +59,13 @@ class Data extends Page {
       id: url.query.id,
       subtab: url.query.subtab
     });
+  }
+
+  componentDidMount() {
+    const { url } = this.props;
+    const { token } = url.query || {};
+
+    if (token) localStorage.setItem('token', token);
   }
 
   render() {
