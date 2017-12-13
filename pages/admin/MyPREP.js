@@ -72,6 +72,13 @@ class MyPREP extends Page {
     });
   }
 
+  componentDidMount() {
+    const { url } = this.props;
+    const { token } = url.query || {};
+
+    if (token) sessionStorage.setItem('token', token);
+  }
+
   getData(key, value) {
     let data = null;
     // First search for exactly match
