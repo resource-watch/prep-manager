@@ -63,6 +63,13 @@ class MyPREP extends Page {
     };
   }
 
+  componentWillMount() {
+    const { url } = this.props;
+    const { token } = url.query || {};
+
+    if (token) localStorage.setItem('token', token);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { url } = nextProps;
 
@@ -70,13 +77,6 @@ class MyPREP extends Page {
       tab: url.query.tab || 'profile',
       subtab: url.query.subtab
     });
-  }
-
-  componentDidMount() {
-    const { url } = this.props;
-    const { token } = url.query || {};
-
-    if (token) sessionStorage.setItem('token', token);
   }
 
   getData(key, value) {
