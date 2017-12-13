@@ -123,8 +123,9 @@ app.prepare()
 
     // Authentication
     server.get('/auth', auth.authenticate({ failureRedirect: '/login' }), (req, res) => {
-      if (req.user.role === 'ADMIN' && /admin/.test(req.session.referrer)) return res.redirect('/admin');
-      return res.redirect('/myprep');
+      const token = (req.query || {}).token;
+      if (req.user.role === 'ADMIN' && /admin/.test(req.session.referrer)) return res.redirect(`/admin?token=${token}`);
+      return res.redirect(`/myprep?token=${token}`);
     });
     server.get('/login', auth.login);
     server.get('/logout', (req, res) => {
