@@ -73,7 +73,7 @@ export default class User {
             // this.user.expires = Date.now() + this.user.clientMaxAge;
 
             // Save changes to user
-            this.saveLocalStore('user', this.user);
+            // this.saveLocalStore('user', this.user);
             resolve(this.user);
           } else {
             reject(Error('XMLHttpRequest failed: Unable to get user'));
