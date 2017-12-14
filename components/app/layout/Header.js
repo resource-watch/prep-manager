@@ -6,6 +6,9 @@ import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import MediaQuery from 'react-responsive';
 
+// Connect
+import { connect } from 'react-redux';
+
 // Next
 import { Link } from 'routes';
 
@@ -82,7 +85,6 @@ class Header extends React.Component {
       {
         name: 'Personal Area',
         component: <HeaderUser
-          user={this.props.user}
           active={this.state.myprepActive}
           onMouseEnter={() => this.toggleDropdown('myprepActive', true)}
           onMouseLeave={() => this.toggleDropdown('myprepActive', false)}
@@ -149,4 +151,8 @@ Header.propTypes = {
   pageHeader: PropTypes.bool
 };
 
-export default Header;
+export default connect(
+  state => ({
+    user: state.user
+  })
+)(Header);

@@ -35,7 +35,7 @@ export default class Header extends React.Component {
 
 
   render() {
-    const { url, user } = this.props;
+    const { url } = this.props;
 
     const items = [
       {
@@ -69,7 +69,6 @@ export default class Header extends React.Component {
       {
         name: 'User',
         component: <HeaderUser
-          user={this.props.user}
           active={this.state.myprepActive}
           onMouseEnter={() => this.toggleDropdown('myprepActive', true)}
           onMouseLeave={() => this.toggleDropdown('myprepActive', false)}
@@ -104,8 +103,6 @@ export default class Header extends React.Component {
                         '-active': item.pathnames && item.pathnames.includes(url.pathname)
                       });
 
-                      if (item.role && user.role !== item.role) return null;
-
                       return (
                         <li key={item.name} className={activeClassName}>
                           {item.component}
@@ -127,8 +124,6 @@ Header.defaultProps = {
   url: {}
 };
 
-
 Header.propTypes = {
-  url: PropTypes.object,
-  user: PropTypes.object
+  url: PropTypes.object
 };

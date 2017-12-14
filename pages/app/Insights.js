@@ -45,7 +45,6 @@ class Insights extends Page {
   }
 
   componentDidMount() {
-    super.componentDidMount();
     this.props.getInsights();
   }
 
