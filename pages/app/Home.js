@@ -59,7 +59,7 @@ const exploreCards = [
 ];
 
 class Home extends Page {
-  static insightsCardsStatic(insightsData) {
+  static insightsCardsStatic(insightsData = []) {
     return insightsData.map(c =>
       (<CardStatic
         key={`insight-card-${c.tag}`}
