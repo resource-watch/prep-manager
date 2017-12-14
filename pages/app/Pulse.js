@@ -55,7 +55,6 @@ class Pulse extends Page {
    * - componentWillUnmount
   */
   componentDidMount() {
-    super.componentDidMount();
     this.mounted = true;
     // This is not sending anything, for the moment
     this.props.getLayers();

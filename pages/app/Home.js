@@ -114,7 +114,6 @@ class Home extends Page {
   }
 
   componentDidMount() {
-    super.componentDidMount();
     this.props.getInsights();
   }
 
