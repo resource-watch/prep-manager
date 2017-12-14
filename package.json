@@ -111,7 +111,6 @@
     "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
-    "@storybook/react": "3.2.11",
     "babel-cli": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "21.0.2",
@@ -132,7 +131,6 @@
   "scripts": {
     "check-datasets": "NODE_ENV=test babel-node ./tasks/check-datasets.js",
     "check-layers": "NODE_ENV=test babel-node ./tasks/check-layers.js",
-    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "lint": "eslint .",
     "dev": "node index.js",
