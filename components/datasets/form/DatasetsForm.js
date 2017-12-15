@@ -6,7 +6,7 @@ import { toastr } from 'react-redux-toastr';
 // Service
 import DatasetsService from 'services/DatasetsService';
 
-import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/datasets/form/constants';
+import { FORM_ELEMENTS, getDefaultState } from 'components/datasets/form/constants';
 
 import Navigation from 'components/form/Navigation';
 import Step1 from 'components/datasets/form/steps/Step1';
@@ -16,11 +16,13 @@ class DatasetsForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign({}, STATE_DEFAULT, {
+    const defaultState = getDefaultState(props);
+
+    this.state = Object.assign({}, defaultState, {
       loading: !!props.dataset,
       loadingColumns: !!props.dataset,
       columns: [],
-      form: Object.assign({}, STATE_DEFAULT.form, {
+      form: Object.assign({}, defaultState.form, {
         application: props.application,
         authorization: props.authorization
       })
