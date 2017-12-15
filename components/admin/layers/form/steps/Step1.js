@@ -66,7 +66,7 @@ class Step1 extends React.Component {
           options={PROVIDER_OPTIONS}
           properties={{
             name: 'provider',
-            label: 'Provider',
+            label: 'Format',
             type: 'text',
             required: true,
             default: this.state.form.provider

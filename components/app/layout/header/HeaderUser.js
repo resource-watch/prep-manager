@@ -1,49 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import { Link } from 'routes';
+import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 
-// Utils
-import { get } from 'utils/request';
+// Services
+import UserService from 'services/UserService';
 
 // Components
 import TetherComponent from 'react-tether';
 
 class HeaderUser extends React.Component {
-  /**
-   * UI EVENTS
-   * - logout
-  */
-  logout(e) {
-    if (e) {
-      e.preventDefault();
-    }
+  static logout(e) {
+    if (e) e.preventDefault();
 
-    // Get to logout
-    get({
-      url: `${process.env.CONTROL_TOWER_URL}/auth/logout`,
-      withCredentials: true,
-      onSuccess: () => {
-        try {
-          localStorage.removeItem('user');
-          window.location.href = `/logout?callbackUrl=${window.location.href}`;
-        } catch (err) {
-          window.location.href = `/logout?callbackUrl=${window.location.href}`;
-        }
-      },
-      onError: (err) => {
-        toastr.error('Error', err);
-      }
-    });
+    UserService.logout()
+      .then(() => {
+        localStorage.removeItem('token');
+        window.location.href = `/logout?callbackUrl=${window.location.href}`;
+      })
+      .catch(({ errors }) => {
+        const { status, details } = errors;
+        console.error(status, details);
+
+        toastr.error('Ops, something went wrong.', details);
+      });
   }
-
 
   render() {
     const { user } = this.props;
 
-    if (!isEmpty(user)) {
+    if (user.token) {
       const activeNotificationClassName = classnames({
         '-active': !!user.notifications
       });
@@ -90,7 +78,7 @@ class HeaderUser extends React.Component {
                   </li>
                 }
                 <li className="header-dropdown-list-item">
-                  <a onClick={this.logout} href="/logout">Logout</a>
+                  <a onClick={HeaderUser.logout} href="/logout">Logout</a>
                 </li>
               </ul>
             }
@@ -99,7 +87,7 @@ class HeaderUser extends React.Component {
       );
     }
 
-    if (isEmpty(user)) {
+    if (!user.token) {
       return (
         <TetherComponent
           attachment="top center"
@@ -158,4 +146,8 @@ HeaderUser.propTypes = {
 };
 
 
-export default HeaderUser;
+export default connect(
+  state => ({
+    user: state.user
+  })
+)(HeaderUser);

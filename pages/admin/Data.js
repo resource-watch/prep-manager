@@ -61,6 +61,13 @@ class Data extends Page {
     });
   }
 
+  componentDidMount() {
+    const { url } = this.props;
+    const { token } = url.query || {};
+
+    if (token) localStorage.setItem('token', token);
+  }
+
   render() {
     const { url, user } = this.props;
     const { tab, subtab, id } = this.state;
