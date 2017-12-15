@@ -22,6 +22,8 @@ spec:
             memory: "0Mi"
             cpu: "0m"
         env:
+          - name: NODE_ENV
+            value: "production"
           - name: SESSION_ENV
             value: "staging"
           - name: SECRET
