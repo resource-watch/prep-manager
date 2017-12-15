@@ -32,6 +32,7 @@ class Head extends React.PureComponent {
         {category && <meta name="addsearch-category" content={category} />}
         <link rel="icon" href="/static/favicon.ico" />
         <link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Lato:400,300,700" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
         {Head.getStyles()}
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />
       </HeadNext>
