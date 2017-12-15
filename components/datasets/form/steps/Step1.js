@@ -110,7 +110,7 @@ class Step1 extends React.Component {
     return (
       <div>
         <fieldset className="c-field-container">
-          {user.role === 'ADMIN' ?
+          {(user.role === 'ADMIN' && !basic) &&
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.env = c; }}
               hint={'Choose "preproduction" to see this dataset it only as admin, "production" option will show it in public site.'}
@@ -128,25 +128,8 @@ class Step1 extends React.Component {
               }}
             >
               {Select}
-            </Field>
-            :
-            <Field
-              ref={(c) => { if (c) FORM_ELEMENTS.elements.env = c; }}
-              hint="Environment"
-              className="-fluid"
-              options={[{ label: 'Pre-production', value: 'preproduction' }, { label: 'Production', value: 'production' }]}
-              properties={{
-                name: 'env',
-                label: 'Environment',
-                hidden: true,
-                default: 'preproduction',
-                value: this.props.form.env
-              }}
-            >
-              {Input}
-            </Field>
-          }
-          {user.role === 'ADMIN' && !basic &&
+            </Field>}
+          {(user.role === 'ADMIN' && !basic) &&
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
               onChange={value => this.props.onChange({ published: value.checked })}
@@ -265,7 +248,7 @@ class Step1 extends React.Component {
             options={this.setProviderOptions()}
             properties={{
               name: 'provider',
-              label: 'Provider',
+              label: 'Format',
               default: this.state.form.provider,
               value: this.state.form.provider,
               disabled: !!this.state.dataset,
@@ -713,6 +696,10 @@ Step1.propTypes = {
 
   // Store
   user: PropTypes.object.isRequired
+};
+
+Step1.defaultProps = {
+  basic: false
 };
 
 const mapStateToProps = state => ({

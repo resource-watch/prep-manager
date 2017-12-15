@@ -16,7 +16,10 @@ class HeaderUser extends React.Component {
     if (e) e.preventDefault();
 
     UserService.logout()
-      .then(() => { window.location.href = `/logout?callbackUrl=${window.location.href}`; })
+      .then(() => {
+        localStorage.removeItem('token');
+        window.location.href = `/logout?callbackUrl=${window.location.href}`;
+      })
       .catch(({ errors }) => {
         const { status, details } = errors;
         console.error(status, details);
