@@ -5,7 +5,6 @@ const next = require('next');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const basicAuth = require('basic-auth');
 const sass = require('node-sass');
 const postcssMiddleware = require('postcss-middleware');
 const redis = require('redis');
@@ -33,25 +32,6 @@ const handle = routes.getRequestHandler(app, ({ req, res, route, query }) => {
 
 // Express app creation
 const server = express();
-
-function checkBasicAuth(users) {
-  return function authMiddleware(req, res, nextAction) {
-    if (!/(AddSearchBot)|(HeadlessChrome)/.test(req.headers['user-agent'])) {
-      const user = basicAuth(req);
-      let authorized = false;
-      if (user && ( (user.name === users[0].name && user.pass === users[0].pass) ||
-        (user.name === users[1].name && user.pass === users[1].pass) ) ) {
-        authorized = true;
-      }
-
-      if (!authorized) {
-        res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-        return res.sendStatus(401);
-      }
-    }
-    return nextAction();
-  };
-}
 
 function isAuthenticated(req, res, nextAction) {
   // Saving referrer of user
