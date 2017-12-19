@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'routes';
+
+import { toastr } from 'react-redux-toastr';
 
 // Redux
 import { connect } from 'react-redux';
-import { getDashboards, setFilters } from 'redactions/admin/dashboards';
+import { getDashboards, deleteDashboard, setFilters } from 'redactions/admin/dashboards';
 
 // Selectors
 import getFilteredDashboards from 'selectors/admin/dashboards';
@@ -19,6 +20,7 @@ class DashboardsList extends React.Component {
     super(props);
 
     this.onSearch = this.onSearch.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +44,28 @@ class DashboardsList extends React.Component {
     }
   }
 
+  onDelete(dashboard) {
+    toastr.confirm(`Are you sure that you want to delete: "${dashboard.name}"`, {
+      onOk: () => {
+        this.props.deleteDashboard({
+          id: dashboard.id
+        })
+          .then(() => {
+            const { getDashboardsFilters } = this.props;
+
+            this.props.setFilters([]);
+            this.props.getDashboards({
+              filters: getDashboardsFilters
+            });
+            toastr.success('Success', `The dashboard "${dashboard.id}" - "${dashboard.name}" has been removed correctly`);
+          })
+          .catch((err) => {
+            toastr.error('Error', `The dashboard "${dashboard.id}" - "${dashboard.name}" was not deleted. Try again. ${err}`);
+          });
+      }
+    });
+  }
+
   render() {
     const { dashboards, routes } = this.props;
 
@@ -58,27 +82,22 @@ class DashboardsList extends React.Component {
             route: routes.detail,
             params: { tab: 'dashboards', id: 'new' }
           }}
-          buttonClass="-app"
           onSearch={this.onSearch}
         />
 
         <div className="l-row row list">
           {dashboards.map(dashboard => (
             <div
-              className="column list-item small-12"
+              className="column list-item small-12 medium-4"
               key={dashboard.id}
             >
               <DashboardsListCard
                 dashboard={dashboard}
                 routes={routes}
+                onDelete={this.onDelete}
               />
             </div>
           ))}
-          <div className="buttons-container">
-            <Link>
-              <a className="c-button -app" href="/dashboards">Got to dashboards</a>
-            </Link>
-          </div>
         </div>
       </div>
     );
@@ -105,6 +124,7 @@ DashboardsList.propTypes = {
 
   // Actions
   getDashboards: PropTypes.func.isRequired,
+  deleteDashboard: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired
 };
 
@@ -115,9 +135,10 @@ const mapStateToProps = state => ({
   error: state.dashboards.dashboards.error
 });
 
-const mapDispatchToProps = dispatch => ({
-  getDashboards: options => dispatch(getDashboards(options)),
-  setFilters: filters => dispatch(setFilters(filters))
-});
+const mapDispatchToProps = {
+  getDashboards,
+  deleteDashboard,
+  setFilters
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardsList);
