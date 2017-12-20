@@ -17,7 +17,7 @@ function DashboardsListCard({ dashboard, routes, onDelete }) {
           >
             <a>
               <Title className="-default">
-                {dashboard.name}
+                {dashboard.title}
               </Title>
             </a>
           </Link>

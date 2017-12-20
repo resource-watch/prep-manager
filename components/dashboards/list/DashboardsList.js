@@ -130,9 +130,9 @@ DashboardsList.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.user,
-  loading: state.dashboards.dashboards.loading,
+  loading: state.dashboards.loading,
   dashboards: getFilteredDashboards(state),
-  error: state.dashboards.dashboards.error
+  error: state.dashboards.error
 });
 
 const mapDispatchToProps = {
