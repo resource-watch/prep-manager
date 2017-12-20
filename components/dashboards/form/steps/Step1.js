@@ -19,6 +19,9 @@ import Checkbox from 'components/form/Checkbox';
 import Wysiwyg from 'components/form/VizzWysiwyg';
 import WidgetBlock from 'components/dashboards/wysiwyg/widget-block/widget-block';
 import WidgetBlockEdition from 'components/dashboards/wysiwyg/widget-block-edition/widget-block-edition';
+import ToolBlock from 'components/dashboards/wysiwyg/tool-block/tool-block';
+import ToolBlockEdition from 'components/dashboards/wysiwyg/tool-block-edition/tool-block-edition';
+
 
 class Step1 extends React.Component {
   constructor(props) {
@@ -137,6 +140,11 @@ class Step1 extends React.Component {
                 widget: {
                   Component: WidgetBlock,
                   EditionComponent: WidgetBlockEdition,
+                  renderer: 'modal'
+                },
+                tool: {
+                  Component: ToolBlock,
+                  EditionComponent: ToolBlockEdition,
                   renderer: 'modal'
                 }
               },

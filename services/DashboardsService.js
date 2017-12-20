@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 import { get, post, remove } from 'utils/request';
 
 import sortBy from 'lodash/sortBy';
-import { Deserializer } from 'jsonapi-serializer';
 
 export default class DashboardsService {
   constructor(options = {}) {
@@ -28,11 +27,9 @@ export default class DashboardsService {
           key: 'Authorization',
           value: this.opts.authorization
         }],
-        onSuccess: response => new Deserializer({
-          keyForAttribute: 'underscore_case'
-        }).deserialize(response, (err, dashboards) => {
-          resolve(sortBy(dashboards, 'name'));
-        }),
+        onSuccess: (response) => {
+          resolve(sortBy(response, 'title'));
+        },
         onError: (error) => {
           reject(error);
         }
@@ -44,12 +41,15 @@ export default class DashboardsService {
     return new Promise((resolve, reject) => {
       get({
         url: `${process.env.API_URL}/dashboards/${id}`,
+        headers: [{
+          key: 'Content-Type',
+          value: 'application/json'
+        }, {
+          key: 'Authorization',
+          value: this.opts.authorization
+        }],
         onSuccess: (response) => {
-          new Deserializer({
-            keyForAttribute: 'underscore_case'
-          }).deserialize(response, (err, dashboard) => {
-            resolve(dashboard);
-          });
+          resolve(response);
         },
         onError: (error) => {
           reject(error);
@@ -72,11 +72,7 @@ export default class DashboardsService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          new Deserializer({
-            keyForAttribute: 'underscore_case'
-          }).deserialize(response, (err, dashboard) => {
-            resolve(dashboard);
-          });
+          resolve(response);
         },
         onError: (error) => {
           reject(error);

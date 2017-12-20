@@ -95,10 +95,10 @@ class DashboardsForm extends React.Component {
           this.service.saveData({
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body
+            body: body.data.attributes
           })
             .then((data) => {
-              toastr.success('Success', `The dashboard "${data.id}" - "${data.name}" has been uploaded correctly`);
+              toastr.success('Success', `The dashboard "${data.id}" - "${data.title}" has been uploaded correctly`);
 
               if (this.props.onSubmit) this.props.onSubmit();
             })
