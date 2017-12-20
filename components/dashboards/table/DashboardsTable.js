@@ -80,7 +80,7 @@ class DashboardsTable extends React.Component {
         {!this.props.error && (
           <CustomTable
             columns={[
-              { label: 'Name', value: 'name', td: NameTD },
+              { label: 'Name', value: 'title', td: NameTD },
               { label: 'Preview', value: 'slug', td: PreviewTD },
               { label: 'Published', value: 'published', td: PublishedTD }
             ]}
@@ -132,12 +132,14 @@ DashboardsTable.propTypes = {
   setFilters: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  loading: state.dashboards.dashboards.loading,
-  dashboards: state.dashboards.dashboards.list,
-  filteredDashboards: getFilteredDashboards(state),
-  error: state.dashboards.dashboards.error
-});
+const mapStateToProps = (state) => {
+  return {
+    loading: state.dashboards.loading,
+    dashboards: state.dashboards.list,
+    filteredDashboards: getFilteredDashboards(state),
+    error: state.dashboards.error
+  };
+};
 const mapDispatchToProps = dispatch => ({
   getDashboards: () => dispatch(getDashboards()),
   setFilters: filters => dispatch(setFilters(filters))

@@ -17,6 +17,7 @@ class WidgetBlock extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
 
     // Redux
     setWidgetLoading: PropTypes.func.isRequired,
@@ -54,8 +55,9 @@ class WidgetBlock extends React.Component {
    * - setFavourite
   */
   setFavourite = (props) => {
-    const { item } = props;
-    const favourite = props.user.favourites.find(f =>
+    const { item, user } = props;
+
+    const favourite = user.favourites && user.favourites.find(f =>
       f.attributes.resourceId === item.content.widgetId
     );
 

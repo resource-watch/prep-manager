@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Autobind } from 'es-decorators';
-import { Router, Link } from 'routes';
+import { Router } from 'routes';
 import isEqual from 'lodash/isEqual';
 import classnames from 'classnames';
 import { toastr } from 'react-redux-toastr';

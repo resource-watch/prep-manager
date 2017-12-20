@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
 import { Serializer } from 'jsonapi-serializer';
 import { toastr } from 'react-redux-toastr';
 
@@ -39,6 +40,7 @@ class DashboardsForm extends React.Component {
     const { id } = this.state;
     // Get the dashboards and fill the
     // state form with its params if the id exists
+
     if (id) {
       this.service.fetchData({ id })
         .then((data) => {
@@ -78,14 +80,22 @@ class DashboardsForm extends React.Component {
           // Start the submitting
           this.setState({ submitting: true });
 
+          const body = new Serializer('dashboard', {
+            keyForAttribute: 'dash-case',
+            attributes: Object.keys(this.state.form)
+          }).serialize(this.state.form);
+
+          if (!id) {
+            // Shit: this commit is not published yet
+            // https://github.com/SeyZ/jsonapi-serializer/commit/392ec874c4232125e44a08580a929571ff6229c2
+            delete body.data.id;
+          }
+
           // Save data
           this.service.saveData({
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body: new Serializer('dashboard', {
-              keyForAttribute: 'dash-case',
-              attributes: Object.keys(this.state.form)
-            }).serialize(this.state.form)
+            body
           })
             .then((data) => {
               toastr.success('Success', `The dashboard "${data.id}" - "${data.name}" has been uploaded correctly`);
@@ -123,7 +133,7 @@ class DashboardsForm extends React.Component {
     Object.keys(params).forEach((f) => {
       switch (f) {
         // TODO: if the API doesn't send it we won't need to handle it
-        case 'photo': {
+        case 'image': {
           if (params[f] && params[f].original !== '/images/original/missing.png') {
             newForm[f] = params[f].original;
           }

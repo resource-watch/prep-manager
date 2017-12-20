@@ -28,7 +28,10 @@ export const fetchWidgets = createThunkAction('WIDGET_BLOCK_EDITION_FETCH_DATA',
   });
 
   fetch(`${process.env.WRI_API_URL}/widget?${qParams}`)
-    .then(response => response.json())
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw new Error(response.statusText);
+    })
     .then(({ data, meta }) => {
       dispatch(setLoading(false));
       dispatch(setError(null));

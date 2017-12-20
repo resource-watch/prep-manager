@@ -43,16 +43,16 @@ class Step1 extends React.Component {
         <fieldset className="c-field-container">
           {/* NAME */}
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.name = c; }}
-            onChange={value => this.props.onChange({ name: value })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.title = c; }}
+            onChange={value => this.props.onChange({ title: value })}
             validations={['required']}
             className="-fluid"
             properties={{
-              name: 'name',
+              name: 'title',
               label: 'Name',
               type: 'text',
               required: true,
-              default: this.state.form.name
+              default: this.state.form.title
             }}
           >
             {Input}
@@ -73,38 +73,23 @@ class Step1 extends React.Component {
             {TextArea}
           </Field>
 
-          {/* DESCRIPTION */}
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.description = c; }}
-            onChange={value => this.props.onChange({ description: value })}
-            className="-fluid"
-            properties={{
-              name: 'description',
-              label: 'Description',
-              rows: '6',
-              default: this.state.form.description
-            }}
-          >
-            {TextArea}
-          </Field>
-
           {/* THUMBNAIL */}
           <div className="c-field-row">
             <div className="row l-row">
               <div className="column small-12 medium-6">
                 <Field
-                  ref={(c) => { if (c) FORM_ELEMENTS.elements.photo = c; }}
+                  ref={(c) => { if (c) FORM_ELEMENTS.elements.image = c; }}
                   onChange={(value) => {
-                    this.props.onChange({ photo: value });
+                    this.props.onChange({ image: value });
                   }}
                   validations={['required']}
                   className="-fluid"
                   properties={{
-                    name: 'photo',
+                    name: 'image',
                     label: 'Photo',
                     placeholder: 'Browse file',
                     baseUrl: process.env.STATIC_SERVER_URL,
-                    default: this.state.form.photo,
+                    default: this.state.form.image,
                     required: true
                   }}
                 >
@@ -120,8 +105,7 @@ class Step1 extends React.Component {
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
               onChange={value => this.props.onChange({
-                published: value.checked,
-                private: !value.checked
+                published: value.checked
               })}
               properties={{
                 name: 'published',

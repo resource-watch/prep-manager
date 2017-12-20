@@ -2,29 +2,6 @@ import 'isomorphic-fetch';
 import Promise from 'bluebird';
 
 export default class UserService {
-  static logout() {
-    return new Promise((resolve, reject) => {
-      fetch(`${process.env.CONTROL_TOWER_URL}/auth/logout`, {
-        method: 'GET',
-        credentials: 'include'
-      })
-        .then((response) => {
-          const { status, statusText } = response;
-
-          if (status === 200) return resolve();
-
-          const errorObject = {
-            errors: {
-              status,
-              details: statusText
-            }
-          };
-          throw errorObject;
-        })
-        .catch((errors) => { reject(errors); });
-    });
-  }
-
   constructor(options) {
     if (!options) {
       throw new Error('options params is required.');
@@ -72,7 +49,7 @@ export default class UserService {
    * @returns {Promise}
    */
   getFavouriteWidgets(token) {
-    return this.getFavourites(token, 'widget', true);
+    return this.setFavourites(token, 'widget', true);
   }
 
   /**
@@ -82,7 +59,7 @@ export default class UserService {
    * @returns {Promise}
    */
   getFavouriteDatasets(token) {
-    return this.getFavourites(token, 'dataset', true);
+    return this.setFavourites(token, 'dataset', true);
   }
 
   /**
@@ -91,17 +68,17 @@ export default class UserService {
     * @param {token} User token
    * @returns {Promise}
    */
-  getFavourites(token, resourceType = null, include = true) {
+  setFavourites(token, resourceType = null, include = true) {
     const resourceTypeSt = (resourceType !== null) ? `&resource-type=${resourceType}` : '';
-    return new Promise((resolve) => {
-      fetch(`${this.opts.apiURL}/favourite?include=${include}${resourceTypeSt}`, {
-        headers: {
-          Authorization: token
-        }
-      })
-        .then(response => response.json())
-        .then(jsonData => resolve(jsonData.data));
-    });
+    return fetch(`${this.opts.apiURL}/favourite?include=${include}${resourceTypeSt}&application=${[process.env.APPLICATIONS]}`, {
+      headers: {
+        Authorization: token
+      }
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        throw new Error(response.statusText);
+      });
   }
 
   /**
@@ -117,27 +94,10 @@ export default class UserService {
         Authorization: token
       }
     })
-      .then(response => response.json());
-  }
-
-  /**
-   * Creates a new favourite for a widget
-   * @param {widgetId} Widget ID
-   * @param {token} User token
-   * @returns {Promise}
-   */
-  createFavouriteWidget(widgetId, token) {
-    return this.createFavourite('widget', widgetId, token);
-  }
-
-  /**
-   * Creates a new favourite for a dataset
-   * @param {datasetId} Dataset ID
-   * @param {token} User token
-   * @returns {Promise}
-   */
-  createFavouriteDataset(datasetId, token) {
-    return this.createFavourite('dataset', datasetId, token);
+      .then((response) => {
+        if (response.ok) return response.json();
+        throw new Error(response.statusText);
+      });
   }
 
   /**
@@ -160,20 +120,24 @@ export default class UserService {
         Authorization: token
       }
     })
-      .then(response => response.json());
+      .then((response) => {
+        if (response.ok) return response.json();
+        throw new Error(response.statusText);
+      });
   }
 
   /**
    * Creates a subscription for a pair of dataset and country
    * @param {datasetID} ID of the dataset
    * @param {object} Either { type; 'iso', id:'ESP' } or { type: 'geostore', id: 'sakldfa7ads0ka'}
+   * @param {string} language Two-letter locale
    * @returns {Promise}
    */
-  createSubscriptionToArea(areaId, datasets, datasetsQuery, user, name = '') {
+  createSubscriptionToArea(areaId, datasets, datasetsQuery, user, language, name = '') {
     const bodyObj = {
       name,
       application: process.env.APPLICATIONS,
-      language: 'en',
+      language,
       datasets,
       datasetsQuery,
       resource: {
@@ -198,10 +162,10 @@ export default class UserService {
   /**
    *  Update Subscription
    */
-  updateSubscriptionToArea(subscriptionId, datasets, datasetsQuery, user) {
+  updateSubscriptionToArea(subscriptionId, datasets, datasetsQuery, user, language) {
     const bodyObj = {
       application: process.env.APPLICATIONS,
-      language: 'en',
+      language,
       datasets,
       datasetsQuery
     };
@@ -221,7 +185,7 @@ export default class UserService {
    */
   getSubscriptions(token) {
     return new Promise((resolve) => {
-      fetch(`${this.opts.apiURL}/subscriptions?application=${[process.env.APPLICATIONS].join(',')}`, {
+      fetch(`${this.opts.apiURL}/subscriptions?application=${[process.env.APPLICATIONS]}`, {
         headers: {
           Authorization: token
         }
@@ -252,7 +216,7 @@ export default class UserService {
    */
   getUserAreas(token) {
     return new Promise((resolve, reject) => {
-      fetch(`${this.opts.apiURL}/area?application=${[process.env.APPLICATIONS].join(',')}`, {
+      fetch(`${this.opts.apiURL}/area?application=${[process.env.APPLICATIONS]}`, {
         headers: {
           Authorization: token
         }
@@ -335,5 +299,40 @@ export default class UserService {
       }
     })
       .then(response => response.json());
+  }
+
+  uploadPhoto(file, user) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        const bodyObj = {
+          data: {
+            attributes: {
+              user_id: user.id,
+              avatar: reader.result
+            }
+          }
+        };
+
+        return fetch(`${process.env.API_URL}/profiles`, {
+          method: 'POST',
+          body: JSON.stringify(bodyObj),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: user.token
+          }
+        })
+          .then(response => response.json())
+          .then(({ data }) => {
+            resolve(data.attributes.avatar.original);
+          });
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
   }
 }
