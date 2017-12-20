@@ -27,7 +27,11 @@ import PreviewTD from './td/PreviewTD';
 class DashboardsTable extends React.Component {
   componentDidMount() {
     this.props.setFilters([]);
-    this.props.getDashboards();
+    this.props.getDashboards({
+      filters: {
+        published: 'all'
+      }
+    });
   }
 
   /**
@@ -98,7 +102,11 @@ class DashboardsTable extends React.Component {
             filters={false}
             data={this.getFilteredDashboards()}
             pageSize={20}
-            onRowDelete={() => this.props.getDashboards()}
+            onRowDelete={() => this.props.getDashboards({
+              filters: {
+                published: 'all'
+              }
+            })}
             pagination={{
               enabled: true,
               pageSize: 20,
@@ -140,9 +148,9 @@ const mapStateToProps = (state) => {
     error: state.dashboards.error
   };
 };
-const mapDispatchToProps = dispatch => ({
-  getDashboards: () => dispatch(getDashboards()),
-  setFilters: filters => dispatch(setFilters(filters))
-});
+const mapDispatchToProps = {
+  getDashboards,
+  setFilters
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardsTable);

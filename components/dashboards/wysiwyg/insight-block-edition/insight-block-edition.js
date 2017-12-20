@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
 import { connect } from 'react-redux';
-import * as actions from './tool-block-edition-actions';
-import reducers from './tool-block-edition-reducers';
-import initialState from './tool-block-edition-default-state';
-import { getFilteredTools } from './tool-block-edition-selectors';
+import * as actions from './insight-block-edition-actions';
+import reducers from './insight-block-edition-reducers';
+import initialState from './insight-block-edition-default-state';
+import { getFilteredInsights } from './insight-block-edition-selectors';
 
-import ToolBlockEditionComponent from './tool-block-edition-component';
+import InsightBlockEditionComponent from './insight-block-edition-component';
 
 // Mandatory
 export {
   actions, reducers, initialState
 };
 
-class ToolBlockEdition extends React.Component {
+class InsightBlockEdition extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     // Redux
-    setTools: PropTypes.func.isRequired,
+    setInsights: PropTypes.func.isRequired,
     setPage: PropTypes.func.isRequired,
     setSearch: PropTypes.func.isRequired
   };
@@ -30,7 +30,7 @@ class ToolBlockEdition extends React.Component {
 
   componentWillUnmount() {
     // Reset page and search params
-    this.props.setTools([]);
+    this.props.setInsights([]);
     this.props.setPage(1);
     this.props.setSearch('');
   }
@@ -40,9 +40,9 @@ class ToolBlockEdition extends React.Component {
    * - triggerFetch
   */
   triggerFetch = (props) => {
-    props.fetchTools({
+    props.fetchInsights({
       filters: {
-        ...props.data.tab === 'my-tools' && { userId: props.user.id },
+        ...props.data.tab === 'my-insights' && { userId: props.user.id },
         ...!!props.data.search && { name: props.data.search },
         'page[number]': props.data.page
       }
@@ -50,10 +50,10 @@ class ToolBlockEdition extends React.Component {
   }
 
   render() {
-    return createElement(ToolBlockEditionComponent, {
-      onSelectTool: (tool) => {
+    return createElement(InsightBlockEditionComponent, {
+      onSelectInsight: (insight) => {
         this.props.onSubmit({
-          toolId: tool.id,
+          insightId: insight.id,
           categories: []
         });
       },
@@ -70,9 +70,9 @@ class ToolBlockEdition extends React.Component {
 }
 export default connect(
   state => ({
-    data: state.toolBlockEdition,
-    filteredTools: getFilteredTools(state.toolBlockEdition),
+    data: state.insightBlockEdition,
+    filteredInsights: getFilteredInsights(state.insightBlockEdition),
     user: state.user
   }),
   actions
-)(ToolBlockEdition);
+)(InsightBlockEdition);

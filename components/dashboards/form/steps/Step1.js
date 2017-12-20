@@ -21,6 +21,8 @@ import WidgetBlock from 'components/dashboards/wysiwyg/widget-block/widget-block
 import WidgetBlockEdition from 'components/dashboards/wysiwyg/widget-block-edition/widget-block-edition';
 import ToolBlock from 'components/dashboards/wysiwyg/tool-block/tool-block';
 import ToolBlockEdition from 'components/dashboards/wysiwyg/tool-block-edition/tool-block-edition';
+import InsightBlock from 'components/dashboards/wysiwyg/insight-block/insight-block';
+import InsightBlockEdition from 'components/dashboards/wysiwyg/insight-block-edition/insight-block-edition';
 
 
 class Step1 extends React.Component {
@@ -140,11 +142,22 @@ class Step1 extends React.Component {
                 widget: {
                   Component: WidgetBlock,
                   EditionComponent: WidgetBlockEdition,
+                  icon: 'icon-widget',
+                  label: 'Widget',
                   renderer: 'modal'
                 },
                 tool: {
                   Component: ToolBlock,
                   EditionComponent: ToolBlockEdition,
+                  icon: 'icon-metadata',
+                  label: 'Tool',
+                  renderer: 'modal'
+                },
+                insight: {
+                  Component: InsightBlock,
+                  EditionComponent: InsightBlockEdition,
+                  icon: 'icon-metadata',
+                  label: 'Story',
                   renderer: 'modal'
                 }
               },

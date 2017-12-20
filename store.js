@@ -13,6 +13,8 @@ import * as widgetBlockModule from 'components/dashboards/wysiwyg/widget-block/w
 import * as widgetBlockEditionModule from 'components/dashboards/wysiwyg/widget-block-edition/widget-block-edition';
 import * as toolBlockModule from 'components/dashboards/wysiwyg/tool-block/tool-block';
 import * as toolBlockEditionModule from 'components/dashboards/wysiwyg/tool-block-edition/tool-block-edition';
+import * as insightBlockModule from 'components/dashboards/wysiwyg/insight-block/insight-block';
+import * as insightBlockEditionModule from 'components/dashboards/wysiwyg/insight-block-edition/insight-block-edition';
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -32,7 +34,9 @@ const reducer = combineReducers({
   widgetBlock: handleModule(widgetBlockModule),
   widgetBlockEdition: handleModule(widgetBlockEditionModule),
   toolBlock: handleModule(toolBlockModule),
-  toolBlockEdition: handleModule(toolBlockEditionModule)
+  toolBlockEdition: handleModule(toolBlockEditionModule),
+  insightBlock: handleModule(insightBlockModule),
+  insightBlockEdition: handleModule(insightBlockEditionModule)
 
 });
 const composeEnhancers = composeWithDevTools({});
