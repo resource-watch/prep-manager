@@ -9,7 +9,6 @@ import { FORM_ELEMENTS, CONFIG_TEMPLATE, CONFIG_TEMPLATE_OPTIONS } from 'compone
 
 // Redux
 import { connect } from 'react-redux';
-import { setTitle } from 'components/widgets/editor/redux/widgetEditor';
 
 // Components
 import Field from 'components/form/Field';
@@ -18,8 +17,15 @@ import TextArea from 'components/form/TextArea';
 import Select from 'components/form/SelectInput';
 import Code from 'components/form/Code';
 import Checkbox from 'components/form/Checkbox';
-import WidgetEditor from 'components/widgets/editor/WidgetEditor';
 import SwitchOptions from 'components/ui/SwitchOptions';
+
+import WidgetEditor, {
+  Modal as WidgetModal,
+  Tooltip as WidgetTooltip,
+  Icons as WidgetIcons,
+  setConfig
+} from 'widget-editor';
+
 
 class Step1 extends React.Component {
   constructor(props) {
@@ -32,6 +38,18 @@ class Step1 extends React.Component {
 
     // BINDINGS
     this.triggerChangeMode = this.triggerChangeMode.bind(this);
+
+    // WIDGET EDITOR
+    // Change the configuration according to your needs
+    setConfig({
+      url: process.env.WRI_API_URL,
+      env: 'production,preproduction',
+      applications: process.env.APPLICATIONS,
+      authUrl: process.env.CONTROL_TOWER_URL, // is this the correct one????
+      assetsPath: '/static/images/widget-editor/',
+      userToken: props.user.token,
+      userEmail: props.user.email
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,7 +84,6 @@ class Step1 extends React.Component {
 
   render() {
     const { id } = this.state;
-    const { widgetEditor } = this.props;
 
     // Reset FORM_ELEMENTS
     FORM_ELEMENTS.elements = {};
@@ -104,7 +121,7 @@ class Step1 extends React.Component {
           {/* NAME */}
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.name = c; }}
-            onChange={value => this.props.setTitle(value)}
+            onChange={value => this.props.onChange({ name: value })}
             validations={['required']}
             className="-fluid"
             properties={{
@@ -112,8 +129,8 @@ class Step1 extends React.Component {
               label: 'Name',
               type: 'text',
               required: true,
-              default: widgetEditor.title || '',
-              value: widgetEditor.title || ''
+              default: this.state.form.name || '',
+              value: this.state.form.name || ''
             }}
           >
             {Input}
@@ -202,16 +219,19 @@ class Step1 extends React.Component {
             </div>
 
             {this.props.mode === 'editor' &&
-              <WidgetEditor
-                dataset={this.state.form.dataset}
-                mode="dataset"
-                showSaveButton={false}
-                onChange={(value) => { this.props.onChange({ widgetConfig: value }); }}
-                onError={() => {
-                  toastr.info('Info', 'This dataset doesn\'t allow editor mode');
-                  this.props.onModeChange('advanced');
-                }}
-              />
+              <div>
+                <WidgetModal />
+                <WidgetTooltip />
+                <WidgetIcons />
+                <WidgetEditor
+                  datasetId={this.state.form.dataset}
+                  widgetId={this.props.id}
+                  saveButtonMode="never"
+                  embedButtonMode="never"
+                  titleMode="never"
+                  provideWidgetConfig={this.props.onGetWidgetConfig}
+                />
+              </div>
             }
 
             {this.props.mode === 'advanced' &&
@@ -258,17 +278,13 @@ Step1.propTypes = {
   datasets: PropTypes.array,
   onChange: PropTypes.func,
   onModeChange: PropTypes.func,
+  onGetWidgetConfig: PropTypes.func,
   // REDUX
-  widgetEditor: PropTypes.object,
-  setTitle: PropTypes.func
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  widgetEditor: state.widgetEditor
+  user: state.user
 });
 
-const mapDispatchToProps = dispatch => ({
-  setTitle: title => dispatch(setTitle(title))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Step1);
+export default connect(mapStateToProps, null)(Step1);

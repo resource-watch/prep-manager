@@ -5,31 +5,8 @@ import isEmpty from 'lodash/isEmpty';
 // Services
 import WidgetsService from 'services/WidgetsService';
 import DatasetsService from 'services/DatasetsService';
-import LayersService from 'services/LayersService';
 
 import { toastr } from 'react-redux-toastr';
-
-// Redux
-import { connect } from 'react-redux';
-
-import {
-  setFilters,
-  setColor,
-  setCategory,
-  setValue,
-  setSize,
-  setOrderBy,
-  setAggregateFunction,
-  setLimit,
-  setChartType,
-  setBand,
-  setVisualizationType,
-  setLayer,
-  setTitle,
-  resetWidgetEditor,
-  setZoom,
-  setLatLng
-} from 'components/widgets/editor/redux/widgetEditor';
 
 // Constants
 import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/widgets/form/constants';
@@ -108,7 +85,7 @@ class WidgetsForm extends React.Component {
           mode,
           // OPTIONS
           datasets: datasets.map(p => ({ label: p.name, value: p.id }))
-        }, () => this.loadWidgetIntoRedux());
+        });
       })
       .catch((err) => {
         toastr.error(err);
@@ -121,93 +98,36 @@ class WidgetsForm extends React.Component {
    * - onChange
    * - handleModeChange
   */
-  onSubmit(event) {
-    const { submitting, stepLength, step, form, mode } = this.state;
-    const { widgetEditor } = this.props;
-    const {
-      limit,
-      value,
-      category,
-      color,
-      size,
-      orderBy,
-      aggregateFunction,
-      chartType,
-      filters,
-      areaIntersection,
-      visualizationType,
-      band,
-      layer,
-      title,
-      zoom,
-      latLng
-    } = widgetEditor;
-
+  async onSubmit(event) {
     event.preventDefault();
+
+    const { submitting, stepLength, step, form, mode } = this.state;
 
     // Validate the form
     FORM_ELEMENTS.validate(step);
 
     // Set a timeout due to the setState function of react
-    setTimeout(() => {
+    setTimeout(async () => {
+      this.setState({ submitting: true });
       // Validate all the inputs on the current step
-      const validWidgetConfig = (mode === 'editor') ? this.validateWidgetConfig() : true;
+      const widgetConfig = (this.onGetWidgetConfig) ? await this.getWidgetConfig() : {};
+      const validWidgetConfig = (mode === 'editor') ? this.validateWidgetConfig(widgetConfig) : true;
       const valid = FORM_ELEMENTS.isValid(step) && validWidgetConfig;
+
       if (valid) {
         // if we are in the last step we will submit the form
         if (step === stepLength && !submitting) {
           const { id } = this.state;
 
-          // Start the submitting
-          this.setState({ submitting: true });
-
           // The name of the widget is the title property of the
           // widgetEditor reducer
-          let formObj = Object.assign({}, form, { name: title || '' });
-
-          if (mode === 'editor') {
-            const newWidgetConfig = {
-              widgetConfig: Object.assign(
-                {},
-                formObj.widgetConfig,
-                // If the widget is a map, we want to add some extra info
-                // in widgetConfig so the widget is compatible with other
-                // apps that use the same API
-                // The type and layer_id are not necessary for the editor
-                // because it is already saved in widgetConfig.paramsConfig
-                (
-                  visualizationType === 'map'
-                    ? { type: 'map', layer_id: layer && layer.id, zoom, ...latLng }
-                    : {}
-                ),
-                {
-                  paramsConfig: {
-                    visualizationType,
-                    limit,
-                    value,
-                    category,
-                    color,
-                    size,
-                    orderBy,
-                    aggregateFunction,
-                    chartType,
-                    filters,
-                    areaIntersection,
-                    band: band && { name: band.name },
-                    layer: layer && layer.id
-                  }
-                }
-              )
-            };
-
-            formObj = Object.assign({}, formObj, newWidgetConfig);
-          }
+          // let formObj = Object.assign({}, form, { name: title || '' });
 
           const obj = {
             dataset: form.dataset,
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body: formObj
+            body: (mode === 'editor') ? { ...form, widgetConfig } : form
           };
 
           if (obj.body.sourceUrl === '') {
@@ -238,8 +158,9 @@ class WidgetsForm extends React.Component {
           });
         }
       } else {
+        this.setState({ submitting: false });
         if (!validWidgetConfig && mode === 'editor') {
-          return this.errorValidationWidgetConfig();
+          return this.errorValidationWidgetConfig(widgetConfig);
         }
 
         toastr.error('Error', 'Fill all the required fields or correct the invalid values');
@@ -274,8 +195,14 @@ class WidgetsForm extends React.Component {
     return newForm;
   }
 
-  validateWidgetConfig() {
-    const { value, category, chartType, visualizationType, layer } = this.props.widgetEditor;
+  getWidgetConfig() {
+    return this.onGetWidgetConfig()
+      .then(widgetConfig => widgetConfig)
+      .catch(() => ({}));
+  }
+
+  validateWidgetConfig(widgetConfig) {
+    const { value, category, chartType, visualizationType, layer } = widgetConfig.paramsConfig;
 
     switch (visualizationType) {
       case 'chart':
@@ -289,8 +216,8 @@ class WidgetsForm extends React.Component {
     }
   }
 
-  errorValidationWidgetConfig() {
-    const { visualizationType } = this.props.widgetEditor;
+  errorValidationWidgetConfig(widgetConfig) {
+    const { visualizationType } = widgetConfig.paramsConfig;
 
     switch (visualizationType) {
       case 'chart':
@@ -301,47 +228,6 @@ class WidgetsForm extends React.Component {
         return toastr.error('Error', 'Layer is mandatory field for a widget visualization.');
       default:
         return false;
-    }
-  }
-
-  loadWidgetIntoRedux() {
-    const { widgetConfig, name } = this.state.form;
-    const { paramsConfig, zoom, lat, lng } = widgetConfig;
-    if (paramsConfig) {
-      const {
-        visualizationType,
-        band,
-        value,
-        category,
-        color,
-        size,
-        aggregateFunction,
-        orderBy,
-        filters,
-        limit,
-        chartType,
-        layer
-      } = paramsConfig;
-
-      // We restore the type of visualization
-      // We default to "chart" to maintain the compatibility with previously created
-      // widgets (at that time, only "chart" widgets could be created)
-      this.props.setVisualizationType(visualizationType || 'chart');
-
-      if (band) this.props.setBand(band);
-      if (layer) this.props.setLayer(layer);
-      if (aggregateFunction) this.props.setAggregateFunction(aggregateFunction);
-      if (value) this.props.setValue(value);
-      if (size) this.props.setSize(size);
-      if (color) this.props.setColor(color);
-      if (orderBy) this.props.setOrderBy(orderBy);
-      if (category) this.props.setCategory(category);
-      if (filters) this.props.setFilters(filters);
-      if (limit) this.props.setLimit(limit);
-      if (chartType) this.props.setChartType(chartType);
-      if (name) this.props.setTitle(name);
-      if (zoom) this.props.setZoom(zoom);
-      if (lat && lng) this.props.setLatLng({ lat, lng });
     }
   }
 
@@ -372,6 +258,7 @@ class WidgetsForm extends React.Component {
             mode={this.state.mode}
             onChange={value => this.onChange(value)}
             onModeChange={this.handleModeChange}
+            onGetWidgetConfig={(func) => { this.onGetWidgetConfig = func; }}
           />
         }
 
@@ -392,55 +279,7 @@ WidgetsForm.propTypes = {
   authorization: PropTypes.string,
   id: PropTypes.string,
   onSubmit: PropTypes.func,
-  dataset: PropTypes.string, // ID of the dataset that should be pre-selected
-  // Store
-  widgetEditor: PropTypes.object,
-  // ACTIONS
-  setFilters: PropTypes.func.isRequired,
-  setSize: PropTypes.func.isRequired,
-  setColor: PropTypes.func.isRequired,
-  setCategory: PropTypes.func.isRequired,
-  setValue: PropTypes.func.isRequired,
-  setOrderBy: PropTypes.func.isRequired,
-  setAggregateFunction: PropTypes.func.isRequired,
-  setLimit: PropTypes.func.isRequired,
-  setChartType: PropTypes.func.isRequired,
-  setVisualizationType: PropTypes.func.isRequired,
-  setBand: PropTypes.func.isRequired,
-  setLayer: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  resetWidgetEditor: PropTypes.func.isRequired,
-  setZoom: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired
+  dataset: PropTypes.string // ID of the dataset that should be pre-selected
 };
 
-const mapDispatchToProps = dispatch => ({
-  setFilters: filter => dispatch(setFilters(filter)),
-  setColor: color => dispatch(setColor(color)),
-  setSize: size => dispatch(setSize(size)),
-  setCategory: category => dispatch(setCategory(category)),
-  setValue: value => dispatch(setValue(value)),
-  setOrderBy: value => dispatch(setOrderBy(value)),
-  setAggregateFunction: value => dispatch(setAggregateFunction(value)),
-  setLimit: value => dispatch(setLimit(value)),
-  setChartType: value => dispatch(setChartType(value)),
-  setVisualizationType: vis => dispatch(setVisualizationType(vis)),
-  setBand: band => dispatch(setBand(band)),
-  setTitle: title => dispatch(setTitle(title)),
-  setLayer: (layerId) => {
-    new LayersService()
-      .fetchData({ id: layerId })
-      .then(layer => dispatch(setLayer(layer)))
-      // TODO: better handling of the error
-      .catch(err => toastr.error('Error', err));
-  },
-  resetWidgetEditor: () => dispatch(resetWidgetEditor()),
-  setZoom: zoom => dispatch(setZoom(zoom)),
-  setLatLng: latLng => dispatch(setLatLng(latLng))
-});
-
-const mapStateToProps = state => ({
-  widgetEditor: state.widgetEditor
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WidgetsForm);
+export default WidgetsForm;
