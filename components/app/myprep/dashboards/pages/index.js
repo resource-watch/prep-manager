@@ -15,7 +15,7 @@ function DashboardsIndex(props) {
       <DashboardsList
         getDashboardsFilters={{
           published: 'all',
-          'filter[user]': user.id
+          user: user.id
         }}
         routes={{
           index: 'admin_myprep',
