@@ -14,7 +14,7 @@ function PreviewTD(props) {
 }
 
 PreviewTD.propTypes = {
-  value: PropTypes.bool,
+  value: PropTypes.string,
   index: PropTypes.string
 };
 

@@ -14,6 +14,7 @@ function DashboardsIndex(props) {
     <div className="c-dashboards-index">
       <DashboardsList
         getDashboardsFilters={{
+          published: 'all',
           'filter[user]': user.id
         }}
         routes={{

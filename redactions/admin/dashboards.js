@@ -11,6 +11,9 @@ const GET_DASHBOARDS_SUCCESS = 'explore/GET_DASHBOARDS_SUCCESS';
 const GET_DASHBOARDS_ERROR = 'explore/GET_DASHBOARDS_ERROR';
 const GET_DASHBOARDS_LOADING = 'explore/GET_DASHBOARDS_LOADING';
 const SET_DASHBOARDS_FILTERS = 'dashboards/SET_DASHBOARDS_FILTERS';
+const DELETE_DASHBOARDS_SUCCESS = 'dashboards/DELETE_DASHBOARDS_SUCCESS';
+const DELETE_DASHBOARDS_ERROR = 'dashboards/DELETE_DASHBOARDS_ERROR';
+
 
 /**
  * STORE
@@ -99,6 +102,20 @@ export function getDashboards(options) {
       })
       .catch((err) => {
         dispatch({ type: GET_DASHBOARDS_ERROR, payload: err.message });
+      });
+  };
+}
+
+export function deleteDashboard(id) {
+  return (dispatch, getState) => {
+    const { user } = getState();
+
+    return service.deleteData({ id, auth: user.token })
+      .then(() => {
+        dispatch({ type: DELETE_DASHBOARDS_SUCCESS });
+      })
+      .catch(() => {
+        dispatch({ type: DELETE_DASHBOARDS_ERROR });
       });
   };
 }

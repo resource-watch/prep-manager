@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Services
+import DashboardsService from 'services/DashboardsService';
 import { toastr } from 'react-redux-toastr';
 
 // Redux
@@ -21,6 +23,9 @@ class DashboardsList extends React.Component {
 
     this.onSearch = this.onSearch.bind(this);
     this.onDelete = this.onDelete.bind(this);
+
+    // SERVICES
+    this.service = new DashboardsService();
   }
 
   componentDidMount() {
@@ -45,11 +50,9 @@ class DashboardsList extends React.Component {
   }
 
   onDelete(dashboard) {
-    toastr.confirm(`Are you sure that you want to delete: "${dashboard.name}"`, {
+    toastr.confirm(`Are you sure that you want to delete: "${dashboard.title}"`, {
       onOk: () => {
-        this.props.deleteDashboard({
-          id: dashboard.id
-        })
+        this.props.deleteDashboard(dashboard.id)
           .then(() => {
             const { getDashboardsFilters } = this.props;
 
@@ -57,10 +60,10 @@ class DashboardsList extends React.Component {
             this.props.getDashboards({
               filters: getDashboardsFilters
             });
-            toastr.success('Success', `The dashboard "${dashboard.id}" - "${dashboard.name}" has been removed correctly`);
+            toastr.success('Success', `The dashboard "${dashboard.id}" - "${dashboard.title}" has been removed correctly`);
           })
           .catch((err) => {
-            toastr.error('Error', `The dashboard "${dashboard.id}" - "${dashboard.name}" was not deleted. Try again. ${err}`);
+            toastr.error('Error', `The dashboard "${dashboard.id}" - "${dashboard.title}" was not deleted. Try again. ${err}`);
           });
       }
     });
@@ -129,7 +132,6 @@ DashboardsList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
   loading: state.dashboards.loading,
   dashboards: getFilteredDashboards(state),
   error: state.dashboards.error
