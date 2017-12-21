@@ -12,7 +12,6 @@ import { FORM_ELEMENTS } from 'components/dashboards/form/constants';
 import Field from 'components/form/Field';
 import Input from 'components/form/Input';
 import TextArea from 'components/form/TextArea';
-import FileImage from 'components/form/FileImage';
 import Checkbox from 'components/form/Checkbox';
 
 // Wysiwyg
@@ -77,33 +76,6 @@ class Step1 extends React.Component {
           >
             {TextArea}
           </Field>
-
-          {/* THUMBNAIL */}
-          <div className="c-field-row">
-            <div className="row l-row">
-              <div className="column small-12 medium-6">
-                <Field
-                  ref={(c) => { if (c) FORM_ELEMENTS.elements.image = c; }}
-                  onChange={(value) => {
-                    this.props.onChange({ image: value });
-                  }}
-                  validations={['required']}
-                  className="-fluid"
-                  properties={{
-                    name: 'image',
-                    label: 'Photo',
-                    placeholder: 'Browse file',
-                    baseUrl: process.env.STATIC_SERVER_URL,
-                    default: this.state.form.image,
-                    required: true
-                  }}
-                >
-                  {FileImage}
-                </Field>
-              </div>
-            </div>
-          </div>
-
 
           {/* PUBLISHED */}
           {!this.props.basic &&

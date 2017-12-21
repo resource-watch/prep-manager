@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import omit from 'lodash/omit';
 import { Serializer } from 'jsonapi-serializer';
 import { toastr } from 'react-redux-toastr';
 
@@ -81,7 +80,7 @@ class DashboardsForm extends React.Component {
           this.setState({ submitting: true });
 
           const body = new Serializer('dashboard', {
-            keyForAttribute: 'dash-case',
+            keyForAttribute: 'underscore_case',
             attributes: Object.keys(this.state.form)
           }).serialize(this.state.form);
 
