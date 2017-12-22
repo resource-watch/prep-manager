@@ -46,15 +46,6 @@ class WidgetsForm extends React.Component {
     });
   }
 
-  componentWillMount() {
-    // If the user wants to create a new widget, we make
-    // sure that the name of the previous widget the
-    // user saw is not leaking in this new form
-    if (!this.props.id) {
-      this.props.resetWidgetEditor();
-    }
-  }
-
   componentDidMount() {
     const { id } = this.state;
 
