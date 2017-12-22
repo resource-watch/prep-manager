@@ -103,7 +103,8 @@
     "vega": "2.6.3",
     "vizz-wysiwyg": "1.1.8",
     "webpack": "^3.6.0",
-    "whatwg-fetch": "2.0.2"
+    "whatwg-fetch": "2.0.2",
+    "widget-editor": "^0.0.8"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -111,6 +112,7 @@
     "babel-jest": "21.0.2",
     "babel-preset-env": "1.6.0",
     "colors": "1.1.2",
+    "copy-webpack-plugin": "^4.3.0",
     "enzyme": "2.9.1",
     "eslint": "4.6.1",
     "eslint-config-vizzuality": "1.0.6",

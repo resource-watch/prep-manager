@@ -123,6 +123,7 @@
 
 
 // WIDGETS
+@import '../node_modules/widget-editor/dist/styles.min';
 @import "./components/widgets/add_widget_to_collection_tooltip";
 @import "./components/widgets/text_chart";
 @import "./components/widgets/widget_editor";
@@ -209,20 +210,6 @@
 
 // MYPREP
 @import "./components/app/myprep/profiles-tab";
-
-// EXPLORE
-// @import "./components/app/explore/configurable_widget";
-// @import "./components/app/explore/dataset_list_header";
-// @import "./components/app/explore/dataset_list";
-// @import "./components/app/explore/dataset_widget";
-// @import "./components/app/explore/dataset_placeholder_chart";
-// @import "./components/app/explore/widget_configurator";
-// @import "./components/app/explore/explore_layers_tooltip";
-// @import "./components/app/explore/resume_filters";
-// @import "./components/app/explore/dataset_tags_tooltip";
-
-// EXPLORE DETAIL
-// @import "./components/app/explore-detail/dataset-info";
 
 // DASHBOARDS
 @import './components/app/dashboards/dashboard_card';

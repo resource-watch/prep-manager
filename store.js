@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import * as reducers from 'redactions';
+import { reducers as widgetEditorModules } from 'widget-editor';
 
 // New modules
 import { handleModule } from 'redux-tools';
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
 // REDUCERS
 const reducer = combineReducers({
   ...reducers,
-
+  ...widgetEditorModules,
   // Dashboards
   dashboardDetail: handleModule(dashboardDetail),
   dashboardThumbnailList: handleModule(dashboardThumbnailList),
@@ -37,7 +38,6 @@ const reducer = combineReducers({
   toolBlockEdition: handleModule(toolBlockEditionModule),
   insightBlock: handleModule(insightBlockModule),
   insightBlockEdition: handleModule(insightBlockEditionModule)
-
 });
 const composeEnhancers = composeWithDevTools({});
 

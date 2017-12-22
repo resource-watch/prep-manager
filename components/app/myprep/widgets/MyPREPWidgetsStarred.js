@@ -43,7 +43,7 @@ class MyPREPWidgetsStarred extends React.Component {
           starredWidgets: response.map((elem) => {
             const favouriteId = elem.id;
             return Object.assign({}, elem.attributes.resource, { favouriteId });
-          }),
+          }).filter(f => f.attributes.application.includes(process.env.APPLICATIONS)),
           starredWidgetsLoaded: true
         });
       }).catch(err => toastr.error('Error', err));
@@ -61,6 +61,7 @@ class MyPREPWidgetsStarred extends React.Component {
 
   render() {
     const { starredWidgets, starredWidgetsLoaded } = this.state;
+
     return (
       <div className="c-myprep-widgets-starred">
         <div className="row">
@@ -69,19 +70,21 @@ class MyPREPWidgetsStarred extends React.Component {
               isLoading={!starredWidgetsLoaded}
               className="-relative -light"
             />
+
             {starredWidgets &&
-            <WidgetList
-              widgets={starredWidgets}
-              mode="grid"
-              showEmbed
-              showStar
-              onWidgetUnfavourited={this.handleWidgetUnfavourited}
-            />
+              <WidgetList
+                widgets={starredWidgets}
+                mode="grid"
+                showEmbed
+                showStar
+                onWidgetUnfavourited={this.handleWidgetUnfavourited}
+              />
             }
+
             {starredWidgets && starredWidgets.length === 0 &&
-            <div className="no-widgets-div">
-              You currently have no widgets
-            </div>
+              <div className="no-widgets-div">
+                You currently have no starred widgets
+              </div>
             }
           </div>
         </div>
