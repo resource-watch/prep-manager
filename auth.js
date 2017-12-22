@@ -15,7 +15,7 @@ module.exports = (() => {
   const strategy = new Strategy({
     controlTowerUrl: process.env.CONTROL_TOWER_URL,
     callbackUrl: process.env.CALLBACK_URL,
-    applications: process.env.APPLICATIONS || 'rw'
+    applications: process.env.APPLICATIONS || 'prep'
   });
   passport.use(strategy);
   return {

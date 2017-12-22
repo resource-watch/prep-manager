@@ -115,17 +115,17 @@ class HeaderUser extends React.Component {
               onMouseLeave={this.props.onMouseLeave}
             >
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
+                <a href={`${process.env.CONTROL_TOWER_URL}/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Facebook
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
+                <a href={`${process.env.CONTROL_TOWER_URL}/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Google
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
+                <a href={`${process.env.CONTROL_TOWER_URL}/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Twitter
                 </a>
               </li>

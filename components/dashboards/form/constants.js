@@ -6,16 +6,14 @@ export const STATE_DEFAULT = {
   dataset: {},
   form: {
     // STEP 1
-    name: '',
+    title: '',
     summary: '',
-    description: '',
     content: '',
     // Images
-    photo: '',
+    image: '',
     user_id: null,
     // States
-    published: false,
-    private: true
+    published: false
   }
 };
 

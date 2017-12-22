@@ -9,6 +9,7 @@ export const STATE_DEFAULT = {
     title: '',
     summary: '',
     url: '',
+    attribution: '',
     partner: {},
     partner_id: null,
     published: false
