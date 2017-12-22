@@ -62,6 +62,21 @@ class Step1 extends React.Component {
           {TextArea}
         </Field>
 
+
+        {/* ATTRIBUTION */}
+        <Field
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.attribution = c; }}
+          onChange={value => this.props.onChange({ attribution: value })}
+          className="-fluid"
+          properties={{
+            name: 'attribution',
+            label: 'Attribution',
+            default: this.state.form.attribution
+          }}
+        >
+          {TextArea}
+        </Field>
+
         {/* URL */}
         <Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.url = c; }}

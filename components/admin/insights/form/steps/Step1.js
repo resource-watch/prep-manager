@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Constants
-import { FORM_ELEMENTS, TEMPLATE_TYPES } from 'components/admin/insights/form/constants';
+import { FORM_ELEMENTS } from 'components/admin/insights/form/constants';
 
 // Components
 import Field from 'components/form/Field';
@@ -66,27 +66,6 @@ class Step1 extends React.Component {
           {Input}
         </Field>
 
-        {/* TEMPLATE TYPE */}
-        <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.template_type = c; }}
-          onChange={value => this.props.onChange({
-            template_type: value
-          })}
-          validations={['required']}
-          className="-fluid"
-          options={TEMPLATE_TYPES}
-          properties={{
-            name: 'template_type',
-            label: 'Template type',
-            required: true,
-            default: this.state.form.template_type,
-            value: this.state.form.template_type,
-            instanceId: 'selectInsightType'
-          }}
-        >
-          {Select}
-        </Field>
-
         {/* SUMMARY */}
         <Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.summary = c; }}
@@ -110,6 +89,20 @@ class Step1 extends React.Component {
             name: 'content',
             label: 'Content',
             default: this.state.form.content
+          }}
+        >
+          {TextArea}
+        </Field>
+
+        {/* ATTRIBUTION */}
+        <Field
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.attribution = c; }}
+          onChange={value => this.props.onChange({ attribution: value })}
+          className="-fluid"
+          properties={{
+            name: 'attribution',
+            label: 'Attribution',
+            default: this.state.form.attribution
           }}
         >
           {TextArea}
