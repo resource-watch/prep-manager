@@ -246,6 +246,12 @@ class Step1 extends React.Component {
             className="-fluid"
             validations={['required']}
             options={this.setProviderOptions()}
+            hint={`
+              <span>While only tabular data can be uploaded directly into PREPdata, the platform also supports vector and raster datasets hosted on platforms like ArcGIS, CARTO, GEE, and others. If you have an account with one of these services and would like to connect a dataset, or if you need any assistance, we’d be happy to help. <a href="https://docs.google.com/forms/d/1wZzQno3De7Ul6vlOkkdHhWK_9csErSrOlo6pOAZHIds/viewform?edit_requested=true" target="_blank">Contact us</a>.</span>
+              <ul>
+                <li>Tabular: Dataset contains table formatted data. Providers available: csv, json tsv and xml</li>
+              </ul>
+            `}
             properties={{
               name: 'provider',
               label: 'Format',
