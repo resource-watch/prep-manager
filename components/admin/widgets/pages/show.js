@@ -21,7 +21,7 @@ function WidgetsShow(props) {
           if (dataset) {
             Router.pushRoute('admin_data_detail', { tab: 'datasets', subtab: 'widgets', id: dataset });
           } else {
-            Router.pushRoute('admin_data', { tab: 'widgets' });
+            Router.pushRoute('admin_data', { tab: 'widgets', subtab: 'my_widgets' });
           }
         }}
       />

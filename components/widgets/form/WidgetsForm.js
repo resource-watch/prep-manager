@@ -201,8 +201,8 @@ class WidgetsForm extends React.Component {
       .catch(() => ({}));
   }
 
-  validateWidgetConfig(widgetConfig) {
-    const { value, category, chartType, visualizationType, layer } = widgetConfig.paramsConfig;
+  validateWidgetConfig(widgetConfig = {}) {
+    const { value, category, chartType, visualizationType, layer } = widgetConfig.paramsConfig || {};
 
     switch (visualizationType) {
       case 'chart':
@@ -216,8 +216,8 @@ class WidgetsForm extends React.Component {
     }
   }
 
-  errorValidationWidgetConfig(widgetConfig) {
-    const { visualizationType } = widgetConfig.paramsConfig;
+  errorValidationWidgetConfig(widgetConfig = {}) {
+    const { visualizationType } = widgetConfig.paramsConfig || {};
 
     switch (visualizationType) {
       case 'chart':

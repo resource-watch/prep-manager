@@ -20,7 +20,7 @@ function WidgetsNew(props) {
           if (dataset) {
             Router.pushRoute('admin_myprep', { tab: 'datasets', subtab: 'widgets', id: dataset });
           } else {
-            Router.pushRoute('admin_myprep', { tab: 'widgets' });
+            Router.pushRoute('admin_myprep', { tab: 'widgets', subtab: 'my_widgets' });
           }
         }}
         dataset={dataset}
