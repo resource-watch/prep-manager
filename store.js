@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import * as reducers from 'redactions';
-import { setConfig, reducers as widgetEditorModules } from 'widget-editor';
+import { reducers as widgetEditorModules } from 'widget-editor';
 
 if (process.env.NODE_ENV === 'production') {
   initOpbeat({

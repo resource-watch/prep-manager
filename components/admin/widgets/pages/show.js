@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 
 // Components
-import WidgetsForm from 'components/admin/widgets/form/WidgetsForm';
+import WidgetsForm from 'components/widgets/form/WidgetsForm';
 
 function WidgetsShow(props) {
   const { id, dataset, user } = props;

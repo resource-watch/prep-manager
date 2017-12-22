@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { toastr } from 'react-redux-toastr';
 
 // Constants
-import { FORM_ELEMENTS, CONFIG_TEMPLATE, CONFIG_TEMPLATE_OPTIONS } from 'components/admin/widgets/form/constants';
+import { FORM_ELEMENTS, CONFIG_TEMPLATE, CONFIG_TEMPLATE_OPTIONS } from 'components/widgets/form/constants';
 
 // Redux
 import { connect } from 'react-redux';

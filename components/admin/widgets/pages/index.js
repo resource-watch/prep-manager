@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import WidgetsTable from 'components/admin/widgets/table/WidgetsTable';
+import WidgetsTable from 'components/widgets/table/WidgetsTable';
 
 export default function WidgetsIndex(props) {
   const { user } = props;

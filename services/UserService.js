@@ -94,12 +94,15 @@ export default class UserService {
   getFavourites(token, resourceType = null, include = true) {
     const resourceTypeSt = (resourceType !== null) ? `&resource-type=${resourceType}` : '';
     return new Promise((resolve) => {
-      fetch(`${this.opts.apiURL}/favourite?include=${include}${resourceTypeSt}`, {
+      fetch(`${this.opts.apiURL}/favourite?include=${include}${resourceTypeSt}&application=${process.env.APPLICATIONS}`, {
         headers: {
           Authorization: token
         }
       })
-        .then(response => response.json())
+        .then((response) => {
+          if (response.ok) return response.json();
+          throw new Error(response.statusText);
+        })
         .then(jsonData => resolve(jsonData.data));
     });
   }

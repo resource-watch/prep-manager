@@ -9,11 +9,11 @@ import DatasetsService from 'services/DatasetsService';
 import { toastr } from 'react-redux-toastr';
 
 // Constants
-import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/widgets/form/constants';
+import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/widgets/form/constants';
 
 // Components
 import Navigation from 'components/form/Navigation';
-import Step1 from 'components/admin/widgets/form/steps/Step1';
+import Step1 from 'components/widgets/form/steps/Step1';
 import Spinner from 'components/ui/Spinner';
 
 class WidgetsForm extends React.Component {
