@@ -1,5 +1,6 @@
 import React from 'react';
 import omit from 'lodash/omit';
+import { toastr } from 'react-redux-toastr';
 
 import { Autobind } from 'es-decorators';
 
@@ -103,14 +104,22 @@ class MetadataForm extends React.Component {
             value: this.state.form.authorization
           }],
           onSuccess: () => {
-            const successMessage = 'Metadata has been uploaded correctly';
-            alert(successMessage);
-
+            toastr.success('Success', 'Metadata has been uploaded correctly');
             this.props.onSubmit && this.props.onSubmit();
           },
-          onError: error => {
+          onError: (err) => {
             this.setState({ loading: false });
-            console.error(error);
+            try {
+              if (err && !!err.length) {
+                err.forEach((e) => {
+                  toastr.error('Error', e.detail);
+                });
+              } else {
+                toastr.error('Error', 'Oops! There was an error, try again');
+              }
+            } catch (e) {
+              toastr.error('Error', 'Oops! There was an error, try again');
+            }
           }
         });
       }

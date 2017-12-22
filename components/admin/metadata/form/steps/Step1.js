@@ -164,6 +164,20 @@ class Step1 extends React.Component {
           </Field>
 
           <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.api_endpoint = c; }}
+            onChange={value => this.changeMetadata({ info: { api_endpoint: value } })}
+            validations={['url']}
+            properties={{
+              name: 'api_endpoint',
+              label: 'API endpoint',
+              type: 'text',
+              default: this.props.form.info.api_endpoint
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.license = c; }}
             onChange={value => this.changeMetadata({ info: { license: value } })}
             hint="License under which data are published"
