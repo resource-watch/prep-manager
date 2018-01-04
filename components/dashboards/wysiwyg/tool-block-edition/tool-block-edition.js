@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 
 import { connect } from 'react-redux';
 import * as actions from './tool-block-edition-actions';
-import reducers from './tool-block-edition-reducers';
+import * as reducers from './tool-block-edition-reducers';
 import initialState from './tool-block-edition-default-state';
 import { getFilteredTools } from './tool-block-edition-selectors';
 

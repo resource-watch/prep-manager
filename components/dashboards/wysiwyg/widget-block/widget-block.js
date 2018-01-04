@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import * as actions from './widget-block-actions';
-import reducers from './widget-block-reducers';
+import * as reducers from './widget-block-reducers';
 import initialState from './widget-block-default-state';
 
 import WidgetBlockComponent from './widget-block-component';

@@ -13,7 +13,7 @@ function DatasetsNew(props) {
       <DatasetsForm
         application={[process.env.APPLICATIONS]}
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_data', { tab: 'datasets' })}
+        onSubmit={datasetId => Router.pushRoute('admin_data_detail', { tab: 'datasets', id: datasetId })}
       />
     </div>
   );

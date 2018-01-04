@@ -327,7 +327,6 @@ class Step1 extends React.Component {
           {isCarto && !!dataset &&
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.connectorUrl = c; }}
-              validations={['required']}
               className="-fluid"
               properties={{
                 name: 'connectorUrl',
@@ -426,7 +425,6 @@ class Step1 extends React.Component {
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.connectorUrl = c; }}
               onChange={value => this.props.onChange({ connectorUrl: value })}
-              validations={['required', 'url']}
               className="-fluid"
               hint="This connector will only display the data as a wms map layer. The data will not be available through queries."
               properties={{
@@ -434,8 +432,7 @@ class Step1 extends React.Component {
                 label: 'Url data endpoint',
                 type: 'text',
                 default: this.state.form.connectorUrl,
-                disabled: !!this.state.dataset,
-                required: true
+                disabled: !!this.state.dataset
               }}
             >
               {Input}

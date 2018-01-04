@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import * as actions from './insight-block-actions';
-import reducers from './insight-block-reducers';
+import * as reducers from './insight-block-reducers';
 import initialState from './insight-block-default-state';
 
 import InsightBlockComponent from './insight-block-component';
