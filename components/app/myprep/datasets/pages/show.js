@@ -103,7 +103,6 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('admin_myprep', { tab: 'datasets' })}
                 />
               }
 
@@ -112,7 +111,6 @@ class DatasetsShow extends React.Component {
                   application={process.env.APPLICATIONS}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('admin_myprep', { tab: 'datasets', id })}
                 />
               }
 

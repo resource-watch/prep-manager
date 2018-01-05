@@ -50,21 +50,24 @@ class Step1 extends React.Component {
         </Field>
 
         {/* SLUG */}
-        <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.slug = c; }}
-          onChange={value => this.props.onChange({ slug: value })}
-          validations={['required']}
-          className="-fluid"
-          properties={{
-            name: 'slug',
-            label: 'Slug',
-            type: 'text',
-            required: true,
-            default: this.state.form.slug
-          }}
-        >
-          {Input}
-        </Field>
+        {this.state.form.slug &&
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.slug = c; }}
+            onChange={value => this.props.onChange({ slug: value })}
+            validations={['required']}
+            className="-fluid"
+            properties={{
+              name: 'slug',
+              label: 'Slug',
+              type: 'text',
+              required: true,
+              default: this.state.form.slug,
+              disabled: !!this.state.form.slug
+            }}
+          >
+            {Input}
+          </Field>
+        }
 
         {/* SUMMARY */}
         <Field

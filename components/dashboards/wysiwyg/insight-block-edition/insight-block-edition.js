@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 
 import { connect } from 'react-redux';
 import * as actions from './insight-block-edition-actions';
-import reducers from './insight-block-edition-reducers';
+import * as reducers from './insight-block-edition-reducers';
 import initialState from './insight-block-edition-default-state';
 import { getFilteredInsights } from './insight-block-edition-selectors';
 

@@ -81,7 +81,7 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('admin_data', { tab: 'datasets' })}
+                  onSubmit={datasetId => Router.pushRoute('admin_data_detail', { tab: 'datasets', id: datasetId })}
                 />
               }
 

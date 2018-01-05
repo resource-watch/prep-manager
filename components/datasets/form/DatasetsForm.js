@@ -119,7 +119,7 @@ class DatasetsForm extends React.Component {
             .then((data) => {
               toastr.success('Success', `The dataset "${data.id}" - "${data.name}" has been uploaded correctly`);
               if (this.props.onSubmit) {
-                this.props.onSubmit();
+                this.props.onSubmit(data.id);
               }
             })
             .catch((err) => {

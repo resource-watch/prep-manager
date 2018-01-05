@@ -73,7 +73,7 @@ export default class DatasetsService {
   fetchData({ id, applications = [process.env.APPLICATIONS], includes, filters }) {
     const qParams = {
       application: applications.join(','),
-      includes,
+      ...!!includes && { includes },
       ...filters
     };
 

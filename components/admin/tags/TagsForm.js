@@ -55,9 +55,12 @@ class TagsForm extends React.Component {
       .then((response) => {
         const knowledgeGraphVoc = response.find(elem => elem.id === 'knowledge_graph');
         const datasetTags = knowledgeGraphVoc ? knowledgeGraphVoc.attributes.tags : [];
+        const type = knowledgeGraphVoc ? 'PATCH' : 'POST';
+
         this.setState({
           selectedTags: datasetTags,
-          loadingDatasetTags: false
+          loadingDatasetTags: false,
+          type
         }, () => this.loadInferredTags());
       })
       .catch((err) => {
@@ -104,13 +107,13 @@ class TagsForm extends React.Component {
   @Autobind
   handleSubmit() {
     const { dataset, user } = this.props;
-    const { selectedTags } = this.state;
+    const { selectedTags, type } = this.state;
 
     this.setState({ loading: true });
-    this.graphService.updateDatasetTags(dataset, selectedTags, user.token)
+    this.graphService.updateDatasetTags(dataset, selectedTags, user.token, type)
       .then(() => {
         toastr.success('Success', 'Tags updated successfully');
-        this.setState({ loading: false });
+        this.setState({ loading: false, type: 'PATCH' });
       })
       .catch((err) => {
         toastr.error('Error updating the tags');
