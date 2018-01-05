@@ -2195,9 +2195,9 @@ copy-concurrently@^1.0.0:
     rimraf "^2.5.4"
     run-queue "^1.0.0"
 
-copy-webpack-plugin@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-4.3.0.tgz#cfdf4d131c78d66917a1bb863f86630497aacf42"
+copy-webpack-plugin@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-4.3.1.tgz#19ba6370bf6f8e263cbd66185a2b79f2321a9302"
   dependencies:
     cacache "^10.0.1"
     find-cache-dir "^1.0.0"
@@ -8454,6 +8454,32 @@ redux-thunk@^2.2.0:
     rollup-plugin-node-resolve "^3.0.0"
     rollup-plugin-uglify "^2.0.1"
 
+redux-tools@vectorsize/redux-tools#v3.2.0:
+  version "3.2.0"
+  resolved "https://codeload.github.com/vectorsize/redux-tools/tar.gz/1033b7d765419389eb816e593cec4d53cb2ce30b"
+  dependencies:
+    babel-core "^6.7.7"
+    babel-eslint "^6.1.1"
+    babel-loader "^6.2.4"
+    babel-plugin-transform-runtime "^6.23.0"
+    babel-preset-es2015-rollup "^3.0.0"
+    babel-preset-stage-0 "^6.5.0"
+    babel-register "^6.7.2"
+    chai "^3.0.0"
+    cross-env "^2.0.0"
+    eslint "^2.8.0"
+    eslint-config-airbnb-base "^1.0.3"
+    eslint-plugin-import "^1.5.0"
+    eslint-watch "^2.1.13"
+    invariant "^2.2.1"
+    lodash "^4.13.1"
+    mocha "^2.2.5"
+    reduce-reducers "^0.1.0"
+    rollup "^0.50.1"
+    rollup-plugin-babel "^3.0.2"
+    rollup-plugin-node-resolve "^3.0.0"
+    rollup-plugin-uglify "^2.0.1"
+
 redux@3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
@@ -10441,9 +10467,9 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
-widget-editor@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/widget-editor/-/widget-editor-0.0.8.tgz#beeb37a9c451c9fa1c4b46ca8cc602581df4da10"
+widget-editor@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/widget-editor/-/widget-editor-0.0.9.tgz#ff3913b5cb37ed6f68cac6e519679ae35c0096e8"
   dependencies:
     autobind-decorator "^2.1.0"
     babel-runtime "^6.26.0"
