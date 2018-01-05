@@ -3,10 +3,6 @@
   .actions {
     display: flex;
     justify-content: flex-end;
-
-    a {
-      color: $dark-yellow;
-      text-decoration: none;
-    }
+    margin: 20px 0 0;
   }
 }

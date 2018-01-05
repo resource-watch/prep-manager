@@ -72,6 +72,7 @@ class DatasetsListCard extends React.Component {
 
           <div className="actions">
             <a
+              className="c-button -secondary -compressed"
               role="button"
               tabIndex={0}
               onClick={this.handleDelete}
