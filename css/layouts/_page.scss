@@ -33,23 +33,6 @@
     margin: -($header-main-height + $header-secondary-height) 0 0;
     padding: ($header-main-height + $header-secondary-height) 0 0;
 
-    &.-admin {
-      background-color: $primary-color;
-      background-image: $header-bg-image,
-        linear-gradient(
-          86deg,
-          $header-gradient-color-1 0%,
-          $header-gradient-color-2 100%
-        );
-    }
-
-    &.-myprep {
-      padding: 0;
-      background-color: transparent;
-      background-image: none;
-      margin: -98px 0 0;
-    }
-
     .page-header-content {
       color: $alt-font-color;
       padding: $margin-size-extra-small 0;
@@ -92,6 +75,22 @@
       }
     }
 
+    .page-header-partner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: rem(40px) 0 rem(10px);
+
+      > img {
+        max-width: 175px;
+      }
+
+      > p {
+        color: $white;
+        font-weight: 700;
+      }
+    }
+
     @media screen and (min-width: map-get($breakpoints, medium)) {
       .page-header-content {
         padding: 40px 0;
@@ -101,6 +100,36 @@
         }
       }
     }
-  }
 
+    &.-admin {
+      background-color: $primary-color;
+      background-image: $header-bg-image,
+        linear-gradient(
+          86deg,
+          $header-gradient-color-1 0%,
+          $header-gradient-color-2 100%
+        );
+    }
+
+    &.-myprep {
+      padding: 0;
+      background-color: transparent;
+      background-image: none;
+      margin: -98px 0 0;
+    }
+
+    &.-app {
+      background-image: linear-gradient(
+        86deg,
+        $header-gradient-color-1 0%,
+        $header-gradient-color-2 100%
+      );
+      padding: ($header-main-height + $header-secondary-height + rem(32)) 0 0;
+
+      .page-header-title {
+        text-align: center;
+        margin-top: rem(60px);
+      }
+    }
+  }
 }

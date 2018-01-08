@@ -27,7 +27,7 @@
       line-height: 1;
       text-transform: uppercase;
 
-      & > a {
+      & > a, & > span {
         display: block;
         padding: 38px 0;
         font-size: 15px;
@@ -35,6 +35,7 @@
         color: $inverse-font-color;
         border-top: 5px solid transparent;
         transition: all .3s ease-out;
+        white-space: nowrap;
 
         .l-header-nav.-short & {
           padding: 20px 0;

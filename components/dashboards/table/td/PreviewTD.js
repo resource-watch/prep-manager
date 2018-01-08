@@ -6,8 +6,8 @@ function PreviewTD(props) {
 
   return (
     <td key={index}>
-      <a target="_blank" href={`/data/dashboards/${value}`}>
-        {`${window.location.origin}/data/dashboards/${value}`}
+      <a target="_blank" href={`/dashboards/${value}`}>
+        {`${window.location.origin}/dashboards/${value}`}
       </a>
     </td>
   );

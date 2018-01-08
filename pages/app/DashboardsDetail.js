@@ -8,8 +8,9 @@ import { setRouter } from 'redactions/routes';
 import { fetchDashboard } from 'components/dashboards/detail/dashboard-detail-actions';
 
 // Components
-import Page from 'components/admin/layout/Page';
-import Layout from 'components/layout/Layout';
+import Page from 'components/app/layout/Page';
+import Layout from 'components/app/layout/Layout';
+import Title from 'components/ui/Title';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 import DashboardDetail from 'components/dashboards/detail/dashboard-detail';
 
@@ -25,6 +26,20 @@ class DashboardsDetail extends Page {
     return { isServer, user, url };
   }
 
+  getStyle = () => {
+    const { dashboardDetail } = this.props;
+
+    if (dashboardDetail.dashboard.image && dashboardDetail.dashboard.image !== '/images/original/missing.png') {
+      return {
+        backgroundImage: `url(${dashboardDetail.dashboard.image})`
+      };
+    }
+
+    return {
+      backgroundImage: 'url(/static/images/dashboards/bg-dashboard.png)'
+    };
+  }
+
   componentDidMount() {
     this.props.fetchDashboard({ id: this.props.url.query.slug });
   }
@@ -38,30 +53,46 @@ class DashboardsDetail extends Page {
         description={dashboardDetail.dashboard.summary}
         url={this.props.url}
         user={this.props.user}
-        pageHeader
         className="page-dashboards c-page-dashboards"
       >
-        <header className="l-page-header">
+        <div
+          className="c-page-header -app"
+          style={this.getStyle()}
+        >
           <div className="l-container">
             <div className="row">
               <div className="column small-12">
-                <div className="page-header-content">
+                <Breadcrumbs
+                  className="-theme-app"
+                  items={[
+                    { name: 'Home', href: '/' },
+                    { name: 'Dashboards', href: '/dashboards' },
+                    { name: dashboardDetail.dashboard.title }
+                  ]}
+                />
 
-                  <Breadcrumbs
-                    className="-theme-app"
-                    items={[
-                      { name: 'Home', href: '/' },
-                      { name: 'Dashboards', href: '/dashboards' },
-                      { name: dashboardDetail.dashboard.title }
-                    ]}
-                  />
+                <Title className="-primary -huge page-header-title -line" >
+                  {dashboardDetail.dashboard.title}
+                </Title>
 
-                  <h1>{dashboardDetail.dashboard.title}</h1>
-                </div>
               </div>
             </div>
+
+            {dashboardDetail.dashboard.partner &&
+              <div className="row">
+                <div className="column small-12">
+                  <div className="page-header-partner">
+                    <img
+                      src={dashboardDetail.dashboard.partner.white_logo}
+                      alt={dashboardDetail.dashboard.partner.title}
+                    />
+                    <p>{dashboardDetail.dashboard.partner.contact_name}</p>
+                  </div>
+                </div>
+              </div>
+            }
           </div>
-        </header>
+        </div>
 
         <div className="l-section">
           <div className="l-container">

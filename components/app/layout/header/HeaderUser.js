@@ -1,37 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
 import { Link } from 'routes';
-import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 
-// Services
-import UserService from 'services/UserService';
+// Utils
+import { get } from 'utils/request';
 
 // Components
 import TetherComponent from 'react-tether';
 
 class HeaderUser extends React.Component {
-  static logout(e) {
-    if (e) e.preventDefault();
+  /**
+   * UI EVENTS
+   * - logout
+  */
+  logout(e) {
+    if (e) {
+      e.preventDefault();
+    }
 
-    UserService.logout()
-      .then(() => {
-        localStorage.removeItem('token');
-        window.location.href = `/logout?callbackUrl=${window.location.href}`;
-      })
-      .catch(({ errors }) => {
-        const { status, details } = errors;
-        console.error(status, details);
-
-        toastr.error('Ops, something went wrong.', details);
-      });
+    // Get to logout
+    get({
+      url: `${process.env.CONTROL_TOWER_URL}/auth/logout`,
+      withCredentials: true,
+      onSuccess: () => {
+        try {
+          localStorage.removeItem('user');
+          window.location.href = `/logout?callbackUrl=${window.location.href}`;
+        } catch (err) {
+          window.location.href = `/logout?callbackUrl=${window.location.href}`;
+        }
+      },
+      onError: (err) => {
+        toastr.error('Error', err);
+      }
+    });
   }
+
 
   render() {
     const { user } = this.props;
 
-    if (user.token) {
+    if (!isEmpty(user)) {
       const activeNotificationClassName = classnames({
         '-active': !!user.notifications
       });
@@ -78,7 +90,7 @@ class HeaderUser extends React.Component {
                   </li>
                 }
                 <li className="header-dropdown-list-item">
-                  <a onClick={HeaderUser.logout} href="/logout">Logout</a>
+                  <a onClick={this.logout} href="/logout">Logout</a>
                 </li>
               </ul>
             }
@@ -87,7 +99,7 @@ class HeaderUser extends React.Component {
       );
     }
 
-    if (!user.token) {
+    if (isEmpty(user)) {
       return (
         <TetherComponent
           attachment="top center"
@@ -115,17 +127,17 @@ class HeaderUser extends React.Component {
               onMouseLeave={this.props.onMouseLeave}
             >
               <li className="header-dropdown-list-item">
-                <a href={`${process.env.CONTROL_TOWER_URL}/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
                   Facebook
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`${process.env.CONTROL_TOWER_URL}/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
                   Google
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`${process.env.CONTROL_TOWER_URL}/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
                   Twitter
                 </a>
               </li>
@@ -146,8 +158,4 @@ HeaderUser.propTypes = {
 };
 
 
-export default connect(
-  state => ({
-    user: state.user
-  })
-)(HeaderUser);
+export default HeaderUser;
