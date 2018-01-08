@@ -12,6 +12,10 @@
     font-weight: $font-weight-bold;
   }
 
+  &.-medium {
+    font-size: rem(24px);
+  }
+
   &.-big {
     font-size: rem(32px);
     font-weight: $font-weight-light;
@@ -39,25 +43,38 @@
   // Colors
   &.-primary {
     color: $color-text-1;
+    * { color: $color-text-1; }
   }
 
   &.-secondary {
     color: $color-primary;
+    * { color: $color-primary; }
+  }
+
+  &.-white {
+    color: $color-white;
+    * { color: $color-white; }
   }
 
   &.-line {
     position: relative;
-    padding-bottom: 40px;
+    padding-bottom: 0.5em;
 
     &:after {
       content: '';
       position: absolute;
       bottom: 0;
-      left: 50%;
+      left: 0;
       width: 148px;
       height: 3px;
-      transform: translate(-50%,0);
       background: $yellow;
+    }
+
+    &.-center {
+      &:after {
+        left: 50%;
+        transform: translate(-50%,0);
+      }
     }
   }
 

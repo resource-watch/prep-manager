@@ -1,3 +1,3 @@
-import RelatedDashboards from './dashboard-detail-component';
+import RelatedDashboards from './related-dashboards-component';
 
 export default RelatedDashboards;

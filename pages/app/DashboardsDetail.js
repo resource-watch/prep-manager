@@ -13,6 +13,7 @@ import Layout from 'components/app/layout/Layout';
 import Title from 'components/ui/Title';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 import DashboardDetail from 'components/dashboards/detail/dashboard-detail';
+import RelatedDashboards from 'components/dashboards/related-dashboards/related-dashboards';
 
 class DashboardsDetail extends Page {
   static async getInitialProps({ asPath, pathname, query, req, store, isServer }) {
@@ -71,7 +72,7 @@ class DashboardsDetail extends Page {
                   ]}
                 />
 
-                <Title className="-primary -huge page-header-title -line" >
+                <Title className="-primary -huge page-header-title -line -center" >
                   {dashboardDetail.dashboard.title}
                 </Title>
 
@@ -103,6 +104,10 @@ class DashboardsDetail extends Page {
             </div>
           </div>
         </div>
+
+        <RelatedDashboards
+          data={dashboardDetail.dashboard.dashboards}
+        />
       </Layout>
     );
   }
