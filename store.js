@@ -29,6 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 const reducer = combineReducers({
   ...reducers,
   ...widgetEditorModules,
+
   // Dashboards
   dashboardDetail: handleModule(dashboardDetail),
   dashboardThumbnailList: handleModule(dashboardThumbnailList),

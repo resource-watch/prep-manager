@@ -12,14 +12,13 @@
     list-style: none;
     margin-right: 20px;
 
-    a {
+    > a, > span {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      color: $active-font-color;
-      fill: $active-font-color;
+      color: $white;
+      fill: $white;
       text-decoration: none;
-      cursor: pointer;
 
       > * {
         margin-right: 5px;
@@ -28,10 +27,74 @@
           margin-right: 0;
         }
       }
+    }
+
+    > a {
+      color: $active-font-color;
+      fill: $active-font-color;
+      cursor: pointer;
 
       &:hover {
         color: darken($active-font-color, 10%);
         fill: darken($active-font-color, 10%);
+      }
+    }
+  }
+
+  &.-theme-app {
+    justify-content: center;
+    font-family: $body-font-family;
+
+    .item {
+      position: relative;
+      margin-right: 10px;
+      padding-right: 10px;
+      text-transform: uppercase;
+
+      &:after {
+        content: "-";
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(50%,-50%);
+      }
+
+      &:last-child {
+        margin-right: 0;
+        padding-right: 0;
+
+        &:after {
+          display: none;
+        }
+      }
+
+      > a, > span {
+        font-size: 11px;
+        font-weight: 700;
+        color: $white;
+        fill: $white;
+
+        > * {
+          margin-right: 5px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+
+        svg {
+          display: none;
+        }
+      }
+
+      > a {
+        color: $white;
+        fill: $white;
+
+        &:hover {
+          color: darken($white, 10%);
+          fill: darken($white, 10%);
+        }
       }
     }
   }
