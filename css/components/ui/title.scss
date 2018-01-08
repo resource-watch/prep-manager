@@ -14,16 +14,15 @@
 
   &.-medium {
     font-size: rem(24px);
+    font-weight: $font-weight-bold;
   }
 
   &.-big {
     font-size: rem(32px);
-    font-weight: $font-weight-light;
   }
 
   &.-extrabig {
     font-size: rem(42px);
-    font-weight: $font-weight-light;
   }
 
   &.-huge {
