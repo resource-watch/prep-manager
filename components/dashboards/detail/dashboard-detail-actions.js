@@ -12,11 +12,14 @@ export const fetchDashboard = createThunkAction('DASHBOARD_PREVIEW_FETCH_DATA', 
   dispatch(setError(null));
 
   return fetch(new Request(`${process.env.API_URL}/dashboards/${payload.id}`))
-    .then(response => response.json())
-    .then(({ data }) => {
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw new Error(response.statusText);
+    })
+    .then((data) => {
       dispatch(setLoading(false));
       dispatch(setError(null));
-      dispatch(setDashboard({ id: data.id, ...data.attributes }));
+      dispatch(setDashboard(data));
     })
     .catch((err) => {
       dispatch(setLoading(false));

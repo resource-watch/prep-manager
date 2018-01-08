@@ -41,7 +41,7 @@ export default function (state = initialState, action) {
 */
 export function setUser(user) {
   return (dispatch) => {
-    if (!user.token) {
+    if (!user || !user.token) {
       // If the user isn't logged in, we set the user variable as an empty object
       return;
     }
@@ -70,7 +70,7 @@ export function setFavouriteError(payload) {
 
 export function setFavourites() {
   return (dispatch, getState) => {
-    const { user } = getState();
+    const { user = {} } = getState();
 
     return service.setFavourites(user.token)
       .then(({ data }) => {

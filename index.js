@@ -115,8 +115,10 @@ app.prepare()
 
     // Routes with required authentication
     server.get('/auth/user', (req, res) => res.json(req.user || {}));
+
     server.get('/myprep-detail*?', isAuthenticated, handleUrl); // TODO: review these routes
     server.get('/myprep*?', isAuthenticated, handleUrl);
+
     server.get('/admin*?', isAuthenticated, isAdmin, handleUrl);
 
     server.use(handle);
