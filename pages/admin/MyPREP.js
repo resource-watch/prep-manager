@@ -125,7 +125,7 @@ class MyPREP extends Page {
             landing={false}
           >
             <span></span>
-            <Title className="-primary -huge page-header-title -line" >
+            <Title className="-primary -huge page-header-title -line -center" >
               {currentData.title}
             </Title>
             <Tabs
