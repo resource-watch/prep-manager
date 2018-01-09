@@ -247,6 +247,7 @@ class WidgetsForm extends React.Component {
             partners={this.state.partners}
             datasets={this.state.datasets}
             mode={this.state.mode}
+            basic={this.props.basic}
             onChange={value => this.onChange(value)}
             onModeChange={this.handleModeChange}
             onGetWidgetConfig={(func) => { this.onGetWidgetConfig = func; }}
@@ -269,6 +270,7 @@ class WidgetsForm extends React.Component {
 WidgetsForm.propTypes = {
   authorization: PropTypes.string,
   id: PropTypes.string,
+  basic: PropTypes.bool,
   onSubmit: PropTypes.func,
   dataset: PropTypes.string // ID of the dataset that should be pre-selected
 };

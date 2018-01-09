@@ -15,6 +15,7 @@ function WidgetsNew(props) {
   return (
     <div className="c-widgets-new">
       <WidgetsForm
+        basic
         authorization={user.token}
         onSubmit={() => {
           if (dataset) {
