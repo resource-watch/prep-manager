@@ -1,8 +1,8 @@
 import React from 'react';
 import omit from 'lodash/omit';
+import { toastr } from 'react-redux-toastr';
 
 import { Autobind } from 'es-decorators';
-import { toastr } from 'react-redux-toastr';
 
 // Utils
 import { get, post } from 'utils/request';
@@ -76,6 +76,7 @@ class MetadataForm extends React.Component {
     // Set a timeout due to the setState function of react
     setTimeout(() => {
       const valid = FORM_ELEMENTS.isValid();
+
       if (valid) {
         // Start the submitting
         this.setState({ submitting: true });
@@ -104,15 +105,26 @@ class MetadataForm extends React.Component {
             value: this.state.form.authorization
           }],
           onSuccess: () => {
-            toastr.success('Metadata has been uploaded correctly');
-
+            toastr.success('Success', 'Metadata has been uploaded correctly');
             this.props.onSubmit && this.props.onSubmit();
           },
-          onError: error => {
+          onError: (err) => {
             this.setState({ loading: false });
-            console.error(error);
+            try {
+              if (err && !!err.length) {
+                err.forEach((e) => {
+                  toastr.error('Error', e.detail);
+                });
+              } else {
+                toastr.error('Error', 'Oops! There was an error, try again');
+              }
+            } catch (e) {
+              toastr.error('Error', 'Oops! There was an error, try again');
+            }
           }
         });
+      } else {
+        toastr.error('Error', 'Please fill all the required fields');
       }
     }, 0);
   }

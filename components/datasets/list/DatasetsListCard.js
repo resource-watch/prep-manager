@@ -49,7 +49,7 @@ class DatasetsListCard extends React.Component {
             >
               <a>
                 <Title className="-default">
-                  {metadata && metadata.attributes.info ? metadata.attributes.info.name : dataset.name}
+                  {metadata ? metadata.attributes.name : dataset.name}
                 </Title>
               </a>
             </Link>
