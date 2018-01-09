@@ -81,7 +81,8 @@ class DatasetsRelatedContent extends React.Component {
               }
             </TetherComponent>
           </li>
-          {route !== 'myprep_detail' &&
+
+          {/* {route !== 'myprep_detail' &&
             <li>
               <TetherComponent
                 attachment="bottom center"
@@ -110,7 +111,8 @@ class DatasetsRelatedContent extends React.Component {
                 }
               </TetherComponent>
             </li>
-          }
+          } */}
+
           <li>
             <TetherComponent
               attachment="bottom center"
@@ -140,6 +142,7 @@ class DatasetsRelatedContent extends React.Component {
               }
             </TetherComponent>
           </li>
+
           {route !== 'myprep_detail' &&
             <li>
               <TetherComponent
