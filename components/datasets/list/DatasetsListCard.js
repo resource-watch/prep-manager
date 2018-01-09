@@ -61,6 +61,9 @@ class DatasetsListCard extends React.Component {
               <DatasetsRelatedContent
                 dataset={dataset}
                 route={routes.detail}
+                buttons={{
+                  layer: false
+                }}
               />
             }
             {dataset.status !== 'saved' &&
