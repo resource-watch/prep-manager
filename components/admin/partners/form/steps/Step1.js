@@ -77,7 +77,7 @@ class Step1 extends React.Component {
           className="-fluid"
           properties={{
             name: 'description',
-            label: 'Decription',
+            label: 'Description',
             default: this.state.form.description
           }}
         >
