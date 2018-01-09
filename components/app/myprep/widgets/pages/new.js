@@ -18,7 +18,7 @@ function WidgetsNew(props) {
         authorization={user.token}
         onSubmit={() => {
           if (dataset) {
-            Router.pushRoute('admin_myprep', { tab: 'datasets', subtab: 'widgets', id: dataset });
+            Router.pushRoute('admin_myprep_detail', { tab: 'datasets', subtab: 'widgets', id: dataset });
           } else {
             Router.pushRoute('admin_myprep', { tab: 'widgets', subtab: 'my_widgets' });
           }
