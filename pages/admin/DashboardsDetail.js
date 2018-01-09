@@ -30,13 +30,13 @@ class DashboardsDetail extends Page {
 
     const { tab, id, subtab } = props.url.query;
 
+
     this.state = {
       tab,
       id,
       subtab,
       data: {}
     };
-
 
     this.service = null;
 
@@ -48,7 +48,6 @@ class DashboardsDetail extends Page {
           });
         }
         break;
-      // TODO: do the same service for widgets and layers
       default:
     }
   }
@@ -57,7 +56,7 @@ class DashboardsDetail extends Page {
     const { id } = this.state;
 
     if (this.service) {
-      this.service.fetchData(id)
+      this.service.fetchData({ id })
         .then((data) => {
           this.setState({
             data: data || {}
@@ -107,7 +106,7 @@ class DashboardsDetail extends Page {
       >
         {/* PAGE HEADER */}
         <div className="c-page-header -admin">
-          <div className="l-container">
+          <div className="l-container -admin">
             <div className="row">
               <div className="column small-12">
                 <div className="page-header-content">
@@ -123,7 +122,7 @@ class DashboardsDetail extends Page {
           </div>
         </div>
         <div className="c-page-section">
-          <div className="l-container">
+          <div className="l-container -admin">
             <div className="row">
               <div className="column small-12">
                 {tab === 'dashboards' &&

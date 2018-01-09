@@ -3,6 +3,7 @@ require('dotenv').load();
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   webpack: (config) => {
@@ -59,7 +60,13 @@ module.exports = {
         'process.env.STATIC_SERVER_URL': JSON.stringify(process.env.STATIC_SERVER_URL),
         'process.env.ADD_SEARCH_KEY': JSON.stringify(process.env.ADD_SEARCH_KEY),
         'process.env.TRANSIFEX_LIVE_API': JSON.stringify(process.env.TRANSIFEX_LIVE_API)
-      })
+      }),
+      new CopyWebpackPlugin([
+        {
+          from: 'node_modules/widget-editor/dist/images',
+          to: 'static/images/widget-editor/'
+        }
+      ])
     );
 
     return config;

@@ -86,13 +86,13 @@ export default class Header extends React.Component {
             <div className="row">
               <div className="column small-3">
                 <div className="header-logo -main">
-                  <Link route="home">
-                    <a>
-                      <div className="brand-logo">
-                        <img src="/static/images/logo-cms.png" alt="Logo PREP" />
-                      </div>
-                    </a>
-                  </Link>
+                  {/* <Link route="home"> */}
+                  <a href="/">
+                    <div className="brand-logo">
+                      <img src="/static/images/logo-cms.png" alt="Logo PREP" />
+                    </div>
+                  </a>
+                  {/* </Link> */}
                 </div>
               </div>
               <div className="column small-8 small-offset-1">

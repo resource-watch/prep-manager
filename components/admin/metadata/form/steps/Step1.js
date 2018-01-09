@@ -27,10 +27,6 @@ class Step1 extends React.Component {
     return (
       <div>
         <fieldset className="c-field-container">
-          <Title className="-big -secondary">
-            Edit metadata
-          </Title>
-
           <Title className="-default -secondary">
             General
           </Title>

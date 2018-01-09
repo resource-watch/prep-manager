@@ -1,11 +1,5 @@
-.c-wysiwyg {
-  .ql-toolbar {
-    border: 2px solid $border-color-2;
-  }
-
-  .ql-container {
-    min-height: 300px;
-    border: 2px solid $border-color-2;
-    border-top: 0;
+.cw-wysiwyg {
+  .cw-wysiwyg-grid .wysiwyg-grid-column {
+    padding-bottom: 0;
   }
 }

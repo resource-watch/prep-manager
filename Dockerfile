@@ -17,7 +17,7 @@ RUN apt-get update && \
     apt-get install -y bash git build-essential \
     automake autoconf make g++ libtool libcairo2-dev \
     && npm install -g node-gyp --loglevel warn \
-    && mkdir -p /usr/src/app && mkdir -p /usr/src/app
+    && mkdir -p /usr/src/app
 
 # Add app directory
 WORKDIR /usr/src/app

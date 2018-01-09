@@ -39,7 +39,7 @@ class MyPREPDatasetsStarred extends React.Component {
     });
     this.userService.getFavouriteDatasets(this.props.user.token)
       .then((response) => {
-        const favorites = response;
+        const favorites = response.data || [];
         const datasetIds = favorites.map(elem => elem.attributes.resourceId);
         DatasetService.getDatasets(datasetIds, 'widget,layer,vocabulary,metadata')
           .then((resp) => {

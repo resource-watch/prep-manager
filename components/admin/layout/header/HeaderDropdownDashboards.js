@@ -34,11 +34,6 @@ export default function HeaderDropdownDashboards(props) {
           onMouseLeave={props.onMouseLeave}
         >
           <li className="header-dropdown-list-item">
-            <Link route="admin_indicators">
-              <a>Indicators (data)</a>
-            </Link>
-          </li>
-          <li className="header-dropdown-list-item">
             <Link route="admin_insights">
               <a>Stories</a>
             </Link>
