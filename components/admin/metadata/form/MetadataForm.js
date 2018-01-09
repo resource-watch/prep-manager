@@ -76,7 +76,7 @@ class MetadataForm extends React.Component {
     // Set a timeout due to the setState function of react
     setTimeout(() => {
       const valid = FORM_ELEMENTS.isValid();
-      console.log(valid);
+
       if (valid) {
         // Start the submitting
         this.setState({ submitting: true });
