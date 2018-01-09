@@ -3,7 +3,6 @@ import omit from 'lodash/omit';
 import { toastr } from 'react-redux-toastr';
 
 import { Autobind } from 'es-decorators';
-import { toastr } from 'react-redux-toastr';
 
 // Utils
 import { get, post } from 'utils/request';
