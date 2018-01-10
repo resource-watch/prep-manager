@@ -104,7 +104,7 @@ class PartnersForm extends React.Component {
 
   onChange(obj) {
     const form = Object.assign({}, this.state.form, obj);
-    this.setState({ form }, () => console.info(this.state.form));
+    this.setState({ form });
   }
 
   onStepChange(step) {
