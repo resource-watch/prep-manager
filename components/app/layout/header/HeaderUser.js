@@ -101,6 +101,7 @@ class HeaderUser extends React.Component {
     }
 
     if (!user.token) {
+      console.log(user);
       return (
         <TetherComponent
           attachment="top center"

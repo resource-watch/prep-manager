@@ -22,6 +22,7 @@
       margin-right: 1rem;
 
       color: $inverse-font-color;
+      fill: $inverse-font-color;
       font-weight: bold;
       letter-spacing: 0.5px;
       line-height: 1;
@@ -33,6 +34,7 @@
         font-size: 15px;
         line-height: 15px;
         color: $inverse-font-color;
+        fill: $inverse-font-color;
         border-top: 5px solid transparent;
         transition: all .3s ease-out;
         white-space: nowrap;
