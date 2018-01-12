@@ -43,6 +43,11 @@
         .l-header-nav.-short & {
           padding: 20px 0;
         }
+
+        &.header-menu-link {
+          height: auto;
+          padding: 0;
+        }
       }
 
       & > a.-current,
