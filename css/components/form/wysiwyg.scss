@@ -1,5 +1,45 @@
 .cw-wysiwyg {
+  // GRID
   .cw-wysiwyg-grid .wysiwyg-grid-column {
     padding-bottom: 0;
+  }
+
+  .cw-wysiwyg-list-item {
+    .list-item-container {
+      display: block;
+    }
+  }
+
+  // ITEM CONTENT
+  .cw-wysiwyg-item-content {
+    &.-text {
+      display: block;
+    }
+  }
+
+  // TEXT
+  .cw-wysiwyg-text {
+    max-width: none;
+  }
+
+  // QUILL
+  .cw-quill {
+    .ql-bubble .ql-editor h1 {
+      padding: 1.625rem 0;
+      font-size: 2.3125rem;
+      text-align: center;
+
+      &:after {
+        position: absolute;
+        display: block;
+        bottom: 0;
+        width: 148px;
+        height: 3px;
+        left: 50%;
+        margin-left: -74px;
+        background-color: #ffc94e;
+        content: "";
+      }
+    }
   }
 }
