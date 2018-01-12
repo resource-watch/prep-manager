@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Autobind } from 'es-decorators';
 import { toastr } from 'react-redux-toastr';
 import { Link, Router } from 'routes';
 
@@ -59,14 +58,34 @@ class AreaCard extends React.Component {
     };
 
     // Services
-    this.datasetService = new DatasetService(null,
-      { apiURL: process.env.WRI_API_URL });
+    this.datasetService = new DatasetService(null, {
+      apiURL: process.env.WRI_API_URL,
+      language: props.locale
+    });
     this.areasService = new AreasService({ apiURL: process.env.WRI_API_URL });
     this.userService = new UserService({ apiURL: process.env.WRI_API_URL });
+
+    // ------------------- Bindings -----------------------
+    this.handleEditSubscription = this.handleEditSubscription.bind(this);
+    this.handleSubscriptionCreated = this.handleSubscriptionCreated.bind(this);
+    this.handleSubscriptionUpdated = this.handleSubscriptionUpdated.bind(this);
+    this.handleDeleteArea = this.handleDeleteArea.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleEditArea = this.handleEditArea.bind(this);
+    // ----------------------------------------------------
   }
 
   componentDidMount() {
+    const {
+      openSubscriptionsModal,
+      subscriptionThreshold,
+      subscriptionType,
+      subscriptionDataset
+    } = this.props;
     this.loadData();
+    if (openSubscriptionsModal) {
+      this.handleEditSubscription(subscriptionDataset, subscriptionType, subscriptionThreshold);
+    }
   }
 
   loadData() {
@@ -141,13 +160,15 @@ class AreaCard extends React.Component {
     }
   }
 
-  @Autobind
   handleEditArea() {
     Router.pushRoute('admin_myprep_detail', { id: this.props.area.id, tab: 'areas' });
   }
 
-  @Autobind
-  handleEditSubscription() {
+  handleEditSubscription(
+    subscriptionDataset = null,
+    subscriptionType = null,
+    subscriptionThreshold = null
+  ) {
     const mode = this.props.area.subscription ? 'edit' : 'new';
     const options = {
       children: AreaSubscriptionModal,
@@ -156,24 +177,24 @@ class AreaCard extends React.Component {
         toggleModal: this.props.toggleModal,
         onSubscriptionUpdated: this.handleSubscriptionUpdated,
         onSubscriptionCreated: this.handleSubscriptionUpdated,
-        mode
+        mode,
+        subscriptionDataset,
+        subscriptionType,
+        subscriptionThreshold
       }
     };
     this.props.toggleModal(true);
     this.props.setModalOptions(options);
   }
 
-  @Autobind
   handleSubscriptionCreated() {
     this.props.onChange();
   }
 
-  @Autobind
   handleSubscriptionUpdated() {
     this.props.onChange();
   }
 
-  @Autobind
   handleDeleteArea() {
     const { area, token } = this.props;
     const toastrConfirmOptions = {
@@ -209,7 +230,6 @@ class AreaCard extends React.Component {
       Deleting an area will delete all the subscriptions associated to it`, toastrConfirmOptions);
   }
 
-  @Autobind
   handleEdit(event) {
     const position = AreaCard.getClickPosition(event);
     this.props.toggleTooltip(true, {
@@ -264,7 +284,7 @@ class AreaCard extends React.Component {
                       >
                         <div className="dataset-name">
                           <Link
-                            route={'admin_explore_detail'}
+                            route={'explore_detail'}
                             params={{ id: datasetObj.id }}
                           >
                             <a>
@@ -317,9 +337,18 @@ class AreaCard extends React.Component {
   }
 }
 
+AreaCard.defaultProps = {
+  openSubscriptionsModal: false
+};
+
 AreaCard.propTypes = {
   token: PropTypes.string.isRequired,
   area: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired,
+  openSubscriptionsModal: PropTypes.bool,
+  subscriptionThreshold: PropTypes.number,
+  subscriptionType: PropTypes.string,
+  subscriptionDataset: PropTypes.string,
   // Callbacks
   onAreaRemoved: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -329,6 +358,10 @@ AreaCard.propTypes = {
   toggleTooltip: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  locale: state.common.locale
+});
+
 const mapDispatchToProps = dispatch => ({
   toggleModal: (open, opts) => { dispatch(toggleModal(open, opts)); },
   setModalOptions: (options) => { dispatch(setModalOptions(options)); },
@@ -337,4 +370,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(AreaCard);
+export default connect(mapStateToProps, mapDispatchToProps)(AreaCard);

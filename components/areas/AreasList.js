@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Autobind } from 'es-decorators';
 import { Link } from 'routes';
 import { toastr } from 'react-redux-toastr';
 
 // Redux
 import { connect } from 'react-redux';
-
 // Services
 import UserService from 'services/UserService';
 import DatasetService from 'services/DatasetService';
@@ -18,6 +16,7 @@ import AreaCard from 'components/areas/AreaCard';
 class AreasList extends React.Component {
   constructor(props) {
     super(props);
+    const { openModal, subscriptionThreshold, subscriptionDataset, subscriptionType } = props.query;
 
     this.state = {
       loading: false,
@@ -25,10 +24,18 @@ class AreasList extends React.Component {
       areasLoaded: false,
       subscriptionsLoaded: false,
       subscriptionsToAReas: null,
-      areasMerged: false
+      areasMerged: false,
+      openSubscriptionsModal: openModal,
+      subscriptionThreshold,
+      subscriptionDataset,
+      subscriptionType
     };
 
     this.userService = new UserService({ apiURL: process.env.WRI_API_URL });
+
+    // ------------------- Bindings -----------------------
+    this.handleAreaRemoved = this.handleAreaRemoved.bind(this);
+    // ----------------------------------------------------
   }
 
   componentDidMount() {
@@ -60,7 +67,8 @@ class AreasList extends React.Component {
         }
       })
       .catch((err) => {
-        toastr.error('Error loading subscriptions', err);
+        toastr.error('Error loading subscriptions');
+        console.error(err);
         this.setState({ loading: false });
       });
   }
@@ -96,7 +104,7 @@ class AreasList extends React.Component {
       subscription.attributes.datasets.forEach(dataset => datasetsSet.add(dataset)));
     // Fetch data for the datasets needed
 
-    DatasetService.getDatasets([...datasetsSet], 'metadata')
+    DatasetService.getDatasets([...datasetsSet], this.props.locale, 'metadata')
       .then((data) => {
         const datasetsWithLabels = data.map(elem => ({
           id: elem.id,
@@ -123,13 +131,20 @@ class AreasList extends React.Component {
       });
   }
 
-  @Autobind
   handleAreaRemoved() {
     this.loadData();
   }
 
   render() {
-    const { loading, areas, areasMerged } = this.state;
+    const {
+      loading,
+      areas,
+      areasMerged,
+      openSubscriptionsModal,
+      subscriptionDataset,
+      subscriptionType,
+      subscriptionThreshold
+    } = this.state;
     const { user } = this.props;
 
     return (
@@ -138,7 +153,7 @@ class AreasList extends React.Component {
           <Spinner isLoading={loading || !areasMerged} className="-small -light" />
           <div className="actions-div">
             <Link route="admin_myprep_detail" params={{ id: 'new', tab: 'areas' }}>
-              <a className="c-button -app">
+              <a className="c-button -primary">
                 New
               </a>
             </Link>
@@ -146,7 +161,7 @@ class AreasList extends React.Component {
           <div className="row">
             {areasMerged && areas.map(val =>
               (
-                <div key={val.id} className="column small-12 medium-4">
+                <div key={val.id} className="column small-12 medium-6">
                   <div
                     className="card-container"
                   >
@@ -155,6 +170,14 @@ class AreasList extends React.Component {
                       area={val}
                       onAreaRemoved={this.handleAreaRemoved}
                       onChange={() => this.loadData()}
+                      openSubscriptionsModal={openSubscriptionsModal &&
+                        openSubscriptionsModal === val.id}
+                      subscriptionDataset={openSubscriptionsModal &&
+                        openSubscriptionsModal === val.id && subscriptionDataset}
+                      subscriptionThreshold={openSubscriptionsModal &&
+                        openSubscriptionsModal === val.id && subscriptionThreshold}
+                      subscriptionType={openSubscriptionsModal &&
+                        openSubscriptionsModal === val.id && subscriptionType}
                     />
                   </div>
                 </div>
@@ -162,7 +185,7 @@ class AreasList extends React.Component {
             )}
             {areasMerged && areas.length === 0 &&
               <div className="no-areas-container">
-                <p>You haven't created any areas yet</p>
+                <p>You have not created any areas yet</p>
               </div>
             }
           </div>
@@ -173,11 +196,14 @@ class AreasList extends React.Component {
 }
 
 AreasList.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired,
+  query: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  locale: state.common.locale
 });
 
 export default connect(mapStateToProps, null)(AreasList);

@@ -152,7 +152,7 @@ class MyPREP extends Page {
                 }
 
                 {tab === 'areas' &&
-                  <AreasTab tag={tab} subtab={subtab} />
+                  <AreasTab tag={tab} subtab={subtab} query={url.query} />
                 }
 
                 {tab === 'widgets' &&
