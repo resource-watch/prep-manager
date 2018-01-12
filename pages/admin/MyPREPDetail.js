@@ -93,7 +93,7 @@ class MyPREPDetail extends Page {
             toastr.error('Error', err);
           });
       } else {
-        this.service.getArea(id, `Bearer ${user.token}`).then((data) => {
+        this.service.getArea(id, user.token).then((data) => {
           this.setState({ data: data.data });
         })
           .catch((err) => {
@@ -204,7 +204,8 @@ MyPREPDetail.propTypes = {
 
 const mapStateToProps = state => ({
   // Store
-  myprepdetail: state.myprepdetail
+  myprepdetail: state.myprepdetail,
+  user: state.user
 });
 
 export default withRedux(initStore, mapStateToProps, null)(MyPREPDetail);

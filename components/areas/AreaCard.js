@@ -71,6 +71,7 @@ class AreaCard extends React.Component {
     this.handleSubscriptionUpdated = this.handleSubscriptionUpdated.bind(this);
     this.handleDeleteArea = this.handleDeleteArea.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleEditArea = this.handleEditArea.bind(this);
     // ----------------------------------------------------
   }
 
