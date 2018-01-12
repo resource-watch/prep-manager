@@ -30,9 +30,10 @@
 
       & > a, & > span {
         display: block;
-        padding: 38px 0;
+        height: 100%;
+        padding: 30px 0;
         font-size: 15px;
-        line-height: 15px;
+        line-height: 2;
         color: $inverse-font-color;
         fill: $inverse-font-color;
         border-top: 5px solid transparent;
