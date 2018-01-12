@@ -9,14 +9,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toggleModal, setModalOptions } from 'redactions/modal';
 import { toggleTooltip } from 'redactions/tooltip';
-import { setUser } from 'redactions/user';
 import { updateIsLoading } from 'redactions/page';
 
 // Components
 import Header from 'components/app/layout/Header';
 import Footer from 'components/app/layout/Footer';
 import Head from 'components/admin/layout/head';
-import Icons from 'components/admin/layout/icons';
+import Icons from 'components/app/layout/icons';
 import Modal from 'components/ui/Modal';
 import Tooltip from 'components/ui/Tooltip';
 import Dock from 'components/ui/Dock';
@@ -32,8 +31,6 @@ class Layout extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setUser(this.props.user);
-
     Router.onRouteChangeStart = () => {
       if (Progress && Progress.Component.instance) Progress.show();
       this.props.toggleTooltip(false);
@@ -64,7 +61,7 @@ class Layout extends React.Component {
 
         <Progress.Component />
 
-        <Header url={url} user={user} />
+        <Header url={url} />
 
         <div className="container">
           { this.props.children }
@@ -101,9 +98,6 @@ Layout.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 
-  // Store
-  setUser: PropTypes.func.isRequired,
-
   modal: PropTypes.object,
   toggleModal: PropTypes.func,
   setModalOptions: PropTypes.func,
@@ -120,9 +114,6 @@ const mapDispatchToProps = dispatch => ({
   toggleTooltip: () => dispatch(toggleTooltip()),
   toggleModal: open => dispatch(toggleModal(open, {}, true)),
   setModalOptions: options => dispatch(setModalOptions(options)),
-  setUser: (user) => {
-    dispatch(setUser(user));
-  },
   updateIsLoading: bindActionCreators(isLoading => updateIsLoading(isLoading), dispatch)
 });
 
