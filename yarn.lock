@@ -8428,32 +8428,6 @@ redux-thunk@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
-"redux-tools@github:vectorsize/redux-tools":
-  version "1.3.1"
-  resolved "https://codeload.github.com/vectorsize/redux-tools/tar.gz/60ce2c4b062bcc425cd351710598fcb461ad371b"
-  dependencies:
-    babel-core "^6.7.7"
-    babel-eslint "^6.1.1"
-    babel-loader "^6.2.4"
-    babel-plugin-transform-runtime "^6.23.0"
-    babel-preset-es2015-rollup "^3.0.0"
-    babel-preset-stage-0 "^6.5.0"
-    babel-register "^6.7.2"
-    chai "^3.0.0"
-    cross-env "^2.0.0"
-    eslint "^2.8.0"
-    eslint-config-airbnb-base "^1.0.3"
-    eslint-plugin-import "^1.5.0"
-    eslint-watch "^2.1.13"
-    invariant "^2.2.1"
-    lodash "^4.13.1"
-    mocha "^2.2.5"
-    reduce-reducers "^0.1.0"
-    rollup "^0.50.1"
-    rollup-plugin-babel "^3.0.2"
-    rollup-plugin-node-resolve "^3.0.0"
-    rollup-plugin-uglify "^2.0.1"
-
 redux-tools@vectorsize/redux-tools#v3.2.0:
   version "3.2.0"
   resolved "https://codeload.github.com/vectorsize/redux-tools/tar.gz/1033b7d765419389eb816e593cec4d53cb2ce30b"
@@ -10217,9 +10191,9 @@ vis@^4.18.1:
     moment "^2.18.1"
     propagating-hammerjs "^1.4.6"
 
-vizz-wysiwyg@1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/vizz-wysiwyg/-/vizz-wysiwyg-1.1.8.tgz#759a5802ccbf84291f26337ff13e517fe09c1633"
+vizz-wysiwyg@1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/vizz-wysiwyg/-/vizz-wysiwyg-1.1.9.tgz#3e6ce972a77a8d1a09f0d98694338bda835c5fe2"
   dependencies:
     autoprefixer "6.7.6"
     babel-core "^6.26.0"
@@ -10467,9 +10441,9 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
-widget-editor@0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/widget-editor/-/widget-editor-0.0.9.tgz#ff3913b5cb37ed6f68cac6e519679ae35c0096e8"
+widget-editor@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/widget-editor/-/widget-editor-0.1.0.tgz#19ae56137fb05e07bc13010f11a6daa6d4afb09e"
   dependencies:
     autobind-decorator "^2.1.0"
     babel-runtime "^6.26.0"
