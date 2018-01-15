@@ -37,6 +37,8 @@ class LayerChart extends React.Component {
   }
 
   getBasemapPreview() {
+    const { widget } = this.props;
+
     const basemap = {
       account: 'wri-01',
       body: {
@@ -61,6 +63,7 @@ class LayerChart extends React.Component {
     const params = `?stat_tag=API&config=${encodeURIComponent(JSON.stringify(layerTpl))}`;
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.open('GET', `https://${basemap.account}.carto.com/api/v1/map${params}`);
+
     xmlhttp.onreadystatechange = () => {
       if (xmlhttp.readyState === 4) {
         if (xmlhttp.status === 200 && this.mounted) {
@@ -68,9 +71,9 @@ class LayerChart extends React.Component {
           const dimensions = this.getSize();
           const options = {
             token: response.layergroupid,
-            z: 1,
-            lat: 0,
-            lng: 0,
+            z: (widget) ? widget.attributes.widgetConfig.zoom : 1,
+            lat: (widget) ? widget.attributes.widgetConfig.lat : 0,
+            lng: (widget) ? widget.attributes.widgetConfig.lng : 0,
             width: dimensions.width,
             height: dimensions.height,
             format: 'png'
@@ -88,7 +91,7 @@ class LayerChart extends React.Component {
   }
 
   getImagePreview() {
-    const { data } = this.props;
+    const { data, widget } = this.props;
 
     if (!data.account) return;
 
@@ -110,9 +113,9 @@ class LayerChart extends React.Component {
           const dimensions = this.getSize();
           const options = {
             token: response.layergroupid,
-            z: 1,
-            lat: 0,
-            lng: 0,
+            z: (widget) ? widget.attributes.widgetConfig.zoom : 1,
+            lat: (widget) ? widget.attributes.widgetConfig.lat : 0,
+            lng: (widget) ? widget.attributes.widgetConfig.lng : 0,
             width: dimensions.width,
             height: dimensions.height,
             format: 'png'
@@ -145,6 +148,7 @@ class LayerChart extends React.Component {
 LayerChart.propTypes = {
   // Define the chart data
   data: PropTypes.object,
+  widget: PropTypes.object,
   toggleLoading: PropTypes.func
 };
 

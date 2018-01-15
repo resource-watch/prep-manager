@@ -279,6 +279,7 @@ class Legend extends React.PureComponent {
 
   onTimelineChange(currentValue = 0, datasetSpec) {
     const currentLayer = datasetSpec.layers.find((l) => {
+      debugger;
       return moment(l.layerConfig.dateTime, 'YYYY-MM-DD').year() === parseInt(currentValue);
     });
     this.setState({ currentStepTimeline: currentValue });
@@ -378,11 +379,13 @@ class Legend extends React.PureComponent {
       const datasetSpec = Object.assign({}, layerGroup);
       const activeLayer = datasetSpec.layers.find(l => l.active);
 
-      datasetSpec.layers = sortBy(datasetSpec.layers, (l) => l.layerConfig.dateTime);
+      console.log(datasetSpec.dataset);
 
       // Legend with timeline
       if (datasetSpec.dataset === 'c0c71e67-0088-4d69-b375-85297f79ee75' &&
         datasetSpec.layers.length) {
+        datasetSpec.layers = sortBy(datasetSpec.layers, l => l.layerConfig.dateTime);
+
         const firstLayer = datasetSpec.layers[0];
         const lastLayer = datasetSpec.layers[datasetSpec.layers.length - 1];
         const minYear = moment(firstLayer.layerConfig.dateTime, 'YYYY-MM-DD').year();
