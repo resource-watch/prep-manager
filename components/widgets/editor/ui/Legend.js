@@ -379,8 +379,6 @@ class Legend extends React.PureComponent {
       const datasetSpec = Object.assign({}, layerGroup);
       const activeLayer = datasetSpec.layers.find(l => l.active);
 
-      console.log(datasetSpec.dataset);
-
       // Legend with timeline
       if (datasetSpec.dataset === 'c0c71e67-0088-4d69-b375-85297f79ee75' &&
         datasetSpec.layers.length) {
