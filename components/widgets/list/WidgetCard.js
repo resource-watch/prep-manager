@@ -228,7 +228,10 @@ class WidgetCard extends React.Component {
       // We render the thumbnail of a map
       if (this.props.mode === 'thumbnail') {
         return (
-          <DatasetLayerChart layer={this.state.layer} />
+          <DatasetLayerChart
+            widget={this.props.widget}
+            layer={this.state.layer}
+          />
         );
       }
 
