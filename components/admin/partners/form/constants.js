@@ -1,3 +1,16 @@
+export const PARTNER_TYPES = [{
+  label: 'Contributing partners',
+  value: 'Contributing partners'
+}, {
+  label: 'Core partners',
+  value: 'Core partners'
+},
+{
+  label: 'Resource partners',
+  value: 'Resource partners'
+}];
+
+
 export const STATE_DEFAULT = {
   step: 1,
   stepLength: 1,
@@ -7,7 +20,7 @@ export const STATE_DEFAULT = {
   form: {
     // STEP 1
     name: '',
-    partner_type: null,
+    partner_type: PARTNER_TYPES[0].value,
     description: '',
     content: '',
     url: '',
@@ -40,11 +53,3 @@ export const FORM_ELEMENTS = {
     return valid;
   }
 };
-
-export const PARTNER_TYPES = [{
-  label: 'Partner',
-  value: 'partner'
-}, {
-  label: 'Founding partner',
-  value: 'founding partner'
-}];

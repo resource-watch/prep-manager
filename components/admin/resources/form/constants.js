@@ -35,14 +35,18 @@ export const FORM_ELEMENTS = {
 
 export const RESOURCES_TYPES = [
   {
-    label: 'Understanding impacts of climate change',
-    value: 'Understanding impacts of climate change'
+    label: 'Understanding Climate Change Impacts',
+    value: 'Understanding Climate Change Impacts'
   }, {
-    label: 'Climate resilience tools and services',
-    value: 'Climate resilience tools and services'
+    label: 'Climate Assessment & Preparedness Tools',
+    value: 'Climate Assessment & Preparedness Tools'
   },
   {
-    label: 'Climate data portals',
-    value: 'Climate data portals'
+    label: 'Climate Data Portals',
+    value: 'Climate Data Portals'
+  },
+  {
+    label: 'Multi-resource Platforms',
+    value: 'Multi-resource Platforms'
   }
 ];

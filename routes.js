@@ -33,9 +33,9 @@ routes.add('admin_myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'admin/M
 routes.add('admin_insights', '/admin/insights/:tab?', 'admin/Insights');
 routes.add('admin_insights_detail', '/admin/insights/:tab/:id/:subtab?', 'admin/InsightsDetail');
 
-// ------ MY RW ------------
-// routes.add('myprep', '/myprep/:tab?/:subtab?', 'app/MyPREP');
-// routes.add('myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'app/MyPREPDetail');
+// ------ DASHBOARDS ------------
+routes.add('dashboards_detail', '/dashboards/:slug', 'app/DashboardsDetail');
+// routes.add('dashboards', '/dashboards', 'app/Dashboards');
 
 // ------ EMBED -------------
 routes.add('embed_widget', '/embed/widget/:id', 'app/embed/EmbedWidget');
@@ -44,7 +44,7 @@ routes.add('embed_map', '/embed/map/:id', 'app/embed/EmbedMap');
 routes.add('embed_dataset', '/embed/dataset/:id', 'app/embed/EmbedDataset');
 routes.add('embed_layer', '/embed/layers', 'app/embed/EmbedLayer');
 routes.add('embed_table', '/embed/table', 'app/embed/EmbedTable');
-routes.add('embed_dashboard', '/embed/dashboards/:slug', 'app/embed/EmbedDashboard');
+// routes.add('embed_dashboard', '/embed/dashboards/:slug', 'app/embed/EmbedDashboard');
 
 
 module.exports = routes;

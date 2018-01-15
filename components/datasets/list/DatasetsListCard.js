@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Autobind } from 'es-decorators';
 import { toastr } from 'react-redux-toastr';
 import { Link } from 'routes';
 
@@ -19,8 +18,7 @@ class DatasetsListCard extends React.Component {
     this.service = new DatasetsService({ authorization: props.token });
   }
 
-  @Autobind
-  handleDelete() {
+  handleDelete = () => {
     const { dataset } = this.props;
     const metadata = dataset.metadata[0];
     toastr.confirm(`Are you sure you want to delete the dataset: ${metadata && metadata.attributes.info ? metadata.attributes.info.name : dataset.name}?`, {
@@ -49,7 +47,7 @@ class DatasetsListCard extends React.Component {
             >
               <a>
                 <Title className="-default">
-                  {metadata && metadata.attributes.info ? metadata.attributes.info.name : dataset.name}
+                  {metadata ? metadata.attributes.name : dataset.name}
                 </Title>
               </a>
             </Link>
@@ -63,6 +61,9 @@ class DatasetsListCard extends React.Component {
               <DatasetsRelatedContent
                 dataset={dataset}
                 route={routes.detail}
+                buttons={{
+                  layer: false
+                }}
               />
             }
             {dataset.status !== 'saved' &&

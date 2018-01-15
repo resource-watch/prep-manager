@@ -40,13 +40,13 @@ class MyPREPWidgetsStarred extends React.Component {
     this.userService.getFavouriteWidgets(this.props.user.token)
       .then((response) => {
         this.setState({
-          starredWidgets: response.map((elem) => {
+          starredWidgets: (response.data || []).map((elem) => {
             const favouriteId = elem.id;
             return Object.assign({}, elem.attributes.resource, { favouriteId });
           }).filter(f => f.attributes.application.includes(process.env.APPLICATIONS)),
           starredWidgetsLoaded: true
         });
-      }).catch(err => toastr.error('Error', err));
+      }).catch(err => { toastr.error('Error', err) });
   }
 
   @Autobind

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import * as actions from './tool-block-actions';
-import reducers from './tool-block-reducers';
+import * as reducers from './tool-block-reducers';
 import initialState from './tool-block-default-state';
 
 import ToolBlockComponent from './tool-block-component';

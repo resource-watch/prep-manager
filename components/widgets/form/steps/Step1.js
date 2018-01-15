@@ -151,58 +151,64 @@ class Step1 extends React.Component {
           </Field>
 
           {/* PUBLISHED */}
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
-            onChange={value => this.props.onChange({ published: value.checked })}
-            properties={{
-              name: 'published',
-              label: 'Do you want to set this widget as published?',
-              value: 'published',
-              title: 'Published',
-              defaultChecked: this.props.form.published,
-              checked: this.props.form.published
-            }}
-          >
-            {Checkbox}
-          </Field>
+          {!this.props.basic &&
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
+              onChange={value => this.props.onChange({ published: value.checked })}
+              properties={{
+                name: 'published',
+                label: 'Do you want to set this widget as published?',
+                value: 'published',
+                title: 'Published',
+                defaultChecked: this.props.form.published,
+                checked: this.props.form.published
+              }}
+            >
+              {Checkbox}
+            </Field>
+          }
 
           {/* DEFAULT */}
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.default = c; }}
-            onChange={value => this.props.onChange({ default: value.checked })}
-            properties={{
-              name: 'default',
-              label: 'Do you want to set this widget as default?',
-              value: 'default',
-              title: 'Default',
-              defaultChecked: this.props.form.default,
-              checked: this.props.form.default
-            }}
-          >
-            {Checkbox}
-          </Field>
+          {!this.props.basic &&
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.default = c; }}
+              onChange={value => this.props.onChange({ default: value.checked })}
+              properties={{
+                name: 'default',
+                label: 'Do you want to set this widget as default?',
+                value: 'default',
+                title: 'Default',
+                defaultChecked: this.props.form.default,
+                checked: this.props.form.default
+              }}
+            >
+              {Checkbox}
+            </Field>
+          }
 
           {/* DEFAULT EDITABLE WIDGET */}
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.defaultEditableWidget = c; }}
-            onChange={value => this.props.onChange({ defaultEditableWidget: value.checked })}
-            properties={{
-              name: 'defaultEditableWidget',
-              label: 'Do you want to set this widget as the default editable widget?',
-              value: 'defaultEditableWidget',
-              title: 'Default editable widget',
-              defaultChecked: this.props.form.defaultEditableWidget,
-              checked: this.props.form.defaultEditableWidget
-            }}
-          >
-            {Checkbox}
-          </Field>
-
+          {!this.props.basic &&
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.defaultEditableWidget = c; }}
+              onChange={value => this.props.onChange({ defaultEditableWidget: value.checked })}
+              properties={{
+                name: 'defaultEditableWidget',
+                label: 'Do you want to set this widget as the default editable widget?',
+                value: 'defaultEditableWidget',
+                title: 'Default editable widget',
+                defaultChecked: this.props.form.defaultEditableWidget,
+                checked: this.props.form.defaultEditableWidget
+              }}
+            >
+              {Checkbox}
+            </Field>
+          }
         </fieldset>
 
         {this.state.form.dataset &&
           <fieldset className={`c-field-container ${editorFieldContainerClass}`}>
-            <div className="l-row row align-right">
+            {/* As long as we don't have preview for advanced mode we should hide this button */}
+            {/* <div className="l-row row align-right">
               <div className="column shrink">
                 <SwitchOptions
                   selected={this.props.mode}
@@ -216,7 +222,7 @@ class Step1 extends React.Component {
                   onChange={selected => this.triggerChangeMode(selected.value)}
                 />
               </div>
-            </div>
+            </div> */}
 
             {this.props.mode === 'editor' &&
               <div>
@@ -275,6 +281,7 @@ Step1.propTypes = {
   id: PropTypes.string,
   form: PropTypes.object,
   mode: PropTypes.string,
+  basic: PropTypes.bool,
   datasets: PropTypes.array,
   onChange: PropTypes.func,
   onModeChange: PropTypes.func,

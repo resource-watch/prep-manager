@@ -70,7 +70,7 @@ export default class UserService {
    */
   setFavourites(token, resourceType = null, include = true) {
     const resourceTypeSt = (resourceType !== null) ? `&resource-type=${resourceType}` : '';
-    return fetch(`${this.opts.apiURL}/favourite?include=${include}${resourceTypeSt}&application=${[process.env.APPLICATIONS]}`, {
+    return fetch(`${this.opts.apiURL}/favourite?include=${include}${resourceTypeSt}&application=${process.env.APPLICATIONS}`, {
       headers: {
         Authorization: token
       }
@@ -185,7 +185,7 @@ export default class UserService {
    */
   getSubscriptions(token) {
     return new Promise((resolve) => {
-      fetch(`${this.opts.apiURL}/subscriptions?application=${[process.env.APPLICATIONS]}`, {
+      fetch(`${this.opts.apiURL}/subscriptions?application=${process.env.APPLICATIONS}`, {
         headers: {
           Authorization: token
         }
@@ -216,7 +216,7 @@ export default class UserService {
    */
   getUserAreas(token) {
     return new Promise((resolve, reject) => {
-      fetch(`${this.opts.apiURL}/area?application=${[process.env.APPLICATIONS]}`, {
+      fetch(`${this.opts.apiURL}/area?application=${process.env.APPLICATIONS}`, {
         headers: {
           Authorization: token
         }
@@ -333,6 +333,29 @@ export default class UserService {
       reader.onerror = (error) => {
         reject(error);
       };
+    });
+  }
+
+  static logout() {
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.CONTROL_TOWER_URL}/auth/logout`, {
+        method: 'GET',
+        credentials: 'include'
+      })
+        .then((response) => {
+          const { status, statusText } = response;
+
+          if (status === 200) return resolve();
+
+          const errorObject = {
+            errors: {
+              status,
+              details: statusText
+            }
+          };
+          throw errorObject;
+        })
+        .catch((errors) => { reject(errors); });
     });
   }
 }

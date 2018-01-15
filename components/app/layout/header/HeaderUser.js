@@ -1,45 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { Link } from 'routes';
-import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 
-// Services
-import UserService from 'services/UserService';
+// Connect
+import { connect } from 'react-redux';
+
+// Utils
+import { get } from 'utils/request';
 
 // Components
 import TetherComponent from 'react-tether';
+import Icon from 'components/ui/Icon';
 
 class HeaderUser extends React.Component {
-  static logout(e) {
-    if (e) e.preventDefault();
+  /**
+   * UI EVENTS
+   * - logout
+  */
+  logout(e) {
+    if (e) {
+      e.preventDefault();
+    }
 
-    UserService.logout()
-      .then(() => {
-        localStorage.removeItem('token');
-        window.location.href = `/logout?callbackUrl=${window.location.href}`;
-      })
-      .catch(({ errors }) => {
-        const { status, details } = errors;
-        console.error(status, details);
-
-        toastr.error('Ops, something went wrong.', details);
-      });
+    // Get to logout
+    get({
+      url: `${process.env.CONTROL_TOWER_URL}/auth/logout`,
+      withCredentials: true,
+      onSuccess: () => {
+        try {
+          localStorage.removeItem('user');
+          window.location.href = `/logout?callbackUrl=${window.location.href}`;
+        } catch (err) {
+          window.location.href = `/logout?callbackUrl=${window.location.href}`;
+        }
+      },
+      onError: (err) => {
+        toastr.error('Error', err);
+      }
+    });
   }
+
 
   render() {
     const { user } = this.props;
 
     if (user.token) {
-      const activeNotificationClassName = classnames({
-        '-active': !!user.notifications
-      });
-
-      const avatar = (user.avatar) ? `url(${user.avatar})` : 'none';
+      const photo = (user.photo) ? `url(${user.photo})` : 'none';
 
       return (
-        <div className="c-avatar" style={{ backgroundImage: avatar }}>
+        <div className="c-avatar" style={{ backgroundImage: photo }}>
           <TetherComponent
             attachment="top center"
             constraints={[{
@@ -56,8 +66,11 @@ class HeaderUser extends React.Component {
                 onMouseEnter={this.props.onMouseEnter}
                 onMouseLeave={this.props.onMouseLeave}
               >
-                {!user.avatar && <span className="avatar-letter">{user.email && user.email.split('')[0]}</span>}
-                {user.notifications && <span className={`avatar-notifications ${activeNotificationClassName}`}>{user.notifications}</span>}
+                {(!user.photo && user.email) &&
+                  <span className="avatar-letter" >
+                    {user.email.split('')[0]}
+                  </span>
+                }
               </a>
             </Link>
             {/* Second child: If present, this item will be tethered to the the first child */}
@@ -78,7 +91,7 @@ class HeaderUser extends React.Component {
                   </li>
                 }
                 <li className="header-dropdown-list-item">
-                  <a onClick={HeaderUser.logout} href="/logout">Logout</a>
+                  <a onClick={this.logout} href="/logout">Logout</a>
                 </li>
               </ul>
             }
@@ -105,8 +118,9 @@ class HeaderUser extends React.Component {
             onMouseEnter={this.props.onMouseEnter}
             onMouseLeave={this.props.onMouseLeave}
           >
-            Log in
+            <Icon name="icon-user" className="-medium" />
           </span>
+
           {/* Second child: If present, this item will be tethered to the the first child */}
           {this.props.active &&
             <ul
@@ -115,17 +129,17 @@ class HeaderUser extends React.Component {
               onMouseLeave={this.props.onMouseLeave}
             >
               <li className="header-dropdown-list-item">
-                <a href={`${process.env.CONTROL_TOWER_URL}/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Facebook
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`${process.env.CONTROL_TOWER_URL}/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Google
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`${process.env.CONTROL_TOWER_URL}/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Twitter
                 </a>
               </li>

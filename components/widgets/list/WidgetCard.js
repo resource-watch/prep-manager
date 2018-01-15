@@ -333,18 +333,13 @@ class WidgetCard extends React.Component {
   }
 
   @Autobind
-  handleAddToDashboard() { // eslint-disable-line class-methods-use-this
-    // TO-DO implement this
-  }
-
-  @Autobind
   handleEditWidget() {
-    Router.pushRoute('myrw_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
+    Router.pushRoute('admin_myprep_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
   }
 
   @Autobind
   handleGoToDataset() {
-    Router.pushRoute('explore_detail', { id: this.props.widget.attributes.dataset });
+    window.location = `/dataset/${this.props.widget.attributes.dataset}`;
   }
 
   @Autobind
@@ -377,7 +372,6 @@ class WidgetCard extends React.Component {
       childrenProps: {
         toggleTooltip: this.props.toggleTooltip,
         onShareEmbed: this.handleEmbed,
-        onAddToDashboard: this.handleAddToDashboard,
         onGoToDataset: this.handleGoToDataset,
         onEditWidget: this.handleEditWidget,
         onDownloadPDF: this.handleDownloadPDF
