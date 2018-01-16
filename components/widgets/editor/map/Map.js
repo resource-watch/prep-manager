@@ -44,8 +44,6 @@ class Map extends React.Component {
 
     if (!this.mapNode) return;
 
-    console.log(mapOptions);
-
     this.map = L.map(this.mapNode, mapOptions);
 
     if (this.props.setMapInstance) {
