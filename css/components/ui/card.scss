@@ -13,6 +13,7 @@
   }
 
   .card-header {
+    position: relative;
     > * {
       margin: 4px 0 0;
 
@@ -26,6 +27,22 @@
       font-size: 22px;
       line-height: 28px;
       margin-bottom: 12px;
+    }
+
+    .star-button{
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      .c-icon {
+        fill: $light-grey;
+        cursor: pointer;
+
+        &.-favourited {
+          fill: $yellow;
+        }
+      }
+
     }
   }
 

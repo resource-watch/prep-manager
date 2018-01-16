@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
 import { getDatasets, setFilters } from 'redactions/admin/datasets';
+import { toggleFavourite } from 'redactions/user';
 
 // Selectors
 import getFilteredDatasets from 'selectors/admin/datasets';
@@ -18,6 +18,7 @@ class DatasetsList extends React.Component {
   constructor(props) {
     super(props);
 
+    // bindings
     this.onSearch = this.onSearch.bind(this);
   }
 
@@ -48,17 +49,16 @@ class DatasetsList extends React.Component {
     });
   }
 
-  @Autobind
   handleDatasetRemoved() {
     this.loadData();
   }
 
   render() {
-    const { datasets, routes, user } = this.props;
+    const { datasets, routes, user, loading, toggleFavourites } = this.props;
 
     return (
       <div className="c-dataset-list">
-        <Spinner className="-light" isLoading={this.props.loading} />
+        <Spinner className="-light" isLoading={loading} />
 
         <SearchInput
           input={{
@@ -82,8 +82,9 @@ class DatasetsList extends React.Component {
               <DatasetsListCard
                 dataset={dataset}
                 routes={routes}
-                token={user.token}
-                onDatasetRemoved={this.handleDatasetRemoved}
+                user={user}
+                onDatasetRemoved={() => this.handleDatasetRemoved()}
+                toggleFavourites={toggleFavourites}
               />
             </div>
           ))}
@@ -100,7 +101,9 @@ DatasetsList.defaultProps = {
   },
   getDatasetsFilters: {},
   // Store
-  datasets: []
+  datasets: [],
+  // actions
+  toggleFavourites: () => {}
 };
 
 DatasetsList.propTypes = {
@@ -114,18 +117,23 @@ DatasetsList.propTypes = {
 
   // Actions
   getDatasets: PropTypes.func.isRequired,
-  setFilters: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired,
+  toggleFavourites: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   user: state.user,
   loading: state.datasets.datasets.loading,
+  favouriteLoading: state.user.favourites.loading,
   datasets: getFilteredDatasets(state),
   error: state.datasets.datasets.error
 });
+
 const mapDispatchToProps = dispatch => ({
   getDatasets: options => dispatch(getDatasets(options)),
-  setFilters: filters => dispatch(setFilters(filters))
+  setFilters: filters => dispatch(setFilters(filters)),
+  toggleFavourites: (favourite, resource) =>
+    dispatch(toggleFavourite(favourite, resource))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetsList);
