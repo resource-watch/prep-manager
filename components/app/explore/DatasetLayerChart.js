@@ -29,6 +29,7 @@ class DatasetLayerChart extends React.PureComponent {
           className="-light"
         />
         <LayerChart
+          widget={this.props.widget}
           data={layerConfig}
           toggleLoading={this.triggerToggleLoading}
         />
@@ -38,6 +39,7 @@ class DatasetLayerChart extends React.PureComponent {
 }
 
 DatasetLayerChart.propTypes = {
+  widget: PropTypes.object,
   layer: PropTypes.object
 };
 

@@ -1,29 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import User from 'components/user';
-import isEmpty from 'lodash/isEmpty';
+import { setUser } from 'redactions/user';
+import { setRouter } from 'redactions/routes';
 
-export default class Page extends React.Component {
-  // Expose session to all pages
-  static async getInitialProps({ req }) {
-    this.user = new User({ req });
-
-    return {
-      user: await this.user.getUser()
-    };
-  }
-
-  componentDidMount() {
-    if (isEmpty(this.props.user)) {
-      try {
-        localStorage.removeItem('user');
-      } catch (err) {
-        console.info(err);
-      }
-    }
+export default class Page extends React.PureComponent {
+  static async getInitialProps({ asPath, pathname, query, req, store, isServer }) {
+    const { user } = isServer ? req : store.getState();
+    const url = { asPath, pathname, query };
+    await store.dispatch(setUser(user));
+    store.dispatch(setRouter(url));
+    return { user, isServer, url };
   }
 }
-
-Page.propTypes = {
-  user: PropTypes.object
-};

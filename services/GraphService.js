@@ -11,16 +11,22 @@ export default class GraphService {
    * Get all tags
    */
   getAllTags() {
-    return fetch(`${this.opts.apiURL}/graph/query/list-concepts`)
-      .then(response => response.json())
+    return fetch(`${this.opts.apiURL}/graph/query/list-concepts?application=${process.env.APPLICATIONS}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
       .then(response => response.data);
   }
   /**
    * Get inferred tags
    */
   getInferredTags(tags) {
-    return fetch(`${this.opts.apiURL}/graph/query/concepts-inferred?concepts=${tags}`)
-      .then(response => response.json())
+    return fetch(`${this.opts.apiURL}/graph/query/concepts-inferred?concepts=${tags}&application=${process.env.APPLICATIONS}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
       .then(response => response.data);
   }
 
@@ -28,29 +34,62 @@ export default class GraphService {
   * Get dataset tags
   */
   getDatasetTags(datasetId) {
-    return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary`)
-      .then(response => response.json())
+    return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary?application=${process.env.APPLICATIONS}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
       .then(response => response.data);
   }
 
   /**
   * Update dataset tags
   */
-  updateDatasetTags(datasetId, tags, token) {
-    const bodyObj = {
-      knowledge_graph: {
+  updateDatasetTags(datasetId, tags, token, type = 'POST') {
+    if (type === 'POST') {
+      const bodyObj = {
+        knowledge_graph: {
+          application: process.env.APPLICATIONS,
+          tags
+        }
+      };
+
+      return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary`, {
+        method: 'POST',
+        body: JSON.stringify(bodyObj),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error(response.statusText);
+          return response.json();
+        })
+        .then(jsonData => jsonData.data);
+    }
+
+    if (type === 'PATCH') {
+      const bodyObj = {
+        application: process.env.APPLICATIONS,
         tags
-      }
-    };
-    return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary`, {
-      method: 'PUT',
-      body: JSON.stringify(bodyObj),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token
-      }
-    })
-      .then(response => response.json())
-      .then(jsonData => jsonData.data);
+      };
+
+      return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary/knowledge_graph`, {
+        method: 'PATCH',
+        body: JSON.stringify(bodyObj),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token
+        }
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error(response.statusText);
+          return response.json();
+        })
+        .then(jsonData => jsonData.data);
+    }
+
+    return null;
   }
 }

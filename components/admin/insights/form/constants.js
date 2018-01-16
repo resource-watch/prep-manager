@@ -15,7 +15,7 @@ export const STATE_DEFAULT = {
     content_url: '',
     partner: {},
     partner_id: null,
-    attribution: false,
+    attribution: '',
     published: false,
     embeddable: false
   }
@@ -40,9 +40,3 @@ export const FORM_ELEMENTS = {
     return valid;
   }
 };
-
-export const TEMPLATE_TYPES = [
-  { label: 'Custom', value: 0 },
-  { label: 'Template 1', value: 1 },
-  { label: 'Template 2', value: 2 }
-];

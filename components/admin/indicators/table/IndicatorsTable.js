@@ -4,7 +4,6 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
 import { getIndicators, setFilters } from 'redactions/admin/indicators';
 
 // Selectors
@@ -24,7 +23,6 @@ import TitleTD from './td/TitleTD';
 import PublishedTD from './td/PublishedTD';
 
 class IndicatorsTable extends React.Component {
-
   componentDidMount() {
     this.props.setFilters([]);
     this.props.getIndicators();
@@ -71,7 +69,7 @@ class IndicatorsTable extends React.Component {
           }}
           link={{
             label: 'New indicator',
-            route: 'admin_dashboards_detail',
+            route: 'admin_indicators_detail',
             params: { tab: 'indicators', id: 'new' }
           }}
           onSearch={this.onSearch}
@@ -86,8 +84,8 @@ class IndicatorsTable extends React.Component {
             actions={{
               show: true,
               list: [
-                { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'indicators', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
-                { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'indicators', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
+                { name: 'Edit', route: 'admin_indicators_detail', params: { tab: 'indicators', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Remove', route: 'admin_indicators_detail', params: { tab: 'indicators', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
             sort={{

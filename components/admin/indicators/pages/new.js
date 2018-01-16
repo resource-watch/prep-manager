@@ -16,7 +16,7 @@ function IndicatorsNew(props) {
     <div className="c-indicators-new">
       <IndicatorsForm
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'indicators' })}
+        onSubmit={() => Router.pushRoute('admin_indicators', { tab: 'indicators' })}
       />
     </div>
   );

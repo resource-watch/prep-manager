@@ -1,17 +1,25 @@
 import 'isomorphic-fetch';
 import { get, post, remove } from 'utils/request';
 
-export default class DashboardsService {
+import sortBy from 'lodash/sortBy';
 
+export default class DashboardsService {
   constructor(options = {}) {
     this.opts = options;
   }
 
   // GET ALL DATA
-  fetchAllData() {
+  fetchAllData({ includes, filters, fields } = {}) {
+    const qParams = {
+      ...!!includes && { includes },
+      ...filters,
+      ...fields
+    };
+    const params = Object.keys(qParams).map(k => `${k}=${qParams[k]}`).join('&');
+
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/dashboards/?published=all`,
+        url: `${process.env.API_URL}/dashboards/?${params}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
@@ -20,7 +28,7 @@ export default class DashboardsService {
           value: this.opts.authorization
         }],
         onSuccess: (response) => {
-          resolve(response);
+          resolve(sortBy(response, 'title'));
         },
         onError: (error) => {
           reject(error);
@@ -29,7 +37,7 @@ export default class DashboardsService {
     });
   }
 
-  fetchData(id) {
+  fetchData({ id }) {
     return new Promise((resolve, reject) => {
       get({
         url: `${process.env.API_URL}/dashboards/${id}`,
@@ -73,13 +81,13 @@ export default class DashboardsService {
     });
   }
 
-  deleteData(id) {
+  deleteData({ id, auth }) {
     return new Promise((resolve, reject) => {
       remove({
         url: `${process.env.API_URL}/dashboards/${id}`,
         headers: [{
           key: 'Authorization',
-          value: this.opts.authorization
+          value: auth || this.opts.authorization
         }],
         onSuccess: (response) => {
           resolve(response);

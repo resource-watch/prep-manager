@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import classnames from 'classnames';
 import { Link } from 'routes';
 import { toastr } from 'react-redux-toastr';
+
+// Connect
+import { connect } from 'react-redux';
 
 // Utils
 import { get } from 'utils/request';
 
 // Components
 import TetherComponent from 'react-tether';
+import Icon from 'components/ui/Icon';
 
 class HeaderUser extends React.Component {
   /**
@@ -43,15 +45,11 @@ class HeaderUser extends React.Component {
   render() {
     const { user } = this.props;
 
-    if (!isEmpty(user)) {
-      const activeNotificationClassName = classnames({
-        '-active': !!user.notifications
-      });
-
-      const avatar = (user.avatar) ? `url(${user.avatar})` : 'none';
+    if (user.token) {
+      const photo = (user.photo) ? `url(${user.photo})` : 'none';
 
       return (
-        <div className="c-avatar" style={{ backgroundImage: avatar }}>
+        <div className="c-avatar" style={{ backgroundImage: photo }}>
           <TetherComponent
             attachment="top center"
             constraints={[{
@@ -68,8 +66,11 @@ class HeaderUser extends React.Component {
                 onMouseEnter={this.props.onMouseEnter}
                 onMouseLeave={this.props.onMouseLeave}
               >
-                {!user.avatar && <span className="avatar-letter">{user.email && user.email.split('')[0]}</span>}
-                {user.notifications && <span className={`avatar-notifications ${activeNotificationClassName}`}>{user.notifications}</span>}
+                {(!user.photo && user.email) &&
+                  <span className="avatar-letter" >
+                    {user.email.split('')[0]}
+                  </span>
+                }
               </a>
             </Link>
             {/* Second child: If present, this item will be tethered to the the first child */}
@@ -99,7 +100,7 @@ class HeaderUser extends React.Component {
       );
     }
 
-    if (isEmpty(user)) {
+    if (!user.token) {
       return (
         <TetherComponent
           attachment="top center"
@@ -117,8 +118,9 @@ class HeaderUser extends React.Component {
             onMouseEnter={this.props.onMouseEnter}
             onMouseLeave={this.props.onMouseLeave}
           >
-            Log in
+            <Icon name="icon-user" className="-medium" />
           </span>
+
           {/* Second child: If present, this item will be tethered to the the first child */}
           {this.props.active &&
             <ul
@@ -127,17 +129,17 @@ class HeaderUser extends React.Component {
               onMouseLeave={this.props.onMouseLeave}
             >
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Facebook
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Google
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=rw&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Twitter
                 </a>
               </li>
@@ -158,4 +160,8 @@ HeaderUser.propTypes = {
 };
 
 
-export default HeaderUser;
+export default connect(
+  state => ({
+    user: state.user
+  })
+)(HeaderUser);

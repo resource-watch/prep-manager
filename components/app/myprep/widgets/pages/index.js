@@ -12,20 +12,15 @@ import MyPREPWidgetsStarred from 'components/app/myprep/widgets/MyPREPWidgetsSta
 
 // Constants
 const WIDGET_SUBTABS = [{
-  label: 'Starred',
-  value: 'starred',
-  route: 'admin_myprep',
-  params: { tab: 'widgets', subtab: 'starred' }
-}, {
   label: 'My widgets',
-  value: 'my_wigets',
+  value: 'my_widgets',
   route: 'admin_myprep',
   params: { tab: 'widgets', subtab: 'my_widgets' }
 }];
 
 function WidgetsIndex(props) {
   const { id, user } = props;
-  const subtab = props.subtab || 'starred';
+  const subtab = props.subtab || 'my_widgets';
 
   return (
     <div className="c-widgets-index">

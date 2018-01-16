@@ -12,11 +12,6 @@ import MyPREPDatasetsStarred from 'components/app/myprep/datasets/MyPREPDatasets
 
 // Constants
 const DATASET_SUBTABS = [{
-  label: 'Starred',
-  value: 'starred',
-  route: 'admin_myprep',
-  params: { tab: 'datasets', subtab: 'starred' }
-}, {
   label: 'My datasets',
   value: 'my_datasets',
   route: 'admin_myprep',
@@ -25,7 +20,7 @@ const DATASET_SUBTABS = [{
 
 function DatasetsIndex(props) {
   const { id, user } = props;
-  const subtab = props.subtab || 'starred';
+  const subtab = props.subtab || 'my_datasets';
 
   return (
     <div className="c-datasets-index">

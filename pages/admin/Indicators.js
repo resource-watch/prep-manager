@@ -60,24 +60,32 @@ class Indicators extends Page {
       >
         {/* PAGE HEADER */}
         <div className="c-page-header -admin">
-          <div className="l-container">
-            <div className="page-header-content -with-tabs">
-              <Title className="-primary -huge page-header-title" >
-                Indicators
-              </Title>
-              <Tabs
-                options={DATA_TABS}
-                defaultSelected={tab}
-                selected={tab}
-              />
+          <div className="row">
+            <div className="column small-12">
+              <div className="l-container">
+                <div className="page-header-content -with-tabs">
+                  <Title className="-primary -huge page-header-title" >
+                    Indicators
+                  </Title>
+                  <Tabs
+                    options={DATA_TABS}
+                    defaultSelected={tab}
+                    selected={tab}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="c-page-section">
-          <div className="l-container">
-            {tab === 'indicators' &&
-              <IndicatorsTab tab={tab} subtab={subtab} id={id} />
-            }
+          <div className="row">
+            <div className="column small-12">
+              <div className="l-container">
+                {tab === 'indicators' &&
+                  <IndicatorsTab tab={tab} subtab={subtab} id={id} />
+                }
+              </div>
+            </div>
           </div>
         </div>
       </Layout>

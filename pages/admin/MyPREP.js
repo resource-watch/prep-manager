@@ -72,6 +72,13 @@ class MyPREP extends Page {
     });
   }
 
+  componentDidMount() {
+    const { url } = this.props;
+    const { token } = url.query || {};
+
+    if (token) localStorage.setItem('token', token);
+  }
+
   getData(key, value) {
     let data = null;
     // First search for exactly match
@@ -118,7 +125,7 @@ class MyPREP extends Page {
             landing={false}
           >
             <span></span>
-            <Title className="-primary -huge page-header-title -line" >
+            <Title className="-primary -huge page-header-title -line -center" >
               {currentData.title}
             </Title>
             <Tabs

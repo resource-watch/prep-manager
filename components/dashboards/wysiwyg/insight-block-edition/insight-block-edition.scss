@@ -1,0 +1,13 @@
+.c-insight-block-edition {
+  .insight-block-list {
+    padding-left: 20px;
+
+    > li {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

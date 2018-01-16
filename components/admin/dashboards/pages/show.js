@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
-import { initStore } from 'store';
+
 
 // Components
-import DashboardsForm from 'components/admin/dashboards/form/DashboardsForm';
+import DashboardsForm from 'components/dashboards/form/DashboardsForm';
 
 function DashboardsShow(props) {
   const { id, user } = props;
@@ -16,7 +16,7 @@ function DashboardsShow(props) {
     <div className="c-dashboards-show">
       <DashboardsForm
         id={id}
-        authorization={user.token}
+        user={user}
         onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'dashboards' })}
       />
     </div>

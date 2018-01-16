@@ -88,7 +88,7 @@ class DatasetWidgets extends React.Component {
               <div className="left-container">
                 <button
                   className="c-btn -a"
-                  onClick={() => Router.pushRoute('myprep_detail', { tab: 'widgets', id: 'new', datasetId: dataset })}
+                  onClick={() => Router.pushRoute('admin_myprep_detail', { tab: 'widgets', id: 'new', datasetId: dataset })}
                 >
                   New widget
                 </button>

@@ -22,6 +22,7 @@ import NameTD from './td/NameTD';
 import PublishedTD from './td/PublishedTD';
 import StatusTD from './td/StatusTD';
 import RelatedContentTD from './td/RelatedContentTD';
+import OwnershipTD from './td/OwnershipTD';
 import UpdatedAtTD from './td/UpdatedAtTD';
 
 class DatasetsTable extends React.Component {
@@ -58,7 +59,7 @@ class DatasetsTable extends React.Component {
   }
 
   render() {
-    const { routes, getDatasetsFilters } = this.props;
+    const { routes, getDatasetsFilters, user } = this.props;
 
     return (
       <div className="c-dataset-table">
@@ -88,6 +89,7 @@ class DatasetsTable extends React.Component {
               { label: 'Status', value: 'status', td: StatusTD },
               { label: 'Published', value: 'published', td: PublishedTD },
               { label: 'Provider', value: 'provider' },
+              { label: 'Ownership', value: 'userId', td: OwnershipTD, tdProps: { user } },
               { label: 'Updated at', value: 'updatedAt', td: UpdatedAtTD },
               { label: 'Related content', value: 'status', td: RelatedContentTD, tdProps: { route: routes.detail } }
             ]}

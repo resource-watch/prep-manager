@@ -1,204 +1,120 @@
 import React from 'react';
-import classnames from 'classnames';
-import renderHTML from 'react-render-html';
-import isEmpty from 'lodash/isEmpty';
 
-// Router
-import { Router } from 'routes';
+// Redux
 import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
-import { bindActionCreators } from 'redux';
-import { getPublicDashboards } from 'redactions/dashboards';
-import { getDashboard } from 'redactions/dashboardDetail';
-import { getFavourites } from 'redactions/user';
+import { setUser } from 'redactions/user';
+import { setRouter } from 'redactions/routes';
+import { fetchDashboard } from 'components/dashboards/detail/dashboard-detail-actions';
 
 // Components
 import Page from 'components/app/layout/Page';
 import Layout from 'components/app/layout/Layout';
+import Title from 'components/ui/Title';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
-import DashboardCard from 'components/app/dashboards/DashboardCard';
-import Spinner from 'components/ui/Spinner';
+import DashboardDetail from 'components/dashboards/detail/dashboard-detail';
+import RelatedDashboards from 'components/dashboards/related-dashboards/related-dashboards';
 
 class DashboardsDetail extends Page {
-  /**
-   * Return the URL of the dashboard image
-   * NOTE: return null if no image
-   * @static
-   * @param {string|object} image
-   */
-  static getDashboardImageUrl(image) {
-    if (!image) return null;
+  static async getInitialProps(context) {
+    const props = await super.getInitialProps(context);
+    await context.store.dispatch(fetchDashboard({ id: props.url.query.slug }));
 
-    if (typeof image === 'object') {
-      // If no image has been uploaded, we just don't display anything
-      if (/missing\.png$/.test(image.original)) return null;
-      return `${process.env.STATIC_SERVER_URL}${image.original}`;
-    } else if (typeof image === 'string') {
-      return `/${image}`;
-    }
-
-    return null;
+    return { ...props };
   }
 
-  /**
-  * COMPONENT LIFECYCLE
-  * - componentDidMount
-  * - componentWillReceiveProps
-  */
-  async componentDidMount() {
-    if (!isEmpty(this.props.user)) await this.props.getFavourites();
-    this.props.getPublicDashboards();
-    this.props.getDashboard(this.props.url.query.slug);
-  }
+  getStyle = () => {
+    const { dashboardDetail } = this.props;
 
-  componentDidUpdate(prevProps) {
-    if (this.props.url.query.slug !== prevProps.url.query.slug) {
-      this.props.getDashboard(this.props.url.query.slug);
-    }
-  }
-
-  /**
-   * Event handler executed when a different dashboard is selected
-   * @param {string} slug Slug of the selected dashboard
-   */
-  static onChangeDashboard(slug) {
-    // The countries dashboard is still ran by the old
-    // application, so the URL is different
-    if (slug === 'countries') {
-      window.location = '/countries';
-      return;
+    if (dashboardDetail.dashboard.image && dashboardDetail.dashboard.image !== '/images/original/missing.png') {
+      return {
+        backgroundImage: `url(${dashboardDetail.dashboard.image})`
+      };
     }
 
-    // We update the URL anyway (only on the client)
-    Router.replaceRoute('dashboards_detail', { slug });
+    return {
+      backgroundImage: 'url(/static/images/dashboards/bg-dashboard.png)'
+    };
+  }
+
+  componentDidMount() {
+    this.props.fetchDashboard({ id: this.props.url.query.slug });
   }
 
   render() {
-    const { url, user, dashboards, dashboardDetail } = this.props;
-    const selectedDashboard = dashboardDetail.data;
-    const dashboardName = selectedDashboard && selectedDashboard.name
-      ? `${selectedDashboard.name} dashboard`
-      : 'Dashboard';
+    const { dashboardDetail } = this.props;
 
     return (
       <Layout
-        title={dashboardName}
-        description={selectedDashboard && selectedDashboard.summary ? selectedDashboard.summary : 'Resource Watch Dashboards'}
-        url={url}
-        user={user}
-        pageHeader
+        title={dashboardDetail.dashboard.title}
+        description={dashboardDetail.dashboard.summary}
+        url={this.props.url}
+        user={this.props.user}
         className="page-dashboards c-page-dashboards"
       >
-        <header className="l-page-header">
+        <div
+          className="c-page-header -app"
+          style={this.getStyle()}
+        >
           <div className="l-container">
             <div className="row">
               <div className="column small-12">
-                <div className="page-header-content">
-                  <Breadcrumbs items={[{ name: 'Data', href: '/data' }]} />
-                  <h1>Dashboards</h1>
+                <Breadcrumbs
+                  className="-theme-app"
+                  items={[
+                    { name: 'Home', href: '/' },
+                    { name: 'Dashboards', href: '/dashboards' },
+                    { name: dashboardDetail.dashboard.title }
+                  ]}
+                />
+
+                <Title className="-primary -huge page-header-title -line -center" >
+                  {dashboardDetail.dashboard.title}
+                </Title>
+
+              </div>
+            </div>
+
+            {dashboardDetail.dashboard.partner &&
+              <div className="row">
+                <div className="column small-12">
+                  <div className="page-header-partner">
+                    <img
+                      src={dashboardDetail.dashboard.partner.white_logo}
+                      alt={dashboardDetail.dashboard.partner.title}
+                    />
+                    <p>{dashboardDetail.dashboard.partner.contact_name}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
-        </header>
+        </div>
 
-        <section className="l-section -secondary">
+        <div className="l-section">
           <div className="l-container">
             <div className="row">
               <div className="column small-12">
-                { dashboards.loading && <Spinner isLoading className="-light" /> }
+                <DashboardDetail />
               </div>
             </div>
-
-            { !!dashboards.list.length && <div className="row">
-              <div className="column small-12">
-                <ul className="dashboards-list">
-                  {
-                    dashboards.list.map(dashboard => (
-                      <li
-                        className={classnames({
-                          '-active': selectedDashboard === dashboard
-                        })}
-                        key={dashboard.slug}
-                        style={{
-                          backgroundImage: dashboard.photo
-                            && DashboardsDetail.getDashboardImageUrl(dashboard.photo)
-                            && `url(${DashboardsDetail.getDashboardImageUrl(dashboard.photo)})`
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="dashboard"
-                          id={`dashboard-${dashboard.slug}`}
-                          value={dashboard.slug}
-                          checked={selectedDashboard === dashboard}
-                          onChange={e => DashboardsDetail.onChangeDashboard(e.target.value)}
-                        />
-                        <label className="content" htmlFor={`dashboard-${dashboard.slug}`}>
-                          {dashboard.name}
-                        </label>
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div>
-            </div> }
-
-            { dashboards.error && <div className="row">
-              <div className="column small-12">
-                { dashboards.error && (
-                  <p className="error">{dashboards.error}</p>
-                ) }
-                { selectedDashboard && (
-                  <div>
-                    <h2>{selectedDashboard.name}</h2>
-                    <p>{selectedDashboard.summary}</p>
-                  </div>
-                ) }
-              </div>
-            </div> }
           </div>
-        </section>
-
-        <div className="l-container">
-          <div className="row">
-            { selectedDashboard && selectedDashboard.widgets && (
-              <div className="column small-12 widgets-list">
-                {
-                  selectedDashboard.widgets.map(widget => (
-                    <DashboardCard
-                      key={widget.name || widget.widgetId}
-                      widgetId={widget.widgetId}
-                      categories={widget.categories}
-                      name={widget.name}
-                      data={widget.data}
-                    />
-                  ))
-                }
-              </div>
-            ) }
-            { selectedDashboard && !selectedDashboard.widgets && (
-              <div className="user-content column small-12">
-                {renderHTML(selectedDashboard.content || '')}
-              </div>
-            ) }
-          </div>
-
         </div>
+
+        <RelatedDashboards
+          data={dashboardDetail.dashboard.dashboards}
+        />
       </Layout>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  dashboards: state.clientDashboards,
   dashboardDetail: state.dashboardDetail
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPublicDashboards: bindActionCreators(getPublicDashboards, dispatch),
-  getDashboard: bindActionCreators(getDashboard, dispatch),
-  getFavourites: bindActionCreators(getFavourites, dispatch)
-});
+const mapDispatchToProps = {
+  fetchDashboard
+};
 
 export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(DashboardsDetail);

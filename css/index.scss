@@ -19,6 +19,7 @@
 @import '../node_modules/react-progress-2/main';
 @import '../node_modules/rc-slider/assets/index';
 @import '../node_modules/react-input-range/src/scss/index.scss';
+@import '../node_modules/react-redux-toastr/src/styles/index';
 
 // Editor
 @import '../node_modules/react-quill/dist/quill.snow';
@@ -41,11 +42,6 @@
   "layouts/static";
 
 // Components
-// UI
-@import '../node_modules/react-redux-toastr/src/styles/index';
-@import "../node_modules/slick-carousel/slick/slick.css";
-@import "../node_modules/slick-carousel/slick/slick-theme.css";
-@import '../node_modules/rc-slider/assets/index';
 @import "./components/ui/aside";
 @import "./components/ui/avatar";
 @import "./components/ui/breadcrumbs";
@@ -106,14 +102,12 @@
 @import "./components/subscriptions/subscriptions_form";
 @import "./components/subscriptions/subscription_selector";
 
-// VIS
-@import "./components/vis/globe";
-
 // Map
 @import "./components/map/map";
 @import "./components/map/map-controls";
 
 // Form
+@import '../node_modules/vizz-wysiwyg/build/prep';
 @import "./components/form/form";
 @import "./components/form/field";
 @import "./components/form/field-container";
@@ -129,6 +123,7 @@
 
 
 // WIDGETS
+@import '../node_modules/widget-editor/dist/styles.min';
 @import "./components/widgets/add_widget_to_collection_tooltip";
 @import "./components/widgets/text_chart";
 @import "./components/widgets/widget_editor";
@@ -215,37 +210,6 @@
 
 // MYPREP
 @import "./components/app/myprep/profiles-tab";
-
-
-// LAYOUT
-// @import "./components/app/layout/page";
-// @import "./components/app/layout/page-header";
-// @import "./components/app/layout/page-section";
-// @import "./components/app/layout/footer";
-// @import "./components/app/layout/sidebar";
-// @import "./components/app/layout/header";
-
-// PULSE
-@import "./components/app/pulse/globe_tooltip";
-@import "./components/app/pulse/layer_nav_dropdown";
-@import "./components/app/pulse/layer_nav";
-@import "./components/app/pulse/layer_card";
-@import "./components/app/pulse/legend_type";
-@import "./components/app/pulse/legend";
-
-// EXPLORE
-@import "./components/app/explore/configurable_widget";
-@import "./components/app/explore/dataset_list_header";
-@import "./components/app/explore/dataset_list";
-@import "./components/app/explore/dataset_widget";
-@import "./components/app/explore/dataset_placeholder_chart";
-@import "./components/app/explore/widget_configurator";
-@import "./components/app/explore/explore_layers_tooltip";
-@import "./components/app/explore/resume_filters";
-@import "./components/app/explore/dataset_tags_tooltip";
-
-// EXPLORE DETAIL
-@import "./components/app/explore-detail/dataset-info";
 
 // DASHBOARDS
 @import './components/app/dashboards/dashboard_card';
