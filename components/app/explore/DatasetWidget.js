@@ -239,7 +239,10 @@ class DatasetWidget extends React.Component {
         {!widget && layer && gridMode &&
           <Link route={'explore_detail'} params={{ id: this.props.dataset.id }}>
             <a>
-              <DatasetLayerChart layer={element} />
+              <DatasetLayerChart
+                widget={this.props.widget}
+                layer={element}
+              />
             </a>
           </Link>
         }

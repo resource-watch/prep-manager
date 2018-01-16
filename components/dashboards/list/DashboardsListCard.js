@@ -28,7 +28,7 @@ function DashboardsListCard({ dashboard, routes, onDelete }) {
             <a
               className="c-button -tertiary -compressed"
               target="_blank"
-              href={`/data/dashboards/${dashboard.slug}`}
+              href={`/dashboards/${dashboard.slug}`}
             >
               Preview
             </a>
