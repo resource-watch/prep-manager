@@ -12,7 +12,6 @@ import { toggleTooltip } from 'redactions/tooltip';
 import { updateIsLoading } from 'redactions/page';
 
 // Components
-import Page from 'components/admin/layout/page';
 import Header from 'components/admin/layout/Header';
 import Head from 'components/admin/layout/head';
 import Icons from 'components/admin/layout/icons';
@@ -21,7 +20,7 @@ import Tooltip from 'components/ui/Tooltip';
 import Dock from 'components/ui/Dock';
 import Toastr from 'react-redux-toastr';
 
-class Layout extends Page {
+class Layout extends Component {
   constructor(props) {
     super(props);
 

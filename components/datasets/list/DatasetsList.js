@@ -15,29 +15,19 @@ import SearchInput from 'components/ui/SearchInput';
 import DatasetsListCard from 'components/datasets/list/DatasetsListCard';
 
 class DatasetsList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    // bindings
-    this.onSearch = this.onSearch.bind(this);
-  }
-
   componentDidMount() {
     this.loadData();
   }
 
-  /**
-   * UI EVENTS
-   * - onSearch
-   * - handleDatasetRemoved
-  */
-  onSearch(value) {
+  onSearch = (value) => {
     if (!value.length) {
       this.props.setFilters([]);
     } else {
       this.props.setFilters([{ key: 'name', value }]);
     }
   }
+
+  handleDatasetRemoved = () => this.loadData();
 
   loadData() {
     const { getDatasetsFilters } = this.props;
@@ -47,10 +37,6 @@ class DatasetsList extends React.Component {
       includes: 'widget,layer,metadata,vocabulary',
       filters: getDatasetsFilters
     });
-  }
-
-  handleDatasetRemoved() {
-    this.loadData();
   }
 
   render() {
@@ -83,7 +69,7 @@ class DatasetsList extends React.Component {
                 dataset={dataset}
                 routes={routes}
                 user={user}
-                onDatasetRemoved={() => this.handleDatasetRemoved()}
+                onDatasetRemoved={this.handleDatasetRemoved}
                 toggleFavourites={toggleFavourites}
               />
             </div>

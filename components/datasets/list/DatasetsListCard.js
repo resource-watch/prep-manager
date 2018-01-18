@@ -32,21 +32,6 @@ class DatasetsListCard extends React.Component {
     this.setState({ collectionPanelVisibility: visibility });
   }
 
-  onFavourite() {
-    const { dataset, toggleFavourites } = this.props;
-    const resource = {
-      resourceType: 'dataset',
-      resourceId: dataset.id
-    };
-
-    toggleFavourites({}, resource);
-  }
-
-  onUnfavourite(favourite) {
-    const { toggleFavourites } = this.props;
-    toggleFavourites(favourite);
-  }
-
   handleDelete = () => {
     const { dataset } = this.props;
     const metadata = dataset.metadata[0];
@@ -160,8 +145,7 @@ DatasetsListCard.defaultProps = {
     index: '',
     detail: ''
   },
-  dataset: {},
-  toggleFavourites: () => {}
+  dataset: {}
 };
 
 DatasetsListCard.propTypes = {
@@ -169,8 +153,7 @@ DatasetsListCard.propTypes = {
   routes: PropTypes.object,
   user: PropTypes.object,
   // Callbacks
-  onDatasetRemoved: PropTypes.func.isRequired,
-  toggleFavourites: PropTypes.func
+  onDatasetRemoved: PropTypes.func.isRequired
 };
 
 export default DatasetsListCard;

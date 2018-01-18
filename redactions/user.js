@@ -8,7 +8,7 @@ import CollectionsService from 'services/collections-service';
 /**
  * CONSTANTS
 */
-const SET_USER = 'user/SET_USER';
+const SET_USER = 'user/setUser';
 // favourites
 const SET_USER_FAVOURITES = 'user/setUserFavourites';
 const SET_USER_FAVOURITES_LOADING = 'user/setUserFavouritesLoading';
@@ -16,6 +16,7 @@ const SET_USER_FAVOURITES_ERROR = 'user/setUserFavouritesError';
 // collections
 const SET_USER_COLLECTIONS = 'user/setUserCollections';
 const SET_USER_COLLECTIONS_LOADING = 'user/setUserCollectionsLoading';
+const SET_USER_COLLECTIONS_UPDATE_LOADING = 'user/setUserCollectionsUpdateLoading';
 const SET_USER_COLLECTIONS_ERROR = 'user/setUserCollectionsError';
 
 
@@ -30,7 +31,7 @@ const initialState = {
   },
   collections: {
     items: [],
-    loading: false,
+    loadingQueue: [],
     error: null
   }
 };
@@ -86,7 +87,26 @@ export default function (state = initialState, action) {
         ...state,
         collections: {
           ...state.collections,
-          loading: action.payload
+          loadingQueue: action.payload.map(collection =>
+            ({ id: collection.id, loading: false }))
+        }
+      };
+    }
+
+    case SET_USER_COLLECTIONS_UPDATE_LOADING: {
+      const { id, loading } = action.payload;
+      const loadingQueue = [...state.collections.loadingQueue];
+      const index = loadingQueue.findIndex(loader => loader.id === id);
+
+      if (index === -1) return state;
+
+      loadingQueue[index] = { id, loading };
+
+      return {
+        ...state,
+        collections: {
+          ...state.collections,
+          loadingQueue
         }
       };
     }
@@ -130,16 +150,11 @@ export function setUser(user) {
 
 
 // FAVOURITES
-export function setFavouriteLoading(payload) {
-  return { type: SET_USER_FAVOURITES_LOADING, payload };
-}
+export const setFavouriteLoading = createAction(SET_USER_FAVOURITES_LOADING);
+export const setFavouriteError = createAction(SET_USER_FAVOURITES_ERROR);
 
-export function setFavouriteError(payload) {
-  return { type: SET_USER_FAVOURITES_ERROR, payload };
-}
-
-export function getUserFavourites() {
-  return (dispatch, getState) => {
+export const getUserFavourites = createThunkAction('user/getUserFavourites', () =>
+  (dispatch, getState) => {
     const { user = {} } = getState();
 
     dispatch(setFavouriteLoading(true));
@@ -154,26 +169,21 @@ export function getUserFavourites() {
         dispatch(setFavouriteError(error));
         dispatch({ type: SET_USER_FAVOURITES, payload: [] });
       });
-  };
-}
+  });
 
-
-export function toggleFavourite(favourite, resource) {
-  return (dispatch, getState) => {
+export const toggleFavourite = createThunkAction('user/toggleFavourite', (payload = {}) =>
+  (dispatch, getState) => {
     const { token } = getState().user;
-
-    dispatch(setFavouriteLoading(true));
+    const { favourite, resource } = payload;
 
     if (favourite.id) {
       const { id } = favourite;
       FavouritesService.deleteFavourite(token, id)
         .then(() => {
-          dispatch(setFavouriteLoading(false));
           // asks for the new updated list of favourites
           dispatch(getUserFavourites());
         })
         .catch((error) => {
-          dispatch(setFavouriteLoading(false));
           dispatch(setFavouriteError(error));
         });
 
@@ -187,15 +197,15 @@ export function toggleFavourite(favourite, resource) {
         dispatch(getUserFavourites());
       })
       .catch(({ errors }) => {
-        dispatch(setFavouriteLoading(false));
         dispatch(setFavouriteError(errors));
       });
-  };
-}
+  });
 
 // COLLECTIONS
 export const setUserCollections = createAction(SET_USER_COLLECTIONS);
 export const setCollectionsErrros = createAction(SET_USER_COLLECTIONS_ERROR);
+export const setUserCollectionsLoading = createAction(SET_USER_COLLECTIONS_LOADING);
+export const setUserCollectionsUpdateLoading = createAction(SET_USER_COLLECTIONS_UPDATE_LOADING);
 
 export const getUserCollections = createThunkAction('user/getUserCollections', () =>
   (dispatch, getState) => {
@@ -204,6 +214,7 @@ export const getUserCollections = createThunkAction('user/getUserCollections', (
     return CollectionsService.getAllCollections(token)
       .then(({ data }) => {
         dispatch(setUserCollections(data));
+        dispatch(setUserCollectionsLoading(data));
       })
       .catch(({ errors }) => {
         dispatch(setCollectionsErrros(errors));
@@ -241,12 +252,16 @@ export const addResourceToCollection = createThunkAction('user/addResourceToColl
       const { token } = getState().user;
       const { collectionId, resource } = payload;
 
+      dispatch(setUserCollectionsUpdateLoading({ id: collectionId, loading: true }));
+
       CollectionsService.addResourceToCollection(token, collectionId, resource)
         .then(() => {
+          dispatch(setUserCollectionsUpdateLoading({ id: collectionId, loading: false }));
           // we ask for the updated list of collections
           dispatch(getUserCollections());
         })
         .catch(({ errors }) => {
+          dispatch(setUserCollectionsUpdateLoading({ id: collectionId, loading: false }));
           dispatch(setCollectionsErrros(errors));
         });
     });
@@ -257,12 +272,16 @@ export const removeResourceFromCollection = createThunkAction('user/removeResour
       const { token } = getState().user;
       const { collectionId, resource } = payload;
 
+      dispatch(setUserCollectionsUpdateLoading({ id: collectionId, loading: true }));
+
       CollectionsService.removeResourceFromCollection(token, collectionId, resource)
         .then(() => {
+          dispatch(setUserCollectionsUpdateLoading({ id: collectionId, loading: false }));
           // we ask for the updated list of collections
           dispatch(getUserCollections());
         })
         .catch(({ errors }) => {
+          dispatch(setUserCollectionsUpdateLoading({ id: collectionId, loading: false }));
           dispatch(setCollectionsErrros(errors));
         });
     });

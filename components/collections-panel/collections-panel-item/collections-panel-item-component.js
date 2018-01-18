@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import Spinner from 'components/ui/Spinner';
+
 class CollectionPanelItem extends PureComponent {
   onCheck = (evt) => {
     const isChecked = evt.currentTarget.checked;
@@ -9,11 +11,12 @@ class CollectionPanelItem extends PureComponent {
   }
 
   render() {
-    const { collection, isChecked } = this.props;
+    const { collection, isChecked, loading } = this.props;
     const { name } = collection;
 
     return (
       <li className="collection-item">
+        {loading && <Spinner isLoading={loading} className="-light" />}
         <input
           type="checkbox"
           name={name}
@@ -35,6 +38,7 @@ CollectionPanelItem.defaultProps = {
 CollectionPanelItem.propTypes = {
   collection: PropTypes.object,
   isChecked: PropTypes.bool,
+  loading: PropTypes.bool,
   onToggleCollection: PropTypes.func
 };
 

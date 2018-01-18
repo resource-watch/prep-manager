@@ -5,7 +5,9 @@ import { parseCollections, parseFavourites } from './collections-panel-selectors
 
 const mapStateToProps = state => ({
   collections: parseCollections(state),
-  favourites: parseFavourites(state)
+  favourites: parseFavourites(state),
+  collectionsLoadingQueue: state.user.collections.loadingQueue,
+  favouritesLoading: state.user.favourites.loading
 });
 
 const mapDispatchToProps = ({

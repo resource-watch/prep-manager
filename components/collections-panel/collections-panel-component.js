@@ -34,7 +34,13 @@ class CollectionsPanel extends PureComponent {
   onToggleFavourite = () => {
     const { toggleFavourite, favourites, resource, resourceType } = this.props;
     const favourite = favourites.find(fav => fav.resourceId === resource.id) || {};
-    toggleFavourite(favourite, { resourceId: resource.id, resourceType });
+    toggleFavourite({
+      favourite,
+      resource: {
+        resourceId: resource.id,
+        resourceType
+      }
+    });
   }
 
   onToggleCollection = (isAdded, collection) => {
@@ -57,12 +63,14 @@ class CollectionsPanel extends PureComponent {
   }
 
   renderCollections() {
-    const { collections, resource, resourceType, favourites } = this.props;
+    const { collections, resource, resourceType,
+      favourites, collectionsLoadingQueue, favouritesLoading } = this.props;
 
     const favouriteCollection = (
       <CollectionPanelItem
         key={FAVOURITES_COLLECTION.id}
         collection={FAVOURITES_COLLECTION}
+        loading={favouritesLoading}
         resource={resource}
         resourceType={resourceType}
         isChecked={favourites.some(favourite =>
@@ -75,6 +83,8 @@ class CollectionsPanel extends PureComponent {
       (<CollectionPanelItem
         key={collection.id}
         collection={collection}
+        loading={(collectionsLoadingQueue.find(loader =>
+          loader.id === collection.id) || {}).loading}
         resource={resource}
         resourceType={resourceType}
         isChecked={collection.resources.some(collectionResource =>
@@ -134,6 +144,8 @@ CollectionsPanel.defaultProps = {
   collections: [],
   favourites: [],
   resource: {},
+  collectionsLoadingQueue: [],
+  favouritesLoading: false,
   addCollection: () => {},
   toggleCollection: () => {},
   toggleFavourite: () => {},
@@ -144,6 +156,8 @@ CollectionsPanel.propTypes = {
   collections: PropTypes.array,
   favourites: PropTypes.array,
   resource: PropTypes.object,
+  collectionsLoadingQueue: PropTypes.array,
+  favouritesLoading: PropTypes.bool,
   addCollection: PropTypes.func,
   toggleCollection: PropTypes.func,
   toggleFavourite: PropTypes.func,
