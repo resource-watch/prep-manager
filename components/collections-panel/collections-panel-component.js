@@ -15,37 +15,45 @@ class CollectionsPanel extends PureComponent {
     super(props);
 
     this.state = {
-      newCollection: null // new collection's name
+      newCollectionName: null // new collection's name
     };
   }
 
-  onAddCollection() {
+  onAddCollection = () => {
     const { addCollection } = this.props;
-    const { newCollection } = this.state;
+    const { newCollectionName } = this.state;
 
-    if ((newCollection || '').toLowerCase() === 'favourites') {
+    if ((newCollectionName || '').toLowerCase() === 'favourites') {
       toastr.error('Duplicated Favourites list', 'You cannot duplicate this list.');
       return;
     }
 
-    addCollection(newCollection);
+    addCollection({ collectionName: newCollectionName });
   }
 
-  onToggleFavourite() {
+  onToggleFavourite = () => {
     const { toggleFavourite, favourites, resource, resourceType } = this.props;
     const favourite = favourites.find(fav => fav.resourceId === resource.id) || {};
     toggleFavourite(favourite, { resourceId: resource.id, resourceType });
   }
 
-  onToggleResource(isAdded, collection) {
-    const { toggleResource, resource, resourceType } = this.props;
-    toggleResource(isAdded, collection.id, { id: resource.id, type: resourceType });
+  onToggleCollection = (isAdded, collection) => {
+    const { toggleCollection, resource, resourceType } = this.props;
+    toggleCollection({
+      isAdded,
+      collectionId: collection.id,
+      resource: { id: resource.id, type: resourceType }
+    });
   }
 
-  hanldeKeyPress(key) {
-    if (key !== 'Enter') return;
+  hanldeKeyPress = (evt) => {
+    if (evt.key !== 'Enter') return;
 
     this.onAddCollection();
+  }
+
+  handleInputChange = (evt) => {
+    this.setState({ newCollectionName: evt.currentTarget.value });
   }
 
   renderCollections() {
@@ -59,7 +67,7 @@ class CollectionsPanel extends PureComponent {
         resourceType={resourceType}
         isChecked={favourites.some(favourite =>
           favourite.resourceId === resource.id)}
-        onToggleResource={() => this.onToggleFavourite()}
+        onToggleCollection={this.onToggleFavourite}
       />
     );
 
@@ -71,8 +79,7 @@ class CollectionsPanel extends PureComponent {
         resourceType={resourceType}
         isChecked={collection.resources.some(collectionResource =>
           collectionResource.id === resource.id)}
-        onToggleResource={(isAdded, selectedCollection) =>
-          this.onToggleResource(isAdded, selectedCollection)}
+        onToggleCollection={this.onToggleCollection}
       />));
 
     collectionItems.unshift(favouriteCollection);
@@ -97,12 +104,12 @@ class CollectionsPanel extends PureComponent {
             type="text"
             name="new-collection"
             placeholder="New collection"
-            onChange={evt => this.setState({ newCollection: evt.currentTarget.value })}
-            onKeyPress={evt => this.hanldeKeyPress(evt.key)}
+            onChange={this.handleInputChange}
+            onKeyPress={this.hanldeKeyPress}
           />
           <button
             className="c-button"
-            onClick={() => this.onAddCollection()}
+            onClick={this.onAddCollection}
           >
             Add
           </button>
@@ -113,7 +120,7 @@ class CollectionsPanel extends PureComponent {
         <div className="actions">
           <button
             className="c-button"
-            onClick={() => onDone()}
+            onClick={onDone}
           >
             Done
           </button>
@@ -128,7 +135,7 @@ CollectionsPanel.defaultProps = {
   favourites: [],
   resource: {},
   addCollection: () => {},
-  toggleResource: () => {},
+  toggleCollection: () => {},
   toggleFavourite: () => {},
   onDone: () => {}
 };
@@ -138,7 +145,7 @@ CollectionsPanel.propTypes = {
   favourites: PropTypes.array,
   resource: PropTypes.object,
   addCollection: PropTypes.func,
-  toggleResource: PropTypes.func,
+  toggleCollection: PropTypes.func,
   toggleFavourite: PropTypes.func,
   onDone: PropTypes.func,
   resourceType: PropTypes.oneOf(['dataset', 'layer', 'widget'])

@@ -26,12 +26,9 @@ class DatasetsListCard extends React.Component {
 
     // SERVICES
     this.service = new DatasetsService({ authorization: token });
-
-    // bindings
-    this.onVisibilityChange = this.onVisibilityChange.bind(this);
   }
 
-  onVisibilityChange(visibility) {
+  onVisibilityChange = visibility => () => {
     this.setState({ collectionPanelVisibility: visibility });
   }
 
@@ -111,7 +108,7 @@ class DatasetsListCard extends React.Component {
             </Title>
             <Tooltip
               overlay={<CollectionsPanel
-                onDone={() => this.onVisibilityChange(false)}
+                onDone={this.onVisibilityChange(false)}
                 resource={dataset}
                 resourceType="dataset"
               />}
@@ -121,7 +118,7 @@ class DatasetsListCard extends React.Component {
             >
               <button
                 className="star-button"
-                onClick={() => this.onVisibilityChange(!collectionPanelVisibility)}
+                onClick={this.onVisibilityChange(!collectionPanelVisibility)}
               >
                 <Icon name={starName} className={starClass} />
               </button>

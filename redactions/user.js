@@ -1,4 +1,5 @@
 import { toastr } from 'react-redux-toastr';
+import { createAction, createThunkAction } from 'redux-tools';
 
 // services
 import FavouritesService from 'services/favourites-service';
@@ -9,13 +10,13 @@ import CollectionsService from 'services/collections-service';
 */
 const SET_USER = 'user/SET_USER';
 // favourites
-const SET_USER_FAVOURITES = 'user/SET_USER_FAVOURITES';
-const SET_USER_FAVOURITES_LOADING = 'user/SET_USER_FAVOURITES_LOADING';
-const SET_USER_FAVOURITES_ERROR = 'user/SET_USER_FAVOURITES_ERROR';
+const SET_USER_FAVOURITES = 'user/setUserFavourites';
+const SET_USER_FAVOURITES_LOADING = 'user/setUserFavouritesLoading';
+const SET_USER_FAVOURITES_ERROR = 'user/setUserFavouritesError';
 // collections
-const SET_USER_COLLECTIONS = 'user/SET_USER_COLLECTIONS';
-const SET_USER_COLLECTIONS_LOADING = 'user/SET_USER_COLLECTIONS_LOADING';
-const SET_USER_COLLECTIONS_ERROR = 'user/SET_USER_COLLECTIONS_ERROR';
+const SET_USER_COLLECTIONS = 'user/setUserCollections';
+const SET_USER_COLLECTIONS_LOADING = 'user/setUserCollectionsLoading';
+const SET_USER_COLLECTIONS_ERROR = 'user/setUserCollectionsError';
 
 
 /**
@@ -124,9 +125,6 @@ export function setUser(user) {
     }
 
     dispatch({ type: SET_USER, payload: userObj });
-
-    // We must return it because it's a promise
-    // return dispatch(setFavourites());
   };
 }
 
@@ -149,8 +147,6 @@ export function getUserFavourites() {
     return FavouritesService.getFavourites(user.token)
       .then(({ data }) => {
         dispatch(setFavouriteLoading(false));
-        // console.log('done')
-        // console.log(data)
         dispatch({ type: SET_USER_FAVOURITES, payload: data });
       })
       .catch((error) => {
@@ -198,16 +194,11 @@ export function toggleFavourite(favourite, resource) {
 }
 
 // COLLECTIONS
-export function setUserCollections(collections) {
-  return ({ type: SET_USER_COLLECTIONS, payload: collections });
-}
+export const setUserCollections = createAction(SET_USER_COLLECTIONS);
+export const setCollectionsErrros = createAction(SET_USER_COLLECTIONS_ERROR);
 
-export function setCollectionsErrros(errors) {
-  return ({ type: SET_USER_COLLECTIONS_ERROR, payload: errors });
-}
-
-export function getUserCollections() {
-  return (dispatch, getState) => {
+export const getUserCollections = createThunkAction('user/getUserCollections', () =>
+  (dispatch, getState) => {
     const { token } = getState().user;
 
     return CollectionsService.getAllCollections(token)
@@ -217,12 +208,13 @@ export function getUserCollections() {
       .catch(({ errors }) => {
         dispatch(setCollectionsErrros(errors));
       });
-  };
-}
+  });
 
-export function addCollection(collectionName) {
-  return (dispatch, getState) => {
+
+export const addCollection = createThunkAction('user/addCollection', (payload = {}) =>
+  (dispatch, getState) => {
     const { token } = getState().user;
+    const { collectionName } = payload;
 
     CollectionsService.createCollection(token, collectionName)
       .then(() => {
@@ -241,36 +233,45 @@ export function addCollection(collectionName) {
           toastr.error('Ops, something went wrong.');
         }
       });
-  };
-}
+  });
 
-export function addResourceToCollection(collectionId, resource) {
-  return (dispatch, getState) => {
-    const { token } = getState().user;
+export const addResourceToCollection = createThunkAction('user/addResourceToCollection',
+  (payload = {}) =>
+    (dispatch, getState) => {
+      const { token } = getState().user;
+      const { collectionId, resource } = payload;
 
-    CollectionsService.addResourceToCollection(token, collectionId, resource)
-      .then(() => {
-        // we ask for the updated list of collections
-        dispatch(getUserCollections());
-      })
-      .catch(({ errors }) => {
-        dispatch(setCollectionsErrros(errors));
-      });
-  };
-}
+      CollectionsService.addResourceToCollection(token, collectionId, resource)
+        .then(() => {
+          // we ask for the updated list of collections
+          dispatch(getUserCollections());
+        })
+        .catch(({ errors }) => {
+          dispatch(setCollectionsErrros(errors));
+        });
+    });
 
-export function removeResourceFromCollection(collectionId, resource) {
-  return (dispatch, getState) => {
-    const { token } = getState().user;
+export const removeResourceFromCollection = createThunkAction('user/removeResourceFromCollection',
+  (payload = {}) =>
+    (dispatch, getState) => {
+      const { token } = getState().user;
+      const { collectionId, resource } = payload;
 
-    CollectionsService.removeResourceFromCollection(token, collectionId, resource)
-      .then(() => {
-        // we ask for the updated list of collections
-        dispatch(getUserCollections());
-      })
-      .catch(({ errors }) => {
-        dispatch(setCollectionsErrros(errors));
-      });
-  };
-}
+      CollectionsService.removeResourceFromCollection(token, collectionId, resource)
+        .then(() => {
+          // we ask for the updated list of collections
+          dispatch(getUserCollections());
+        })
+        .catch(({ errors }) => {
+          dispatch(setCollectionsErrros(errors));
+        });
+    });
 
+export const toggleCollection = createThunkAction('user/toggleCollection',
+  (payload = {}) =>
+    (dispatch) => {
+      const { isAdded, collectionId, resource } = payload;
+
+      if (isAdded) dispatch(addResourceToCollection({ collectionId, resource }));
+      if (!isAdded) dispatch(removeResourceFromCollection({ collectionId, resource }));
+    });
