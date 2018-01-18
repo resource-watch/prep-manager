@@ -14,6 +14,9 @@ import CollectionsPanel from 'components/collections-panel';
 // Services
 import DatasetsService from 'services/DatasetsService';
 
+// helpers
+import { belongsToACollection } from 'components/collections-panel/collections-panel-helpers';
+
 
 class DatasetsListCard extends React.Component {
   constructor(props) {
@@ -47,23 +50,11 @@ class DatasetsListCard extends React.Component {
     });
   }
 
-  isInACollection() {
-    const { user, dataset } = this.props;
-    const { favourites, collections } = user;
-
-    const containedInFavorites = favourites.items.some(fav =>
-      fav.attributes.resourceId === dataset.id);
-    const containedInCollections = collections.items.some(collection =>
-      collection.attributes.resources.some(resource => resource.id === dataset.id));
-
-    return containedInFavorites || containedInCollections;
-  }
-
   render() {
-    const { dataset, routes } = this.props;
+    const { dataset, routes, user } = this.props;
     const { collectionPanelVisibility } = this.state;
     const metadata = dataset.metadata[0];
-    const isInACollection = this.isInACollection();
+    const isInACollection = belongsToACollection(user, dataset);
     const starName = classnames({
       'icon-star-empty': !isInACollection,
       'icon-star-full': isInACollection
