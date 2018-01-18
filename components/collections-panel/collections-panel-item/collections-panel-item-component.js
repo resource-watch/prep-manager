@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Spinner from 'components/ui/Spinner';
+
+// styles
+import styles from '../collections-panel-styles.scss';
 
 class CollectionPanelItem extends PureComponent {
   onCheck = (evt) => {
@@ -14,9 +18,25 @@ class CollectionPanelItem extends PureComponent {
     const { collection, isChecked, loading } = this.props;
     const { name } = collection;
 
+    const collectionItemClass = classnames({
+      'collection-item': true,
+      '-selected': isChecked
+    });
+
     return (
-      <li className="collection-item">
-        {loading && <Spinner isLoading={loading} className="-light" />}
+      <li className={collectionItemClass}>
+        <style jsx>
+          {styles}
+        </style>
+        {loading && <Spinner
+          isLoading={loading}
+          className="-transparent -tiny -yellow-icon"
+          style={{
+            left: 'auto',
+            right: 5
+          }}
+        />}
+        <span className="fake-checkbox" />
         <input
           type="checkbox"
           name={name}

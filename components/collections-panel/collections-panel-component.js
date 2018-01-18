@@ -96,6 +96,9 @@ class CollectionsPanel extends PureComponent {
 
     return (
       <ul className="collection-list">
+        <style jsx>
+          {styles}
+        </style>
         {collectionItems}
       </ul>
     );
@@ -113,12 +116,13 @@ class CollectionsPanel extends PureComponent {
           <input
             type="text"
             name="new-collection"
+            className="new-collection-input"
             placeholder="New collection"
             onChange={this.handleInputChange}
             onKeyPress={this.hanldeKeyPress}
           />
           <button
-            className="c-button"
+            className="c-button add-button"
             onClick={this.onAddCollection}
           >
             Add
@@ -129,7 +133,7 @@ class CollectionsPanel extends PureComponent {
         </div>
         <div className="actions">
           <button
-            className="c-button"
+            className="c-button done-button"
             onClick={onDone}
           >
             Done
