@@ -57,6 +57,17 @@ class Step1 extends React.Component {
     this.props.onChange({ legend });
   }
 
+  onPublishedChange = (value) => {
+    if (value.checked) {
+      const newPublished = this.state.form.published;
+      newPublished.push('rw');
+      this.props.onChange({ published: newPublished });
+    } else {
+      this.props.onChange({ published: this.state.form.published.filter(app =>
+        app !== process.env.APPLICATIONS) });
+    }
+  }
+
   /**
    * HELPERS
    * - setProviderOptions
