@@ -88,6 +88,9 @@ class DatasetsListCard extends React.Component {
                 resourceType="dataset"
               />}
               overlayClassName="c-rc-tooltip"
+              overlayStyle={{
+                color: '#1a3e62'
+              }}
               placement="top"
               trigger="click"
             >

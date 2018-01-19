@@ -492,6 +492,9 @@ class WidgetCard extends React.Component {
                 resourceType="widget"
               />}
               overlayClassName="c-rc-tooltip -blue-arrow"
+              overlayStyle={{
+                color: '#1a3e62'
+              }}
               placement="top"
               trigger="click"
             >

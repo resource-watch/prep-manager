@@ -34,10 +34,4 @@ $arrow-size-big: 12px;
       border-width: 0 $arrow-size-big $arrow-size-big;
     }
   }
-
-  &.-blue-arrow {
-    .rc-tooltip-arrow {
-      color: $arrow-color;
-    }
-  }
 }
