@@ -131,14 +131,14 @@ class CollectionsPanel extends PureComponent {
         <div className="collection-list-container">
           {this.renderCollections()}
         </div>
-        <div className="actions">
+        {/* <div className="actions">
           <button
             className="c-button done-button"
             onClick={onDone}
           >
             Done
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }

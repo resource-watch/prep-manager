@@ -84,13 +84,13 @@ class DatasetsListCard extends React.Component {
             </Title>
             <Tooltip
               overlay={<CollectionsPanel
-                onDone={this.onVisibilityChange(false)}
+                // onDone={this.onVisibilityChange(false)}
                 resource={dataset}
                 resourceType="dataset"
               />}
               placement="bottom"
               trigger="click"
-              visible={collectionPanelVisibility}
+              // visible={collectionPanelVisibility}
             >
               <button
                 className="star-button"
