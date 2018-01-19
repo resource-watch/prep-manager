@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 // Components
 import Aside from 'components/ui/Aside';
 import DatasetsList from 'components/datasets/list/DatasetsList';
-import MyPREPDatasetsStarred from 'components/app/myprep/datasets/MyPREPDatasetsStarred';
+import StarredDatasets from 'components/app/myprep/datasets/StarredDatasets';
 
 // Constants
 const DATASET_SUBTABS = [{
@@ -16,6 +16,11 @@ const DATASET_SUBTABS = [{
   value: 'my_datasets',
   route: 'admin_myprep',
   params: { tab: 'datasets', subtab: 'my_datasets' }
+}, {
+  label: 'Favourites',
+  value: 'favourites',
+  route: 'admin_myprep',
+  params: { tab: 'datasets', subtab: 'favourites' }
 }];
 
 function DatasetsIndex(props) {
@@ -42,8 +47,8 @@ function DatasetsIndex(props) {
           </div>
 
           <div className="columns small-12 medium-9">
-            {subtab === 'starred' &&
-              <MyPREPDatasetsStarred user={user} dataset={id} embed />
+            {subtab === 'favourites' &&
+              <StarredDatasets user={user} dataset={id} embed />
             }
 
             {subtab === 'my_datasets' &&
