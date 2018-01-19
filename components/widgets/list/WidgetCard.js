@@ -144,8 +144,7 @@ class WidgetCard extends React.Component {
       loading: false,
       error: null,
       layer: null, // Info about the eventual layer
-      layerGroups: [],
-      collectionPanelVisibility: false
+      layerGroups: []
     };
   }
 
@@ -437,7 +436,6 @@ class WidgetCard extends React.Component {
       widgetCollections,
       user
     } = this.props;
-    const { collectionPanelVisibility } = this.state;
 
     const numberOfCollections = widgetCollections && widgetCollections.length
       && widgetCollections[0].tags.length;

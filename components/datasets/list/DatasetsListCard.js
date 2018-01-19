@@ -23,10 +23,6 @@ class DatasetsListCard extends React.Component {
     super(props);
     const { token } = props.user;
 
-    this.state = {
-      collectionPanelVisibility: false
-    };
-
     // SERVICES
     this.service = new DatasetsService({ authorization: token });
   }
@@ -48,7 +44,6 @@ class DatasetsListCard extends React.Component {
 
   render() {
     const { dataset, routes, user } = this.props;
-    const { collectionPanelVisibility } = this.state;
     const metadata = dataset.metadata[0];
     const isInACollection = belongsToACollection(user, dataset);
     const starName = classnames({
