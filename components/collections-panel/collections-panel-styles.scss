@@ -4,6 +4,7 @@
 $color-1: $dark-slate-blue;
 $color-2: $dark-yellow;
 $color-3: $white;
+$color-4: $porcelain;
 
 $font-size-regular: 15px;
 $font-size-small: $font-size-small;
@@ -15,17 +16,6 @@ $font-weight-bold: $font-weight-bold;
   padding: 15px;
   border-radius: 4px;
   background: $color-1;
-
-  &:before {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    @include triangle(20px, 'up', $color-1);
-    top: -5px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-  }
 
   > .new-collection-container {
     display: flex;
@@ -41,7 +31,7 @@ $font-weight-bold: $font-weight-bold;
 
       &::placeholder {
         font-size: $font-size-regular;
-        color: $color-3;
+        color: $color-4;
       }
     }
 

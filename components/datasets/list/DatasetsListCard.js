@@ -84,16 +84,15 @@ class DatasetsListCard extends React.Component {
             </Title>
             <Tooltip
               overlay={<CollectionsPanel
-                // onDone={this.onVisibilityChange(false)}
                 resource={dataset}
                 resourceType="dataset"
               />}
-              placement="bottom"
+              overlayClassName="c-rc-tooltip"
+              placement="top"
               trigger="click"
-              // visible={collectionPanelVisibility}
             >
               <button
-                className="star-button"
+                className="c-btn star-button"
                 onClick={this.onVisibilityChange(!collectionPanelVisibility)}
               >
                 <Icon name={starName} className={starClass} />

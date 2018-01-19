@@ -488,16 +488,15 @@ class WidgetCard extends React.Component {
             </Title>
             <Tooltip
               overlay={<CollectionsPanel
-                onDone={this.onVisibilityChange(false)}
                 resource={widget}
                 resourceType="widget"
               />}
-              placement="bottom"
+              overlayClassName="c-rc-tooltip -blue-arrow"
+              placement="top"
               trigger="click"
-              visible={collectionPanelVisibility}
             >
               <button
-                className="star-button"
+                className="c-btn star-button"
                 onClick={this.onVisibilityChange(!collectionPanelVisibility)}
               >
                 <Icon name={starName} className={starClass} />
