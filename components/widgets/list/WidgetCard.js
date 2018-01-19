@@ -170,10 +170,6 @@ class WidgetCard extends React.Component {
     }
   }
 
-  onVisibilityChange = visibility => () => {
-    this.setState({ collectionPanelVisibility: visibility });
-  }
-
   /**
    * Event handler executed when the user toggles the
    * visibility of a layer group
@@ -498,10 +494,7 @@ class WidgetCard extends React.Component {
               placement="top"
               trigger="click"
             >
-              <button
-                className="c-btn star-button"
-                onClick={this.onVisibilityChange(!collectionPanelVisibility)}
-              >
+              <button className="c-btn star-button">
                 <Icon name={starName} className={starClass} />
               </button>
             </Tooltip>

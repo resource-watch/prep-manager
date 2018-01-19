@@ -31,10 +31,6 @@ class DatasetsListCard extends React.Component {
     this.service = new DatasetsService({ authorization: token });
   }
 
-  onVisibilityChange = visibility => () => {
-    this.setState({ collectionPanelVisibility: visibility });
-  }
-
   handleDelete = () => {
     const { dataset } = this.props;
     const metadata = dataset.metadata[0];
@@ -94,10 +90,7 @@ class DatasetsListCard extends React.Component {
               placement="top"
               trigger="click"
             >
-              <button
-                className="c-btn star-button"
-                onClick={this.onVisibilityChange(!collectionPanelVisibility)}
-              >
+              <button className="c-btn star-button">
                 <Icon name={starName} className={starClass} />
               </button>
             </Tooltip>
