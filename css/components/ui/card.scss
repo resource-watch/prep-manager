@@ -26,7 +26,10 @@
       font-family: $font-family-2;
       font-size: 22px;
       line-height: 28px;
+      padding-right: 25px;
       margin-bottom: 12px;
+
+      word-wrap: break-word;
     }
 
     .star-button{
