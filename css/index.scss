@@ -24,6 +24,9 @@
 // Editor
 @import '../node_modules/react-quill/dist/quill.snow';
 
+// rc-tooltip
+@import '../node_modules/rc-tooltip/assets/bootstrap_white';
+
 // Common files
 @import "base";
 @import "helpers";
@@ -72,6 +75,7 @@
 @import "./components/ui/title";
 @import "./components/ui/tooltip";
 @import "./components/ui/tooltip-global";
+@import "./components/ui/rc-tooltip";
 @import "./components/ui/tree_selector";
 @import "./components/ui/zoom_control";
 @import "./components/ui/progress-bar";

@@ -112,7 +112,8 @@ Layout.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  modal: state.modal
+  modal: state.modal,
+  user: state.user
 });
 
 

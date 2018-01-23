@@ -56,10 +56,11 @@ const sessionOptions = {
 
 if (prod) {
   const redisClient = redis.createClient(process.env.REDIS_URL);
+  redisClient.on('error', () => process.exit(1));
   sessionOptions.store = new RedisStore({
     client: redisClient,
     logErrors: true,
-    prefix:  `prep_sess_${process.env.SESSION_ENV}_`
+    prefix: `prep_sess_${process.env.SESSION_ENV}_`
   });
 }
 

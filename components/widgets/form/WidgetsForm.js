@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
+// Redux
+import { connect } from 'react-redux';
+
 // Services
 import WidgetsService from 'services/WidgetsService';
 import DatasetsService from 'services/DatasetsService';
@@ -47,10 +50,20 @@ class WidgetsForm extends React.Component {
   }
 
   componentDidMount() {
+    const { user } = this.props;
     const { id } = this.state;
 
     const promises = [
-      this.datasetsService.fetchAllData({})
+      this.datasetsService.fetchAllData({
+        filters: {
+          ...(user.role !== 'ADMIN') && { published: true }
+        }
+      }),
+      this.datasetsService.fetchAllData({
+        filters: {
+          userId: user.id
+        }
+      })
     ];
 
     // Add the dashboard promise if the id exists
@@ -60,8 +73,8 @@ class WidgetsForm extends React.Component {
 
     Promise.all(promises)
       .then((response) => {
-        const datasets = response[0];
-        const current = response[1];
+        const datasets = [...response[1], ...response[0]];
+        const current = response[2];
 
         // Set advanced mode if paramsConfig doesn't exist or if it's empty
         const mode = (
@@ -271,8 +284,13 @@ WidgetsForm.propTypes = {
   authorization: PropTypes.string,
   id: PropTypes.string,
   basic: PropTypes.bool,
+  user: PropTypes.object,
   onSubmit: PropTypes.func,
   dataset: PropTypes.string // ID of the dataset that should be pre-selected
 };
 
-export default WidgetsForm;
+export default connect(
+  state => ({
+    user: state.user
+  })
+)(WidgetsForm);
