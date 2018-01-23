@@ -3,8 +3,6 @@ import React from 'react';
 // Redux
 import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
-import { setUser } from 'redactions/user';
-import { setRouter } from 'redactions/routes';
 import { fetchDashboard } from 'components/dashboards/detail/dashboard-detail-actions';
 
 // Components
@@ -49,7 +47,6 @@ class DashboardsDetail extends Page {
         title={dashboardDetail.dashboard.title}
         description={dashboardDetail.dashboard.summary}
         url={this.props.url}
-        user={this.props.user}
         className="page-dashboards c-page-dashboards"
       >
         <div

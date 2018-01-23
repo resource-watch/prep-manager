@@ -41,10 +41,10 @@ function RelatedDashboards(props) {
                   {item.summary}
                 </p>
 
-                {item.partner &&
+                {item.partner && item.partner.white_logo &&
                   <a href={item.partner.url} target="_blank">
                     <img
-                      src={item.partner.images.white_logo || item.partner.images.logo}
+                      src={item.partner.white_logo}
                       className="logo"
                       alt={item.partner.name}
                     />
