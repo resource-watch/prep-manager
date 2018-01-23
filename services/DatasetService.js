@@ -238,7 +238,7 @@ export default class DatasetService {
    * @param {string[]} [applications=[process.env.APPLICATIONS]] List of applications
    * @returns {object[]}
    */
-  static getDatasets(datasetIDs, language, includes = '', applications = [process.env.APPLICATIONS]) {
+   static getDatasets(datasetIDs, language, includes = '', applications = [process.env.APPLICATIONS]) {
     return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${datasetIDs}&language=${language}&includes=${includes}&application=${applications.join(',')}&page[size]=999`)
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
@@ -246,7 +246,6 @@ export default class DatasetService {
       })
       .then(jsonData => jsonData.data);
   }
-
   searchDatasetsByConcepts(topics, geographies, dataTypes) {
     let counter = 0;
     const topicsSt = topics ? topics.map((val, index) => `concepts[${counter}][${index}]=${val}`).join('&') : null;
