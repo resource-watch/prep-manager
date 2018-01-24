@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import compact from 'lodash/compact';
 import { toastr } from 'react-redux-toastr';
 import { Link, Router } from 'routes';
 
@@ -261,7 +262,7 @@ class AreaCard extends React.Component {
               {subscription &&
                 <div className="datasets-container">
                   <div className="datasets-list">
-                    {subscription.attributes.datasets.map((datasetObj, index) =>
+                    {compact(subscription.attributes.datasets).map((datasetObj, index) =>
                       (<div
                         className="dataset-element"
                         key={`${datasetObj}-${index}`} // eslint-disable-line

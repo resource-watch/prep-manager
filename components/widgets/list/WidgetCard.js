@@ -24,6 +24,8 @@ import Map from 'components/widgets/editor/map/Map';
 import Legend from 'components/widgets/editor/ui/Legend';
 import Spinner from 'components/widgets/editor/ui/Spinner';
 import TextChart from 'components/widgets/charts/TextChart';
+import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import CollectionsPanel from 'components/collections-panel';
 
 // Services
 import WidgetService from 'services/WidgetService';
@@ -32,6 +34,9 @@ import LayersService from 'services/LayersService';
 
 // Utils
 import LayerManager from 'components/widgets/editor/helpers/LayerManager';
+
+// helpers
+import { belongsToACollection } from 'components/collections-panel/collections-panel-helpers';
 
 class WidgetCard extends React.Component {
   /**
@@ -429,13 +434,23 @@ class WidgetCard extends React.Component {
       showStar,
       showWidgetColllections,
       widgetCollections,
-      mode
+      user
     } = this.props;
 
     const numberOfCollections = widgetCollections && widgetCollections.length
       && widgetCollections[0].tags.length;
     const numberOfCollectionsText = numberOfCollections === 1
       ? '1 collection' : `${numberOfCollections} collections`;
+    const isInACollection = belongsToACollection(user, widget);
+    const starName = classnames({
+      'icon-star-empty': !isInACollection,
+      'icon-star-full': isInACollection
+    });
+
+    const starClass = classnames({
+      '-small': true,
+      '-favourited': isInACollection
+    });
 
     return (
       <div className={'c-widget-card'}>
@@ -465,6 +480,22 @@ class WidgetCard extends React.Component {
             <Title className="-default -primary">
               {widget.attributes.name}
             </Title>
+            <Tooltip
+              overlay={<CollectionsPanel
+                resource={widget}
+                resourceType="widget"
+              />}
+              overlayClassName="c-rc-tooltip -blue-arrow"
+              overlayStyle={{
+                color: '#1a3e62'
+              }}
+              placement="top"
+              trigger="click"
+            >
+              <button className="c-btn star-button">
+                <Icon name={starName} className={starClass} />
+              </button>
+            </Tooltip>
             <p>
               {WidgetCard.getDescription(widget.attributes.description)}
             </p>

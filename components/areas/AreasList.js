@@ -91,6 +91,7 @@ class AreasList extends React.Component {
       });
   }
 
+  // I'm scared of this function
   mergeSubscriptionsIntoAreas() {
     const { areas, subscriptionsToAReas } = this.state;
 
@@ -98,8 +99,8 @@ class AreasList extends React.Component {
     const datasetsSet = new Set();
     subscriptionsToAReas.forEach(subscription =>
       subscription.attributes.datasets.forEach(dataset => datasetsSet.add(dataset)));
-    // Fetch data for the datasets needed
 
+    // Fetch data for the datasets needed
     DatasetService.getDatasets([...datasetsSet], this.props.locale, 'metadata')
       .then((data) => {
         const datasetsWithLabels = data.map(elem => ({
@@ -110,6 +111,7 @@ class AreasList extends React.Component {
             elem.attributes.metadata[0].attributes.info.name :
             elem.attributes.name
         }));
+
         // Merge datasets with labels inside of subscriptions
         subscriptionsToAReas.forEach((subscription) => {
           subscription.attributes.datasets = subscription.attributes.datasets

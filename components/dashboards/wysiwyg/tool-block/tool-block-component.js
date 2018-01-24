@@ -53,7 +53,7 @@ export default function ToolBlock({
 
           {tool.partner &&
             <div className="image">
-              <img src={tool.partner.images.thumbnail} alt={tool.partner.name} />
+              <img src={tool.partner.thumbnail} alt={tool.partner.name} />
             </div>
           }
 

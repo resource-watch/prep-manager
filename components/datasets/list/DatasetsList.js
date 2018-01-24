@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
 import { getDatasets, setFilters } from 'redactions/admin/datasets';
+import { toggleFavourite } from 'redactions/user';
 
 // Selectors
 import getFilteredDatasets from 'selectors/admin/datasets';
@@ -15,28 +15,19 @@ import SearchInput from 'components/ui/SearchInput';
 import DatasetsListCard from 'components/datasets/list/DatasetsListCard';
 
 class DatasetsList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onSearch = this.onSearch.bind(this);
-  }
-
   componentDidMount() {
     this.loadData();
   }
 
-  /**
-   * UI EVENTS
-   * - onSearch
-   * - handleDatasetRemoved
-  */
-  onSearch(value) {
+  onSearch = (value) => {
     if (!value.length) {
       this.props.setFilters([]);
     } else {
       this.props.setFilters([{ key: 'name', value }]);
     }
   }
+
+  handleDatasetRemoved = () => this.loadData();
 
   loadData() {
     const { getDatasetsFilters } = this.props;
@@ -48,17 +39,12 @@ class DatasetsList extends React.Component {
     });
   }
 
-  @Autobind
-  handleDatasetRemoved() {
-    this.loadData();
-  }
-
   render() {
-    const { datasets, routes, user } = this.props;
+    const { datasets, routes, user, loading, toggleFavourites } = this.props;
 
     return (
       <div className="c-dataset-list">
-        <Spinner className="-light" isLoading={this.props.loading} />
+        <Spinner className="-light" isLoading={loading} />
 
         <SearchInput
           input={{
@@ -82,8 +68,9 @@ class DatasetsList extends React.Component {
               <DatasetsListCard
                 dataset={dataset}
                 routes={routes}
-                token={user.token}
+                user={user}
                 onDatasetRemoved={this.handleDatasetRemoved}
+                toggleFavourites={toggleFavourites}
               />
             </div>
           ))}
@@ -100,7 +87,9 @@ DatasetsList.defaultProps = {
   },
   getDatasetsFilters: {},
   // Store
-  datasets: []
+  datasets: [],
+  // actions
+  toggleFavourites: () => {}
 };
 
 DatasetsList.propTypes = {
@@ -114,18 +103,23 @@ DatasetsList.propTypes = {
 
   // Actions
   getDatasets: PropTypes.func.isRequired,
-  setFilters: PropTypes.func.isRequired
+  setFilters: PropTypes.func.isRequired,
+  toggleFavourites: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   user: state.user,
   loading: state.datasets.datasets.loading,
+  favouriteLoading: state.user.favourites.loading,
   datasets: getFilteredDatasets(state),
   error: state.datasets.datasets.error
 });
+
 const mapDispatchToProps = dispatch => ({
   getDatasets: options => dispatch(getDatasets(options)),
-  setFilters: filters => dispatch(setFilters(filters))
+  setFilters: filters => dispatch(setFilters(filters)),
+  toggleFavourites: (favourite, resource) =>
+    dispatch(toggleFavourite(favourite, resource))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatasetsList);
