@@ -30,14 +30,14 @@ class WidgetBlock extends React.Component {
   async componentWillMount() {
     if (this.props.item.content.widgetId) {
       await this.triggerFetch(this.props);
-      this.setFavourite(this.props);
+      // this.setFavourite(this.props);
     }
   }
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.item.content.widgetId !== this.props.item.content.widgetId) {
       await this.triggerFetch(nextProps);
-      this.setFavourite(nextProps);
+      // this.setFavourite(nextProps);
     }
   }
 

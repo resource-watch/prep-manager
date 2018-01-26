@@ -113,7 +113,8 @@ export default function WidgetBlock({
                 },
                 ...widget.widgetConfig.zoom && {
                   zoom: widget.widgetConfig.zoom
-                }
+                },
+                scrollWheelZoom: false
               }}
               layerGroups={layers}
             />
