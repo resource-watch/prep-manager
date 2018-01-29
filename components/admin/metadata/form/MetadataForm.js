@@ -22,6 +22,7 @@ class MetadataForm extends React.Component {
       datasetID: props.dataset,
       datasetName: '',
       metadata: [],
+      loading: !!props.dataset,
       form: Object.assign({}, STATE_DEFAULT.form, {
         application: props.application,
         authorization: props.authorization
@@ -33,27 +34,27 @@ class MetadataForm extends React.Component {
 
   componentDidMount() {
     if (this.state.datasetID) {
-      // Start the loading
-      this.setState({ loading: true });
-
       get({
         url: `${process.env.WRI_API_URL}/dataset/${this.state.datasetID}/?includes=metadata&application=prep&cache=${Date.now()}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
         }],
-        onSuccess: response => {
+        onSuccess: (response) => {
           const metadata = response.data.attributes.metadata;
 
           this.setState({
             datasetName: response.data.attributes.name,
-            form: (metadata && metadata.length) ? this.setFormFromParams(metadata[0].attributes) : this.state.form,
+            provider: response.data.attributes.provider,
+            form: (metadata && metadata.length) ?
+              this.setFormFromParams(metadata[0].attributes) :
+              this.state.form,
             metadata,
             // Stop the loading
             loading: false
           });
         },
-        onError: error => {
+        onError: (error) => {
           this.setState({ loading: false });
           console.error(error);
         }
@@ -65,9 +66,9 @@ class MetadataForm extends React.Component {
    * UI EVENTS
    * - onSubmit
    * - onChange
+   * - onBack
   */
-  @Autobind
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
 
     // Validate the form
@@ -82,7 +83,7 @@ class MetadataForm extends React.Component {
         this.setState({ submitting: true });
 
         // Check if the metadata alerady exists
-        const isPresent = Boolean(this.state.metadata.find(m => {
+        const isPresent = Boolean(this.state.metadata.find((m) => {
           const hasLang = m.attributes.language === this.state.form.language;
           const hasApp = m.attributes.application === this.state.form.application;
 
@@ -129,14 +130,12 @@ class MetadataForm extends React.Component {
     }, 0);
   }
 
-  @Autobind
-  onChange(obj) {
+  onChange = (obj) => {
     const form = Object.assign({}, this.state.form, obj.form);
     this.setState({ form });
   }
 
-  @Autobind
-  onBack(step) {
+  onBack = (step) => {
     this.setState({ step });
   }
 
@@ -145,7 +144,7 @@ class MetadataForm extends React.Component {
     const form = Object.keys(this.state.form);
     const newForm = {};
 
-    form.forEach(f => {
+    form.forEach((f) => {
       if (params[f] || this.state.form[f]) {
         newForm[f] = params[f] || this.state.form[f];
       }
@@ -155,6 +154,8 @@ class MetadataForm extends React.Component {
   }
 
   render() {
+    console.log(this.state.metadata);
+
     return (
       <div className="c-metadata-form">
         <form className="c-form" onSubmit={this.onSubmit} noValidate>

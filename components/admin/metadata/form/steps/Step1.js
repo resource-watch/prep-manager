@@ -23,6 +23,17 @@ class Step1 extends React.Component {
     this.props.onChange({ form: newMetadata });
   }
 
+  changeNexGDDP(obj) {
+    const { form } = this.props;
+
+    const nexgddp = {
+      ...obj,
+      ...form.info.nexgddp
+    }
+
+    this.changeMetadata({ info: { nexgddp }});
+  }
+
   render() {
     return (
       <div>
@@ -303,7 +314,77 @@ class Step1 extends React.Component {
           >
             {Input}
           </Field>
+        </fieldset>
 
+        <fieldset className="c-field-container">
+          <Title className="-default -secondary">
+            NexGDDP
+          </Title>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.indicator_id = c; }}
+            onChange={value => this.changeNexGDDP({ indicator_id: value })}
+            properties={{
+              name: 'indicator_id',
+              label: 'Indicator id',
+              type: 'text',
+              default: this.props.form.info.nexgddp.indicator_id
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.indicator_name = c; }}
+            onChange={value => this.changeNexGDDP({ indicator_name: value })}
+            properties={{
+              name: 'indicator_name',
+              label: 'Indicator name',
+              type: 'text',
+              default: this.props.form.info.nexgddp.indicator_name
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.scenario = c; }}
+            onChange={value => this.changeNexGDDP({ scenario: value })}
+            properties={{
+              name: 'scenario',
+              label: 'Scenario',
+              type: 'text',
+              default: this.props.form.info.nexgddp.scenario
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.seasonality = c; }}
+            onChange={value => this.changeNexGDDP({ seasonality: value })}
+            properties={{
+              name: 'seasonality',
+              label: 'Seasonality',
+              type: 'text',
+              default: this.props.form.info.nexgddp.seasonality
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.temp_resolution = c; }}
+            onChange={value => this.changeNexGDDP({ temp_resolution: value })}
+            properties={{
+              name: 'temp_resolution',
+              label: 'Temporal resolution',
+              type: 'text',
+              default: this.props.form.info.nexgddp.temp_resolution
+            }}
+          >
+            {Input}
+          </Field>
         </fieldset>
       </div>
     );
