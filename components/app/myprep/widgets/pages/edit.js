@@ -175,7 +175,7 @@ class WidgetsEdit extends React.Component {
     const widgetAtts = widget && widget.attributes;
     const datasetId = widgetAtts && widgetAtts.dataset;
     return (
-      <div className="c-myrw-widgets-edit">
+      <div className="c-myprep-widgets-edit">
         <Spinner
           className="-light"
           isLoading={loading}

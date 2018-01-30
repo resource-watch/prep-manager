@@ -11,7 +11,7 @@ import getFilteredWidgets from 'selectors/admin/widgets';
 // components
 import MyPREPWidgetsMy from './my-prep-widgets-component';
 
-class MyRWWidgetsContainer extends PureComponent {
+class MyPREPWidgetsContainer extends PureComponent {
   static propTypes = {
     subtab: PropTypes.string,
     orderDirection: PropTypes.string,
@@ -48,8 +48,8 @@ class MyRWWidgetsContainer extends PureComponent {
     return (<MyPREPWidgetsMy
       {...this.props}
       routes={{
-        index: 'myrw',
-        detail: 'myprep_detail'
+        index: 'admin_myprep',
+        detail: 'admin_myprep_detail'
       }}
     />);
   }
@@ -73,4 +73,4 @@ const mapDispatchToProps = {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyRWWidgetsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MyPREPWidgetsContainer);

@@ -6,6 +6,10 @@
     align-items: center;
     margin-bottom: 20px;
 
+    &.-space-between {
+      justify-content: space-between;
+    }
+
     .left-container {
       display: flex;
 

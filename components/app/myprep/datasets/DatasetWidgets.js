@@ -62,7 +62,7 @@ class DatasetWidgets extends React.Component {
   }
 
   handleWidgetClick = (w) => {
-    Router.pushRoute('myrw_detail', { tab: 'widgets', subtab: 'edit', id: w.id });
+    Router.pushRoute('admin_myprep_detail', { tab: 'widgets', subtab: 'edit', id: w.id });
   }
 
   handleWidgetRemoved() {
@@ -87,14 +87,14 @@ class DatasetWidgets extends React.Component {
     const { dataset } = this.props;
 
     return (
-      <div className="c-dataset-widgets">
+      <div className="c-dataset-widgets c-my-prep">
         <div className="row">
           <div className="column small-12">
-            <div className="list-actions">
+            <div className="list-actions -space-between">
               <div className="left-container">
                 <button
                   className="c-btn -a"
-                  onClick={() => Router.pushRoute('myrw_detail', { tab: 'widgets', id: 'new', datasetId: dataset })}
+                  onClick={() => Router.pushRoute('admin_myprep_detail', { tab: 'widgets', id: 'new', datasetId: dataset })}
                 >
                   New widget
                 </button>

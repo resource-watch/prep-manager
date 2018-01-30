@@ -24,7 +24,13 @@ class MyPREPDatasetsMyContainer extends PureComponent {
   }
 
   render() {
-    return (<MyPREPDatasetsMy {...this.props} />);
+    return (<MyPREPDatasetsMy
+      {...this.props}
+      routes={{
+        index: 'admin_myprep',
+        detail: 'admin_myprep_detail'
+      }}
+    />);
   }
 }
 

@@ -16,24 +16,32 @@ import DatasetsService from 'services/DatasetsService';
 // Components
 import Aside from 'components/ui/Aside';
 import DatasetsForm from 'components/datasets/form/DatasetsForm';
-// import MetadataForm from 'components/datasets/metadata/form/MetadataForm';
+import MetadataForm from 'components/admin/metadata/form/MetadataForm';
+import TagsForm from 'components/admin/tags/TagsForm';
 import DatasetWidgets from 'components/app/myprep/datasets/DatasetWidgets';
 
 // Constants
 const DATASET_SUBTABS = [{
   label: 'Edit dataset',
   value: 'edit',
-  route: 'myprep_detail',
+  route: 'admin_myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'edit' }
 }, {
   label: 'Metadata',
   value: 'metadata',
-  route: 'myprep_detail',
+  route: 'admin_myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'metadata' }
-}, {
+},
+{
+  label: 'Tags',
+  value: 'tags',
+  route: 'admin_myprep_detail',
+  params: { tab: 'datasets', id: '{{id}}', subtab: 'tags' }
+},
+{
   label: 'Widgets',
   value: 'widgets',
-  route: 'myprep_detail',
+  route: 'admin_myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'widgets' }
 }];
 
@@ -105,18 +113,27 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('myrw', { tab: 'datasets' })}
+                  onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets' })}
                 />
               }
 
-              {/* {subtab === 'metadata' &&
+              {subtab === 'metadata' &&
                 <MetadataForm
                   application={process.env.APPLICATIONS}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('myrw', { tab: 'datasets', id })}
+                  onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets', id })}
                 />
-              } */}
+              }
+
+              {subtab === 'tags' &&
+                <div>
+                  <TagsForm
+                    dataset={id}
+                    user={user}
+                  />
+                </div>
+              }
 
               {subtab === 'widgets' && data.id &&
                 <DatasetWidgets

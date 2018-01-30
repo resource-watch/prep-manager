@@ -14,7 +14,7 @@ import Paginator from 'components/ui/Paginator';
 // utils
 import debounce from 'lodash/debounce';
 
-class MyRWWidgets extends PureComponent {
+class MyPREPWidgets extends PureComponent {
   static defaultProps = {
     mode: 'grid'
   }
@@ -46,7 +46,7 @@ class MyRWWidgets extends PureComponent {
 
   setGridMode = () => { this.setState({ mode: 'grid' }); }
 
-  handleNewWidget = () => Router.pushRoute('myrw_detail', { tab: 'widgets', id: 'new' });
+  handleNewWidget = () => Router.pushRoute('admin_myprep_detail', { tab: 'widgets', id: 'new' });
 
   handleSearch = debounce((value) => {
     if (!value.length) {
@@ -86,7 +86,7 @@ class MyRWWidgets extends PureComponent {
     });
 
     return (
-      <div className="c-myrw-widgets-my c-my-rw">
+      <div className="c-myprep-widgets-my c-my-prep">
         <SearchInput
           input={{
             placeholder: 'Search dataset',
@@ -98,6 +98,7 @@ class MyRWWidgets extends PureComponent {
             params: { tab: 'widgets', id: 'new' }
           }}
           onSearch={this.handleSearch}
+          buttonClass="-secondary"
         />
         <div className="row">
           <div className="column small-12">
@@ -158,4 +159,4 @@ class MyRWWidgets extends PureComponent {
   }
 }
 
-export default MyRWWidgets;
+export default MyPREPWidgets;

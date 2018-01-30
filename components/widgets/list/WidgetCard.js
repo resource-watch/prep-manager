@@ -348,7 +348,7 @@ class WidgetCard extends PureComponent {
   }
 
   handleEditWidget() {
-    Router.pushRoute('myrw_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
+    Router.pushRoute('admin_myprep_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
   }
 
   handleGoToDataset() {

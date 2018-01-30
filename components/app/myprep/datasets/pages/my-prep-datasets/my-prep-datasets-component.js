@@ -27,7 +27,7 @@ class MyPREPDatasets extends PureComponent {
     getDatasetsByTab: PropTypes.func
   }
 
-  handleNewDataset = () => Router.pushRoute('myrw_detail', { tab: 'datasets', id: 'new' });
+  handleNewDataset = () => Router.pushRoute('admin_myprep_detail', { tab: 'datasets', id: 'new' });
 
   handleSearch = debounce((value) => {
     if (!value.length) {
@@ -73,6 +73,7 @@ class MyPREPDatasets extends PureComponent {
             params: { tab: 'datasets', id: 'new' }
           }}
           onSearch={this.handleSearch}
+          buttonClass="-secondary"
         />
         {/* <div className="row"> */}
           {/* <div className="column small-12"> */}
@@ -90,7 +91,7 @@ class MyPREPDatasets extends PureComponent {
             <DatasetsList
               routes={{
                 index: 'myprep',
-                detail: 'myprep_detail'
+                detail: 'admin_myprep_detail'
               }}
             />
             {!!total && <Paginator
