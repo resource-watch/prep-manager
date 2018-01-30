@@ -49,7 +49,7 @@ class MyRWWidgetsContainer extends PureComponent {
       {...this.props}
       routes={{
         index: 'myrw',
-        detail: 'myrw_detail'
+        detail: 'myprep_detail'
       }}
     />);
   }
