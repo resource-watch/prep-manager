@@ -8,7 +8,7 @@ const parseTabCollections = (collections, tab) =>
     id: collection.id,
     label: collection.attributes.name,
     value: collection.id,
-    route: 'myprep',
+    route: 'admin_myprep',
     params: { tab, subtab: collection.id }
   }));
 
