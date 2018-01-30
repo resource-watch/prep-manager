@@ -1,4 +1,7 @@
 import { PureComponent } from 'react';
+
+import { initGA } from 'utils/analytics';
+
 import { setUser, getUserFavourites, getUserCollections } from 'redactions/user';
 import { setRouter } from 'redactions/routes';
 
@@ -11,5 +14,12 @@ export default class Page extends PureComponent {
     await store.dispatch(getUserFavourites());
     await store.dispatch(getUserCollections());
     return { user, isServer, url };
+  }
+
+  constructor(props) {
+    super(props);
+
+    // Google Analytics
+    initGA();
   }
 }

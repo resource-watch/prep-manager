@@ -27,6 +27,7 @@ class DashboardsForm extends React.Component {
 
     // BINDINGS
     this.onSubmit = this.onSubmit.bind(this);
+    this.onBack = this.onBack.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onStepChange = this.onStepChange.bind(this);
 
@@ -116,6 +117,18 @@ class DashboardsForm extends React.Component {
     }, 0);
   }
 
+  /**
+   * Event handler executed when the user clicks
+   * the "Cancel" button of the form
+   */
+  onBack() {
+    if (!this.props.onBack) {
+      window.history.back();
+    } else {
+      this.props.onBack();
+    }
+  }
+
   onChange(obj) {
     const form = Object.assign({}, this.state.form, obj);
     this.setState({ form });
@@ -170,6 +183,7 @@ class DashboardsForm extends React.Component {
             stepLength={this.state.stepLength}
             submitting={this.state.submitting}
             onStepChange={this.onStepChange}
+            onBack={this.onBack}
           />
         }
       </form>
@@ -181,7 +195,13 @@ DashboardsForm.propTypes = {
   user: PropTypes.object,
   id: PropTypes.string,
   basic: PropTypes.bool,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func
 };
 
 export default DashboardsForm;
