@@ -10,13 +10,17 @@ import MyPREPDatasetsMy from './my-prep-datasets-component';
 class MyPREPDatasetsMyContainer extends PureComponent {
   static propTypes = {
     subtab: PropTypes.string,
-    setFilters: PropTypes.func
+    setFilters: PropTypes.func,
+    setPaginationPage: PropTypes.func
   };
 
   componentWillReceiveProps(nextProps) {
     const { subtab } = this.props;
 
-    if (subtab !== nextProps.subtab) this.props.setFilters([]);
+    if (subtab !== nextProps.subtab) {
+      this.props.setFilters([]);
+      this.props.setPaginationPage(1);
+    }
   }
 
   render() {
