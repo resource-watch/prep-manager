@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
+import { logEvent } from 'utils/analytics';
 
 // Services
 import DashboardsService from 'services/DashboardsService';
@@ -23,6 +25,7 @@ class DashboardsList extends React.Component {
 
     this.onSearch = this.onSearch.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.logSearchEvent = debounce(this.logSearchEvent, 500);
 
     // SERVICES
     this.service = new DashboardsService();
@@ -46,6 +49,7 @@ class DashboardsList extends React.Component {
       this.props.setFilters([]);
     } else {
       this.props.setFilters([{ key: 'name', value }]);
+      this.logSearchEvent(value);
     }
   }
 
@@ -67,6 +71,15 @@ class DashboardsList extends React.Component {
           });
       }
     });
+  }
+
+  /**
+   * Log the search events
+   * NOTE: this function is debounced in the constructor
+   * @param {string} query Search terms
+   */
+  logSearchEvent(query) { // eslint-disable-line class-methods-use-this
+    logEvent('User account', 'Search dashboards', query);
   }
 
   render() {

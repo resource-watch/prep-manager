@@ -5,22 +5,51 @@ import PropTypes from 'prop-types';
 // Redux
 import { connect } from 'react-redux';
 
+// Utils
+import { logEvent } from 'utils/analytics';
 
 // Components
 import DashboardsForm from 'components/dashboards/form/DashboardsForm';
 
-function DashboardsNew(props) {
-  const { user } = props;
+class DashboardsNew extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onBack = this.onBack.bind(this);
+  }
 
-  return (
-    <div className="c-dashboards-new">
-      <DashboardsForm
-        basic
-        user={user}
-        onSubmit={() => Router.pushRoute('admin_myprep', { tab: 'dashboards' })}
-      />
-    </div>
-  );
+  /**
+   * Event handler executed when a new dashboard
+   * has just been created
+   */
+  onSubmit() { // eslint-disable-line class-methods-use-this
+    logEvent('User account', 'Create new dashboard', 'Save');
+    Router.pushRoute('admin_myprep', { tab: 'dashboards' });
+  }
+
+  /**
+   * Event handler executed when the user cancels
+   * the creation of a new dashboard
+   */
+  onBack() { // eslint-disable-line class-methods-use-this
+    logEvent('User account', 'Create new dashboard', 'Cancel');
+    window.history.back();
+  }
+
+  render() {
+    const { user } = this.props;
+
+    return (
+      <div className="c-dashboards-new">
+        <DashboardsForm
+          basic
+          user={user}
+          onSubmit={this.onSubmit}
+          onBack={this.onBack}
+        />
+      </div>
+    );
+  }
 }
 
 DashboardsNew.propTypes = {

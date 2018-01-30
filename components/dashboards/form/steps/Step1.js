@@ -86,7 +86,7 @@ class Step1 extends React.Component {
               })}
               properties={{
                 name: 'published',
-                label: 'Do you want to set this dasboard as published?',
+                label: 'Do you want to set this dashboard as published?',
                 value: 'published',
                 title: 'Published',
                 defaultChecked: this.props.form.published,
