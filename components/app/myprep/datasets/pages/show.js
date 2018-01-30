@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router } from 'routes';
 import { StickyContainer, Sticky } from 'react-sticky';
 import PropTypes from 'prop-types';
 import { toastr } from 'react-redux-toastr';
@@ -15,30 +16,24 @@ import DatasetsService from 'services/DatasetsService';
 // Components
 import Aside from 'components/ui/Aside';
 import DatasetsForm from 'components/datasets/form/DatasetsForm';
-import MetadataForm from 'components/admin/metadata/form/MetadataForm';
-import TagsForm from 'components/admin/tags/TagsForm';
+// import MetadataForm from 'components/datasets/metadata/form/MetadataForm';
 import DatasetWidgets from 'components/app/myprep/datasets/DatasetWidgets';
 
 // Constants
 const DATASET_SUBTABS = [{
   label: 'Edit dataset',
   value: 'edit',
-  route: 'admin_myprep_detail',
+  route: 'myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'edit' }
 }, {
   label: 'Metadata',
   value: 'metadata',
-  route: 'admin_myprep_detail',
+  route: 'myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'metadata' }
-}, {
-  label: 'Tags',
-  value: 'tags',
-  route: 'admin_myprep_detail',
-  params: { tab: 'datasets', id: '{{id}}', subtab: 'tags' }
 }, {
   label: 'Widgets',
   value: 'widgets',
-  route: 'admin_myprep_detail',
+  route: 'myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'widgets' }
 }];
 
@@ -50,7 +45,9 @@ class DatasetsShow extends React.Component {
       data: {}
     };
 
-    this.service = new DatasetsService();
+    this.service = new DatasetsService({
+      language: props.locale
+    });
   }
 
   componentDidMount() {
@@ -108,25 +105,18 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
+                  onSubmit={() => Router.pushRoute('myrw', { tab: 'datasets' })}
                 />
               }
 
-              {subtab === 'metadata' &&
+              {/* {subtab === 'metadata' &&
                 <MetadataForm
                   application={process.env.APPLICATIONS}
                   authorization={user.token}
                   dataset={id}
+                  onSubmit={() => Router.pushRoute('myrw', { tab: 'datasets', id })}
                 />
-              }
-
-              {subtab === 'tags' &&
-                <div>
-                  <TagsForm
-                    dataset={id}
-                    user={user}
-                  />
-                </div>
-              }
+              } */}
 
               {subtab === 'widgets' && data.id &&
                 <DatasetWidgets
@@ -147,11 +137,13 @@ DatasetsShow.propTypes = {
   subtab: PropTypes.string,
 
   // Store
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  locale: state.common.locale
 });
 
 export default connect(mapStateToProps, null)(DatasetsShow);
