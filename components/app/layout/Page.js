@@ -1,4 +1,5 @@
 import React from 'react';
+import { initGA } from 'utils/analytics';
 import { setUser } from 'redactions/user';
 import { setRouter } from 'redactions/routes';
 
@@ -9,5 +10,12 @@ export default class Page extends React.PureComponent {
     await store.dispatch(setUser(user));
     store.dispatch(setRouter(url));
     return { user, isServer, url };
+  }
+
+  constructor(props) {
+    super(props);
+
+    // Google Analytics
+    initGA();
   }
 }

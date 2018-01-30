@@ -1,5 +1,6 @@
 import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
+import { logEvent } from 'utils/analytics';
 
 import { connect } from 'react-redux';
 import * as actions from './widget-block-actions';
@@ -75,12 +76,17 @@ class WidgetBlock extends React.Component {
   render() {
     return createElement(WidgetBlockComponent, {
       onToggleModal: (modal) => {
-        const { item } = this.props;
+        const { data, item } = this.props;
+        const id = `${item.content.widgetId}/${item.id}`;
 
         this.props.setWidgetModal({
-          id: `${item.content.widgetId}/${item.id}`,
+          id,
           value: modal
         });
+
+        if (modal) {
+          logEvent('Dashboards', 'Clicks for more info', data[id].widget.name);
+        }
       },
       onToggleLoading: (loading) => {
         const { item } = this.props;
