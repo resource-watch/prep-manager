@@ -122,11 +122,18 @@ export default function WidgetBlock({
           />
         }
 
-        {!widgetError && !layersError && widgetType === 'map' && layers && (
+        {!widgetError && !layersError && widgetType === 'map' && widget && widget.widgetConfig && layers && (
           <div>
             <Map
               LayerManager={LayerManager}
-              mapConfig={{}}
+              mapConfig={{
+                zoom: widget.widgetConfig.zoom,
+                latLng: {
+                  lat: widget.widgetConfig.lat,
+                  lng: widget.widgetConfig.lng
+                },
+                scrollWheelZoom: false
+              }}
               layerGroups={layers}
             />
             <Legend
