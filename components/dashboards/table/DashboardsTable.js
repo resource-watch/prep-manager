@@ -17,17 +17,22 @@ import SearchInput from 'components/ui/SearchInput';
 
 // Table components
 import EditAction from './actions/EditAction';
+import DuplicateAction from './actions/DuplicateAction';
 import DeleteAction from './actions/DeleteAction';
 
 // TDs
 import NameTD from './td/NameTD';
 import PublishedTD from './td/PublishedTD';
-import FeaturedTD from './td/FeaturedTD';
+import PreviewTD from './td/PreviewTD';
 
 class DashboardsTable extends React.Component {
   componentDidMount() {
     this.props.setFilters([]);
-    this.props.getDashboards();
+    this.props.getDashboards({
+      filters: {
+        published: 'all'
+      }
+    });
   }
 
   /**
@@ -80,13 +85,15 @@ class DashboardsTable extends React.Component {
         {!this.props.error && (
           <CustomTable
             columns={[
-              { label: 'Name', value: 'name', td: NameTD },
+              { label: 'Name', value: 'title', td: NameTD },
+              { label: 'Preview', value: 'slug', td: PreviewTD },
               { label: 'Published', value: 'published', td: PublishedTD }
             ]}
             actions={{
               show: true,
               list: [
                 { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Duplicate', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'edit', id: 'new', duplicateId: '{{duplicateId}}' }, show: true, component: DuplicateAction },
                 { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
@@ -97,7 +104,11 @@ class DashboardsTable extends React.Component {
             filters={false}
             data={this.getFilteredDashboards()}
             pageSize={20}
-            onRowDelete={() => this.props.getDashboards()}
+            onRowDelete={() => this.props.getDashboards({
+              filters: {
+                published: 'all'
+              }
+            })}
             pagination={{
               enabled: true,
               pageSize: 20,
@@ -131,15 +142,17 @@ DashboardsTable.propTypes = {
   setFilters: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  loading: state.dashboards.dashboards.loading,
-  dashboards: state.dashboards.dashboards.list,
-  filteredDashboards: getFilteredDashboards(state),
-  error: state.dashboards.dashboards.error
-});
-const mapDispatchToProps = dispatch => ({
-  getDashboards: () => dispatch(getDashboards()),
-  setFilters: filters => dispatch(setFilters(filters))
-});
+const mapStateToProps = (state) => {
+  return {
+    loading: state.dashboards.loading,
+    dashboards: state.dashboards.list,
+    filteredDashboards: getFilteredDashboards(state),
+    error: state.dashboards.error
+  };
+};
+const mapDispatchToProps = {
+  getDashboards,
+  setFilters
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardsTable);

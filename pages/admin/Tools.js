@@ -60,24 +60,32 @@ class Tools extends Page {
       >
         {/* PAGE HEADER */}
         <div className="c-page-header -admin">
-          <div className="l-container">
-            <div className="page-header-content -with-tabs">
-              <Title className="-primary -huge page-header-title" >
-                Tools
-              </Title>
-              <Tabs
-                options={DATA_TABS}
-                defaultSelected={tab}
-                selected={tab}
-              />
+          <div className="row">
+            <div className="small-12">
+              <div className="l-container">
+                <div className="page-header-content -with-tabs">
+                  <Title className="-primary -huge page-header-title" >
+                    Tools
+                  </Title>
+                  <Tabs
+                    options={DATA_TABS}
+                    defaultSelected={tab}
+                    selected={tab}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="c-page-section">
-          <div className="l-container">
-            {tab === 'tools' &&
-              <ToolsTab tab={tab} subtab={subtab} id={id} />
-            }
+          <div className="row">
+            <div className="small-12">
+              <div className="l-container">
+                {tab === 'tools' &&
+                  <ToolsTab tab={tab} subtab={subtab} id={id} />
+                }
+              </div>
+            </div>
           </div>
         </div>
       </Layout>

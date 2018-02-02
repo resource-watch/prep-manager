@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Progress from 'react-progress-2';
+
+import { Router } from 'routes';
 
 // Redux
 import { connect } from 'react-redux';
@@ -10,40 +12,22 @@ import { toggleTooltip } from 'redactions/tooltip';
 import { updateIsLoading } from 'redactions/page';
 
 // Components
-import { Router } from 'routes';
-import Icons from 'components/app/layout/icons';
 import Header from 'components/app/layout/Header';
 import Footer from 'components/app/layout/Footer';
-import Tooltip from 'components/ui/Tooltip';
-import Head from 'components/app/layout/head';
+import Head from 'components/admin/layout/head';
+import Icons from 'components/app/layout/icons';
 import Modal from 'components/ui/Modal';
-import Toastr from 'react-redux-toastr';
+import Tooltip from 'components/ui/Tooltip';
 import Dock from 'components/ui/Dock';
+import Toastr from 'react-redux-toastr';
 
-const fullScreenPages = [
-  '/app/Explore',
-  '/app/Pulse'
-];
-
-class Layout extends React.Component {
+class Layout extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       modalOpen: false
     };
-  }
-
-  componentWillMount() {
-    // When a tooltip is shown and the router navigates to a
-    // another page, the tooltip stays in place because it is
-    // managed in Redux
-    // The way we prevent this is by listening to the router
-    // and whenever we navigate, we hide the tooltip
-    // NOTE: we can't just call this.props.toggleTooltip here
-    // because for some pages, we don't re-mount the Layout
-    // component. If we listen for events from the router,
-    // we're sure to not miss any page.
-    this.props.toggleTooltip(false);
   }
 
   componentDidMount() {
@@ -65,33 +49,27 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { title, description, url, user, pageHeader, modal, className, category } = this.props;
-    const fullScreen = url.pathname && fullScreenPages.indexOf(url.pathname) !== -1;
-
+    const { title, description, url, user, modal } = this.props;
     return (
-      <div className={`l-page ${className}`}>
+      <div className="l-page">
         <Head
           title={title}
           description={description}
-          category={category}
         />
 
         <Icons />
 
         <Progress.Component />
 
-        <Header
-          user={user}
-          pageHeader={pageHeader}
-        />
+        <Header url={url} />
 
-        {this.props.children}
+        <div className="container">
+          { this.props.children }
+        </div>
 
-        {!fullScreen && <Footer />}
+        <Footer />
 
         <Tooltip />
-
-        <Dock />
 
         <Modal
           open={this.state.modalOpen}
@@ -101,39 +79,36 @@ class Layout extends React.Component {
           setModalOptions={this.props.setModalOptions}
         />
 
+        <Dock />
+
         <Toastr
           preventDuplicates
           transitionIn="fadeIn"
           transitionOut="fadeOut"
         />
-
-        <link rel="stylesheet" media="screen" href="/static/styles/add-search-results.css" />
       </div>
     );
   }
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  user: PropTypes.object,
-  url: PropTypes.object,
-  pageHeader: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  className: PropTypes.string,
-  // Store
+  user: PropTypes.object.isRequired,
+  url: PropTypes.object.isRequired,
+  children: PropTypes.any.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+
   modal: PropTypes.object,
   toggleModal: PropTypes.func,
-  toggleTooltip: PropTypes.func,
   setModalOptions: PropTypes.func,
+  toggleTooltip: PropTypes.func,
   updateIsLoading: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  modal: state.modal,
-  isLoading: state.page.isLoading
+  modal: state.modal
 });
+
 
 const mapDispatchToProps = dispatch => ({
   toggleTooltip: () => dispatch(toggleTooltip()),

@@ -18,7 +18,8 @@ class DashboardsForm extends React.Component {
 
     this.state = Object.assign({}, STATE_DEFAULT, {
       id: props.id,
-      loading: !!props.id,
+      duplicateId: props.duplicateId,
+      loading: !!props.id || !!props.duplicateId,
       form: {
         ...STATE_DEFAULT.form,
         user_id: props.user.id
@@ -27,6 +28,7 @@ class DashboardsForm extends React.Component {
 
     // BINDINGS
     this.onSubmit = this.onSubmit.bind(this);
+    this.onBack = this.onBack.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onStepChange = this.onStepChange.bind(this);
 
@@ -36,11 +38,12 @@ class DashboardsForm extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = this.state;
+    const { id, duplicateId } = this.state;
     // Get the dashboards and fill the
     // state form with its params if the id exists
-    if (id) {
-      this.service.fetchData({ id })
+
+    if (id || duplicateId) {
+      this.service.fetchData({ id: id || duplicateId })
         .then((data) => {
           this.setState({
             form: this.setFormFromParams(data),
@@ -78,17 +81,25 @@ class DashboardsForm extends React.Component {
           // Start the submitting
           this.setState({ submitting: true });
 
+          const body = new Serializer('dashboard', {
+            keyForAttribute: 'underscore_case',
+            attributes: Object.keys(this.state.form)
+          }).serialize(this.state.form);
+
+          if (!id) {
+            // Shit: this commit is not published yet
+            // https://github.com/SeyZ/jsonapi-serializer/commit/392ec874c4232125e44a08580a929571ff6229c2
+            delete body.data.id;
+          }
+
           // Save data
           this.service.saveData({
             id: id || '',
             type: (id) ? 'PATCH' : 'POST',
-            body: new Serializer('dashboard', {
-              keyForAttribute: 'dash-case',
-              attributes: Object.keys(this.state.form)
-            }).serialize(this.state.form)
+            body: body.data.attributes
           })
             .then((data) => {
-              toastr.success('Success', `The dashboard "${data.id}" - "${data.name}" has been uploaded correctly`);
+              toastr.success('Success', `The dashboard "${data.id}" - "${data.title}" has been uploaded correctly`);
 
               if (this.props.onSubmit) this.props.onSubmit();
             })
@@ -107,6 +118,18 @@ class DashboardsForm extends React.Component {
     }, 0);
   }
 
+  /**
+   * Event handler executed when the user clicks
+   * the "Cancel" button of the form
+   */
+  onBack() {
+    if (!this.props.onBack) {
+      window.history.back();
+    } else {
+      this.props.onBack();
+    }
+  }
+
   onChange(obj) {
     const form = Object.assign({}, this.state.form, obj);
     this.setState({ form });
@@ -123,7 +146,7 @@ class DashboardsForm extends React.Component {
     Object.keys(params).forEach((f) => {
       switch (f) {
         // TODO: if the API doesn't send it we won't need to handle it
-        case 'photo': {
+        case 'image': {
           if (params[f] && params[f].original !== '/images/original/missing.png') {
             newForm[f] = params[f].original;
           }
@@ -161,6 +184,7 @@ class DashboardsForm extends React.Component {
             stepLength={this.state.stepLength}
             submitting={this.state.submitting}
             onStepChange={this.onStepChange}
+            onBack={this.onBack}
           />
         }
       </form>
@@ -171,8 +195,15 @@ class DashboardsForm extends React.Component {
 DashboardsForm.propTypes = {
   user: PropTypes.object,
   id: PropTypes.string,
+  duplicateId: PropTypes.string,
   basic: PropTypes.bool,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func
 };
 
 export default DashboardsForm;

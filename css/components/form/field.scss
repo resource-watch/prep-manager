@@ -26,6 +26,11 @@
     font-size: 12px;
     margin: 0;
 
+    > * {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
     ul {
       list-style: disc;
       margin-left: 20px;

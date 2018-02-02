@@ -27,10 +27,6 @@ class Step1 extends React.Component {
     return (
       <div>
         <fieldset className="c-field-container">
-          <Title className="-big -secondary">
-            Edit metadata
-          </Title>
-
           <Title className="-default -secondary">
             General
           </Title>
@@ -55,6 +51,7 @@ class Step1 extends React.Component {
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.subtitle = c; }}
             onChange={value => this.changeMetadata({ info: { subtitle: value } })}
+            hint="Source abbreviated"
             properties={{
               name: 'subtitle',
               label: 'Subtitle',
@@ -72,26 +69,13 @@ class Step1 extends React.Component {
               this.changeMetadata({ info: { description: value } });
             }}
             validations={['required']}
+            hint="Recap of the source, function, and summary of the methodology"
             properties={{
               name: 'description',
               label: 'Description',
               rows: '6',
               required: true,
               default: this.props.form.info.description
-            }}
-          >
-            {TextArea}
-          </Field>
-
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements['short-description'] = c; }}
-            onChange={value => this.changeMetadata({ info: { 'short-description': value } })}
-            properties={{
-              name: 'short-description',
-              label: 'Short description',
-              type: 'text',
-              rows: '6',
-              default: this.props.form.info['short-description']
             }}
           >
             {TextArea}
@@ -147,6 +131,101 @@ class Step1 extends React.Component {
           <Title className="-default -secondary">
             Data info
           </Title>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.published_date = c; }}
+            onChange={value => this.changeMetadata({ info: { published_date: value } })}
+            validations={['required']}
+            properties={{
+              name: 'published_date',
+              label: 'Published Date',
+              type: 'date',
+              default: this.props.form.info.published_date,
+              required: true
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.prep_id = c; }}
+            onChange={value => this.changeMetadata({ info: { prep_id: value } })}
+            properties={{
+              name: 'prep_id',
+              label: 'Prep Id',
+              type: 'text',
+              default: this.props.form.info.prep_id
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.api_endpoint = c; }}
+            onChange={value => this.changeMetadata({ info: { api_endpoint: value } })}
+            validations={['url']}
+            properties={{
+              name: 'api_endpoint',
+              label: 'API endpoint',
+              type: 'text',
+              default: this.props.form.info.api_endpoint
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.geographic_location = c; }}
+            onChange={value => this.changeMetadata({ info: { geographic_location: value } })}
+            properties={{
+              name: 'geographic_location',
+              label: 'Geographic Location',
+              type: 'text',
+              rows: '6',
+              default: this.props.form.info.geographic_location
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.date_of_content = c; }}
+            onChange={value => this.changeMetadata({ info: { date_of_content: value } })}
+            properties={{
+              name: 'date_of_content',
+              label: 'Date of content',
+              type: 'text',
+              default: this.props.form.info.date_of_content
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.data_type = c; }}
+            onChange={value => this.changeMetadata({ info: { data_type: value } })}
+            properties={{
+              name: 'data_type',
+              label: 'Data type',
+              type: 'text',
+              default: this.props.form.info.data_type
+            }}
+          >
+            {Input}
+          </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.spatial_resolution = c; }}
+            onChange={value => this.changeMetadata({ info: { spatial_resolution: value } })}
+            properties={{
+              name: 'spatial_resolution',
+              label: 'Spatial Resolution',
+              type: 'text',
+              default: this.props.form.info.spatial_resolution
+            }}
+          >
+            {Input}
+          </Field>
 
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.citation = c; }}
@@ -210,6 +289,21 @@ class Step1 extends React.Component {
           >
             {Input}
           </Field>
+
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.data_download_original_link = c; }}
+            onChange={value => this.changeMetadata({ info: { data_download_original_link: value } })}
+            validations={['url']}
+            properties={{
+              name: 'data_download_original_link',
+              label: 'Data Download from Original Source Link',
+              type: 'text',
+              default: this.props.form.info.data_download_original_link
+            }}
+          >
+            {Input}
+          </Field>
+
         </fieldset>
       </div>
     );

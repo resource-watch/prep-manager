@@ -61,7 +61,7 @@ $table-font-size: $font-size-normal;
       }
 
       td {
-        width: 100%; // It will force the tds to be expanded along the table
+        // width: 100%; // It will force the tds to be expanded along the table
         padding: $table-column-padding;
         line-height: 18px;
       }

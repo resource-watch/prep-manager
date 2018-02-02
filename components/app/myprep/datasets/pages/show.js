@@ -17,6 +17,7 @@ import DatasetsService from 'services/DatasetsService';
 import Aside from 'components/ui/Aside';
 import DatasetsForm from 'components/datasets/form/DatasetsForm';
 import MetadataForm from 'components/admin/metadata/form/MetadataForm';
+import TagsForm from 'components/admin/tags/TagsForm';
 import DatasetWidgets from 'components/app/myprep/datasets/DatasetWidgets';
 
 // Constants
@@ -30,7 +31,14 @@ const DATASET_SUBTABS = [{
   value: 'metadata',
   route: 'admin_myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'metadata' }
-}, {
+},
+{
+  label: 'Tags',
+  value: 'tags',
+  route: 'admin_myprep_detail',
+  params: { tab: 'datasets', id: '{{id}}', subtab: 'tags' }
+},
+{
   label: 'Widgets',
   value: 'widgets',
   route: 'admin_myprep_detail',
@@ -45,7 +53,9 @@ class DatasetsShow extends React.Component {
       data: {}
     };
 
-    this.service = new DatasetsService();
+    this.service = new DatasetsService({
+      language: props.locale
+    });
   }
 
   componentDidMount() {
@@ -103,7 +113,7 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('admin_myprep', { tab: 'datasets' })}
+                  onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets' })}
                 />
               }
 
@@ -112,8 +122,17 @@ class DatasetsShow extends React.Component {
                   application={process.env.APPLICATIONS}
                   authorization={user.token}
                   dataset={id}
-                  onSubmit={() => Router.pushRoute('admin_myprep', { tab: 'datasets', id })}
+                  onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets', id })}
                 />
+              }
+
+              {subtab === 'tags' &&
+                <div>
+                  <TagsForm
+                    dataset={id}
+                    user={user}
+                  />
+                </div>
               }
 
               {subtab === 'widgets' && data.id &&
@@ -135,11 +154,13 @@ DatasetsShow.propTypes = {
   subtab: PropTypes.string,
 
   // Store
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  locale: state.common.locale
 });
 
 export default connect(mapStateToProps, null)(DatasetsShow);

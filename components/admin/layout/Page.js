@@ -1,29 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import User from 'components/user';
-import isEmpty from 'lodash/isEmpty';
+import { PureComponent } from 'react';
+import { initGA } from 'utils/analytics';
+import { setUser, getUserFavourites, getUserCollections } from 'redactions/user';
+import { setRouter } from 'redactions/routes';
 
-export default class Page extends React.Component {
-  // Expose session to all pages
-  static async getInitialProps({ req }) {
-    this.user = new User({ req });
-
-    return {
-      user: await this.user.getUser()
-    };
+export default class Page extends PureComponent {
+  static async getInitialProps({ asPath, pathname, query, req, store, isServer }) {
+    const { user } = isServer ? req : store.getState();
+    const url = { asPath, pathname, query };
+    store.dispatch(setUser(user));
+    await store.dispatch(getUserFavourites());
+    await store.dispatch(getUserCollections());
+    store.dispatch(setRouter(url));
+    return { user, isServer, url };
   }
 
-  componentDidMount() {
-    if (isEmpty(this.props.user)) {
-      try {
-        localStorage.removeItem('user');
-      } catch (err) {
-        console.info(err);
-      }
-    }
+  constructor(props) {
+    super(props);
+
+    // Google Analytics
+    initGA();
   }
 }
-
-Page.propTypes = {
-  user: PropTypes.object
-};

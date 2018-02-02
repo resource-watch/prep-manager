@@ -1,0 +1,13 @@
+.c-tool-block-edition {
+  .tool-block-list {
+    padding-left: 20px;
+
+    > li {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

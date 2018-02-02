@@ -31,11 +31,15 @@ class Navigation extends React.Component {
   onBack(e) {
     e.preventDefault();
 
-    window.history.back();
+    if (this.props.onBack) {
+      this.props.onBack();
+    } else {
+      window.history.back();
+    }
   }
 
   render() {
-    const { step, stepLength, submitting } = this.props;
+    const { step, stepLength, submitting, hideCancel } = this.props;
     const submittingClassName = classnames({
       '-submitting': submitting
     });
@@ -69,11 +73,11 @@ class Navigation extends React.Component {
             </Button>
           </li>
         }
-        {stepLength === 1 &&
+        {stepLength === 1 && !hideCancel &&
           <li>
             <Button
               properties={{
-                type: 'submit',
+                type: 'button',
                 name: 'commit',
                 className: '-secondary -expanded'
               }}
@@ -108,7 +112,14 @@ Navigation.propTypes = {
   step: PropTypes.number,
   stepLength: PropTypes.number,
   submitting: PropTypes.bool,
-  onStepChange: PropTypes.func
+  hideCancel: PropTypes.bool,
+  onStepChange: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func
 };
 
 export default Navigation;

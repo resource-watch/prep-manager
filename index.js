@@ -5,7 +5,6 @@ const next = require('next');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const basicAuth = require('basic-auth');
 const sass = require('node-sass');
 const postcssMiddleware = require('postcss-middleware');
 const redis = require('redis');
@@ -34,25 +33,6 @@ const handle = routes.getRequestHandler(app, ({ req, res, route, query }) => {
 // Express app creation
 const server = express();
 
-function checkBasicAuth(users) {
-  return function authMiddleware(req, res, nextAction) {
-    if (!/(AddSearchBot)|(HeadlessChrome)/.test(req.headers['user-agent'])) {
-      const user = basicAuth(req);
-      let authorized = false;
-      if (user && ( (user.name === users[0].name && user.pass === users[0].pass) ||
-        (user.name === users[1].name && user.pass === users[1].pass) ) ) {
-        authorized = true;
-      }
-
-      if (!authorized) {
-        res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-        return res.sendStatus(401);
-      }
-    }
-    return nextAction();
-  };
-}
-
 function isAuthenticated(req, res, nextAction) {
   // Saving referrer of user
   req.session.referrer = req.url;
@@ -76,10 +56,11 @@ const sessionOptions = {
 
 if (prod) {
   const redisClient = redis.createClient(process.env.REDIS_URL);
+  redisClient.on('error', () => process.exit(1));
   sessionOptions.store = new RedisStore({
     client: redisClient,
     logErrors: true,
-    prefix: 'resourcewatch_sess_'
+    prefix: `prep_sess_${process.env.SESSION_ENV}_`
   });
 }
 
@@ -123,8 +104,9 @@ app.prepare()
 
     // Authentication
     server.get('/auth', auth.authenticate({ failureRedirect: '/login' }), (req, res) => {
-      if (req.user.role === 'ADMIN' && /admin/.test(req.session.referrer)) return res.redirect('/admin');
-      return res.redirect('/myprep');
+      const token = (req.query || {}).token;
+      if (req.user.role === 'ADMIN' && /admin/.test(req.session.referrer)) return res.redirect(`/admin?token=${token}`);
+      return res.redirect(`/myprep?token=${token}`);
     });
     server.get('/login', auth.login);
     server.get('/logout', (req, res) => {
@@ -134,8 +116,10 @@ app.prepare()
 
     // Routes with required authentication
     server.get('/auth/user', (req, res) => res.json(req.user || {}));
+
     server.get('/myprep-detail*?', isAuthenticated, handleUrl); // TODO: review these routes
     server.get('/myprep*?', isAuthenticated, handleUrl);
+
     server.get('/admin*?', isAuthenticated, isAdmin, handleUrl);
 
     server.use(handle);

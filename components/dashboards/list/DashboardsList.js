@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'routes';
+import debounce from 'lodash/debounce';
+import { logEvent } from 'utils/analytics';
+
+// Services
+import DashboardsService from 'services/DashboardsService';
+import { toastr } from 'react-redux-toastr';
 
 // Redux
 import { connect } from 'react-redux';
-import { getDashboards, setFilters } from 'redactions/admin/dashboards';
+import { getDashboards, deleteDashboard, setFilters } from 'redactions/admin/dashboards';
 
 // Selectors
 import getFilteredDashboards from 'selectors/admin/dashboards';
@@ -19,6 +24,11 @@ class DashboardsList extends React.Component {
     super(props);
 
     this.onSearch = this.onSearch.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.logSearchEvent = debounce(this.logSearchEvent, 500);
+
+    // SERVICES
+    this.service = new DashboardsService();
   }
 
   componentDidMount() {
@@ -39,7 +49,37 @@ class DashboardsList extends React.Component {
       this.props.setFilters([]);
     } else {
       this.props.setFilters([{ key: 'name', value }]);
+      this.logSearchEvent(value);
     }
+  }
+
+  onDelete(dashboard) {
+    toastr.confirm(`Are you sure that you want to delete: "${dashboard.title}"`, {
+      onOk: () => {
+        this.props.deleteDashboard(dashboard.id)
+          .then(() => {
+            const { getDashboardsFilters } = this.props;
+
+            this.props.setFilters([]);
+            this.props.getDashboards({
+              filters: getDashboardsFilters
+            });
+            toastr.success('Success', `The dashboard "${dashboard.id}" - "${dashboard.title}" has been removed correctly`);
+          })
+          .catch((err) => {
+            toastr.error('Error', `The dashboard "${dashboard.id}" - "${dashboard.title}" was not deleted. Try again. ${err}`);
+          });
+      }
+    });
+  }
+
+  /**
+   * Log the search events
+   * NOTE: this function is debounced in the constructor
+   * @param {string} query Search terms
+   */
+  logSearchEvent(query) { // eslint-disable-line class-methods-use-this
+    logEvent('User account', 'Search dashboards', query);
   }
 
   render() {
@@ -58,27 +98,22 @@ class DashboardsList extends React.Component {
             route: routes.detail,
             params: { tab: 'dashboards', id: 'new' }
           }}
-          buttonClass="-app"
           onSearch={this.onSearch}
         />
 
         <div className="l-row row list">
           {dashboards.map(dashboard => (
             <div
-              className="column list-item small-12"
+              className="column list-item small-12 medium-4"
               key={dashboard.id}
             >
               <DashboardsListCard
                 dashboard={dashboard}
                 routes={routes}
+                onDelete={this.onDelete}
               />
             </div>
           ))}
-          <div className="buttons-container">
-            <Link>
-              <a className="c-button -app" href="/dashboards">Got to dashboards</a>
-            </Link>
-          </div>
         </div>
       </div>
     );
@@ -105,19 +140,20 @@ DashboardsList.propTypes = {
 
   // Actions
   getDashboards: PropTypes.func.isRequired,
+  deleteDashboard: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
-  loading: state.dashboards.dashboards.loading,
+  loading: state.dashboards.loading,
   dashboards: getFilteredDashboards(state),
-  error: state.dashboards.dashboards.error
+  error: state.dashboards.error
 });
 
-const mapDispatchToProps = dispatch => ({
-  getDashboards: options => dispatch(getDashboards(options)),
-  setFilters: filters => dispatch(setFilters(filters))
-});
+const mapDispatchToProps = {
+  getDashboards,
+  deleteDashboard,
+  setFilters
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardsList);

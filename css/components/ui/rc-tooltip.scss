@@ -1,0 +1,37 @@
+
+$arrow-color: $dark-slate-blue;
+$arrow-size-big: 12px;
+
+.c-rc-tooltip {
+  opacity: 1;
+  padding: 0;
+  background: none;
+  font-size: inherit;
+
+  .rc-tooltip-inner {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .rc-tooltip-arrow {
+    border-top-color: currentColor;
+    border-bottom-color: currentColor;
+    margin-left: -$arrow-size-big;
+  }
+
+  &.rc-tooltip-placement-top {
+    .rc-tooltip-arrow  {
+      bottom: -9px;
+      border-width: $arrow-size-big $arrow-size-big 0;
+    }
+  }
+
+  &.rc-tooltip-placement-bottom {
+    .rc-tooltip-arrow  {
+      top: -9px;
+      border-width: 0 $arrow-size-big $arrow-size-big;
+    }
+  }
+}

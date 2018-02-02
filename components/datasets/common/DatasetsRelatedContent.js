@@ -25,6 +25,13 @@ class DatasetsRelatedContent extends React.Component {
     this.toggleTooltip = debounce(this.toggleTooltip.bind(this), 50);
   }
 
+  BUTTONS = {
+    widget: true,
+    layer: true,
+    metadata: true,
+    tags: true
+  }
+
   toggleTooltip(specificDropdown, to) {
     this.setState({
       ...{
@@ -40,6 +47,8 @@ class DatasetsRelatedContent extends React.Component {
 
   render() {
     const { dataset, route } = this.props;
+    const buttons = { ...this.BUTTONS, ...this.props.buttons };
+
     let numberOfTags = 0;
     let knowledgeGraphVoc = null;
     // Calculate the number of tags for the current dataset
@@ -53,35 +62,38 @@ class DatasetsRelatedContent extends React.Component {
     return (
       <div className="c-related-content">
         <ul>
-          <li>
-            <TetherComponent
-              attachment="bottom center"
-              constraints={[{
-                to: 'window'
-              }]}
-              targetOffset="-4px 0"
-              classes={{
-                element: 'c-tooltip'
-              }}
-            >
-              <Link route={route} params={{ tab: 'datasets', id: dataset.id, subtab: 'widgets' }}>
-                <a
-                  onMouseEnter={() => this.toggleTooltip('widgetsActive', true)}
-                  onMouseLeave={() => this.toggleTooltip('widgetsActive', false)}
-                >
-                  <Icon name="icon-widgets" className="c-icon -small" />
-                  <span>{(dataset.widget && dataset.widget.length) || 0}</span>
-                </a>
-              </Link>
+          {buttons.widget &&
+            <li>
+              <TetherComponent
+                attachment="bottom center"
+                constraints={[{
+                  to: 'window'
+                }]}
+                targetOffset="-4px 0"
+                classes={{
+                  element: 'c-tooltip'
+                }}
+              >
+                <Link route={route} params={{ tab: 'datasets', id: dataset.id, subtab: 'widgets' }}>
+                  <a
+                    onMouseEnter={() => this.toggleTooltip('widgetsActive', true)}
+                    onMouseLeave={() => this.toggleTooltip('widgetsActive', false)}
+                  >
+                    <Icon name="icon-widgets" className="c-icon -small" />
+                    <span>{(dataset.widget && dataset.widget.length) || 0}</span>
+                  </a>
+                </Link>
 
-              {this.state.widgetsActive &&
-                <div>
-                  <span>{(dataset.widget && dataset.widget.length) || 0} widgets</span>
-                </div>
-              }
-            </TetherComponent>
-          </li>
-          {route !== 'myprep_detail' &&
+                {this.state.widgetsActive &&
+                  <div>
+                    <span>{(dataset.widget && dataset.widget.length) || 0} widgets</span>
+                  </div>
+                }
+              </TetherComponent>
+            </li>
+          }
+
+          {route !== 'admin_myprep_detail' && buttons.layer &&
             <li>
               <TetherComponent
                 attachment="bottom center"
@@ -111,36 +123,40 @@ class DatasetsRelatedContent extends React.Component {
               </TetherComponent>
             </li>
           }
-          <li>
-            <TetherComponent
-              attachment="bottom center"
-              constraints={[{
-                to: 'window'
-              }]}
-              targetOffset="-4px 0"
-              classes={{
-                element: 'c-tooltip'
-              }}
-            >
-              <Link route={route} params={{ tab: 'datasets', id: dataset.id, subtab: 'metadata' }}>
-                <a
-                  className={classnames({ '-empty': (!dataset.metadata || !dataset.metadata.length) })}
-                  onMouseEnter={() => this.toggleTooltip('metadataActive', true)}
-                  onMouseLeave={() => this.toggleTooltip('metadataActive', false)}
-                >
-                  <Icon name="icon-metadata" className="c-icon -small" />
-                  <span>{(dataset.metadata && dataset.metadata.length) || 0}</span>
-                </a>
-              </Link>
 
-              {this.state.metadataActive &&
-                <div>
-                  <span>{(dataset.metadata && dataset.metadata.length) || 0} metadata</span>
-                </div>
-              }
-            </TetherComponent>
-          </li>
-          {route !== 'myprep_detail' &&
+          {buttons.metadata &&
+            <li>
+              <TetherComponent
+                attachment="bottom center"
+                constraints={[{
+                  to: 'window'
+                }]}
+                targetOffset="-4px 0"
+                classes={{
+                  element: 'c-tooltip'
+                }}
+              >
+                <Link route={route} params={{ tab: 'datasets', id: dataset.id, subtab: 'metadata' }}>
+                  <a
+                    className={classnames({ '-empty': (!dataset.metadata || !dataset.metadata.length) })}
+                    onMouseEnter={() => this.toggleTooltip('metadataActive', true)}
+                    onMouseLeave={() => this.toggleTooltip('metadataActive', false)}
+                  >
+                    <Icon name="icon-metadata" className="c-icon -small" />
+                    <span>{(dataset.metadata && dataset.metadata.length) || 0}</span>
+                  </a>
+                </Link>
+
+                {this.state.metadataActive &&
+                  <div>
+                    <span>{(dataset.metadata && dataset.metadata.length) || 0} metadata</span>
+                  </div>
+                }
+              </TetherComponent>
+            </li>
+          }
+
+          {route !== 'admin_myprep_detail' && buttons.tags &&
             <li>
               <TetherComponent
                 attachment="bottom center"
@@ -179,7 +195,8 @@ class DatasetsRelatedContent extends React.Component {
 
 DatasetsRelatedContent.propTypes = {
   dataset: PropTypes.object,
-  route: PropTypes.string
+  route: PropTypes.string,
+  buttons: PropTypes.object
 };
 
 export default DatasetsRelatedContent;

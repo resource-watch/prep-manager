@@ -110,7 +110,26 @@ class Step1 extends React.Component {
     return (
       <div>
         <fieldset className="c-field-container">
-          {user.role === 'ADMIN' && !basic &&
+          {(user.role === 'ADMIN' && !basic) &&
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.env = c; }}
+              hint={'Choose "preproduction" to see this dataset it only as admin, "production" option will show it in public site.'}
+              className="-fluid"
+              options={[{ label: 'Pre-production', value: 'preproduction' }, { label: 'Production', value: 'production' }]}
+              onChange={value => this.props.onChange({ env: value })}
+              properties={{
+                name: 'env',
+                label: 'Environment',
+                placeholder: 'Type the columns...',
+                noResultsText: 'Please, type the name of the columns and press enter',
+                promptTextCreator: label => `The name of the column is "${label}"`,
+                default: 'preproduction',
+                value: this.props.form.env
+              }}
+            >
+              {Select}
+            </Field>}
+          {(user.role === 'ADMIN' && !basic) &&
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
               onChange={value => this.props.onChange({ published: value.checked })}
@@ -227,9 +246,15 @@ class Step1 extends React.Component {
             className="-fluid"
             validations={['required']}
             options={this.setProviderOptions()}
+            hint={`
+              <span>While only tabular data can be uploaded directly into PREPdata, the platform also supports vector and raster datasets hosted on platforms like ArcGIS, CARTO, GEE, and others. If you have an account with one of these services and would like to connect a dataset, or if you need any assistance, we’d be happy to help. <a href="https://docs.google.com/forms/d/1wZzQno3De7Ul6vlOkkdHhWK_9csErSrOlo6pOAZHIds/viewform?edit_requested=true" target="_blank">Contact us</a>.</span>
+              <ul>
+                <li>Tabular: Dataset contains table formatted data. Providers available: csv, json tsv and xml</li>
+              </ul>
+            `}
             properties={{
               name: 'provider',
-              label: 'Provider',
+              label: 'Format',
               default: this.state.form.provider,
               value: this.state.form.provider,
               disabled: !!this.state.dataset,
@@ -302,7 +327,6 @@ class Step1 extends React.Component {
           {isCarto && !!dataset &&
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.connectorUrl = c; }}
-              validations={['required']}
               className="-fluid"
               properties={{
                 name: 'connectorUrl',
@@ -401,7 +425,6 @@ class Step1 extends React.Component {
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.connectorUrl = c; }}
               onChange={value => this.props.onChange({ connectorUrl: value })}
-              validations={['required', 'url']}
               className="-fluid"
               hint="This connector will only display the data as a wms map layer. The data will not be available through queries."
               properties={{
@@ -409,8 +432,7 @@ class Step1 extends React.Component {
                 label: 'Url data endpoint',
                 type: 'text',
                 default: this.state.form.connectorUrl,
-                disabled: !!this.state.dataset,
-                required: true
+                disabled: !!this.state.dataset
               }}
             >
               {Input}
@@ -677,6 +699,10 @@ Step1.propTypes = {
 
   // Store
   user: PropTypes.object.isRequired
+};
+
+Step1.defaultProps = {
+  basic: false
 };
 
 const mapStateToProps = state => ({

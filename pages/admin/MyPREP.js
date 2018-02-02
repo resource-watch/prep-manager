@@ -32,7 +32,7 @@ const MYPREP_TABS = [{
   label: 'Datasets',
   value: 'datasets',
   route: 'admin_myprep',
-  params: { tab: 'datasets' }
+  params: { tab: 'datasets', subtab: 'my_datasets' }
 }, {
   label: 'Dashboards',
   value: 'dashboards',
@@ -42,7 +42,7 @@ const MYPREP_TABS = [{
   label: 'Widgets',
   value: 'widgets',
   route: 'admin_myprep',
-  params: { tab: 'widgets' }
+  params: { tab: 'widgets', subtab: 'my_widgets' }
 },
 {
   label: 'Areas of interest',
@@ -72,6 +72,13 @@ class MyPREP extends Page {
     });
   }
 
+  componentDidMount() {
+    const { url } = this.props;
+    const { token } = url.query || {};
+
+    if (token) localStorage.setItem('token', token);
+  }
+
   getData(key, value) {
     let data = null;
     // First search for exactly match
@@ -97,8 +104,6 @@ class MyPREP extends Page {
   render() {
     const { url, user } = this.props;
     const { tab, subtab } = this.state;
-    const userName = user && user.name ? ` ${user.name.split(' ')[0]}` : '';
-    const title = `Hi${userName}!`;
     const currentData = this.getData('pathname', 'myprep');
 
     return (
@@ -118,7 +123,7 @@ class MyPREP extends Page {
             landing={false}
           >
             <span></span>
-            <Title className="-primary -huge page-header-title -line" >
+            <Title className="-primary -huge page-header-title -line -center" >
               {currentData.title}
             </Title>
             <Tabs

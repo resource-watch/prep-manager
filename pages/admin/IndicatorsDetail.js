@@ -8,7 +8,7 @@ import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
 
 // Services
-import ToolsService from 'services/ToolsService';
+import IndicatorsService from 'services/IndicatorsService';
 
 // Utils
 import { capitalizeFirstLetter } from 'utils/utils';
@@ -18,13 +18,13 @@ import Page from 'components/admin/layout/Page';
 import Layout from 'components/admin/layout/Layout';
 
 // Tabs
-import ToolsTab from 'components/admin/tools/ToolsTab';
+import IndicatorsTab from 'components/admin/indicators/IndicatorsTab';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 
 // Components
 import Title from 'components/ui/Title';
 
-class ToolsDetail extends Page {
+class IndicatorsDetail extends Page {
   constructor(props) {
     super(props);
 
@@ -41,9 +41,9 @@ class ToolsDetail extends Page {
     this.service = null;
 
     switch (tab) {
-      case 'tools':
+      case 'indicators':
         if (id !== 'new') {
-          this.service = new ToolsService({
+          this.service = new IndicatorsService({
             authorization: props.user.token
           });
         }
@@ -101,7 +101,7 @@ class ToolsDetail extends Page {
     return (
       <Layout
         title={this.getName()}
-        description="Tools detail..."
+        description="Indicators detail..."
         user={user}
         url={url}
       >
@@ -112,7 +112,7 @@ class ToolsDetail extends Page {
               <div className="column small-12">
                 <div className="page-header-content">
                   <Breadcrumbs
-                    items={[{ name: capitalizeFirstLetter(tab), route: 'admin_tools', params: { tab } }]}
+                    items={[{ name: capitalizeFirstLetter(tab), route: 'admin_indicators', params: { tab } }]}
                   />
                   <Title className="-primary -huge page-header-title" >
                     {this.getName()}
@@ -126,8 +126,8 @@ class ToolsDetail extends Page {
           <div className="l-container">
             <div className="row">
               <div className="column small-12">
-                {tab === 'tools' &&
-                  <ToolsTab tab={tab} subtab={subtab} id={id} />
+                {tab === 'indicators' &&
+                  <IndicatorsTab tab={tab} subtab={subtab} id={id} />
                 }
               </div>
             </div>
@@ -138,10 +138,10 @@ class ToolsDetail extends Page {
   }
 }
 
-ToolsDetail.propTypes = {
+IndicatorsDetail.propTypes = {
   user: PropTypes.object,
   url: PropTypes.object
 };
 
 
-export default withRedux(initStore, null, null)(ToolsDetail);
+export default withRedux(initStore, null, null)(IndicatorsDetail);

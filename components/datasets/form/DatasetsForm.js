@@ -6,7 +6,7 @@ import { toastr } from 'react-redux-toastr';
 // Service
 import DatasetsService from 'services/DatasetsService';
 
-import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/datasets/form/constants';
+import { FORM_ELEMENTS, getDefaultState } from 'components/datasets/form/constants';
 
 import Navigation from 'components/form/Navigation';
 import Step1 from 'components/datasets/form/steps/Step1';
@@ -16,11 +16,13 @@ class DatasetsForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign({}, STATE_DEFAULT, {
+    const defaultState = getDefaultState(props);
+
+    this.state = Object.assign({}, defaultState, {
       loading: !!props.dataset,
       loadingColumns: !!props.dataset,
       columns: [],
-      form: Object.assign({}, STATE_DEFAULT.form, {
+      form: Object.assign({}, defaultState.form, {
         application: props.application,
         authorization: props.authorization
       })
@@ -32,6 +34,7 @@ class DatasetsForm extends React.Component {
 
     // BINDINGS
     this.onSubmit = this.onSubmit.bind(this);
+    this.onBack = this.onBack.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onStepChange = this.onStepChange.bind(this);
   }
@@ -64,7 +67,7 @@ class DatasetsForm extends React.Component {
                   loadingColumns: false
                 });
               })
-              .catch((err) => {
+              .catch(() => {
                 this.setState({ loadingColumns: false });
               });
           } else {
@@ -117,7 +120,7 @@ class DatasetsForm extends React.Component {
             .then((data) => {
               toastr.success('Success', `The dataset "${data.id}" - "${data.name}" has been uploaded correctly`);
               if (this.props.onSubmit) {
-                this.props.onSubmit();
+                this.props.onSubmit(data.id);
               }
             })
             .catch((err) => {
@@ -143,6 +146,18 @@ class DatasetsForm extends React.Component {
         toastr.error('Error', 'Fill all the required fields or correct the invalid values');
       }
     }, 0);
+  }
+
+  /**
+   * Event handler executed when the user clicks
+   * the "Cancel" button of the form
+   */
+  onBack() {
+    if (!this.props.onBack) {
+      window.history.back();
+    } else {
+      this.props.onBack();
+    }
   }
 
   onChange(obj) {
@@ -190,6 +205,7 @@ class DatasetsForm extends React.Component {
             stepLength={this.state.stepLength}
             submitting={this.state.submitting}
             onStepChange={this.onStepChange}
+            onBack={this.onBack}
           />
         }
       </form>
@@ -202,7 +218,13 @@ DatasetsForm.propTypes = {
   authorization: PropTypes.string,
   dataset: PropTypes.string,
   basic: PropTypes.bool,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func
 };
 
 export default DatasetsForm;

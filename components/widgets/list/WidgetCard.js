@@ -1,29 +1,28 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Autobind } from 'es-decorators';
-import { Router, Link } from 'routes';
+import { Router } from 'routes';
 import isEqual from 'lodash/isEqual';
 import classnames from 'classnames';
 import { toastr } from 'react-redux-toastr';
 
 // Redux
 import { connect } from 'react-redux';
-
 import { toggleModal, setModalOptions } from 'redactions/modal';
 import { toggleTooltip } from 'redactions/tooltip';
 
 // Components
-import Title from 'components/widgets/editor/ui/Title';
+import Title from 'components/ui/Title';
 import DatasetWidgetChart from 'components/app/explore/DatasetWidgetChart';
 import DatasetLayerChart from 'components/app/explore/DatasetLayerChart';
 import EmbedMyWidgetModal from 'components/modal/EmbedMyWidgetModal';
 import WidgetActionsTooltip from 'components/widgets/list/WidgetActionsTooltip';
-import AddWidgetToCollectionTooltip from 'components/widgets/list/AddWidgetToCollectionTooltip';
-import Icon from 'components/widgets/editor/ui/Icon';
+import Icon from 'components/ui/Icon';
 import Map from 'components/widgets/editor/map/Map';
 import Legend from 'components/widgets/editor/ui/Legend';
-import Spinner from 'components/widgets/editor/ui/Spinner';
+import Spinner from 'components/ui/Spinner';
 import TextChart from 'components/widgets/charts/TextChart';
+import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import CollectionsPanel from 'components/collections-panel';
 
 // Services
 import WidgetService from 'services/WidgetService';
@@ -33,7 +32,10 @@ import LayersService from 'services/LayersService';
 // Utils
 import LayerManager from 'components/widgets/editor/helpers/LayerManager';
 
-class WidgetCard extends React.Component {
+// helpers
+import { belongsToACollection } from 'components/collections-panel/collections-panel-helpers';
+
+class WidgetCard extends PureComponent {
   /**
    * Return the position of the click within the page taking
    * into account the scroll (relative to the page, not the
@@ -74,13 +76,37 @@ class WidgetCard extends React.Component {
       // so the paramsConfig attribute doesn't exist
       && (
         (
-          widget.attributes.widgetConfig.paramsConfig
-          && widget.attributes.widgetConfig.paramsConfig.layer
+          widget.widgetConfig.paramsConfig
+          && widget.widgetConfig.paramsConfig.layer
         )
         || (
           // Case of a widget created outside of the widget editor
-          widget.attributes.widgetConfig.type
-          && widget.attributes.widgetConfig.type === 'map'
+          widget.widgetConfig.type
+          && widget.widgetConfig.type === 'map'
+        )
+      )
+    );
+  }
+
+  /**
+   * return whether the widget is an embedded page
+   * @static
+   * @param {any} widget
+   * @returns {boolean}
+   */
+  static isEmbedWidget(widget) {
+    return !!(widget
+      // Some widgets have not been created with the widget editor
+      // so the paramsConfig attribute doesn't exist
+      && (
+        (
+          widget.widgetConfig.paramsConfig
+          && widget.widgetConfig.paramsConfig.visualizationType === 'embed'
+        )
+        || (
+          // Case of a widget created outside of the widget editor
+          widget.widgetConfig.type
+          && widget.widgetConfig.type === 'embed'
         )
       )
     );
@@ -96,8 +122,8 @@ class WidgetCard extends React.Component {
     return !!(widget
       // The widgets that are created through the widget editor
       // don't have any "type" attribute
-      && widget.attributes.widgetConfig.type
-      && widget.attributes.widgetConfig.type === 'text'
+      && widget.widgetConfig.type
+      && widget.widgetConfig.type === 'text'
     );
   }
 
@@ -117,13 +143,23 @@ class WidgetCard extends React.Component {
       layer: null, // Info about the eventual layer
       layerGroups: []
     };
+
+    // ---------------------- Bindings --------------------------
+    this.handleRemoveWidget = this.handleRemoveWidget.bind(this);
+    this.handleEmbed = this.handleEmbed.bind(this);
+    this.handleAddToDashboard = this.handleAddToDashboard.bind(this);
+    this.handleEditWidget = this.handleEditWidget.bind(this);
+    this.handleGoToDataset = this.handleGoToDataset.bind(this);
+    this.handleDownloadPDF = this.handleDownloadPDF.bind(this);
+    this.handleWidgetActionsClick = this.handleWidgetActionsClick.bind(this);
+    // ----------------------------------------------------------
   }
 
   componentDidMount() {
     if (WidgetCard.isMapWidget(this.props.widget)) {
-      const layer = (this.props.widget.attributes.widgetConfig.paramsConfig
-        && this.props.widget.attributes.widgetConfig.paramsConfig.layer)
-        || this.props.widget.attributes.widgetConfig.layer_id;
+      const layer = (this.props.widget.widgetConfig.paramsConfig
+        && this.props.widget.widgetConfig.paramsConfig.layer)
+        || this.props.widget.widgetConfig.layer_id;
 
       this.fetchLayer(layer);
     }
@@ -132,9 +168,9 @@ class WidgetCard extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.widget, this.props.widget)
       && WidgetCard.isMapWidget(nextProps.widget)) {
-      const layer = (nextProps.widget.attributes.widgetConfig.paramsConfig
-        && nextProps.widget.attributes.widgetConfig.paramsConfig.layer)
-        || nextProps.widget.attributes.widgetConfig.layer_id;
+      const layer = (nextProps.widget.widgetConfig.paramsConfig
+        && nextProps.widget.widgetConfig.paramsConfig.layer)
+        || nextProps.widget.widgetConfig.layer_id;
 
       this.fetchLayer(layer);
     }
@@ -175,6 +211,30 @@ class WidgetCard extends React.Component {
       return null;
     }
 
+    // If the widget is an embedded page, we render a
+    // different component
+    if (WidgetCard.isEmbedWidget(this.props.widget)) {
+      if (this.props.mode === 'thumbnail') {
+        return (
+          <div className="c-widget-chart -thumbnail">
+            <div className="c-chart -no-preview">
+              <span>No preview</span>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="c-widget-chart -embed">
+          <iframe
+            title={this.props.widget.name}
+            src={this.props.widget.widgetConfig.paramsConfig.embed.src}
+            frameBorder="0"
+          />
+        </div>
+      );
+    }
+
     // If the widget is a map, we render the correct component
     if (WidgetCard.isMapWidget(this.props.widget)) {
       // We render the thumbnail of a map
@@ -211,7 +271,7 @@ class WidgetCard extends React.Component {
     if (WidgetCard.isTextualWidget(this.props.widget)) {
       return (
         <div className={classnames('c-widget-chart', `-${this.props.mode}`)}>
-          <TextChart widgetConfig={this.props.widget.attributes.widgetConfig} />
+          <TextChart widgetConfig={this.props.widget.widgetConfig} />
         </div>
       );
     }
@@ -219,7 +279,7 @@ class WidgetCard extends React.Component {
     // We render a Vega chart
     return (
       <DatasetWidgetChart
-        widget={this.props.widget.attributes}
+        widget={this.props.widget}
         mode={this.props.mode}
       />
     );
@@ -256,10 +316,9 @@ class WidgetCard extends React.Component {
   * - handleRemoveWidget
   * - handleClick
   */
-  @Autobind
   handleRemoveWidget() {
     const widgetId = this.props.widget.id;
-    const widgetName = this.props.widget.attributes.name;
+    const widgetName = this.props.widget.name;
     // eslint-disable-next-line no-alert
     if (confirm(`Are you sure you want to remove the widget: ${widgetName}?`)) {
       this.widgetService.removeUserWidget(widgetId, this.props.user.token)
@@ -268,50 +327,45 @@ class WidgetCard extends React.Component {
     }
   }
 
-  @Autobind
   handleEmbed() {
     const options = {
       children: EmbedMyWidgetModal,
       childrenProps: {
-        widgetId: this.props.widget.id,
-        visualizationType: (this.props.widget.attributes.widgetConfig
-          && this.props.widget.attributes.widgetConfig.paramsConfig
-          && this.props.widget.attributes.widgetConfig.paramsConfig.visualizationType)
-          || 'chart'
+        widget: this.props.widget,
+        visualizationType: (this.props.widget.widgetConfig
+          && this.props.widget.widgetConfig.paramsConfig
+          && this.props.widget.widgetConfig.paramsConfig.visualizationType)
+          || 'chart',
+        toggleModal: this.props.toggleModal
       }
     };
     this.props.toggleModal(true);
     this.props.setModalOptions(options);
   }
 
-  @Autobind
   handleAddToDashboard() { // eslint-disable-line class-methods-use-this
     // TO-DO implement this
   }
 
-  @Autobind
   handleEditWidget() {
     Router.pushRoute('admin_myprep_detail', { tab: 'widgets', subtab: 'edit', id: this.props.widget.id });
   }
 
-  @Autobind
   handleGoToDataset() {
-    Router.pushRoute('explore_detail', { id: this.props.widget.attributes.dataset });
+    Router.pushRoute('explore_detail', { id: this.props.widget.dataset });
   }
 
-  @Autobind
   handleDownloadPDF() {
     toastr.info('Widget download', 'The file is being generated...');
 
     const id = this.props.widget.id;
-    const type = this.props.widget.attributes.widgetConfig.type || 'widget';
-    const { protocol, hostname, port } = window.location;
-    const host = `${protocol}//${hostname}${port !== '' ? `:${port}` : port}`;
-    const filename = encodeURIComponent(this.props.widget.attributes.name);
+    const type = this.props.widget.widgetConfig.type || 'widget';
+    const { origin } = window.location;
+    const filename = encodeURIComponent(this.props.widget.name);
 
     const link = document.createElement('a');
     link.setAttribute('download', '');
-    link.href = `${process.env.CONTROL_TOWER_URL}/v1/webshot/pdf?filename=${filename}&width=790&height=580&url=${host}/embed/${type}/${id}`;
+    link.href = `${process.env.CONTROL_TOWER_URL}/v1/webshot/pdf?filename=${filename}&width=790&height=580&waitFor=8000&url=${origin}/embed/${type}/${id}`;
 
     // link.click() doesn't work on Firefox for some reasons
     // so we have to create an event manually
@@ -319,8 +373,12 @@ class WidgetCard extends React.Component {
     link.dispatchEvent(event);
   }
 
-  @Autobind
   handleWidgetActionsClick(event) {
+    const { widget } = this.props;
+    const widgetAtts = widget;
+    const widgetLinks = (widgetAtts.metadata && widgetAtts.metadata.length > 0 &&
+      widgetAtts.metadata[0].info &&
+      widgetAtts.metadata[0].info.widgetLinks) || [];
     const position = WidgetCard.getClickPosition(event);
     this.props.toggleTooltip(true, {
       follow: false,
@@ -332,47 +390,10 @@ class WidgetCard extends React.Component {
         onAddToDashboard: this.handleAddToDashboard,
         onGoToDataset: this.handleGoToDataset,
         onEditWidget: this.handleEditWidget,
-        onDownloadPDF: this.handleDownloadPDF
+        onDownloadPDF: this.handleDownloadPDF,
+        widgetLinks
       }
     });
-  }
-
-  @Autobind
-  handleStarClick(event) {
-    event.preventDefault();
-    const { widget, user } = this.props;
-    toastr.confirm(`Are you sure you want to unfavourite the widget ${widget.attributes.name}?`, {
-      onOk: () => {
-        this.userService.deleteFavourite(widget.favouriteId, user.token)
-          .then(() => {
-            this.props.onWidgetUnfavourited();
-          });
-      }
-    });
-  }
-
-  @Autobind
-  handleAddToWidgetCollection(event) {
-    const { widget, user, widgetCollections, widgetCollectionsOptions } = this.props;
-    const position = WidgetCard.getClickPosition(event);
-    this.props.toggleTooltip(true, {
-      follow: false,
-      position,
-      children: AddWidgetToCollectionTooltip,
-      childrenProps: {
-        widget,
-        user,
-        widgetCollections,
-        widgetCollectionsOptions,
-        toggleTooltip: this.props.toggleTooltip,
-        onUpdateWidgetCollections: this.handleUpdateWidgetToCollections
-      }
-    });
-  }
-
-  @Autobind
-  handleUpdateWidgetToCollections() {
-    this.props.onUpdateWidgetCollections();
   }
 
   render() {
@@ -381,51 +402,67 @@ class WidgetCard extends React.Component {
       showRemove,
       showActions,
       showEmbed,
-      showStar,
-      showWidgetColllections,
-      widgetCollections,
-      mode
+      showFavourite,
+      user
     } = this.props;
 
-    const numberOfCollections = widgetCollections && widgetCollections.length
-      && widgetCollections[0].tags.length;
-    const numberOfCollectionsText = numberOfCollections === 1
-      ? '1 collection' : `${numberOfCollections} collections`;
+    const isInACollection = belongsToACollection(user, widget);
+
+    const starIconName = classnames({
+      'icon-star-full': isInACollection,
+      'icon-star-empty': !isInACollection
+    });
 
     return (
       <div className={'c-widget-card'}>
-        {showWidgetColllections &&
-          <div className="widget-collections">
-            <button onClick={this.handleAddToWidgetCollection}>
-              {numberOfCollectionsText}
-            </button>
-          </div>
-        }
-
         {/* Actual widget */}
-        { mode === 'thumbnail'
-          ? (
-            <Link route="admin_myprep_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
-              <a>{this.getWidget()}</a>
-            </Link>
-          )
-          : this.getWidget()
-        }
+        <div
+          tabIndex={-1}
+          role="button"
+          onClick={() => this.props.onWidgetClick && this.props.onWidgetClick(widget)}
+        >
+          {this.getWidget()}
+        </div>
 
         <div className="info">
-          <div className="detail">
+          <div
+            className="detail"
+            tabIndex={-1}
+            role="button"
+            onClick={() => this.props.onWidgetClick && this.props.onWidgetClick(widget)}
+          >
             {/* Title */}
             <Title className="-default -primary">
-              <Link route="admin_myprep_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
-                <a>{widget.attributes.name}</a>
-              </Link>
+              {widget.name}
             </Title>
             <p>
-              <Link route="admin_myprep_detail" params={{ tab: 'widgets', subtab: 'edit', id: widget.id }}>
-                <a>{WidgetCard.getDescription(widget.attributes.description)}</a>
-              </Link>
+              {WidgetCard.getDescription(widget.description)}
             </p>
+
+            {showFavourite && <Tooltip
+              overlay={<CollectionsPanel
+                resource={widget}
+                resourceType="widget"
+              />}
+              overlayClassName="c-rc-tooltip"
+              overlayStyle={{
+                color: '#1a3e62'
+              }}
+              placement="bottom"
+              trigger="click"
+            >
+              <button
+                className="c-btn favourite-button"
+                tabIndex={-1}
+              >
+                <Icon
+                  name={starIconName}
+                  className="-star -small"
+                />
+              </button>
+            </Tooltip>}
           </div>
+
           {(showActions || showRemove || showEmbed) &&
             <div className="actions">
               {showActions &&
@@ -455,16 +492,6 @@ class WidgetCard extends React.Component {
             </div>
           }
         </div>
-        {showStar &&
-          <a
-            className="star-icon"
-            role="button"
-            tabIndex={0}
-            onClick={this.handleStarClick}
-          >
-            <Icon name="icon-star-full" className="c-icon -small" />
-          </a>
-        }
       </div>
     );
   }
@@ -473,24 +500,18 @@ class WidgetCard extends React.Component {
 WidgetCard.defaultProps = {
   showActions: false,
   showRemove: false,
-  showWidgetColllections: false
+  showFavourite: true
 };
 
 WidgetCard.propTypes = {
   widget: PropTypes.object.isRequired,
-  widgetCollections: PropTypes.array,
-  widgetCollectionsOptions: PropTypes.array,
   showActions: PropTypes.bool,
   showRemove: PropTypes.bool,
   showEmbed: PropTypes.bool,
-  showStar: PropTypes.bool,
-  showWidgetColllections: PropTypes.bool,
+  showFavourite: PropTypes.bool,
   mode: PropTypes.oneOf(['thumbnail', 'full']), // How to show the graph
-  // Callbacks
+  onWidgetClick: PropTypes.func,
   onWidgetRemove: PropTypes.func,
-  onWidgetUnfavourited: PropTypes.func,
-  onUpdateWidgetCollections: PropTypes.func,
-  // Store
   user: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
   setModalOptions: PropTypes.func.isRequired,

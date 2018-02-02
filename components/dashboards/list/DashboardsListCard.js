@@ -6,44 +6,55 @@ import { Link } from 'routes';
 // Components
 import Title from 'components/ui/Title';
 
-class DashboardsListCard extends React.Component {
-  render() {
-    const { dashboard, routes } = this.props;
-    const imgSrc = dashboard.partner.logo && dashboard.partner.logo !== '' ?
-      dashboard.partner.logo :
-      dashboard.partner.thumbnail;
+function DashboardsListCard({ dashboard, routes, onDelete }) {
+  return (
+    <div className="c-card">
+      <div className="card-container">
+        <header className="card-header">
+          <Link
+            route={routes.detail}
+            params={{ tab: 'dashboards', id: dashboard.id }}
+          >
+            <a>
+              <Title className="-default">
+                {dashboard.title}
+              </Title>
+            </a>
+          </Link>
+        </header>
 
-    return (
-      <div className="c-card">
-        <div className="card-container">
-          <header className="card-header">
+        <div className="card-content">
+          <div className="card-actions">
+            <a
+              className="c-button -tertiary -compressed"
+              target="_blank"
+              href={`/dashboards/${dashboard.slug}`}
+            >
+              Preview
+            </a>
+
             <Link
               route={routes.detail}
-              params={{ tab: 'dashboards', id: dashboard.id }}
+              params={{ tab: 'dashboards', id: 'new', duplicateId: dashboard.id }}
             >
-              <a>
-                <Title className="-default">
-                  {dashboard.title}
-                </Title>
+              <a
+                className="c-button -tertiary -compressed"
+              >
+                Duplicate
               </a>
             </Link>
-          </header>
 
-          <div className="card-content">
-            <p dangerouslySetInnerHTML={{__html: dashboard.summary || dashboard.content }} />
-
-            <div className="card-logo-container">
-              <img className="logo" src={dashboard.partner.logo} alt={dashboard.partner.name} />
-            </div>
+            <button
+              className="c-button -tertiary -compressed"
+              onClick={() => onDelete(dashboard)}
+            >
+              Delete
+            </button>
           </div>
-
-          <footer className="card-footer">
-            <span>{dashboard.attribution}</span>
-          </footer>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 DashboardsListCard.defaultProps = {
@@ -51,12 +62,14 @@ DashboardsListCard.defaultProps = {
     index: '',
     detail: ''
   },
-  dashboard: {}
+  dashboard: {},
+  onDelete: null
 };
 
 DashboardsListCard.propTypes = {
   dashboard: PropTypes.object,
-  routes: PropTypes.object
+  routes: PropTypes.object,
+  onDelete: PropTypes.func
 };
 
 export default DashboardsListCard;

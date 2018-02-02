@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Autobind } from 'es-decorators';
 import { Router } from 'routes';
 import { toastr } from 'react-redux-toastr';
 
@@ -68,6 +67,13 @@ class AreasForm extends React.Component {
     // Services
     this.areasService = new AreasService({ apiURL: process.env.WRI_API_URL });
     this.userService = new UserService({ apiURL: process.env.WRI_API_URL });
+
+    // ---------------- Bindings --------------------
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onBack = this.onBack.bind(this);
+    this.onChangeSelectedArea = this.onChangeSelectedArea.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    //----------------------------------------------
   }
 
   componentDidMount() {
@@ -77,7 +83,6 @@ class AreasForm extends React.Component {
     }
   }
 
-  @Autobind
   onSubmit(e) {
     e.preventDefault();
 
@@ -92,8 +97,13 @@ class AreasForm extends React.Component {
       if (mode === 'new') {
         this.userService.createNewArea(name, geostore, user.token)
           .then(() => {
-            Router.pushRoute('admin_myprep', { tab: 'areas' });
             toastr.success('Success', 'Area successfully created!');
+
+            if (this.props.onSubmit) {
+              this.props.onSubmit();
+            } else {
+              Router.pushRoute('admin_myprep', { tab: 'areas' });
+            }
           })
           .catch(err => this.setState({ error: err, loading: false }));
       } else if (mode === 'edit') {
@@ -109,7 +119,18 @@ class AreasForm extends React.Component {
     }
   }
 
-  @Autobind
+  /**
+   * Event handler executed when the user clicks
+   * the "Cancel" button of the form
+   */
+  onBack() {
+    if (!this.props.onBack) {
+      Router.pushRoute('admin_myprep', { tab: 'areas' });
+    } else {
+      this.props.onBack();
+    }
+  }
+
   async onChangeSelectedArea(value) {
     return new Promise((resolve) => {
       if (value.value === 'upload') {
@@ -137,7 +158,6 @@ class AreasForm extends React.Component {
     });
   }
 
-  @Autobind
   handleNameChange(value) {
     this.setState({
       name: value
@@ -215,7 +235,7 @@ class AreasForm extends React.Component {
             </div>
           }
           <div className="buttons-div">
-            <button onClick={() => Router.pushRoute('admin_myprep', { tab: 'areas' })} className="c-btn -app">
+            <button type="button" onClick={this.onBack} className="c-btn -secondary">
               Cancel
             </button>
             <button type="submit" className="c-btn -primary">
@@ -231,6 +251,17 @@ class AreasForm extends React.Component {
 AreasForm.propTypes = {
   mode: PropTypes.string.isRequired, // edit | new
   id: PropTypes.string, // area id for edit mode
+  /**
+   * Callback for the "Submit" button
+   * If present, you have to navigate
+   */
+  onSubmit: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func,
   // Store
   user: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired
