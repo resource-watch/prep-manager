@@ -37,13 +37,14 @@ class DashboardsNew extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, routes } = this.props;
 
     return (
       <div className="c-dashboards-new">
         <DashboardsForm
           basic
           user={user}
+          duplicateId={routes.query.duplicateId}
           onSubmit={this.onSubmit}
           onBack={this.onBack}
         />
@@ -54,11 +55,13 @@ class DashboardsNew extends React.Component {
 
 DashboardsNew.propTypes = {
   // Store
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  routes: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  routes: state.routes
 });
 
 export default connect(mapStateToProps, null)(DashboardsNew);
