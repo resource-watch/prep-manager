@@ -20,6 +20,7 @@
 @import '../node_modules/rc-slider/assets/index';
 @import '../node_modules/react-input-range/src/scss/index.scss';
 @import '../node_modules/react-redux-toastr/src/styles/index';
+@import '../node_modules/widget-editor/dist/styles.min';
 
 // Editor
 @import '../node_modules/react-quill/dist/quill.snow';
@@ -127,7 +128,6 @@
 
 
 // WIDGETS
-@import '../node_modules/widget-editor/dist/styles.min';
 @import "./components/widgets/add_widget_to_collection_tooltip";
 @import "./components/widgets/text_chart";
 @import "./components/widgets/widget_editor";
