@@ -1,6 +1,8 @@
 .l-container {
   width: 100%;
-  position: relative;
+  // NOTE: relative position break the tooltip of the widget editor
+  // do not de-comment the line without a solution for this
+  position: static; // We force the position to static to override some rule
   // max-width: $grid-row-width;
   margin: 0 auto;
   box-sizing: border-box;
