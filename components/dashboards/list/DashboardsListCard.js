@@ -33,6 +33,17 @@ function DashboardsListCard({ dashboard, routes, onDelete }) {
               Preview
             </a>
 
+            <Link
+              route={routes.detail}
+              params={{ tab: 'dashboards', id: 'new', duplicateId: dashboard.id }}
+            >
+              <a
+                className="c-button -tertiary -compressed"
+              >
+                Duplicate
+              </a>
+            </Link>
+
             <button
               className="c-button -tertiary -compressed"
               onClick={() => onDelete(dashboard)}

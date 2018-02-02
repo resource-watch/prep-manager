@@ -18,7 +18,8 @@ class DashboardsForm extends React.Component {
 
     this.state = Object.assign({}, STATE_DEFAULT, {
       id: props.id,
-      loading: !!props.id,
+      duplicateId: props.duplicateId,
+      loading: !!props.id || !!props.duplicateId,
       form: {
         ...STATE_DEFAULT.form,
         user_id: props.user.id
@@ -37,12 +38,12 @@ class DashboardsForm extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = this.state;
+    const { id, duplicateId } = this.state;
     // Get the dashboards and fill the
     // state form with its params if the id exists
 
-    if (id) {
-      this.service.fetchData({ id })
+    if (id || duplicateId) {
+      this.service.fetchData({ id: id || duplicateId })
         .then((data) => {
           this.setState({
             form: this.setFormFromParams(data),
@@ -194,6 +195,7 @@ class DashboardsForm extends React.Component {
 DashboardsForm.propTypes = {
   user: PropTypes.object,
   id: PropTypes.string,
+  duplicateId: PropTypes.string,
   basic: PropTypes.bool,
   onSubmit: PropTypes.func,
   /**
