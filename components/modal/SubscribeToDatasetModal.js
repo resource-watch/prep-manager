@@ -57,7 +57,7 @@ class SubscribeToDatasetModal extends React.Component {
     if (value && value.value === 'upload_area') {
       this.setState({ loading: true });
       this.props.toggleModal(false);
-      Router.pushRoute('myprep_detail', {
+      Router.pushRoute('admin_myprep_detail', {
         tab: 'areas',
         id: 'new',
         subscribeToDataset: { dataset: this.props.dataset.id, type: this.state.selectedType } });

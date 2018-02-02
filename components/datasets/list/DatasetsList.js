@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
+import { logEvent } from 'utils/analytics';
 
 // Redux
 import { connect } from 'react-redux';
@@ -15,6 +17,11 @@ import SearchInput from 'components/ui/SearchInput';
 import DatasetsListCard from 'components/datasets/list/DatasetsListCard';
 
 class DatasetsList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.logSearchEvent = debounce(this.logSearchEvent, 500);
+  }
+
   componentDidMount() {
     this.loadData();
   }
@@ -24,6 +31,7 @@ class DatasetsList extends React.Component {
       this.props.setFilters([]);
     } else {
       this.props.setFilters([{ key: 'name', value }]);
+      this.logSearchEvent(value);
     }
   }
 
@@ -37,6 +45,15 @@ class DatasetsList extends React.Component {
       includes: 'widget,layer,metadata,vocabulary',
       filters: getDatasetsFilters
     });
+  }
+
+  /**
+   * Log the search events
+   * NOTE: this function is debounced in the constructor
+   * @param {string} query Search terms
+   */
+  logSearchEvent(query) { // eslint-disable-line class-methods-use-this
+    logEvent('User account', 'Search datasets', query);
   }
 
   render() {

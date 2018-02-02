@@ -32,7 +32,7 @@ const MYPREP_TABS = [{
   label: 'Datasets',
   value: 'datasets',
   route: 'admin_myprep',
-  params: { tab: 'datasets' }
+  params: { tab: 'datasets', subtab: 'my_datasets' }
 }, {
   label: 'Dashboards',
   value: 'dashboards',
@@ -42,7 +42,7 @@ const MYPREP_TABS = [{
   label: 'Widgets',
   value: 'widgets',
   route: 'admin_myprep',
-  params: { tab: 'widgets' }
+  params: { tab: 'widgets', subtab: 'my_widgets' }
 },
 {
   label: 'Areas of interest',

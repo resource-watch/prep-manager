@@ -93,7 +93,7 @@ class DatasetsRelatedContent extends React.Component {
             </li>
           }
 
-          {route !== 'myprep_detail' && buttons.layer &&
+          {route !== 'admin_myprep_detail' && buttons.layer &&
             <li>
               <TetherComponent
                 attachment="bottom center"
@@ -156,7 +156,7 @@ class DatasetsRelatedContent extends React.Component {
             </li>
           }
 
-          {route !== 'myprep_detail' && buttons.tags &&
+          {route !== 'admin_myprep_detail' && buttons.tags &&
             <li>
               <TetherComponent
                 attachment="bottom center"

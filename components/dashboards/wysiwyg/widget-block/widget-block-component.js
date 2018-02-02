@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 // Components
 import VegaChart from 'components/widgets/charts/VegaChart';
@@ -10,16 +11,20 @@ import Legend from 'components/widgets/editor/ui/Legend';
 import Icon from 'components/ui/Icon';
 import Title from 'components/ui/Title';
 import Spinner from 'components/ui/Spinner';
+import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import CollectionsPanel from 'components/collections-panel';
 
 // Utils
 import getChartTheme from 'utils/widgets/theme';
 import LayerManager from 'components/widgets/editor/helpers/LayerManager';
 
+// helpers
+import { belongsToACollection } from 'components/collections-panel/collections-panel-helpers';
+
 export default function WidgetBlock({
   user,
   data,
   item,
-  onToggleFavourite,
   onToggleModal,
   onToggleLoading,
   onToggleLayerGroupVisibility
@@ -38,10 +43,18 @@ export default function WidgetBlock({
     widgetModal,
     layers,
     layersLoading,
-    layersError,
-    favourite,
-    favouriteLoading
+    layersError
   } = data[id];
+
+  const widgetLinks = (widget && (widget.metadata && widget.metadata.length > 0 &&
+    widget.metadata[0].attributes.info &&
+    widget.metadata[0].attributes.info.widgetLinks)) || [];
+
+  const isInACollection = belongsToACollection(user, widget);
+  const starIconName = classnames({
+    'icon-star-full': isInACollection,
+    'icon-star-empty': !isInACollection
+  });
 
   return (
     <div className="c-dashboard-card">
@@ -51,30 +64,39 @@ export default function WidgetBlock({
 
           <div className="buttons">
             {user.token &&
-              <button
-                type="button"
-                onClick={() => onToggleFavourite(favourite, widget)}
+              <Tooltip
+                overlay={<CollectionsPanel
+                  resource={widget}
+                  resourceType="widget"
+                />}
+                overlayClassName="c-rc-tooltip"
+                overlayStyle={{
+                  color: '#1a3e62'
+                }}
+                placement="bottom"
+                trigger="click"
               >
-                {!favouriteLoading &&
-                  <Icon name={`icon-${favourite.id ? 'star-full' : 'star-empty'}`} className="c-icon -small" />
-                }
-
-                {favouriteLoading &&
-                  <Spinner isLoading className="-transparent -tiny -inline" />
-                }
-              </button>
-            }
+                <button
+                  className="c-btn favourite-button"
+                  tabIndex={-1}
+                >
+                  <Icon
+                    name={starIconName}
+                    className="-star -small"
+                  />
+                </button>
+              </Tooltip>}
 
             <button
               type="button"
               onClick={() => onToggleModal(!widgetModal)}
             >
               {!widgetModal &&
-                <Icon name="icon-info" className="c-icon -small" />
+                <Icon name="icon-info" className="-small" />
               }
 
               {widgetModal &&
-                <Icon name="icon-cross" className="c-icon -small" />
+                <Icon name="icon-cross" className="-small" />
               }
             </button>
           </div>
@@ -100,19 +122,15 @@ export default function WidgetBlock({
           />
         }
 
-        {!widgetError && !layersError && widgetType === 'map' && layers && widget.widgetConfig && (
+        {!widgetError && !layersError && widgetType === 'map' && widget && widget.widgetConfig && layers && (
           <div>
             <Map
               LayerManager={LayerManager}
               mapConfig={{
-                ...!!widget.widgetConfig.lat && !!widget.widgetConfig.lng && {
-                  latLng: {
-                    lat: widget.widgetConfig.lat,
-                    lng: widget.widgetConfig.lng
-                  }
-                },
-                ...widget.widgetConfig.zoom && {
-                  zoom: widget.widgetConfig.zoom
+                zoom: widget.widgetConfig.zoom,
+                latLng: {
+                  lat: widget.widgetConfig.lat,
+                  lng: widget.widgetConfig.lng
                 },
                 scrollWheelZoom: false
               }}
@@ -156,6 +174,24 @@ export default function WidgetBlock({
                 <p>{widget.description}</p>
               </div>
             )}
+
+            { widgetLinks.length > 0 &&
+              <div className="widget-links-container">
+                <h4>Links</h4>
+                <ul>
+                  { widgetLinks.map(link => (
+                    <li>
+                      <a
+                        href={link.link}
+                        target="_blank"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
           </div>
         }
       </div>
@@ -168,7 +204,6 @@ WidgetBlock.propTypes = {
   data: PropTypes.object,
   item: PropTypes.object,
   onToggleModal: PropTypes.func,
-  onToggleFavourite: PropTypes.func,
   onToggleLoading: PropTypes.func,
   onToggleLayerGroupVisibility: PropTypes.func
 };
@@ -178,7 +213,6 @@ WidgetBlock.defaultProps = {
   data: {},
   item: {},
   onToggleModal: null,
-  onToggleFavourite: null,
   onToggleLoading: null,
   onToggleLayerGroupVisibility: null
 };

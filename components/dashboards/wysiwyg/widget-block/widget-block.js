@@ -1,7 +1,12 @@
 import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
+import { logEvent } from 'utils/analytics';
+
+// helpers
+import { belongsToACollection } from 'components/collections-panel/collections-panel-helpers';
 
 import { connect } from 'react-redux';
+
 import * as actions from './widget-block-actions';
 import * as reducers from './widget-block-reducers';
 import initialState from './widget-block-default-state';
@@ -17,8 +22,6 @@ class WidgetBlock extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-
     // Redux
     setWidgetLoading: PropTypes.func.isRequired,
     setWidgetModal: PropTypes.func.isRequired,
@@ -30,14 +33,14 @@ class WidgetBlock extends React.Component {
   async componentWillMount() {
     if (this.props.item.content.widgetId) {
       await this.triggerFetch(this.props);
-      // this.setFavourite(this.props);
+      this.setFavourite(this.props);
     }
   }
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.item.content.widgetId !== this.props.item.content.widgetId) {
       await this.triggerFetch(nextProps);
-      // this.setFavourite(nextProps);
+      this.setFavourite(nextProps);
     }
   }
 
@@ -56,10 +59,7 @@ class WidgetBlock extends React.Component {
   */
   setFavourite = (props) => {
     const { item, user } = props;
-
-    const favourite = user.favourites && user.favourites.find(f =>
-      f.attributes.resourceId === item.content.widgetId
-    );
+    const favourite = belongsToACollection(user, item);
 
     props.setFavourite({
       id: `${item.content.widgetId}/${item.id}`,
@@ -69,18 +69,24 @@ class WidgetBlock extends React.Component {
 
   triggerFetch = props => props.fetchWidget({
     id: props.item.content.widgetId,
-    itemId: props.item.id
+    itemId: props.item.id,
+    includes: 'metadata'
   })
 
   render() {
     return createElement(WidgetBlockComponent, {
       onToggleModal: (modal) => {
-        const { item } = this.props;
+        const { data, item } = this.props;
+        const id = `${item.content.widgetId}/${item.id}`;
 
         this.props.setWidgetModal({
-          id: `${item.content.widgetId}/${item.id}`,
+          id,
           value: modal
         });
+
+        if (modal) {
+          logEvent('Dashboards', 'Clicks for more info', data[id].widget.name);
+        }
       },
       onToggleLoading: (loading) => {
         const { item } = this.props;

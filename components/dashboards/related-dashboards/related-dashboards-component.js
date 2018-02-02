@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { logEvent } from 'utils/analytics';
+
 import Title from 'components/ui/Title';
 import RelatedDashboardCard from 'components/ui/card/RelatedDashboardCard';
 
@@ -42,7 +44,12 @@ function RelatedDashboards(props) {
                 </p>
 
                 {item.partner && item.partner.white_logo &&
-                  <a href={item.partner.url} target="_blank">
+                  <a
+                    href={item.partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => logEvent('Dashboards', 'Clicks on a partner logo', item.partner.name)}
+                  >
                     <img
                       src={item.partner.white_logo}
                       className="logo"

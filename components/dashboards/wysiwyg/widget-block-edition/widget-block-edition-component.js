@@ -56,6 +56,7 @@ export default function WidgetBlockEdition({ data, onChangeTab, onSelectWidget, 
                   widgets={data.widgets}
                   mode="grid"
                   onWidgetClick={onSelectWidget}
+                  showFavourite={false}
                 />
 
                 <Spinner isLoading={data.loading} className="-relative -small -light" />

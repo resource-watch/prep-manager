@@ -20,6 +20,7 @@
 @import '../node_modules/rc-slider/assets/index';
 @import '../node_modules/react-input-range/src/scss/index.scss';
 @import '../node_modules/react-redux-toastr/src/styles/index';
+@import '../node_modules/widget-editor/dist/styles.min';
 
 // Editor
 @import '../node_modules/react-quill/dist/quill.snow';
@@ -127,7 +128,6 @@
 
 
 // WIDGETS
-@import '../node_modules/widget-editor/dist/styles.min';
 @import "./components/widgets/add_widget_to_collection_tooltip";
 @import "./components/widgets/text_chart";
 @import "./components/widgets/widget_editor";
@@ -219,16 +219,11 @@
 @import './components/app/dashboards/dashboard_card';
 
 // MyPREP
-// @import "./components/app/pages/myprep/activity";
+@import "./components/app/pages/myprep/myprep_common";
 @import "./components/app/pages/myprep/myprep_edit_profile";
 @import "./components/app/pages/myprep/myprep_subscriptions";
-@import "./components/app/pages/myprep/myprep_widgets";
-@import "./components/app/pages/myprep/myprep_widgets_my";
-@import "./components/app/pages/myprep/myprep_widgets_starred";
 @import "./components/app/pages/myprep/myprep_widgets_edit";
 @import "./components/app/pages/myprep/myprep_widgets_new";
-@import "./components/app/pages/myprep/myprep_dataset_widgets";
-@import "./components/app/pages/myprep/myprep_datasets_starred";
 
 // Embed
 @import "./components/app/pages/embed/embed_widget";

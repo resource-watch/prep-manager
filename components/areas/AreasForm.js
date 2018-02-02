@@ -68,8 +68,9 @@ class AreasForm extends React.Component {
     this.areasService = new AreasService({ apiURL: process.env.WRI_API_URL });
     this.userService = new UserService({ apiURL: process.env.WRI_API_URL });
 
-    //---------------- Bindings --------------------
+    // ---------------- Bindings --------------------
     this.onSubmit = this.onSubmit.bind(this);
+    this.onBack = this.onBack.bind(this);
     this.onChangeSelectedArea = this.onChangeSelectedArea.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     //----------------------------------------------
@@ -96,8 +97,13 @@ class AreasForm extends React.Component {
       if (mode === 'new') {
         this.userService.createNewArea(name, geostore, user.token)
           .then(() => {
-            Router.pushRoute('admin_myprep', { tab: 'areas' });
             toastr.success('Success', 'Area successfully created!');
+
+            if (this.props.onSubmit) {
+              this.props.onSubmit();
+            } else {
+              Router.pushRoute('admin_myprep', { tab: 'areas' });
+            }
           })
           .catch(err => this.setState({ error: err, loading: false }));
       } else if (mode === 'edit') {
@@ -110,6 +116,18 @@ class AreasForm extends React.Component {
       }
     } else {
       toastr.info('Data missing', 'Please select an area');
+    }
+  }
+
+  /**
+   * Event handler executed when the user clicks
+   * the "Cancel" button of the form
+   */
+  onBack() {
+    if (!this.props.onBack) {
+      Router.pushRoute('admin_myprep', { tab: 'areas' });
+    } else {
+      this.props.onBack();
     }
   }
 
@@ -217,7 +235,7 @@ class AreasForm extends React.Component {
             </div>
           }
           <div className="buttons-div">
-            <button type="button" onClick={() => Router.pushRoute('admin_myprep', { tab: 'areas' })} className="c-btn -secondary">
+            <button type="button" onClick={this.onBack} className="c-btn -secondary">
               Cancel
             </button>
             <button type="submit" className="c-btn -primary">
@@ -233,6 +251,17 @@ class AreasForm extends React.Component {
 AreasForm.propTypes = {
   mode: PropTypes.string.isRequired, // edit | new
   id: PropTypes.string, // area id for edit mode
+  /**
+   * Callback for the "Submit" button
+   * If present, you have to navigate
+   */
+  onSubmit: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func,
   // Store
   user: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired
