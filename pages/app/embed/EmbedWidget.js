@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import d3 from 'd3';
 import { Autobind } from 'es-decorators';
 import { toastr } from 'react-redux-toastr';
+import { VegaChart } from 'widget-editor';
 
 // Redux
 import withRedux from 'next-redux-wrapper';
@@ -16,7 +17,6 @@ import { setRouter } from 'redactions/routes';
 // Components
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import VegaChart from 'components/widgets/charts/VegaChart';
 import Spinner from 'components/ui/Spinner';
 import ChartTheme from 'utils/widgets/theme';
 import Icon from 'components/widgets/editor/ui/Icon';

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { VegaChart } from 'widget-editor'
 
 // Components
-import VegaChart from 'components/widgets/charts/VegaChart';
 import Spinner from 'components/ui/Spinner';
 
 // Helpers
@@ -63,7 +63,7 @@ class DatasetWidgetChart extends React.Component {
           data={widgetConfig}
           theme={themeObj}
           showLegend={mode !== 'thumbnail'}
-          reloadOnResize={mode !== 'thumbnail'}
+          reloadOnResize
           toggleLoading={this.triggerToggleLoading}
           getForceUpdate={(func) => { this.forceChartUpdate = func; }}
         />

@@ -4,13 +4,13 @@ import { Autobind } from 'es-decorators';
 import { Link } from 'routes';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
+import { VegaChart } from 'widget-editor';
 
 // Layout
 import Head from 'components/app/layout/head';
 
 // Components
 import Spinner from 'components/ui/Spinner';
-import VegaChart from 'components/widgets/charts/VegaChart';
 import Tooltip from 'components/ui/Tooltip';
 
 // Services
@@ -74,6 +74,7 @@ class EmbedDataset extends React.Component {
               data={widget.attributes.widgetConfig}
               theme={ChartTheme()}
               toggleLoading={this.triggerToggleLoading}
+              reloadOnResize
             />
             <div className="info">
               <div className="widget-title">
