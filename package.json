@@ -106,7 +106,7 @@
     "vizz-wysiwyg": "1.1.9",
     "webpack": "^3.6.0",
     "whatwg-fetch": "2.0.2",
-    "widget-editor": "0.1.0"
+    "widget-editor": "0.1.2"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
