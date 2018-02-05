@@ -23,10 +23,11 @@ class EmbedMyWidgetModal extends React.Component {
   }
 
   render() {
-    const { widgetId, visualizationType } = this.props;
+    const { widget, visualizationType } = this.props;
+    const { id } = widget;
     const { protocol, hostname, port } = window && window.location ? window.location : {};
     const embedHost = window && window.location ? `${protocol}//${hostname}${port !== '' ? `:${port}` : port}` : '';
-    const url = `${embedHost}/embed/${visualizationType === 'map' ? 'map' : 'widget'}/${widgetId}`;
+    const url = `${embedHost}/embed/${visualizationType === 'map' ? 'map' : 'widget'}/${id}`;
     const iframeText = `<iframe src="${url}" width="100%" height="474" frameBorder="0"></iframe>`;
     return (
       <div className="c-embed-my-widget-modal">
@@ -45,7 +46,7 @@ class EmbedMyWidgetModal extends React.Component {
 }
 
 EmbedMyWidgetModal.propTypes = {
-  widgetId: PropTypes.string.isRequired,
+  widget: PropTypes.object.isRequired,
   visualizationType: PropTypes.string.isRequired
 };
 

@@ -36,20 +36,6 @@
   .header-logo {
     position: relative;
 
-    &:after {
-      display: block;
-      content: "BETA";
-      position: absolute;
-      top: 100%;
-      right: 0;
-
-      font-family: $header-font-family;
-      font-weight: bold;
-      font-style: italic;
-      font-size: 12px;
-      color: $yellow;
-    }
-
     .brand-logo {
       width: 200px;
       height: 35px;
