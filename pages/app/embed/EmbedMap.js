@@ -6,29 +6,47 @@ import classnames from 'classnames';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
 import { bindActionCreators } from 'redux';
-import { getWidget, toggleLayerGroupVisibility } from 'redactions/widget';
-import { setUser } from 'redactions/user';
-import { setRouter } from 'redactions/routes';
+import { getWidget, toggleLayerGroupVisibility, checkIfFavorited, setIfFavorited } from 'redactions/widget';
+import { setEmbed } from 'redactions/common';
 
 // Components
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import Spinner from 'components/widgets/editor/ui/Spinner';
+import Spinner from 'components/ui/Spinner';
 import Map from 'components/widgets/editor/map/Map';
 import Legend from 'components/widgets/editor/ui/Legend';
-import Icon from 'components/widgets/editor/ui/Icon';
+import Icon from 'components/ui/Icon';
 
 // Utils
 import LayerManager from 'components/widgets/editor/helpers/LayerManager';
 
 class EmbedMap extends Page {
-  static getInitialProps({ asPath, pathname, query, req, store, isServer }) {
-    const { user } = isServer ? req : store.getState();
-    const url = { asPath, pathname, query };
-    const referer = isServer ? req.headers.referer : location.href;
-    store.dispatch(setUser(user));
-    store.dispatch(setRouter(url));
-    return { user, isServer, url, referer, isLoading: true };
+  static propTypes = {
+    widget: PropTypes.object,
+    isLoading: PropTypes.bool,
+    getWidget: PropTypes.func,
+    toggleLayerGroupVisibility: PropTypes.func,
+    loading: PropTypes.bool,
+    layerGroups: PropTypes.array,
+    error: PropTypes.string,
+    zoom: PropTypes.number,
+    latLng: PropTypes.object
+  }
+
+  static defaultProps = {
+    widget: {}
+  }
+
+  static async getInitialProps(context) {
+    const props = await super.getInitialProps(context);
+    const { store, isServer, req } = context;
+
+    store.dispatch(setEmbed(true));
+
+    return {
+      ...props,
+      referer: isServer ? req.headers.referer : location.href
+    };
   }
 
   isLoadedExternally() {
@@ -44,6 +62,7 @@ class EmbedMap extends Page {
 
   componentDidMount() {
     this.props.getWidget(this.props.url.query.id);
+
   }
 
   getModal() {
@@ -65,7 +84,7 @@ class EmbedMap extends Page {
   }
 
   render() {
-    const { widget, loading, layerGroups, error, zoom, latLng } = this.props;
+    const { widget, loading, layerGroups, error, zoom, latLng, user } = this.props;
     const { modalOpened } = this.state;
 
     if (loading) {
@@ -155,6 +174,7 @@ class EmbedMap extends Page {
           </div>
           { this.isLoadedExternally() && (
             <div className="widget-footer">
+              Powered by
               <a href="/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="embed-logo"
@@ -169,22 +189,6 @@ class EmbedMap extends Page {
     );
   }
 }
-
-EmbedMap.propTypes = {
-  widget: PropTypes.object,
-  isLoading: PropTypes.bool,
-  getWidget: PropTypes.func,
-  toggleLayerGroupVisibility: PropTypes.func,
-  loading: PropTypes.bool,
-  layerGroups: PropTypes.array,
-  error: PropTypes.string,
-  zoom: PropTypes.number,
-  latLng: PropTypes.object
-};
-
-EmbedMap.defaultProps = {
-  widget: {}
-};
 
 const mapStateToProps = state => ({
   widget: state.widget.data,
