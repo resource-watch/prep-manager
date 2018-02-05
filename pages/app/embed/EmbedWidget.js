@@ -13,7 +13,7 @@ import { setEmbed } from 'redactions/common';
 // Components
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import VegaChart from 'components/widgets/charts/VegaChart';
+import { VegaChart } from 'widget-editor';
 import Spinner from 'components/ui/Spinner';
 import ChartTheme from 'utils/widgets/theme';
 import Icon from 'components/ui/Icon';
