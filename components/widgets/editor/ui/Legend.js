@@ -279,7 +279,6 @@ class Legend extends React.PureComponent {
 
   onTimelineChange(currentValue = 0, datasetSpec) {
     const currentLayer = datasetSpec.layers.find((l) => {
-      debugger;
       return moment(l.layerConfig.dateTime, 'YYYY-MM-DD').year() === parseInt(currentValue);
     });
     this.setState({ currentStepTimeline: currentValue });
