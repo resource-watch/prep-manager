@@ -49,7 +49,7 @@ class Layout extends Component {
   }
 
   render() {
-    const { title, description, url, user, modal } = this.props;
+    const { title, description, url, modal } = this.props;
     return (
       <div className="l-page">
         <Head
@@ -92,7 +92,6 @@ class Layout extends Component {
 }
 
 Layout.propTypes = {
-  user: PropTypes.object.isRequired,
   url: PropTypes.object.isRequired,
   children: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,
