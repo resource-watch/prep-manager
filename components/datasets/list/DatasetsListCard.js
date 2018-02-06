@@ -66,7 +66,7 @@ class DatasetsListCard extends React.Component {
             >
               <a>
                 <Title className="-default">
-                  {metadata ? metadata.attributes.name : dataset.name}
+                  {(metadata && metadata.attributes.name) ? metadata.attributes.name : dataset.name}
                 </Title>
               </a>
             </Link>
