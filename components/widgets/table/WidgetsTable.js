@@ -33,7 +33,8 @@ class WidgetsTable extends React.Component {
     // TODO: get filtered widgets
     this.props.getWidgets({
       filters: {
-        ...this.props.dataset && { dataset: this.props.dataset }
+        ...this.props.dataset && { dataset: this.props.dataset },
+        'page[size]': 9999
       }
     });
   }
