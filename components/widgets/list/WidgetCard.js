@@ -151,7 +151,6 @@ class WidgetCard extends PureComponent {
     this.handleEditWidget = this.handleEditWidget.bind(this);
     this.handleGoToDataset = this.handleGoToDataset.bind(this);
     this.handleDownloadPDF = this.handleDownloadPDF.bind(this);
-    this.handleWidgetActionsClick = this.handleWidgetActionsClick.bind(this);
     // ----------------------------------------------------------
   }
 
@@ -373,7 +372,7 @@ class WidgetCard extends PureComponent {
     link.dispatchEvent(event);
   }
 
-  handleWidgetActionsClick(event) {
+  handleWidgetActionsClick(event, isWidgetOwner) {
     const { widget } = this.props;
     const widgetAtts = widget;
     const widgetLinks = (widgetAtts.metadata && widgetAtts.metadata.length > 0 &&
@@ -391,7 +390,8 @@ class WidgetCard extends PureComponent {
         onGoToDataset: this.handleGoToDataset,
         onEditWidget: this.handleEditWidget,
         onDownloadPDF: this.handleDownloadPDF,
-        widgetLinks
+        widgetLinks,
+        isWidgetOwner
       }
     });
   }
@@ -468,12 +468,12 @@ class WidgetCard extends PureComponent {
               {showActions &&
                 <button
                   className="c-button -secondary widget-actions"
-                  onClick={this.handleWidgetActionsClick}
+                  onClick={e => this.handleWidgetActionsClick(e, (widget.userId === user.id))}
                 >
                   Widget actions
                 </button>
               }
-              {showRemove &&
+              {showRemove && (widget.userId === user.id) &&
                 <button
                   className="c-button -tertiary"
                   onClick={this.handleRemoveWidget}

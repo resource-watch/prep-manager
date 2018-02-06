@@ -22,6 +22,10 @@ class MyPREPWidgetsContainer extends PureComponent {
     setPaginationPage: PropTypes.func
   }
 
+  static defaultProps = {
+    subtab: 'my_widgets'
+  }
+
   componentWillMount() {
     this.props.getWidgetsByTab(this.props.subtab);
   }
