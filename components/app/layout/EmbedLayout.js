@@ -11,9 +11,9 @@ import { toggleTooltip } from 'redactions/tooltip';
 import { Router } from 'routes';
 import Icons from 'components/app/layout/icons';
 import Tooltip from 'components/ui/Tooltip';
-import Head from 'components/app/layout/head';
+import Head from 'components/admin/layout/head';
 
-class Layout extends React.Component {
+class EmbedLayout extends React.Component {
   componentWillMount() {
     // When a tooltip is shown and the router navigates to a
     // another page, the tooltip stays in place because it is
@@ -57,7 +57,7 @@ class Layout extends React.Component {
   }
 }
 
-Layout.propTypes = {
+EmbedLayout.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
@@ -77,4 +77,4 @@ const mapDispatchToProps = dispatch => ({
   updateIsLoading: bindActionCreators(isLoading => updateIsLoading(isLoading), dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(EmbedLayout);
