@@ -1,4 +1,5 @@
 import React from 'react';
+import { logEvent } from 'utils/analytics';
 
 // Redux
 import withRedux from 'next-redux-wrapper';
@@ -36,7 +37,9 @@ class DashboardsDetail extends Page {
   }
 
   componentDidMount() {
-    this.props.fetchDashboard({ id: this.props.url.query.slug });
+    const { dashboardDetail } = this.props;
+    const { title } = dashboardDetail.dashboard;
+    logEvent('Dashboards', 'Dashboard detail', title);
   }
 
   render() {
