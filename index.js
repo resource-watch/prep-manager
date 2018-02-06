@@ -111,7 +111,7 @@ app.prepare()
     server.get('/login', auth.login);
     server.get('/logout', (req, res) => {
       req.logout();
-      res.redirect('/');
+      res.redirect('/?logout=true');
     });
 
     // Routes with required authentication
