@@ -101,6 +101,7 @@ class DatasetsListCard extends PureComponent {
             <div className="actions">
               <a
                 role="button"
+                className="c-button -tertiary -compressed"
                 tabIndex={0}
                 onClick={this.handleDelete}
               >
