@@ -140,8 +140,16 @@
   }
 
   .widget-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-shrink: 0;
     padding: 0 $margin-size-extra-small $margin-size-extra-small;
+
+    .prep-logo {
+      display: block;
+      height: 30px;
+    }
 
     .embed-logo {
       display: block;

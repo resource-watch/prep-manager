@@ -43,7 +43,6 @@ routes.add('embed_embed', '/embed/embed/:id', 'app/embed/EmbedEmbed');
 routes.add('embed_text', '/embed/text/:id', 'app/embed/EmbedText');
 routes.add('embed_map', '/embed/map/:id', 'app/embed/EmbedMap');
 routes.add('embed_dataset', '/embed/dataset/:id', 'app/embed/EmbedDataset');
-routes.add('embed_layer', '/embed/layers', 'app/embed/EmbedLayer');
 routes.add('embed_table', '/embed/table', 'app/embed/EmbedTable');
 routes.add('embed_dashboard', '/embed/dashboard/:slug', 'app/embed/EmbedDashboard');
 

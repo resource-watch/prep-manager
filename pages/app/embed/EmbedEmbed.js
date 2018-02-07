@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import d3 from 'd3';
 
 // Redux
 import withRedux from 'next-redux-wrapper';
@@ -13,9 +11,7 @@ import { setEmbed } from 'redactions/common';
 // Components
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import { VegaChart } from 'widget-editor';
 import Spinner from 'components/ui/Spinner';
-import ChartTheme from 'utils/widgets/theme';
 import Icon from 'components/ui/Icon';
 
 class EmbedWidget extends Page {
@@ -77,10 +73,11 @@ class EmbedWidget extends Page {
             <h4>Links</h4>
             <ul>
               { widgetLinks.map(link => (
-                <li>
+                <li key={link.link}>
                   <a
                     href={link.link}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {link.name}
                   </a>
@@ -111,8 +108,8 @@ class EmbedWidget extends Page {
     if (loading) {
       return (
         <EmbedLayout
-          title={'Loading widget...'}
-          description={''}
+          title="Loading widget..."
+          description=""
         >
           <div className="c-embed-widget">
             <Spinner isLoading className="-light" />
@@ -124,8 +121,8 @@ class EmbedWidget extends Page {
     if (error) {
       return (
         <EmbedLayout
-          title={'Resource Watch'}
-          description={''}
+          title="Partnership for Resilience and Preparedness"
+          description=""
         >
           <div className="c-embed-widget">
             <div className="widget-title">
@@ -140,11 +137,21 @@ class EmbedWidget extends Page {
               <div className="widget-footer">
                 <a href="/" target="_blank" rel="noopener noreferrer">
                   <img
-                    className="embed-logo"
-                    src={'/static/images/logo-embed.png'}
-                    alt="Resource Watch"
+                    className="prep-logo"
+                    src={'/static/images/logo-blue@2x.png'}
+                    alt="Partnership for Resilience and Preparedness"
                   />
                 </a>
+                <div>
+                  Powered by
+                  <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                    <img
+                      className="embed-logo"
+                      src={'/static/images/logo-embed.png'}
+                      alt="Resource Watch"
+                    />
+                  </a>
+                </div>
               </div>
             ) }
           </div>
@@ -161,7 +168,7 @@ class EmbedWidget extends Page {
           <Spinner isLoading={isLoading} className="-light" />
           <div className="widget-title">
             {widgetLinks.length === 0 &&
-              <a href={`/data/explore/${widget.attributes.dataset}`} target="_blank" rel="noopener noreferrer">
+              <a href={`/dataset/${widget.attributes.dataset}`} target="_blank" rel="noopener noreferrer">
                 <h4>{widget.attributes.name}</h4>
               </a>
             }
@@ -183,14 +190,23 @@ class EmbedWidget extends Page {
           </div>
           { this.isLoadedExternally() && (
             <div className="widget-footer">
-              Powered by
               <a href="/" target="_blank" rel="noopener noreferrer">
                 <img
-                  className="embed-logo"
-                  src={'/static/images/logo-embed.png'}
-                  alt="Resource Watch"
+                  className="prep-logo"
+                  src={'/static/images/logo-blue@2x.png'}
+                  alt="Partnership for Resilience and Preparedness"
                 />
               </a>
+              <div>
+                Powered by
+                <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="embed-logo"
+                    src={'/static/images/logo-embed.png'}
+                    alt="Resource Watch"
+                  />
+                </a>
+              </div>
             </div>
           ) }
         </div>
