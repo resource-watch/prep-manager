@@ -56,6 +56,8 @@ class DatasetsListCard extends React.Component {
       '-favourited': isInACollection
     });
 
+    console.log(metadata);
+
     return (
       <div className="c-card c-datasets-list-card">
         <div className="card-container">

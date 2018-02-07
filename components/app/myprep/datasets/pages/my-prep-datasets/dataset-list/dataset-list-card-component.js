@@ -29,6 +29,17 @@ class DatasetsListCard extends PureComponent {
     onDatasetRemoved: PropTypes.func.isRequired
   };
 
+  getDatasetName() {
+    const { dataset } = this.props;
+    const metadata = dataset.metadata[0];
+
+    if (metadata && metadata.attributes.info && metadata.attributes.info.name) {
+      return metadata.attributes.info.name;
+    }
+
+    return dataset.name;
+  }
+
   handleDelete = () => {
     const { dataset } = this.props;
     this.props.onDatasetRemoved(dataset);
@@ -36,7 +47,6 @@ class DatasetsListCard extends PureComponent {
 
   render() {
     const { dataset, routes, user } = this.props;
-    const metadata = dataset.metadata[0];
     const isInACollection = belongsToACollection(user, dataset);
     const starIconName = classnames({
       'icon-star-full': isInACollection,
@@ -53,8 +63,7 @@ class DatasetsListCard extends PureComponent {
             >
               <a>
                 <Title className="-default">
-                  {metadata && metadata.attributes.info ? metadata.attributes.info.name :
-                    dataset.name}
+                  {this.getDatasetName()}
                 </Title>
               </a>
             </Link>
