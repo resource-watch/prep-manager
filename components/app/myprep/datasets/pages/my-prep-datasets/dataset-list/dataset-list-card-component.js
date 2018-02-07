@@ -52,24 +52,33 @@ class DatasetsListCard extends PureComponent {
       'icon-star-full': isInACollection,
       'icon-star-empty': !isInACollection
     });
+    const isOwnerOrAdmin = (dataset.userId === user.id || user.role === 'ADMIN');
 
     return (
       <div className="c-card c-datasets-list-card">
         <div className="card-container">
           <header className="card-header">
-            <Link
-              route={routes.detail}
-              params={{ tab: 'datasets', id: dataset.id }}
-            >
-              <a>
-                <Title className="-default">
-                  {this.getDatasetName()}
-                </Title>
-              </a>
-            </Link>
-            <Title className="-small">
-              {dataset.provider}
-            </Title>
+            {isOwnerOrAdmin &&
+              <Link
+                route={routes.detail}
+                params={{ tab: 'datasets', id: dataset.id }}
+              >
+                <a>
+                  <Title className="-default">
+                    {this.getDatasetName()}
+                  </Title>
+                </a>
+              </Link>
+            }
+
+            {!isOwnerOrAdmin &&
+              <Title className="-default">
+                {this.getDatasetName()}
+              </Title>
+            }
+
+            <div>{dataset.provider}</div>
+
             <Tooltip
               overlay={<CollectionsPanel
                 resource={dataset}
