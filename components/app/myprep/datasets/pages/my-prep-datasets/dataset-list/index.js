@@ -19,6 +19,10 @@ class DatasetListContainer extends PureComponent {
     setPaginationTotal: PropTypes.func
   }
 
+  static defaultProps = {
+    currentTab: 'my_datasets'
+  }
+
   componentWillMount() {
     this.props.getDatasetsByTab(this.props.currentTab);
   }
