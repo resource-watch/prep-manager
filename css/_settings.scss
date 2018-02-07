@@ -95,3 +95,11 @@ $margin-size-extra-small: 15px;
 $margin-size-small: 30px;
 $margin-size: 50px;
 $margin-size-big: 100px;
+
+// Breakpoints
+$bp-medium: 40em;
+$bp-large: 65em;
+
+// Mediaqueries
+$mq-medium: "screen and (min-width: #{$bp-medium})";
+$mq-large: "screen and (min-width: #{$bp-large})";

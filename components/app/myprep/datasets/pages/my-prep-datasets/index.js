@@ -14,6 +14,10 @@ class MyPREPDatasetsMyContainer extends PureComponent {
     setPaginationPage: PropTypes.func
   };
 
+  static defaultProps = {
+    subtab: 'my_datasets'
+  };
+
   componentWillReceiveProps(nextProps) {
     const { subtab } = this.props;
 

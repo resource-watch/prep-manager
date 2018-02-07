@@ -42,11 +42,13 @@ class WidgetActionsTooltip extends React.Component {
     return (
       <div className="c-widget-actions-tooltip">
         <ul>
-          <li>
-            <button onClick={() => this.handleClick('edit_widget')}>
-              Edit widget
-            </button>
-          </li>
+          { this.props.isWidgetOwner &&
+            <li>
+              <button onClick={() => this.handleClick('edit_widget')}>
+                Edit widget
+              </button>
+            </li>
+          }
           <li>
             <button onClick={() => this.handleClick('share_embed')}>
               Share/Embed
@@ -69,6 +71,7 @@ class WidgetActionsTooltip extends React.Component {
 }
 
 WidgetActionsTooltip.propTypes = {
+  isWidgetOwner: PropTypes.bool,
   toggleTooltip: PropTypes.func.isRequired,
   // Callbacks
   onGoToDataset: PropTypes.func.isRequired,
