@@ -11,11 +11,10 @@ import { setEmbed } from 'redactions/common';
 // Components
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import TextChart from 'components/widgets/charts/TextChart';
 import Spinner from 'components/ui/Spinner';
 import Icon from 'components/ui/Icon';
 
-class EmbedText extends Page {
+class EmbedWidget extends Page {
   static propTypes = {
     widget: PropTypes.object,
     getWidget: PropTypes.func,
@@ -52,7 +51,8 @@ class EmbedText extends Page {
   }
 
   componentDidMount() {
-    this.props.getWidget(this.props.url.query.id);
+    const { url } = this.props;
+    this.props.getWidget(url.query.id, 'metadata');
   }
 
   getModal() {
@@ -185,10 +185,7 @@ class EmbedText extends Page {
             </div>
           </div>
           <div className="widget-content">
-            <TextChart
-              widgetConfig={widget.attributes.widgetConfig}
-              toggleLoading={l => this.setState({ isLoading: l })}
-            />
+            <iframe title={widget.attributes.name} src={widget.attributes.widgetConfig.url} />
             { modalOpened && this.getModal() }
           </div>
           { this.isLoadedExternally() && (
@@ -228,4 +225,4 @@ const mapDispatchToProps = dispatch => ({
   getWidget: bindActionCreators(getWidget, dispatch)
 });
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(EmbedText);
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(EmbedWidget);

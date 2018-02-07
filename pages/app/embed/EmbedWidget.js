@@ -63,7 +63,7 @@ class EmbedWidget extends Page {
 
   getModal() {
     const { widget, bandDescription, bandStats } = this.props;
-    const { description, metadata} = widget;
+    const { description, metadata } = widget;
     const widgetLinks = ((metadata || []).length &&
       metadata[0].attributes.info &&
       metadata[0].attributes.info.widgetLinks) || [];
@@ -80,10 +80,11 @@ class EmbedWidget extends Page {
             <h4>Links</h4>
             <ul>
               { widgetLinks.map(link => (
-                <li>
+                <li key={link.link}>
                   <a
                     href={link.link}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {link.name}
                   </a>
@@ -136,7 +137,7 @@ class EmbedWidget extends Page {
   }
 
   render() {
-    const { widget, loading, error, favourited, user } = this.props;
+    const { widget, loading, error } = this.props;
     const { isLoading, modalOpened } = this.state;
     const { metadata } = widget;
     const widgetLinks = ((metadata || []).length &&
@@ -146,8 +147,8 @@ class EmbedWidget extends Page {
     if (loading) {
       return (
         <EmbedLayout
-          title={'Loading widget...'}
-          description={''}
+          title="Loading widget..."
+          description=""
         >
           <div className="c-embed-widget">
             <Spinner isLoading className="-light" />
@@ -159,8 +160,8 @@ class EmbedWidget extends Page {
     if (error) {
       return (
         <EmbedLayout
-          title={'Resource Watch'}
-          description={''}
+          title="Partnership for Resilience and Preparedness"
+          description=""
         >
           <div className="c-embed-widget">
             <div className="widget-title">
@@ -175,11 +176,21 @@ class EmbedWidget extends Page {
               <div className="widget-footer">
                 <a href="/" target="_blank" rel="noopener noreferrer">
                   <img
-                    className="embed-logo"
-                    src={'/static/images/logo-embed.png'}
-                    alt="Resource Watch"
+                    className="prep-logo"
+                    src={'/static/images/logo-blue@2x.png'}
+                    alt="Partnership for Resilience and Preparedness"
                   />
                 </a>
+                <div>
+                  Powered by
+                  <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                    <img
+                      className="embed-logo"
+                      src={'/static/images/logo-embed.png'}
+                      alt="Resource Watch"
+                    />
+                  </a>
+                </div>
               </div>
             ) }
           </div>
@@ -196,7 +207,7 @@ class EmbedWidget extends Page {
           <Spinner isLoading={isLoading} className="-light" />
           <div className="widget-title">
             {widgetLinks.length === 0 &&
-              <a href={`/data/explore/${widget.attributes.dataset}`} target="_blank" rel="noopener noreferrer">
+              <a href={`/dataset/${widget.attributes.dataset}`} target="_blank" rel="noopener noreferrer">
                 <h4>{widget.attributes.name}</h4>
               </a>
             }
@@ -223,14 +234,23 @@ class EmbedWidget extends Page {
           </div>
           { this.isLoadedExternally() && (
             <div className="widget-footer">
-              Powered by
               <a href="/" target="_blank" rel="noopener noreferrer">
                 <img
-                  className="embed-logo"
-                  src={'/static/images/logo-embed.png'}
-                  alt="Resource Watch"
+                  className="prep-logo"
+                  src={'/static/images/logo-blue@2x.png'}
+                  alt="Partnership for Resilience and Preparedness"
                 />
               </a>
+              <div>
+                Powered by
+                <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="embed-logo"
+                    src={'/static/images/logo-embed.png'}
+                    alt="Resource Watch"
+                  />
+                </a>
+              </div>
             </div>
           ) }
         </div>

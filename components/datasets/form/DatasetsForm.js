@@ -6,6 +6,9 @@ import { toastr } from 'react-redux-toastr';
 // Service
 import DatasetsService from 'services/DatasetsService';
 
+// Utils
+import { logEvent } from 'utils/analytics';
+
 import { FORM_ELEMENTS, getDefaultState } from 'components/datasets/form/constants';
 
 import Navigation from 'components/form/Navigation';
@@ -185,30 +188,54 @@ class DatasetsForm extends React.Component {
 
   render() {
     return (
-      <form className="c-form" onSubmit={this.onSubmit} noValidate>
-        <Spinner isLoading={this.state.loading} className="-light" />
+      <div>
+        <form className="c-form" onSubmit={this.onSubmit} noValidate>
+          <Spinner isLoading={this.state.loading} className="-light" />
 
-        {(this.state.step === 1 && !this.state.loading) &&
-          <Step1
-            onChange={value => this.onChange(value)}
-            basic={this.props.basic}
-            form={this.state.form}
-            dataset={this.props.dataset}
-            columns={this.state.columns}
-            loadingColumns={this.state.loadingColumns}
-          />
-        }
+          {(this.state.step === 1 && !this.state.loading) &&
+            <Step1
+              onChange={value => this.onChange(value)}
+              basic={this.props.basic}
+              form={this.state.form}
+              dataset={this.props.dataset}
+              columns={this.state.columns}
+              loadingColumns={this.state.loadingColumns}
+            />
+          }
 
-        {!this.state.loading &&
-          <Navigation
-            step={this.state.step}
-            stepLength={this.state.stepLength}
-            submitting={this.state.submitting}
-            onStepChange={this.onStepChange}
-            onBack={this.onBack}
-          />
+          {!this.state.loading &&
+            <Navigation
+              step={this.state.step}
+              stepLength={this.state.stepLength}
+              submitting={this.state.submitting}
+              onStepChange={this.onStepChange}
+              onBack={this.onBack}
+            />
+          }
+        </form>
+        {this.props.basic &&
+          <div className="c-suggest">
+
+            <p>
+              We’re actively adding new datasets to PREP. If you can’t find
+              what you’re looking for, you can suggest a dataset for us to
+              consider:
+            </p>
+
+            <div className="button-container">
+              <a
+                href="https://docs.google.com/forms/d/1wZzQno3De7Ul6vlOkkdHhWK_9csErSrOlo6pOAZHIds/viewform?edit_requested=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="c-button -secondary -expanded"
+                onClick={() => logEvent('Dataset Form', 'Click to suggest a dataset', 'Click')}
+              >
+                Suggest dataset
+              </a>
+            </div>
+          </div>
         }
-      </form>
+      </div>
     );
   }
 }
