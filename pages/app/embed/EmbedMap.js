@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
 import { bindActionCreators } from 'redux';
-import { getWidget, toggleLayerGroupVisibility, checkIfFavorited, setIfFavorited } from 'redactions/widget';
+import { getWidget, toggleLayerGroupVisibility } from 'redactions/widget';
 import { setEmbed } from 'redactions/common';
 
 // Components
@@ -62,21 +62,44 @@ class EmbedMap extends Page {
 
   componentDidMount() {
     this.props.getWidget(this.props.url.query.id);
-
   }
 
   getModal() {
     const { widget } = this.props;
+    const { description, metadata } = widget;
+    const widgetLinks = ((metadata || []).length &&
+      metadata[0].attributes.info &&
+      metadata[0].attributes.info.widgetLinks) || [];
+    const noAdditionalInfo = !description && !widgetLinks.length;
     return (
       <div className="widget-modal">
-        { !widget.attributes.description &&
+        { noAdditionalInfo &&
           <p>No additional information is available</p>
         }
 
-        { widget.attributes.description && (
+        { widgetLinks.length > 0 &&
+          <div className="widget-links-container">
+            <h4>Links</h4>
+            <ul>
+              { widgetLinks.map(link => (
+                <li key={link.link}>
+                  <a
+                    href={link.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
+
+        { description && (
           <div>
             <h4>Description</h4>
-            <p>{widget.attributes.description}</p>
+            <p>{description}</p>
           </div>
         ) }
       </div>
@@ -84,14 +107,18 @@ class EmbedMap extends Page {
   }
 
   render() {
-    const { widget, loading, layerGroups, error, zoom, latLng, user } = this.props;
+    const { widget, loading, layerGroups, error, zoom, latLng } = this.props;
     const { modalOpened } = this.state;
+    const { metadata } = widget;
+    const widgetLinks = ((metadata || []).length &&
+      metadata[0].attributes.info &&
+      metadata[0].attributes.info.widgetLinks) || [];
 
     if (loading) {
       return (
         <EmbedLayout
-          title={'Loading widget...'}
-          description={''}
+          title="Loading widget..."
+          description=""
         >
           <div className="c-embed-widget">
             <Spinner isLoading={loading} className="-light" />
@@ -103,8 +130,8 @@ class EmbedMap extends Page {
     if (error) {
       return (
         <EmbedLayout
-          title={'Resource Watch'}
-          description={''}
+          title="Partnership for Resilience and Preparedness"
+          description=""
         >
           <div className="c-embed-widget">
             <div className="widget-title">
@@ -119,11 +146,21 @@ class EmbedMap extends Page {
               <div className="widget-footer">
                 <a href="/" target="_blank" rel="noopener noreferrer">
                   <img
-                    className="embed-logo"
-                    src={'/static/images/logo-embed.png'}
-                    alt="Resource Watch"
+                    className="prep-logo"
+                    src={'/static/images/logo-blue@2x.png'}
+                    alt="Partnership for Resilience and Preparedness"
                   />
                 </a>
+                <div>
+                  Powered by
+                  <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                    <img
+                      className="embed-logo"
+                      src={'/static/images/logo-embed.png'}
+                      alt="Resource Watch"
+                    />
+                  </a>
+                </div>
               </div>
             ) }
           </div>
@@ -138,9 +175,14 @@ class EmbedMap extends Page {
       >
         <div className="c-embed-widget">
           <div className="widget-title">
-            <a href={`/data/explore/${widget.attributes.dataset}`} target="_blank" rel="noopener noreferrer">
+            {widgetLinks.length === 0 &&
+              <a href={`/dataset/${widget.attributes.dataset}`} target="_blank" rel="noopener noreferrer">
+                <h4>{widget.attributes.name}</h4>
+              </a>
+            }
+            {widgetLinks.length > 0 &&
               <h4>{widget.attributes.name}</h4>
-            </a>
+            }
             <div className="buttons">
               <button
                 aria-label={`${modalOpened ? 'Close' : 'Open'} information modal`}
@@ -174,14 +216,23 @@ class EmbedMap extends Page {
           </div>
           { this.isLoadedExternally() && (
             <div className="widget-footer">
-              Powered by
               <a href="/" target="_blank" rel="noopener noreferrer">
                 <img
-                  className="embed-logo"
-                  src={'/static/images/logo-embed.png'}
-                  alt="Resource Watch"
+                  className="prep-logo"
+                  src={'/static/images/logo-blue@2x.png'}
+                  alt="Partnership for Resilience and Preparedness"
                 />
               </a>
+              <div>
+                Powered by
+                <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="embed-logo"
+                    src={'/static/images/logo-embed.png'}
+                    alt="Resource Watch"
+                  />
+                </a>
+              </div>
             </div>
           ) }
         </div>

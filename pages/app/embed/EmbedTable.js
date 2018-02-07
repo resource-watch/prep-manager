@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import 'isomorphic-fetch';
 
 // Redux
@@ -13,6 +12,7 @@ import { setRouter } from 'redactions/routes';
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
 import Spinner from 'components/ui/Spinner';
+import Icon from 'components/ui/Icon';
 
 class EmbedTable extends Page {
   static getInitialProps({ asPath, pathname, query, req, store, isServer }) {
@@ -32,7 +32,9 @@ class EmbedTable extends Page {
     super(props);
     this.state = {
       isLoading: props.isLoading,
-      tableData: []
+      error: false,
+      tableData: [],
+      modalOpened: false
     };
   }
 
@@ -49,49 +51,100 @@ class EmbedTable extends Page {
       .then((response) => {
         this.setState({
           isLoading: false,
+          error: false,
           tableData: response.data
         });
       })
       .catch((error) => {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, error: true });
         console.error(error);
       });
   }
 
   render() {
-    const { isLoading, tableData } = this.state;
+    const { isLoading, error, tableData, modalOpened } = this.state;
 
     const header = tableData && tableData.length > 0 && Object.keys(tableData[0]);
 
-    if (isEmpty(tableData)) {
+    if (isLoading) {
       return (
         <EmbedLayout
-          title={'Loading widget...'}
-          description={''}
+          title="Loading widget..."
+          description=""
         >
-          <Spinner isLoading className="-light" />
+          <div className="c-embed-widget">
+            <Spinner isLoading className="-light" />
+          </div>
+        </EmbedLayout>
+      );
+    }
+
+    if (error) {
+      return (
+        <EmbedLayout
+          title="Partnership for Resilience and Preparedness"
+          description=""
+        >
+          <div className="c-embed-widget">
+            <div className="widget-title">
+              <h4>–</h4>
+            </div>
+
+            <div className="widget-content">
+              <p>{'Sorry, the widget couldn\'t be loaded'}</p>
+            </div>
+
+            { this.isLoadedExternally() && (
+              <div className="widget-footer">
+                <a href="/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="prep-logo"
+                    src={'/static/images/logo-blue@2x.png'}
+                    alt="Partnership for Resilience and Preparedness"
+                  />
+                </a>
+                <div>
+                  Powered by
+                  <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                    <img
+                      className="embed-logo"
+                      src={'/static/images/logo-embed.png'}
+                      alt="Resource Watch"
+                    />
+                  </a>
+                </div>
+              </div>
+            ) }
+          </div>
         </EmbedLayout>
       );
     }
 
     return (
-      <EmbedLayout>
-        <div className="c-embed-table">
-          <div className="visualization">
-            <Spinner isLoading={isLoading} className="-light" />
-            <div className="table-content c-table">
+      <EmbedLayout
+        title="Table data"
+        description=""
+      >
+        <div className="c-embed-widget">
+          <Spinner isLoading={isLoading} className="-light" />
+          <div className="widget-title">
+            <h4>Table data</h4>
+            <div className="buttons">
+              <button
+                aria-label={`${modalOpened ? 'Close' : 'Open'} information modal`}
+                onClick={() => this.setState({ modalOpened: !modalOpened })}
+              >
+                <Icon name={`icon-${modalOpened ? 'cross' : 'info'}`} className="c-icon -small" />
+              </button>
+            </div>
+          </div>
+          <div className="widget-content">
+            <div className="c-table">
               {tableData &&
                 <table>
                   <thead>
                     <tr>
-                      {header && header.map(val => (
-                        <th
-                          key={`header_${val}`}
-                        >
-                          {val}
-                        </th>
-                      ))
-                      }
+                      {header && header.map(val => <th key={`header_${val}`}>{val}</th>)}
                     </tr>
                   </thead>
                   <tbody>
@@ -99,7 +152,7 @@ class EmbedTable extends Page {
                       tableData.map((row, i) =>
                         (
                           <tr
-                            key={`row${i}`} // eslint-disable-line
+                            key={`row${i}`} // eslint-disable-line react/no-array-index-key
                           >
                             {
                               Object.keys(row).map(column => (<td key={`td${column}`}>{row[column]}</td>))
@@ -112,15 +165,29 @@ class EmbedTable extends Page {
                 </table>
               }
             </div>
+            { modalOpened && this.getModal() }
           </div>
-          { this.isLoadedExternally() &&
-            <img
-              className="embed-logo"
-              height={21}
-              width={129}
-              src={'/static/images/logo-embed.png'}
-              alt="Resource Watch"
-            /> }
+          { this.isLoadedExternally() && (
+            <div className="widget-footer">
+              <a href="/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="prep-logo"
+                  src={'/static/images/logo-blue@2x.png'}
+                  alt="Partnership for Resilience and Preparedness"
+                />
+              </a>
+              <div>
+                Powered by
+                <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="embed-logo"
+                    src={'/static/images/logo-embed.png'}
+                    alt="Resource Watch"
+                  />
+                </a>
+              </div>
+            </div>
+          ) }
         </div>
       </EmbedLayout>
     );
