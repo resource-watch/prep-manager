@@ -50,14 +50,14 @@ class DashboardsDetail extends Page {
 
   componentDidMount() {
     const { origin } = window.location;
-    const { dashboardDetail, setOpen } = this.props;
+    const { dashboardDetail } = this.props;
     const { title, slug } = dashboardDetail.dashboard;
 
     logEvent('Dashboards', 'Dashboard detail', title);
 
     this.props.setLinks({
       link: `${origin}/dashboards/${slug}`,
-      embed: `${origin}/embed/dashboards/${slug}`
+      embed: `${origin}/embed/dashboard/${slug}`
     });
   }
 
@@ -66,7 +66,7 @@ class DashboardsDetail extends Page {
   }
 
   render() {
-    const { dashboardDetail, setOpen } = this.props;
+    const { dashboardDetail } = this.props;
 
     return (
       <Layout
