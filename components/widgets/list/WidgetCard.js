@@ -332,8 +332,7 @@ class WidgetCard extends PureComponent {
       childrenProps: {
         widget: this.props.widget,
         visualizationType: (this.props.widget.widgetConfig
-          && this.props.widget.widgetConfig.paramsConfig
-          && this.props.widget.widgetConfig.paramsConfig.visualizationType)
+          && this.props.widget.widgetConfig.type)
           || 'chart',
         toggleModal: this.props.toggleModal
       }
