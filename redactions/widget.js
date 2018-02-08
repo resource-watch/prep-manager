@@ -210,7 +210,7 @@ export function getWidget(widgetId) {
   return (dispatch) => {
     dispatch({ type: GET_WIDGET_LOADING });
     const service = new WidgetService(widgetId, { apiURL: process.env.WRI_API_URL });
-    return service.fetchData()
+    return service.fetchData('metadata')
       .then((data) => {
         dispatch({ type: SET_WIDGET_DATA, payload: data });
         return data;
