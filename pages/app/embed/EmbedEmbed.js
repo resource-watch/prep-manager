@@ -57,7 +57,7 @@ class EmbedWidget extends Page {
 
   getModal() {
     const { widget } = this.props;
-    const { description, metadata } = widget;
+    const { description, metadata } = widget.attributes;
     const widgetLinks = ((metadata || []).length &&
       metadata[0].attributes.info &&
       metadata[0].attributes.info.widgetLinks) || [];
