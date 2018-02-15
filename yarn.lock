@@ -10473,9 +10473,9 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
-widget-editor@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/widget-editor/-/widget-editor-0.1.2.tgz#a475cc4a4ea3f5a7f44624a60ed654b39547c8c8"
+widget-editor@0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/widget-editor/-/widget-editor-0.1.3.tgz#243bfe8477850f5a392bda886eeb600009d2cf8e"
   dependencies:
     autobind-decorator "^2.1.0"
     babel-runtime "^6.26.0"
