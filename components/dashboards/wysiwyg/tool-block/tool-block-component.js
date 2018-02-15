@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { logEvent } from 'utils/analytics';
+
 import Title from 'components/ui/Title';
 import Spinner from 'components/ui/Spinner';
 
@@ -35,7 +37,14 @@ export default function ToolBlock({
           <div className="tool-header">
             <Title className="-default">
               {tool.url &&
-                <a href={tool.url} target="_blank">{tool.title}</a>
+                <a
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => logEvent('Dashboards', 'Clicks on an external tool', tool.title)}
+                >
+                  {tool.title}
+                </a>
               }
               {!tool.url &&
                 tool.title
@@ -53,7 +62,7 @@ export default function ToolBlock({
 
           {tool.partner &&
             <div className="image">
-              <img src={tool.partner.images.thumbnail} alt={tool.partner.name} />
+              <img src={tool.partner.thumbnail} alt={tool.partner.name} />
             </div>
           }
 

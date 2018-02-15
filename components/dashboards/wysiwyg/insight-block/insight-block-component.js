@@ -53,7 +53,7 @@ export default function InsightBlock({
 
           {insight.partner &&
             <div className="image">
-              <img src={insight.partner.images.thumbnail} alt={insight.partner.name} />
+              <img src={insight.partner.thumbnail} alt={insight.partner.name} />
             </div>
           }
 

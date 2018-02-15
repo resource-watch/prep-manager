@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Progress from 'react-progress-2';
 
@@ -20,7 +20,7 @@ import Tooltip from 'components/ui/Tooltip';
 import Dock from 'components/ui/Dock';
 import Toastr from 'react-redux-toastr';
 
-class Layout extends React.Component {
+class Layout extends Component {
   constructor(props) {
     super(props);
 

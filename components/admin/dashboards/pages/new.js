@@ -10,12 +10,13 @@ import { connect } from 'react-redux';
 import DashboardsForm from 'components/dashboards/form/DashboardsForm';
 
 function DashboardsNew(props) {
-  const { user } = props;
+  const { user, routes } = props;
 
   return (
     <div className="c-dashboards-new">
       <DashboardsForm
         user={user}
+        duplicateId={routes.query.duplicateId}
         onSubmit={() => Router.pushRoute('admin_dashboards', { tab: 'dashboards' })}
       />
     </div>
@@ -24,11 +25,13 @@ function DashboardsNew(props) {
 
 DashboardsNew.propTypes = {
   // Store
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  routes: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  routes: state.routes
 });
 
 export default connect(mapStateToProps, null)(DashboardsNew);

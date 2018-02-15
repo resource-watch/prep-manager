@@ -53,6 +53,7 @@ class WidgetBlockEdition extends React.Component {
   triggerFetch = (props) => {
     props.fetchWidgets({
       filters: {
+        ...props.data.tab !== 'my-widgets' && { published: true },
         ...props.data.tab === 'my-widgets' && { userId: props.user.id },
         ...!!props.data.search && { name: props.data.search },
         'page[number]': props.data.page

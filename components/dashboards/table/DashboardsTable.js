@@ -17,6 +17,7 @@ import SearchInput from 'components/ui/SearchInput';
 
 // Table components
 import EditAction from './actions/EditAction';
+import DuplicateAction from './actions/DuplicateAction';
 import DeleteAction from './actions/DeleteAction';
 
 // TDs
@@ -92,6 +93,7 @@ class DashboardsTable extends React.Component {
               show: true,
               list: [
                 { name: 'Edit', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Duplicate', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'edit', id: 'new', duplicateId: '{{duplicateId}}' }, show: true, component: DuplicateAction },
                 { name: 'Remove', route: 'admin_dashboards_detail', params: { tab: 'dashboards', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}

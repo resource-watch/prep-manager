@@ -28,10 +28,21 @@ function DashboardsListCard({ dashboard, routes, onDelete }) {
             <a
               className="c-button -tertiary -compressed"
               target="_blank"
-              href={`/data/dashboards/${dashboard.slug}`}
+              href={`/dashboards/${dashboard.slug}`}
             >
               Preview
             </a>
+
+            <Link
+              route={routes.detail}
+              params={{ tab: 'dashboards', id: 'new', duplicateId: dashboard.id }}
+            >
+              <a
+                className="c-button -tertiary -compressed"
+              >
+                Duplicate
+              </a>
+            </Link>
 
             <button
               className="c-button -tertiary -compressed"

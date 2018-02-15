@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router } from 'routes';
 import { StickyContainer, Sticky } from 'react-sticky';
 import PropTypes from 'prop-types';
 import { toastr } from 'react-redux-toastr';
@@ -30,12 +31,14 @@ const DATASET_SUBTABS = [{
   value: 'metadata',
   route: 'admin_myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'metadata' }
-}, {
+},
+{
   label: 'Tags',
   value: 'tags',
   route: 'admin_myprep_detail',
   params: { tab: 'datasets', id: '{{id}}', subtab: 'tags' }
-}, {
+},
+{
   label: 'Widgets',
   value: 'widgets',
   route: 'admin_myprep_detail',
@@ -50,7 +53,9 @@ class DatasetsShow extends React.Component {
       data: {}
     };
 
-    this.service = new DatasetsService();
+    this.service = new DatasetsService({
+      language: props.locale
+    });
   }
 
   componentDidMount() {
@@ -108,6 +113,7 @@ class DatasetsShow extends React.Component {
                   application={[process.env.APPLICATIONS]}
                   authorization={user.token}
                   dataset={id}
+                  onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets' })}
                 />
               }
 
@@ -116,6 +122,7 @@ class DatasetsShow extends React.Component {
                   application={process.env.APPLICATIONS}
                   authorization={user.token}
                   dataset={id}
+                  onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets', id })}
                 />
               }
 
@@ -147,11 +154,13 @@ DatasetsShow.propTypes = {
   subtab: PropTypes.string,
 
   // Store
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  locale: state.common.locale
 });
 
 export default connect(mapStateToProps, null)(DatasetsShow);

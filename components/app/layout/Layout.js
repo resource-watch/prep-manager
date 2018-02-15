@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Progress from 'react-progress-2';
 
@@ -21,7 +21,7 @@ import Tooltip from 'components/ui/Tooltip';
 import Dock from 'components/ui/Dock';
 import Toastr from 'react-redux-toastr';
 
-class Layout extends React.Component {
+class Layout extends Component {
   constructor(props) {
     super(props);
 
@@ -49,7 +49,7 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { title, description, url, user, modal } = this.props;
+    const { title, description, url, modal } = this.props;
     return (
       <div className="l-page">
         <Head
@@ -92,7 +92,6 @@ class Layout extends React.Component {
 }
 
 Layout.propTypes = {
-  user: PropTypes.object.isRequired,
   url: PropTypes.object.isRequired,
   children: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,

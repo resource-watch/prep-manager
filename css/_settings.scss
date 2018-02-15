@@ -30,6 +30,7 @@ $sea-blue: #2C75B0;
 $dark-slate-blue: #1a3e62;
 $dark-slate-blue-2: #173554;
 $navy: #001e3c;
+$pale-grey: #eee;
 
 // Theme
 $base-font-color: $charcoal-grey;
@@ -67,6 +68,10 @@ $font-size-h2: 42px;
 $font-size-h3: 26px;
 $font-size-h4: 16px;
 
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
 $body-font-color: $base-font-color;
 $body-font-family: "Open Sans", Helvetica, Arial, sans-serif;;
 $font-family-2: "PT Serif", Georgia, serif;
@@ -90,3 +95,11 @@ $margin-size-extra-small: 15px;
 $margin-size-small: 30px;
 $margin-size: 50px;
 $margin-size-big: 100px;
+
+// Breakpoints
+$bp-medium: 40em;
+$bp-large: 65em;
+
+// Mediaqueries
+$mq-medium: "screen and (min-width: #{$bp-medium})";
+$mq-large: "screen and (min-width: #{$bp-large})";

@@ -36,7 +36,7 @@ export default class MainNav extends React.Component {
           <li><a href="/about">About</a></li>
           <li><a href="/explore">Explore</a></li>
           <li><a href="/dashboards">Dashboards</a></li>
-          <li><a href="/insights">Stories</a></li>
+          <li><a href="/stories">Stories</a></li>
           <li><a href="/resources">Resources</a></li>
           <li>
             <HeaderUser

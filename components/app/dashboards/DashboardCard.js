@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
+import { VegaChart } from 'widget-editor';
 import { Autobind } from 'es-decorators';
 import { toastr } from 'react-redux-toastr';
 
 // Components
 import Title from 'components/widgets/editor/ui/Title';
 import TextChart from 'components/widgets/charts/TextChart';
-import VegaChart from 'components/widgets/charts/VegaChart';
 import Map from 'components/widgets/editor/map/Map';
 import Legend from 'components/widgets/editor/ui/Legend';
 import Spinner from 'components/widgets/editor/ui/Spinner';

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TetherComponent from 'react-tether';
+import { VegaChart } from 'widget-editor';
 
 import WidgetConfigurator from 'components/app/explore/WidgetConfigurator';
 import Button from 'components/ui/Button';
@@ -10,7 +11,6 @@ import bar from 'utils/widgets/bar';
 import pie from 'utils/widgets/pie';
 import line from 'utils/widgets/line';
 import Spinner from 'components/ui/Spinner';
-import VegaChart from 'components/widgets/charts/VegaChart';
 import getQueryByFiltersfrom from 'utils/getQueryByFilters';
 
 const chartTypes = { bar, pie, line };
@@ -100,6 +100,7 @@ class ConfigurableWidget extends React.Component {
           <VegaChart
             data={this.state.parsedConfig}
             toggleLoading={this.handleWidgetChartToggleLoading}
+            reloadOnResize
           />
         }
         <Spinner

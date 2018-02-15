@@ -31,7 +31,11 @@ class Navigation extends React.Component {
   onBack(e) {
     e.preventDefault();
 
-    window.history.back();
+    if (this.props.onBack) {
+      this.props.onBack();
+    } else {
+      window.history.back();
+    }
   }
 
   render() {
@@ -109,7 +113,13 @@ Navigation.propTypes = {
   stepLength: PropTypes.number,
   submitting: PropTypes.bool,
   hideCancel: PropTypes.bool,
-  onStepChange: PropTypes.func
+  onStepChange: PropTypes.func,
+  /**
+   * Callback for the "Cancel" button
+   * If present, you have to manually go back
+   * to the previous page (if desired)
+   */
+  onBack: PropTypes.func
 };
 
 export default Navigation;

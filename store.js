@@ -16,7 +16,7 @@ import * as toolBlockModule from 'components/dashboards/wysiwyg/tool-block/tool-
 import * as toolBlockEditionModule from 'components/dashboards/wysiwyg/tool-block-edition/tool-block-edition';
 import * as insightBlockModule from 'components/dashboards/wysiwyg/insight-block/insight-block';
 import * as insightBlockEditionModule from 'components/dashboards/wysiwyg/insight-block-edition/insight-block-edition';
-
+import * as ShareModalModule from 'components/share-modal';
 
 if (process.env.NODE_ENV === 'production') {
   initOpbeat({
@@ -38,7 +38,8 @@ const reducer = combineReducers({
   toolBlock: handleModule(toolBlockModule),
   toolBlockEdition: handleModule(toolBlockEditionModule),
   insightBlock: handleModule(insightBlockModule),
-  insightBlockEdition: handleModule(insightBlockEditionModule)
+  insightBlockEdition: handleModule(insightBlockEditionModule),
+  shareModal: handleModule(ShareModalModule)
 });
 const composeEnhancers = composeWithDevTools({});
 

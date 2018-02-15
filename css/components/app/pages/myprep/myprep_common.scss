@@ -1,10 +1,14 @@
-.c-myprep-widgets-my {
+.c-my-prep {
 
   .list-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 20px;
+
+    &.-space-between {
+      justify-content: space-between;
+    }
 
     .left-container {
       display: flex;
@@ -47,20 +51,11 @@
         }
       }
     }
-
-    .widget-collections-selector {
-      min-width: 250px;
-    }
   }
 
-  .no-widgets-div {
+  .no-resources {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: $medium-margin;
-  }
-
-  .list {
-    padding: 0px;
   }
 }
