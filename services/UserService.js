@@ -308,12 +308,8 @@ export default class UserService {
 
       reader.onload = () => {
         const bodyObj = {
-          data: {
-            attributes: {
-              user_id: user.id,
-              avatar: reader.result
-            }
-          }
+          user_id: user.id,
+          avatar: reader.result
         };
 
         return fetch(`${process.env.API_URL}/profiles`, {
@@ -326,6 +322,7 @@ export default class UserService {
         })
           .then(response => response.json())
           .then(({ data }) => {
+            debugger;
             resolve(data.attributes.avatar.original);
           });
       };
