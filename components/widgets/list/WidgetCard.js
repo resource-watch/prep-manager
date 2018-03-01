@@ -64,6 +64,12 @@ class WidgetCard extends PureComponent {
     return text;
   }
 
+  static canUserRemove(user, widget) {
+    const userRole = user.role.toLowerCase();
+
+    return (userRole === 'admin') || (userRole === 'manager' && user.id === widget.userId);
+  };
+
   /**
    * Return whether the widget represents a map
    * @static
@@ -473,7 +479,7 @@ class WidgetCard extends PureComponent {
                   Widget actions
                 </button>
               }
-              {showRemove && (widget.userId === user.id) &&
+              {WidgetCard.canUserRemove(user, widget) &&
                 <button
                   className="c-button -tertiary"
                   onClick={this.handleRemoveWidget}
