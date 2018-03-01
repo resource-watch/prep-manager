@@ -40,6 +40,12 @@ class DatasetsListCard extends PureComponent {
     return dataset.name;
   }
 
+  canUserRemove = (user={}, dataset) => {
+    if (!user.role) return;
+    const userRole = user.role.toLowerCase();
+    return (userRole === 'admin') || (userRole === 'manager' && user.id === dataset.userId);
+  };
+
   handleDelete = () => {
     const { dataset } = this.props;
     this.props.onDatasetRemoved(dataset);
@@ -115,7 +121,7 @@ class DatasetsListCard extends PureComponent {
             }
           </div>
 
-          { (dataset.userId === user.id) &&
+          { this.canUserRemove(user, dataset) &&
             <div className="actions">
               <a
                 role="button"
