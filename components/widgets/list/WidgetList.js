@@ -9,14 +9,12 @@ import WidgetCard from 'components/widgets/list/WidgetCard';
 class WidgetList extends PureComponent {
   static defaultProps = {
     showActions: false,
-    showRemove: false,
     showEmbed: false
   }
 
   static propTypes = {
     widgets: PropTypes.array.isRequired,
     showActions: PropTypes.bool,
-    showRemove: PropTypes.bool,
     showEmbed: PropTypes.bool,
     showFavourite: PropTypes.bool,
     loading: PropTypes.bool,
@@ -30,7 +28,6 @@ class WidgetList extends PureComponent {
   render() {
     const {
       widgets,
-      showRemove,
       showActions,
       showEmbed,
       showFavourite,
@@ -61,7 +58,6 @@ class WidgetList extends PureComponent {
                 onWidgetClick={this.props.onWidgetClick}
                 onWidgetRemove={this.handleWidgetRemoved}
                 showActions={showActions}
-                showRemove={showRemove}
                 showEmbed={showEmbed}
                 showFavourite={showFavourite}
                 mode={mode === 'grid' ? 'thumbnail' : 'full'}

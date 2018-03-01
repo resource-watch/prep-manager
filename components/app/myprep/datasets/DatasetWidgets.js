@@ -145,7 +145,6 @@ class DatasetWidgets extends React.Component {
               onWidgetClick={this.handleClickWidget}
               onWidgetRemove={this.handleWidgetRemoved}
               showActions
-              showRemove
             />
             }
             {widgets && widgets.length === 0 &&
