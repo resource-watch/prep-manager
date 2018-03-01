@@ -137,7 +137,6 @@ class MyPREPWidgets extends PureComponent {
                 mode={mode}
                 onWidgetRemove={this.handleWidgetRemoved}
                 showActions
-                showRemove
                 onWidgetClick={this.handleWidgetClick}
               />}
             {!!total && <Paginator
