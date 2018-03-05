@@ -208,23 +208,25 @@ class Step1 extends React.Component {
             </Field>
           }
 
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.geoInfo = c; }}
-            onChange={value => this.props.onChange({ geoInfo: value.checked })}
-            validations={['required']}
-            properties={{
-              name: 'geoInfo',
-              label: 'Does this dataset contain geographical features such as points, polygons or lines?',
-              value: 'geoInfo',
-              title: 'Yes',
-              disabled: (this.state.form.type === 'raster'),
-              defaultChecked: this.props.form.geoInfo,
-              checked: this.props.form.geoInfo
-            }}
-          >
-            {Checkbox}
-          </Field>
-
+          { (this.state.form.type === 'raster') ?
+            <input id="geoInfo" name="geoInfo" type="hidden" value="geoInfo" />
+            :
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.geoInfo = c; }}
+              onChange={value => this.props.onChange({ geoInfo: value.checked })}
+              validations={['required']}
+              properties={{
+                name: 'geoInfo',
+                label: 'Does this dataset contain geographical features such as points, polygons or lines?',
+                value: 'geoInfo',
+                title: 'Yes',
+                defaultChecked: this.props.form.geoInfo,
+                checked: this.props.form.geoInfo
+              }}
+            >
+              {Checkbox}
+            </Field>
+          }
 
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.provider = c; }}
