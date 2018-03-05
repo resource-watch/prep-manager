@@ -20,9 +20,27 @@
   .c-we-columnbox {
     color: $charcoal-grey;
     background-color: $yellow;
+    padding-right: 3px;
 
     .c-we-icon { fill: $charcoal-grey; }
-    .order-by { color: $charcoal-grey; }
+
+    .order-by {
+      color: $charcoal-grey;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20px;
+      margin-left: 4px;
+    }
+
+    .aggregate-function {
+      color: $base-font-color;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20px;
+      margin-left: 4px;
+    }
   }
 
   .c-we-column-container {
@@ -111,6 +129,7 @@
   .c-we-button,
   .c-we-btn {
     @extend .c-button;
+    flex-direction: column;
 
     &.-primary {
       color: $white;
