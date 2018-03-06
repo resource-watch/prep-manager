@@ -190,6 +190,7 @@
 // ================== APP ======================
 
 // COMMON
+@import "./components/app/common/article";
 @import "./components/app/common/banner";
 @import "./components/app/common/rating";
 @import "./components/app/common/text";
@@ -197,6 +198,7 @@
 @import "./components/app/common/card_static";
 @import "./components/app/common/partner_block";
 @import "./components/app/common/partners_slider";
+@import "./components/app/common/section-intro";
 
 // PAGES
 @import "./components/app/pages/explore";
@@ -212,6 +214,7 @@
 @import "./components/app/pages/develop_app";
 @import "./components/app/pages/apps";
 @import "./components/app/pages/p-app-detail";
+@import "./components/app/pages/widget-detail";
 
 // MYPREP
 @import "./components/app/myprep/profiles-tab";
