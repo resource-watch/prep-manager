@@ -135,6 +135,7 @@ export default function WidgetBlock({
                 scrollWheelZoom: false
               }}
               layerGroups={layers}
+              labels={true}
             />
             <Legend
               layerGroups={layers}
