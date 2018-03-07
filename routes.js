@@ -37,6 +37,9 @@ routes.add('admin_insights_detail', '/admin/insights/:tab/:id/:subtab?', 'admin/
 routes.add('dashboards_detail', '/dashboards/:slug', 'app/DashboardsDetail');
 // routes.add('dashboards', '/dashboards', 'app/Dashboards');
 
+// ------ WIDGETS ------------
+routes.add('widget_detail', '/widget/:id', 'app/widget-detail');
+
 // ------ EMBED -------------
 routes.add('embed_widget', '/embed/widget/:id', 'app/embed/EmbedWidget');
 routes.add('embed_embed', '/embed/embed/:id', 'app/embed/EmbedEmbed');
