@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { VegaChart } from 'widget-editor';
+import { VegaChart, getVegaTheme } from 'widget-editor';
 
 // Components
 import TextChart from 'components/widgets/charts/TextChart';
@@ -15,7 +15,7 @@ import Tooltip from 'rc-tooltip/dist/rc-tooltip';
 import CollectionsPanel from 'components/collections-panel';
 
 // Utils
-import getChartTheme from 'utils/widgets/theme';
+// import getChartTheme from 'utils/widgets/theme';
 import LayerManager from 'components/widgets/editor/helpers/LayerManager';
 
 // helpers
@@ -116,7 +116,7 @@ export default function WidgetBlock({
         {!widgetError && widgetType === 'vega' && widget.widgetConfig && widget &&
           <VegaChart
             data={widget.widgetConfig}
-            theme={getChartTheme()}
+            theme={getVegaTheme()}
             toggleLoading={loading => onToggleLoading(loading)}
             reloadOnResize
           />
@@ -135,6 +135,7 @@ export default function WidgetBlock({
                 scrollWheelZoom: false
               }}
               layerGroups={layers}
+              labels={true}
             />
             <Legend
               layerGroups={layers}

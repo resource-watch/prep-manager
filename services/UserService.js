@@ -321,9 +321,8 @@ export default class UserService {
           }
         })
           .then(response => response.json())
-          .then(({ data }) => {
-            debugger;
-            resolve(data.attributes.avatar.original);
+          .then((data ) => {
+            resolve(data.avatar.original);
           });
       };
 
