@@ -263,6 +263,17 @@
         margin-top: 6px;
       }
       .type-list-item {
+        .icon {
+          display: inline-block;
+          vertical-align: middle;
+
+          > img {
+            display: block;
+          }
+        }
+        .icon + .name {
+          line-height: 20px;
+        }
         .color {
           display: block;
           height: 8px;

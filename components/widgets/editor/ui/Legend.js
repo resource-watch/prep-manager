@@ -306,7 +306,8 @@ class Legend extends React.PureComponent {
               <Icon name="icon-layers" />
             </button>
           ) }
-        { !this.props.interactionDisabled
+        { !this.props.readonly
+          && !this.props.interactionDisabled
           &&
           <button
             type="button"
@@ -318,7 +319,8 @@ class Legend extends React.PureComponent {
             <Icon name="icon-opacity" />
           </button>
         }
-        { !this.props.interactionDisabled
+        { !this.props.readonly
+          && !this.props.interactionDisabled
           && <button
             type="button"
             className="toggle"

@@ -198,6 +198,7 @@ class EmbedMap extends Page {
               LayerManager={LayerManager}
               mapConfig={{ zoom, latLng }}
               layerGroups={layerGroups}
+              labels={true}
             />
 
             <Legend

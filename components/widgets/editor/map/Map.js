@@ -305,7 +305,7 @@ Map.propTypes = {
 
 const mapStateToProps = state => ({
   basemap: state.explore.basemap,
-  labels: state.explore.labels,
+  // labels: state.explore.labels,
   sidebar: state.explore.sidebar
 });
 
