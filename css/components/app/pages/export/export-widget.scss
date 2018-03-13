@@ -1,0 +1,186 @@
+/*
+  This is the general layout of a widget:
+
+  +----------------------------------+
+  |      .widget-title (auto ↕)      |
+  +----------------------------------+
+  |                                  |
+  |     .widget-content (grow ↕)     |
+  |                                  |
+  +----------------------------------+
+  |     .widget-footer (auto ↕)      |
+  +----------------------------------+
+
+*/
+
+
+.c-export-widget {
+  position: relative; // Limit the scope of the map and spinner
+
+  // We use all the space available of the
+  // iframe and prevent any scroll
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  // We share the vertical space between
+  // the title and the widget
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid $border-color-1;
+  border-radius: 4px;
+
+  .widget-title {
+    position: relative;
+    flex-shrink: 0;
+    padding: $margin-size-extra-small;
+    border-bottom: 1px solid $border-color-1;
+
+    h1, h2, h3, h4 {
+      display: inline-block;
+      margin-bottom: 0;
+      padding-right: 20px;
+    }
+
+    .buttons {
+      position: absolute;
+      top: #{$margin-size-extra-small + 4px};
+      right: $margin-size-extra-small;
+      margin: 0;
+      padding: 0;
+
+      button {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .widget-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .widget-content {
+    position: relative;
+    display: flex; // Do not change this without testing (see comment on .c-map)
+    align-items: stretch;
+    flex-grow: 1;
+    padding: $margin-size-extra-small;
+    overflow: hidden;
+    flex-direction: column;
+
+    &.-external {
+      .c-map { // Do not change this without testing (see comment on .c-map)
+        height: calc(100% - #{$margin-size-extra-small});
+      }
+    }
+
+    .c-we-chart {
+      width: 100%;
+      height: auto; // Do not change this without testing (see comment on .c-map)
+      display: flex;
+      flex-direction: column;
+      // In case of a bar chart with scrolling, we need
+      // to use an overflow
+      overflow-x: auto;
+      max-width: 100%;
+
+      .chart {
+        height: 100%;
+
+        .vega {
+          height: 100%;
+
+          canvas {
+            display: block; // Prevent a UA margin
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+
+    .c-map {
+      // Do not change the positionning of this
+      // element without testing it on Chrome and Firefox
+      // in the dashboards AND as a standalone widget
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+      // Without this property, the legend is hidden behind
+      // the map
+      .leaflet-pane {
+        z-index: 1;
+      }
+    }
+
+    .widget-modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: $margin-size-extra-small;
+      z-index: 3;
+      background-color: $white;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      > div {
+        margin-bottom: $margin-size-extra-small;
+      }
+
+      h4 {
+        color: $base-font-color;
+      }
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: 0;
+    }
+  }
+
+  .widget-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0 $margin-size-extra-small $margin-size-extra-small;
+
+    .prep-logo {
+      display: block;
+      height: 30px;
+    }
+
+    .embed-logo {
+      display: block;
+      height: 21px;
+    }
+  }
+
+  .c-table {
+    position: relative;
+    min-height: 100px;
+
+    table {
+      display: block;
+      width: 100%;
+      font-size: $font-size-normal;
+
+      thead, tbody, tr {
+        display: block;
+        width: 100%;
+      }
+
+      th, td {
+        display: inline-block;
+        width: calc(100% / 6);
+      }
+    }
+  }
+}
