@@ -49,5 +49,8 @@ routes.add('embed_dataset', '/embed/dataset/:id', 'app/embed/EmbedDataset');
 routes.add('embed_table', '/embed/table', 'app/embed/EmbedTable');
 routes.add('embed_dashboard', '/embed/dashboard/:slug', 'app/embed/EmbedDashboard');
 
+// ------ PDF EXPORT -------------
+routes.add('export_ember', '/export/embed/:id', 'app/export/ExportEmbed');
+
 
 module.exports = routes;
