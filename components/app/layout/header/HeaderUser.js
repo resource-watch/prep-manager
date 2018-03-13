@@ -129,17 +129,17 @@ class HeaderUser extends React.Component {
               onMouseLeave={this.props.onMouseLeave}
             >
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&application=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Facebook
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&application=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Google
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&application=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Twitter
                 </a>
               </li>
