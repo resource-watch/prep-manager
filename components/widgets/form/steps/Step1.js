@@ -45,7 +45,7 @@ class Step1 extends React.Component {
       url: process.env.WRI_API_URL,
       env: 'production,preproduction',
       applications: process.env.APPLICATIONS,
-      authUrl: process.env.CONTROL_TOWER_URL, // is this the correct one????
+      authUrl: 'https://api.resourcewatch.org/auth',
       assetsPath: '/static/images/widget-editor/',
       userToken: props.user.token,
       userEmail: props.user.email
