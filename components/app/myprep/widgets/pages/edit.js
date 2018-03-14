@@ -13,7 +13,12 @@ import DatasetService from 'services/DatasetService';
 
 // Components
 import Spinner from 'components/ui/Spinner';
-import WidgetEditor from 'widget-editor';
+import WidgetEditor, {
+  Modal as WidgetModal,
+  Tooltip as WidgetTooltip,
+  Icons as WidgetIcons,
+  setConfig
+} from 'widget-editor';
 import Button from 'components/ui/Button';
 import Input from 'components/form/Input';
 import Field from 'components/form/Field';
@@ -48,6 +53,18 @@ class WidgetsEdit extends React.Component {
       widget: null,
       dataset: null // Data associated with the dataset
     };
+
+    // WIDGET EDITOR
+    // Change the configuration according to your needs
+    setConfig({
+      url: process.env.WRI_API_URL,
+      env: 'production,preproduction',
+      applications: process.env.APPLICATIONS,
+      authUrl: 'https://api.resourcewatch.org/auth',
+      assetsPath: '/static/images/widget-editor/',
+      userToken: props.user.token,
+      userEmail: props.user.email
+    });
 
     this.widgetService = new WidgetService(this.props.id,
       { apiURL: process.env.CONTROL_TOWER_URL });
