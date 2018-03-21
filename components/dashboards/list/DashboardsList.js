@@ -48,7 +48,7 @@ class DashboardsList extends React.Component {
     if (!value.length) {
       this.props.setFilters([]);
     } else {
-      this.props.setFilters([{ key: 'name', value }]);
+      this.props.setFilters([{ key: 'title', value }]);
       this.logSearchEvent(value);
     }
   }
