@@ -195,7 +195,7 @@ class Map extends React.Component {
     if (enabled) {
       this.labelLayer = L.tileLayer(LABELS.value, LABELS.options || {})
         .addTo(this.map)
-        .setZIndex(this.props.layerGroups.length + 1);
+        .setZIndex(1001);
     }
   }
 
