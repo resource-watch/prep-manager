@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import { FORM_ELEMENTS, LANGUAGE_OPTIONS } from 'components/admin/metadata/form/constants';
 
@@ -7,6 +8,7 @@ import Input from 'components/form/Input';
 import Select from 'components/form/SelectInput';
 import TextArea from 'components/form/TextArea';
 import Title from 'components/ui/Title';
+import Spinner from 'components/ui/Spinner';
 
 class Step1 extends React.Component {
   changeMetadata(obj) {
@@ -24,6 +26,19 @@ class Step1 extends React.Component {
   }
 
   render() {
+    const {loadingColumns, type, columns, form} = this.props;
+    const isRaster = type === 'raster';
+
+    const aliasColumnClass = classnames('columns', {
+      'small-2': isRaster,
+      'small-5': !isRaster
+    });
+
+    const descriptionColumnClass = classnames('columns', {
+      'small-4': isRaster,
+      'small-5': !isRaster
+    });
+
     return (
       <div>
         <fieldset className="c-field-container">
@@ -42,7 +57,7 @@ class Step1 extends React.Component {
               type: 'text',
               maxLength: '75',
               required: true,
-              default: this.props.form.name
+              default: form.name
             }}
           >
             {Input}
@@ -56,7 +71,7 @@ class Step1 extends React.Component {
               name: 'subtitle',
               label: 'Subtitle',
               type: 'text',
-              default: this.props.form.info.subtitle
+              default: form.info.subtitle
             }}
           >
             {Input}
@@ -75,7 +90,7 @@ class Step1 extends React.Component {
               label: 'Description',
               rows: '6',
               required: true,
-              default: this.props.form.info.description
+              default: form.info.description
             }}
           >
             {TextArea}
@@ -88,7 +103,7 @@ class Step1 extends React.Component {
               name: 'organization-long',
               label: 'Organization (long name)',
               type: 'text',
-              default: this.props.form.info['organization-long']
+              default: form.info['organization-long']
             }}
           >
             {Input}
@@ -101,7 +116,7 @@ class Step1 extends React.Component {
               name: 'organization',
               label: 'Organization (short name)',
               type: 'text',
-              default: this.props.form.info.organization
+              default: form.info.organization
             }}
           >
             {Input}
@@ -118,7 +133,7 @@ class Step1 extends React.Component {
               type: 'text',
               disabled: true,
               required: true,
-              default: this.props.form.language || 'en',
+              default: form.language || 'en',
               instanceId: 'selectLanguage'
             }}
           >
@@ -140,7 +155,7 @@ class Step1 extends React.Component {
               name: 'published_date',
               label: 'Published Date',
               type: 'date',
-              default: this.props.form.info.published_date,
+              default: form.info.published_date,
               required: true
             }}
           >
@@ -154,7 +169,7 @@ class Step1 extends React.Component {
               name: 'prep_id',
               label: 'Prep Id',
               type: 'text',
-              default: this.props.form.info.prep_id
+              default: form.info.prep_id
             }}
           >
             {Input}
@@ -168,7 +183,7 @@ class Step1 extends React.Component {
               name: 'api_endpoint',
               label: 'API endpoint',
               type: 'text',
-              default: this.props.form.info.api_endpoint
+              default: form.info.api_endpoint
             }}
           >
             {Input}
@@ -182,7 +197,7 @@ class Step1 extends React.Component {
               label: 'Geographic Location',
               type: 'text',
               rows: '6',
-              default: this.props.form.info.geographic_location
+              default: form.info.geographic_location
             }}
           >
             {Input}
@@ -195,7 +210,7 @@ class Step1 extends React.Component {
               name: 'date_of_content',
               label: 'Date of content',
               type: 'text',
-              default: this.props.form.info.date_of_content
+              default: form.info.date_of_content
             }}
           >
             {Input}
@@ -208,7 +223,7 @@ class Step1 extends React.Component {
               name: 'data_type',
               label: 'Data type',
               type: 'text',
-              default: this.props.form.info.data_type
+              default: form.info.data_type
             }}
           >
             {Input}
@@ -221,7 +236,7 @@ class Step1 extends React.Component {
               name: 'spatial_resolution',
               label: 'Spatial Resolution',
               type: 'text',
-              default: this.props.form.info.spatial_resolution
+              default: form.info.spatial_resolution
             }}
           >
             {Input}
@@ -236,7 +251,7 @@ class Step1 extends React.Component {
               label: 'Citation',
               type: 'text',
               rows: '6',
-              default: this.props.form.info.citation
+              default: form.info.citation
             }}
           >
             {TextArea}
@@ -250,7 +265,7 @@ class Step1 extends React.Component {
               name: 'license',
               label: 'License',
               type: 'text',
-              default: this.props.form.info.license
+              default: form.info.license
             }}
           >
             {Input}
@@ -264,7 +279,7 @@ class Step1 extends React.Component {
               name: 'license_link',
               label: 'License link',
               type: 'text',
-              default: this.props.form.info.license_link
+              default: form.info.license_link
             }}
           >
             {Input}
@@ -284,7 +299,7 @@ class Step1 extends React.Component {
               name: 'dataDownload',
               label: 'Data Download link',
               type: 'text',
-              default: this.props.form.info.dataDownload
+              default: form.info.dataDownload
             }}
           >
             {Input}
@@ -298,11 +313,136 @@ class Step1 extends React.Component {
               name: 'data_download_original_link',
               label: 'Data Download from Original Source Link',
               type: 'text',
-              default: this.props.form.info.data_download_original_link
+              default: form.info.data_download_original_link
             }}
           >
             {Input}
           </Field>
+
+        </fieldset>
+
+        <fieldset className="c-field-container">
+          <Title className="-default -secondary">
+              Columns
+          </Title>
+
+          {loadingColumns &&
+            <Spinner className="-inline" isLoading={loadingColumns} />
+          }
+
+          {!loadingColumns && !columns.length &&
+            <p>No columns</p>
+          }
+
+          {!!columns.length &&
+            <div className="c-field-row">
+              {columns.map(column => {
+                return (
+                <div key={column.name} className="l-row row">
+                  <div className="columns small-2">
+                    <Field
+                        properties={{
+                          name: 'column_name',
+                          label: 'Column name',
+                          type: 'text',
+                          disabled: true,
+                          readOnly: true,
+                          default: column.name
+                        }}
+                      >
+                        {Input}
+                      </Field>
+                  </div>
+
+                  <div className={aliasColumnClass}>
+                    <Field
+                      ref={(c) => {
+                        if (c) FORM_ELEMENTS.elements[`columns_${column.name}_alias`] = c;
+                      }}
+                      onChange={(value) => {
+                        this.changeMetadata({
+                          columns: {
+                            ...form.columns,
+                            [column.name]: {
+                              ...form.columns[column.name],
+                              alias: value
+                            }
+                          }
+                        });
+                      }}
+                      properties={{
+                        name: 'alias',
+                        label: 'Alias',
+                        type: 'text',
+                        default: (form.columns[column.name]) ? form.columns[column.name].alias : ''
+                      }}
+                    >
+                      {Input}
+                    </Field>
+                  </div>
+
+                  <div className={descriptionColumnClass}>
+                    <Field
+                      ref={(c) => {
+                        if (c) FORM_ELEMENTS.elements[`columns_${column.name}_description`] = c;
+                      }}
+                      onChange={(value) => {
+                        this.changeMetadata({
+                          columns: {
+                            ...form.columns,
+                            [column.name]: {
+                              ...form.columns[column.name],
+                              description: value
+                            }
+                          }
+                        });
+                      }}
+
+                      properties={{
+                        name: 'description',
+                        label: 'Description',
+                        type: 'text',
+                        default: (form.columns[column.name]) ? form.columns[column.name].description : ''
+                      }}
+                    >
+                      {Input}
+                    </Field>
+                  </div>
+
+                  {isRaster &&
+                    <div className="columns small-4">
+                      <Field
+                        ref={(columnType) => {
+                          if (columnType) FORM_ELEMENTS.elements[`columns_${column.name}_type`] = columnType;
+                        }}
+                        onChange={(columnType) => {
+                          this.changeMetadata({
+                            columns: {
+                              ...form.columns,
+                              [column.name]: {
+                                ...form.columns[column.name],
+                                type: columnType
+                              }
+                            }
+                          });
+                        }}
+                        validations={['required']}
+                        options={RASTER_COLUMN_TYPES}
+                        properties={{
+                          name: 'type',
+                          label: 'Type',
+                          default: (form.columns[column.name]) ? form.columns[column.name].type : 'continuous'
+                        }}
+                      >
+                        {Select}
+                      </Field>
+                    </div>
+                  }
+
+                </div>
+              )})}
+            </div>
+          }
 
         </fieldset>
       </div>
