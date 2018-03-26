@@ -81,7 +81,7 @@
       flex-direction: column;
       // In case of a bar chart with scrolling, we need
       // to use an overflow
-      overflow-x: auto;
+      // overflow-x: auto;
       max-width: 100%;
 
       .chart {
