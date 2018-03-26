@@ -142,18 +142,20 @@
   .widget-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     flex-shrink: 0;
+    font-size: 8px;
+    line-height: 10px;
     padding: 0 $margin-size-extra-small $margin-size-extra-small;
 
     .prep-logo {
       display: block;
-      height: 30px;
+      height: 15px;
     }
 
     .embed-logo {
       display: block;
-      height: 21px;
+      height: 15px;
     }
   }
 
