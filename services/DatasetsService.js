@@ -18,7 +18,8 @@ class DatasetsService {
       fetch(`${process.env.WRI_API_URL}/dataset?${queryParams}`, {
         method: 'GET',
         headers: {
-          Authorization: token
+          Authorization: token,
+          'Upgrade-Insecure-Requests': 1
         }
       })
         .then((response) => {
@@ -44,6 +45,7 @@ class DatasetsService {
 
   // GET ALL DATA
   fetchAdminData({ applications = [process.env.APPLICATIONS], includes, filters } = {}) {
+    console.log('ADMIN =>>>>>>');
     const qParams = {
       application: applications.join(','),
       ...!!includes && { includes },
@@ -61,6 +63,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: ({ data }) => {
           const datasets = data.map(dataset => ({ ...dataset.attributes, id: dataset.id }));
@@ -119,6 +124,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: (response) => {
           resolve({
