@@ -21,7 +21,8 @@ export default class WidgetsService {
       fetch(`${process.env.WRI_API_URL}/widget?${queryParams}`, {
         method: 'GET',
         headers: {
-          Authorization: token
+          Authorization: token,
+          'Upgrade-Insecure-Requests': 1
         }
       })
         .then((response) => {
@@ -54,7 +55,10 @@ export default class WidgetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
-        }],
+          }, {
+            key: 'Upgrade-Insecure-Requests',
+            value: 1
+          }],
         onSuccess: (response) => {
           resolve({
             ...response.data.attributes,
