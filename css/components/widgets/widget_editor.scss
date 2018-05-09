@@ -3,17 +3,24 @@
   margin: 0 auto;
 
   .customize-visualization {
-    .title {
-      @extend h2;
-      margin-bottom: 30px;
-      padding: 0;
-      color: $charcoal-grey;
-      text-align: left;
-      font-family: $font-family-2;
-      font-size: 22px;
-      font-weight: bold;
+    > .content {
+      > .title {
+        @extend h2;
+        margin-bottom: 30px;
+        padding: 0;
+        color: $charcoal-grey;
+        text-align: left;
+        font-family: $font-family-2;
+        font-size: 22px;
+        font-weight: bold;
 
-      &:after { content: none; }
+        &:after { content: none; }
+      }
+
+      .visualization-type-buttons button.-active {
+        border: 2px solid $yellow;
+        color: $charcoal-grey;
+      }
     }
   }
 
