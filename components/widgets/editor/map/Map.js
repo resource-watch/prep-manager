@@ -12,7 +12,7 @@ import { LABELS } from 'components/widgets/editor/map/constants';
 
 
 // Leaflet can't be imported on the server because it's not isomorphic
-const L = (typeof window !== 'undefined') ? require('leaflet') : null;
+// const L = (typeof window !== 'undefined') ? require('leaflet') : null;
 
 const MAP_CONFIG = {
   zoom: 2,

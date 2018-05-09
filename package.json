@@ -28,7 +28,6 @@
     "dotenv": "4.0.0",
     "es-decorators": "1.0.0",
     "es6-promise": "4.1.1",
-    "esri-leaflet": "2.0.8",
     "eventemitter3": "2.0.3",
     "express": "4.14.0",
     "express-session": "1.15.3",
@@ -42,7 +41,6 @@
     "jiminy": "0.1.1",
     "json-loader": "0.5.4",
     "jsonapi-serializer": "3.5.5",
-    "leaflet": "1.0.3",
     "lodash": "4.17.4",
     "moment": "^2.18.1",
     "moment-range": "3.0.3",
@@ -106,7 +104,7 @@
     "vizz-wysiwyg": "1.1.9",
     "webpack": "^3.6.0",
     "whatwg-fetch": "2.0.2",
-    "widget-editor": "1.0.1"
+    "widget-editor": "1.1.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

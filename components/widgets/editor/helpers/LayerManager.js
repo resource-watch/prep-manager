@@ -4,13 +4,13 @@
 
 import 'isomorphic-fetch';
 
-let L;
-if (typeof window !== 'undefined') {
-  L = require('leaflet/dist/leaflet');
-  // adding support for esri
-  const esri = require('esri-leaflet');
-  L.esri = esri;
-}
+// let L;
+// if (typeof window !== 'undefined') {
+//   L = require('leaflet/dist/leaflet');
+//   // adding support for esri
+//   const esri = require('esri-leaflet');
+//   L.esri = esri;
+// }
 
 export default class LayerManager {
   // Constructor

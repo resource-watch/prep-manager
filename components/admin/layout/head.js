@@ -23,7 +23,14 @@ export default class Head extends React.Component {
         <meta name="author" content="Vizzuality" />
         <link rel="icon" href="/static/favicon.ico" />
         <link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Lato:400,300,700" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
         {Head.getStyles()}
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" />
+        <script
+          src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"
+          integrity="sha512-m+BZ3OSlzGdYLqUBZt3u6eA0sH+Txdmq7cqA1u8/B2aTXviGMMLOfrKyiIW7181jbzZAY0u+3jWoiL61iLcTKQ=="
+          crossOrigin=""
+        />
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />
       </HeadNext>
     );
