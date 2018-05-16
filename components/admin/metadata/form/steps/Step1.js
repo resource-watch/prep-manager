@@ -26,7 +26,7 @@ class Step1 extends React.Component {
   }
 
   render() {
-    const {loadingColumns, type, columns, form} = this.props;
+    const {loadingColumns, type, columns, form, adminUser} = this.props;
     const isRaster = type === 'raster';
 
     const aliasColumnClass = classnames('columns', {
@@ -57,7 +57,9 @@ class Step1 extends React.Component {
               type: 'text',
               maxLength: '75',
               required: true,
-              default: form.name
+              default: form.name,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -71,7 +73,9 @@ class Step1 extends React.Component {
               name: 'subtitle',
               label: 'Subtitle',
               type: 'text',
-              default: form.info.subtitle
+              default: form.info.subtitle,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -90,7 +94,9 @@ class Step1 extends React.Component {
               label: 'Description',
               rows: '6',
               required: true,
-              default: form.info.description
+              default: form.info.description,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {TextArea}
@@ -103,7 +109,9 @@ class Step1 extends React.Component {
               name: 'organization-long',
               label: 'Organization (long name)',
               type: 'text',
-              default: form.info['organization-long']
+              default: form.info['organization-long'],
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -116,7 +124,9 @@ class Step1 extends React.Component {
               name: 'organization',
               label: 'Organization (short name)',
               type: 'text',
-              default: form.info.organization
+              default: form.info.organization,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -156,7 +166,9 @@ class Step1 extends React.Component {
               label: 'Published Date',
               type: 'date',
               default: form.info.published_date,
-              required: true
+              required: true,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -169,7 +181,9 @@ class Step1 extends React.Component {
               name: 'prep_id',
               label: 'Prep Id',
               type: 'text',
-              default: form.info.prep_id
+              default: form.info.prep_id,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -183,7 +197,9 @@ class Step1 extends React.Component {
               name: 'api_endpoint',
               label: 'API endpoint',
               type: 'text',
-              default: form.info.api_endpoint
+              default: form.info.api_endpoint,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -197,7 +213,9 @@ class Step1 extends React.Component {
               label: 'Geographic Location',
               type: 'text',
               rows: '6',
-              default: form.info.geographic_location
+              default: form.info.geographic_location,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -210,7 +228,9 @@ class Step1 extends React.Component {
               name: 'date_of_content',
               label: 'Date of content',
               type: 'text',
-              default: form.info.date_of_content
+              default: form.info.date_of_content,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -223,7 +243,9 @@ class Step1 extends React.Component {
               name: 'data_type',
               label: 'Data type',
               type: 'text',
-              default: form.info.data_type
+              default: form.info.data_type,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -236,7 +258,9 @@ class Step1 extends React.Component {
               name: 'spatial_resolution',
               label: 'Spatial Resolution',
               type: 'text',
-              default: form.info.spatial_resolution
+              default: form.info.spatial_resolution,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -251,7 +275,9 @@ class Step1 extends React.Component {
               label: 'Citation',
               type: 'text',
               rows: '6',
-              default: form.info.citation
+              default: form.info.citation,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {TextArea}
@@ -265,7 +291,9 @@ class Step1 extends React.Component {
               name: 'license',
               label: 'License',
               type: 'text',
-              default: form.info.license
+              default: form.info.license,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -279,7 +307,9 @@ class Step1 extends React.Component {
               name: 'license_link',
               label: 'License link',
               type: 'text',
-              default: form.info.license_link
+              default: form.info.license_link,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -299,7 +329,9 @@ class Step1 extends React.Component {
               name: 'dataDownload',
               label: 'Data Download link',
               type: 'text',
-              default: form.info.dataDownload
+              default: form.info.dataDownload,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -313,7 +345,9 @@ class Step1 extends React.Component {
               name: 'data_download_original_link',
               label: 'Data Download from Original Source Link',
               type: 'text',
-              default: form.info.data_download_original_link
+              default: form.info.data_download_original_link,
+              disabled: !adminUser,
+              readOnly: !adminUser
             }}
           >
             {Input}
@@ -374,7 +408,9 @@ class Step1 extends React.Component {
                         name: 'alias',
                         label: 'Alias',
                         type: 'text',
-                        default: (form.columns[column.name]) ? form.columns[column.name].alias : ''
+                        default: (form.columns[column.name]) ? form.columns[column.name].alias : '',
+                        disabled: !adminUser,
+                        readOnly: !adminUser
                       }}
                     >
                       {Input}
@@ -402,7 +438,9 @@ class Step1 extends React.Component {
                         name: 'description',
                         label: 'Description',
                         type: 'text',
-                        default: (form.columns[column.name]) ? form.columns[column.name].description : ''
+                        default: (form.columns[column.name]) ? form.columns[column.name].description : '',
+                        disabled: !adminUser,
+                        readOnly: !adminUser
                       }}
                     >
                       {Input}
@@ -431,7 +469,9 @@ class Step1 extends React.Component {
                         properties={{
                           name: 'type',
                           label: 'Type',
-                          default: (form.columns[column.name]) ? form.columns[column.name].type : 'continuous'
+                          default: (form.columns[column.name]) ? form.columns[column.name].type : 'continuous',
+                          disabled: !adminUser,
+                          readOnly: !adminUser
                         }}
                       >
                         {Select}
