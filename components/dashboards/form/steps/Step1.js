@@ -42,6 +42,8 @@ class Step1 extends React.Component {
     // Reset FORM_ELEMENTS
     FORM_ELEMENTS.elements = {};
 
+    console.log(this.state.form);
+
     return (
       <div>
         <fieldset className="c-field-container">
@@ -96,6 +98,38 @@ class Step1 extends React.Component {
               {Checkbox}
             </Field>
           }
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.pre_production = c; }}
+            onChange={value => this.props.onChange({
+              pre_production: value.checked
+            })}
+            properties={{
+              name: 'pre_production',
+              label: 'Do you want to set this dashboard as pre-production?',
+              value: 'pre_production',
+              title: 'Pre-production',
+              defaultChecked: this.props.form.pre_production,
+              checked: this.props.form.pre_production
+            }}
+          >
+            {Checkbox}
+          </Field>
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
+            onChange={value => this.props.onChange({
+              production: value.checked
+            })}
+            properties={{
+              name: 'production',
+              label: 'Do you want to set this dashboard as production?',
+              value: 'production',
+              title: 'Production',
+              defaultChecked: this.props.form.production,
+              checked: this.props.form.production
+            }}
+          >
+            {Checkbox}
+          </Field>
         </fieldset>
 
         <fieldset className="c-field-container">
