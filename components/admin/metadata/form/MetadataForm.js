@@ -80,6 +80,8 @@ class MetadataForm extends React.Component {
             this.setState({ loadingColumns: false })
           }
 
+          if (!this.props.adminUser) toastr.info('Only administrators are able to update metadata');
+
         })
         .catch((err) => {
           this.setState({ loading: false });
@@ -182,6 +184,8 @@ class MetadataForm extends React.Component {
   }
 
   render() {
+    const {adminUser} = this.props;
+
     return (
       <div className="c-metadata-form">
         <form className="c-form" onSubmit={this.onSubmit} noValidate>
@@ -193,10 +197,11 @@ class MetadataForm extends React.Component {
               columns={this.state.columns}
               loadingColumns={this.state.loadingColumns}
               type={this.state.type}
+              adminUser={adminUser}
             />
           }
 
-          {!this.state.loading &&
+          {(!this.state.loading && adminUser) &&
             <Navigation
               step={this.state.step}
               stepLength={this.state.stepLength}
