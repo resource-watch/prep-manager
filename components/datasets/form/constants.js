@@ -78,7 +78,7 @@ export function getDefaultState(props = {}) {
       provider: null,
       connectorType: '',
       connectorUrlHint: '',
-      published: false,
+      published: [],
       geoInfo: false,
       verified: false,
       env: basic ? 'production' : 'preproduction',

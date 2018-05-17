@@ -57,6 +57,17 @@ class Step1 extends React.Component {
     this.props.onChange({ legend });
   }
 
+  onPublishedChange = (value) => {
+    if (value.checked) {
+      const newPublished = this.state.form.published;
+      newPublished.push('rw');
+      this.props.onChange({ published: newPublished });
+    } else {
+      this.props.onChange({ published: this.state.form.published.filter(app =>
+        app !== process.env.APPLICATIONS) });
+    }
+  }
+
   /**
    * HELPERS
    * - setProviderOptions
@@ -89,7 +100,7 @@ class Step1 extends React.Component {
   render() {
     const { user, columns, loadingColumns, basic } = this.props;
     const { dataset } = this.state;
-    const { provider, columnFields } = this.state.form;
+    const { provider, columnFields, published } = this.state.form;
 
     // Reset FORM_ELEMENTS
     FORM_ELEMENTS.elements = {};
@@ -106,6 +117,7 @@ class Step1 extends React.Component {
     const isDocument = (isJson || isXml || isCsv || isTsv);
 
     const columnFieldsOptions = (columnFields || []).map(f => ({ label: f, value: f }));
+    const isPublished = published.includes(process.env.APPLICATIONS);
 
     return (
       <div>
@@ -132,14 +144,16 @@ class Step1 extends React.Component {
           {(user.role === 'ADMIN' && !basic) &&
             <Field
               ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
-              onChange={value => this.props.onChange({ published: value.checked })}
+              onChange={value => this.props.onChange({
+                published: value.checked ? [process.env.APPLICATIONS] : []
+              })}
               validations={['required']}
               properties={{
                 name: 'published',
                 label: 'Do you want to set this dataset as published?',
-                value: 'published',
+                value: isPublished,
                 title: 'Published',
-                defaultChecked: (!dataset) ? user.role === 'ADMIN' : this.props.form.published
+                defaultChecked: (!dataset) ? user.role === 'ADMIN' : isPublished
               }}
             >
               {Checkbox}
