@@ -31,7 +31,12 @@ export default class DatasetService {
    * Get subscribable datasets
    */
   getSubscribableDatasets(includes = '') {
-    return fetch(`${this.opts.apiURL}/dataset?${[process.env.APPLICATIONS].join(',')}&includes=${includes}&subscribable=true&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/dataset?${[process.env.APPLICATIONS].join(',')}&includes=${includes}&subscribable=true&page[size]=999`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -44,7 +49,12 @@ export default class DatasetService {
    * @returns {Promise}
    */
   fetchData(includes = '', applications = [process.env.APPLICATIONS]) {
-    return fetch(`${this.opts.apiURL}/dataset/${this.datasetId}?application=${applications.join(',')}&includes=${includes}&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/dataset/${this.datasetId}?application=${applications.join(',')}&includes=${includes}&page[size]=999`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -57,7 +67,12 @@ export default class DatasetService {
    * @returns {Promise}
    */
   fetchFilteredData(query) {
-    return fetch(`${this.opts.apiURL}/query/${this.datasetId}?${query}`)
+    return fetch(`${this.opts.apiURL}/query/${this.datasetId}?${query}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -207,7 +222,12 @@ export default class DatasetService {
   }
 
   getLayers() {
-    return fetch(`${this.opts.apiURL}/dataset/${this.datasetId}/layer?app=rw`)
+    return fetch(`${this.opts.apiURL}/dataset/${this.datasetId}/layer?app=rw`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -227,7 +247,12 @@ export default class DatasetService {
   }
 
   getSimilarDatasets() {
-    return fetch(`${this.opts.apiURL}/graph/query/similar-dataset/${this.datasetId}`)
+    return fetch(`${this.opts.apiURL}/graph/query/similar-dataset/${this.datasetId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -245,7 +270,12 @@ export default class DatasetService {
    * @returns {object[]}
    */
   static getDatasets(datasetIDs, includes = '', applications = [process.env.APPLICATIONS]) {
-    return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${datasetIDs}&includes=${includes}&application=${applications.join(',')}&page[size]=999`)
+    return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${datasetIDs}&includes=${includes}&application=${applications.join(',')}&page[size]=999`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();

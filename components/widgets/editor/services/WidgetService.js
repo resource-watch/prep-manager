@@ -72,7 +72,12 @@ export default class WidgetService {
   getUserWidgets(userId, sortByUpdatedAt = true, direction = 'asc', includes = '') {
     const directionPart = (direction === 'asc') ? '&sort=updatedAt' : '&sort=-updatedAt';
     const sortSt = sortByUpdatedAt ? directionPart : '';
-    return fetch(`${this.opts.apiURL}/widget/?userId=${userId}${sortSt}&includes=${includes}&env=production,preproduction&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/widget/?userId=${userId}${sortSt}&includes=${includes}&env=production,preproduction&page[size]=999`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
