@@ -11,7 +11,7 @@ export default class ToolsService {
   fetchAllData() {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/tools/?published=all`,
+        url: `${process.env.API_URL}/tools/?published=all&env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
@@ -32,7 +32,7 @@ export default class ToolsService {
   fetchData(id) {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/tools/${id}`,
+        url: `${process.env.API_URL}/tools/${id}?env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'

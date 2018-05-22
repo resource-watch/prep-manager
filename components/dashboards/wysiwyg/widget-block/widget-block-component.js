@@ -151,6 +151,14 @@ export default function WidgetBlock({
           </div>
         )}
 
+        {!widgetError && widgetType === 'embed' && widget.widgetConfig && widget && (
+          <iframe
+            title={widget.name}
+            src={widget.widgetConfig.url}
+            frameBorder="0"
+          />
+        )}
+
         {!widgetError && !layersError && !item && !item.content.widgetId &&
           <div className="message">
             <div className="no-data">No data</div>

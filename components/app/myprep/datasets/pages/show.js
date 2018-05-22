@@ -123,6 +123,7 @@ class DatasetsShow extends React.Component {
                   authorization={user.token}
                   dataset={id}
                   onSubmit={() => Router.pushRoute('admin_myprep_detail', { tab: 'datasets', id })}
+                  adminUser={user.role.toLowerCase() === 'admin'}
                 />
               }
 
