@@ -37,7 +37,11 @@ export const fetchWidget = createThunkAction('WIDGET_BLOCK_FETCH_DATA', (payload
   dispatch(setWidgetLoading({ id, value: true }));
   dispatch(setWidgetError({ id, value: null }));
 
-  fetch(`${process.env.WRI_API_URL}/widget/${payload.id}?&application=${[process.env.APPLICATIONS]}`)
+  fetch(`${process.env.WRI_API_URL}/widget/${payload.id}?&application=${[process.env.APPLICATIONS]}`, {
+      headers: {
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
     .then(response => response.json())
     .then(({ data }) => {
       const widget = { id: data.id, ...data.attributes };

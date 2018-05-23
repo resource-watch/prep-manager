@@ -355,7 +355,11 @@ export function fetchData(url, timeout = 15) { // eslint-disable-line no-unused-
   return new Promise((resolve, reject) => {
     setTimeout(() => reject('timeout'), 1000 * timeout);
 
-    fetch(url)
+    fetch(url, , {
+      headers: {
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error('Unable to load the data of the chart');

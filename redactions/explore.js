@@ -435,7 +435,12 @@ export function getDatasets({ pageNumber, pageSize }) {
     // Waiting for fetch from server -> Dispatch loading
     dispatch({ type: GET_DATASETS_LOADING });
 
-    return fetch(new Request(`${process.env.WRI_API_URL}/dataset?${[process.env.APPLICATIONS].join(',')}&status=saved&published=true&includes=widget,layer,metadata,vocabulary&page[size]=${pageSize || 999}&page[number]=${pageNumber || 1}&sort=-updatedAt`))
+    return fetch(new Request(`${process.env.WRI_API_URL}/dataset?${[process.env.APPLICATIONS].join(',')}&status=saved&published=true&includes=widget,layer,metadata,vocabulary&page[size]=${pageSize || 999}&page[number]=${pageNumber || 1}&sort=-updatedAt`), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error(response.statusText);
