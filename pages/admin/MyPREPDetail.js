@@ -117,9 +117,14 @@ class MyPREPDetail extends Page {
   */
   getName() {
     const { tab, id, data } = this.state;
+    const metadata = data.metadata ? data.metadata[0] : null;
 
     if (id === 'new') {
       return `New ${singular(tab)}`;
+    }
+
+    if (metadata && metadata.attributes.name) {
+      return metadata.attributes.name;
     }
 
     if (data.name) {
@@ -129,7 +134,6 @@ class MyPREPDetail extends Page {
     if (data.attributes && data.attributes.name) {
       return data.attributes.name;
     }
-
 
     return '-';
   }

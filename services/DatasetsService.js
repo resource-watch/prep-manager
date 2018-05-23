@@ -14,8 +14,6 @@ class DatasetsService {
       includes
     });
 
-    console.log('ksksksksk');
-
     return new Promise((resolve, reject) => {
       fetch(`${process.env.WRI_API_URL}/dataset?${queryParams}`, {
         method: 'GET',
