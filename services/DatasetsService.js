@@ -14,12 +14,15 @@ class DatasetsService {
       includes
     });
 
+    console.log('ksksksksk');
+
     return new Promise((resolve, reject) => {
       fetch(`${process.env.WRI_API_URL}/dataset?${queryParams}`, {
         method: 'GET',
         headers: {
-          Authorization: token,
-          'Upgrade-Insecure-Requests': 1
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': 1,
+          Authorization: token
         }
       })
         .then((response) => {
