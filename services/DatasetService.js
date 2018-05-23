@@ -234,7 +234,12 @@ export default class DatasetService {
   }
 
   getLayers() {
-    return fetch(`${this.opts.apiURL}/dataset/${this.datasetId}/layer?app=rw`)
+    return fetch(`${this.opts.apiURL}/dataset/${this.datasetId}/layer?app=rw`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': 1
+        }
+      })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -311,7 +316,12 @@ export default class DatasetService {
     }
 
 
-    return fetch(`${this.opts.apiURL}/graph/query/search-datasets?${querySt}&published=true&env=${process.env.API_ENV}&application=${process.env.APPLICATIONS}&page[size]=999999`)
+    return fetch(`${this.opts.apiURL}/graph/query/search-datasets?${querySt}&published=true&env=${process.env.API_ENV}&application=${process.env.APPLICATIONS}&page[size]=999999`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': 1
+        }
+      })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
