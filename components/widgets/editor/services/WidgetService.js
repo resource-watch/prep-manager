@@ -10,7 +10,12 @@ export default class WidgetService {
   }
 
   fetchData(includes = '') {
-    return fetch(`${this.opts.apiURL}/widget/${this.widgetId}?includes=${includes}&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/widget/${this.widgetId}?includes=${includes}&page[size]=999`{
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -86,7 +91,12 @@ export default class WidgetService {
   }
 
   getUserWidgetCollections(user) {
-    return fetch(`${this.opts.apiURL}/vocabulary/widget_collections?${[process.env.APPLICATIONS].join(',')}`)
+    return fetch(`${this.opts.apiURL}/vocabulary/widget_collections?${[process.env.APPLICATIONS].join(',')}`{
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();

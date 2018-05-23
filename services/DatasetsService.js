@@ -95,6 +95,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: ({ data }) => {
           const datasets = data.map(dataset => ({ ...dataset.attributes, id: dataset.id }));
@@ -221,6 +224,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: (data) => {
           resolve(getFields(data, provider, type));

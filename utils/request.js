@@ -6,6 +6,7 @@ function get({ url, headers = [], withCredentials, onSuccess, onError }) {
   headers.forEach((h) => {
     request.setRequestHeader(h.key, h.value);
   });
+  console.log(headers)
   request.send(null);
 
   request.onreadystatechange = () => {

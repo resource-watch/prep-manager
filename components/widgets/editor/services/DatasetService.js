@@ -157,7 +157,11 @@ export default class DatasetService {
   }
 
   getFields() {
-    return fetch(`${this.opts.apiURL}/fields/${this.datasetId}`)
+    return fetch(`${this.opts.apiURL}/fields/${this.datasetId}`, , {
+      headers: {
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -185,7 +189,11 @@ export default class DatasetService {
 
     return new Promise((resolve) => {
       // TODO: remove cache param
-      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}${qGeostore}`)
+      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}${qGeostore}`, , {
+        headers: {
+          'Upgrade-Insecure-Requests': 1
+        }
+      })
         .then((response) => {
           if (!response.ok) throw new Error(response.statusText);
           return response.json();
@@ -209,7 +217,11 @@ export default class DatasetService {
     const query = `SELECT ${columnName} FROM ${table} ${uniqQueryPart} ORDER BY ${columnName}`;
     return new Promise((resolve) => {
       // TODO: remove cache param
-      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}`)
+      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}`, , {
+        headers: {
+          'Upgrade-Insecure-Requests': 1
+        }
+      })
         .then((response) => {
           if (response.status >= 400) throw new Error(response.statusText);
           return response.json();
@@ -293,7 +305,12 @@ export default class DatasetService {
     const querySt = `&${topicsSt}${geographiesSt}${dataTypesSt}`;
 
 
-    return fetch(`${this.opts.apiURL}/graph/query/search-datasets?${querySt}`)
+    return fetch(`${this.opts.apiURL}/graph/query/search-datasets?${querySt}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();

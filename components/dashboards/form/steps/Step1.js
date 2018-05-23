@@ -42,8 +42,6 @@ class Step1 extends React.Component {
     // Reset FORM_ELEMENTS
     FORM_ELEMENTS.elements = {};
 
-    console.log(this.state.form);
-
     return (
       <div>
         <fieldset className="c-field-container">
