@@ -46,7 +46,12 @@ class EmbedTable extends Page {
   }
 
   loadTableData(query) {
-    fetch(query)
+    fetch(query, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then(response => response.json())
       .then((response) => {
         this.setState({

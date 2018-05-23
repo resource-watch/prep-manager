@@ -11,7 +11,12 @@ export const fetchWidget = createThunkAction('WIDGET-DETAIL/fetchWidget', (paylo
   dispatch(setWidgetLoading(true));
   dispatch(setWidgetError(null));
 
-  return fetch(new Request(`${process.env.WRI_API_URL}/widget/${payload.id}`))
+  return fetch(new Request(`${process.env.WRI_API_URL}/widget/${payload.id}`), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);

@@ -48,7 +48,12 @@ export default class DatasetService {
    * Get subscribable datasets
    */
   getSubscribableDatasets(includes = '') {
-    return fetch(`${this.opts.apiURL}/dataset?application=${process.env.APPLICATIONS}&language=${this.opts.language}&includes=${includes}&subscribable=true&page[size]=999`)
+    return fetch(`${this.opts.apiURL}/dataset?application=${process.env.APPLICATIONS}&language=${this.opts.language}&includes=${includes}&subscribable=true&page[size]=999`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then(response => response.json())
       .then(jsonData => jsonData.data);
   }
@@ -59,7 +64,12 @@ export default class DatasetService {
    */
   fetchData(includes = '', applications = [process.env.APPLICATIONS]) {
     const url = `${this.opts.apiURL}/dataset/${this.datasetId}?application=${applications.join(',')}&language=${this.opts.language}&includes=${includes}&page[size]=999`;
-    return fetch(url)
+    return fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw Error(response.statusText);
         return response.json();
@@ -73,7 +83,12 @@ export default class DatasetService {
    */
   fetchDataset(includes = '', applications = [process.env.APPLICATIONS]) {
     const url = `${this.opts.apiURL}/dataset/${this.datasetId}?application=${applications.join(',')}&language=${this.opts.language}&includes=${includes}&page[size]=999`;
-    return fetch(url)
+    return fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw Error(response.statusText);
         return response.json();
@@ -86,7 +101,12 @@ export default class DatasetService {
    * @returns {Promise}
    */
   fetchFilteredData(query) {
-    return fetch(`${this.opts.apiURL}/query/${this.datasetId}?sql=${query}`)
+    return fetch(`${this.opts.apiURL}/query/${this.datasetId}?sql=${query}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (response.status >= 400) throw new Error(response.statusText);
         return response.json();
@@ -139,7 +159,12 @@ export default class DatasetService {
   }
 
   getFields() {
-    return fetch(`${this.opts.apiURL}/fields/${this.datasetId}`)
+    return fetch(`${this.opts.apiURL}/fields/${this.datasetId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then(response => response.json())
       .then((jsonData) => {
         const fieldsObj = jsonData.fields;
@@ -162,7 +187,12 @@ export default class DatasetService {
     const query = `SELECT Min(${columnName}) AS min, Max(${columnName}) AS max FROM ${table}`;
     return new Promise((resolve) => {
       // TODO: remove cache param
-      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}`)
+      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': 1
+        }
+      })
         .then((response) => {
           if (response.status >= 400) throw new Error(response.statusText);
           return response.json();
@@ -186,7 +216,12 @@ export default class DatasetService {
     const query = `SELECT ${columnName} FROM ${table} ${uniqQueryPart} ORDER BY ${columnName}`;
     return new Promise((resolve) => {
       // TODO: remove cache param
-      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}`)
+      fetch(`https://api.resourcewatch.org/v1/query/${this.datasetId}?sql=${query}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': 1
+        }
+      })
         .then((response) => {
           if (response.status >= 400) throw new Error(response.statusText);
           return response.json();
@@ -239,7 +274,12 @@ export default class DatasetService {
    * @returns {object[]}
    */
    static getDatasets(datasetIDs, language, includes = '', applications = [process.env.APPLICATIONS]) {
-    return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${datasetIDs}&language=${language}&includes=${includes}&application=${applications.join(',')}&page[size]=999`)
+    return fetch(`${process.env.WRI_API_URL}/dataset/?ids=${datasetIDs}&language=${language}&includes=${includes}&application=${applications.join(',')}&page[size]=999`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();

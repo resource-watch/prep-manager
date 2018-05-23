@@ -136,7 +136,7 @@ class EmbedWidget extends Page {
             }
           </div>
           <div className="widget-content">
-            <iframe title={widget.attributes.name} src={widget.attributes.widgetConfig.url} />
+            <iframe title={widget.attributes.name} src={widget.attributes.widgetConfig.url.replace('/embed/', '/export/')} />
 
             <div className="widget-info">
               <h4><Icon name="icon-info" className="c-icon -small" /> Information</h4>
