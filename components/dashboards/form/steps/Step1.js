@@ -97,17 +97,17 @@ class Step1 extends React.Component {
             </Field>
           }
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.pre_production = c; }}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.preproduction = c; }}
             onChange={value => this.props.onChange({
-              pre_production: value.checked
+              preproduction: value.checked
             })}
             properties={{
-              name: 'pre_production',
+              name: 'preproduction',
               label: 'Do you want to set this dashboard as pre-production?',
-              value: 'pre_production',
+              value: 'preproduction',
               title: 'Pre-production',
-              defaultChecked: this.props.form.pre_production,
-              checked: this.props.form.pre_production
+              defaultChecked: this.props.form.preproduction,
+              checked: this.props.form.preproduction
             }}
           >
             {Checkbox}
