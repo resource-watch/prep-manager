@@ -67,6 +67,12 @@ export default class Header extends React.Component {
         role: 'ADMIN'
       },
       {
+        name: 'Users',
+        pathnames: ['/admin/Users'],
+        component: <Link route="admin_users"><a>Users</a></Link>,
+        role: 'ADMIN'
+      },
+      {
         name: 'User',
         component: <HeaderUser
           active={this.state.myprepActive}
