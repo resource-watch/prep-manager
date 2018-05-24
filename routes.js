@@ -32,6 +32,8 @@ routes.add('admin_myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'admin/M
 // INSIGHTS
 routes.add('admin_insights', '/admin/insights/:tab?', 'admin/Insights');
 routes.add('admin_insights_detail', '/admin/insights/:tab/:id/:subtab?', 'admin/InsightsDetail');
+// USERS
+routes.add('admin_users', '/admin/users', 'admin/Users');
 
 // ------ DASHBOARDS ------------
 routes.add('dashboards_detail', '/dashboards/:slug', 'app/DashboardsDetail');
