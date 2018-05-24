@@ -3,7 +3,7 @@
   height: rem(50);
   position: relative;
   border-radius: 50%;
-  background-color: $color-text-1;
+  background-color: darken(#1a3e62, 10);
   background-size: cover;
 
   a {
@@ -21,6 +21,7 @@
     text-transform: uppercase;
     font-weight: 500;
     font-size: $font-size-huge;
+    line-height: 1;
   }
 
   .avatar-notifications {
