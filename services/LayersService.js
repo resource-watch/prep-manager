@@ -9,6 +9,30 @@ export default class LayersService {
     this.opts = options;
   }
 
+  fetchAllLayers({ applications }) {
+    return new Promise((resolve, reject) => {
+      get({
+        url: `${process.env.WRI_API_URL}/layer?application=${applications.join(',')}&includes=user&page[size]=99999`,
+        headers: [{
+          key: 'Content-Type',
+          value: 'application/json'
+        }, {
+          key: 'Authorization',
+          value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
+        }],
+        onSuccess: ({ data }) => {
+          resolve(sortBy(data.map(d => ({ ...d.attributes, id: d.id })), 'name'));
+        },
+        onError: (error) => {
+          reject(error);
+        }
+      });
+    });
+  }
+
   // GET ALL DATA
   fetchAllData({ applications, dataset = '' }) {
     return new Promise((resolve, reject) => {
