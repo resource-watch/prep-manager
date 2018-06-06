@@ -1,5 +1,3 @@
-import initOpbeat from 'opbeat-react';
-import { createOpbeatMiddleware } from 'opbeat-react/redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
@@ -20,13 +18,6 @@ import * as ShareModalModule from 'components/share-modal';
 
 // Widget
 import * as widgetDetail from 'pages/app/widget-detail/widget-detail';
-
-if (process.env.NODE_ENV === 'production') {
-  initOpbeat({
-    orgId: '17ab8eb501d2418a81f3167c10407e90',
-    appId: '7170680c2a'
-  });
-}
 
 // REDUCERS
 const reducer = combineReducers({
@@ -53,6 +44,6 @@ export const initStore = (initialState = {}) => createStore(
   composeEnhancers(
     /* The router middleware MUST be before thunk otherwise the URL changes
     * inside a thunk function won't work properly */
-    applyMiddleware(thunk, createOpbeatMiddleware())
+    applyMiddleware(thunk)
   )
 );
