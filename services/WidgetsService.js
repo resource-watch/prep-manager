@@ -14,7 +14,8 @@ export default class WidgetsService {
       application: process.env.APPLICATIONS,
       env: process.env.API_ENV,
       'page[size]': 9999,
-      ...filters
+      ...filters,
+      includes: ['user'].join(',')
     });
 
     return new Promise((resolve, reject) => {

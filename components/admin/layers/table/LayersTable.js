@@ -24,7 +24,8 @@ import GoToDatasetAction from './actions/GoToDatasetAction';
 // TDs
 import NameTD from './td/NameTD';
 import UpdatedAtTD from './td/UpdatedAtTD';
-import OwnershipTD from './td/OwnershipTD';
+// import OwnershipTD from './td/OwnershipTD';
+import OwnerTD from './td/OwnerTD';
 
 class LayersTable extends React.Component {
   componentDidMount() {
@@ -82,8 +83,9 @@ class LayersTable extends React.Component {
             columns={[
               { label: 'Name', value: 'name', td: NameTD, tdProps: { dataset } },
               { label: 'Provider', value: 'provider' },
-              { label: 'Updated at', value: 'updatedAt', td: UpdatedAtTD },
-              { label: 'Ownership', value: 'userId', td: OwnershipTD, tdProps: { user } }
+              { label: 'Owner', value: 'user', td: OwnerTD },
+              { label: 'Updated at', value: 'updatedAt', td: UpdatedAtTD }
+              // { label: 'Ownership', value: 'userId', td: OwnershipTD, tdProps: { user } }
             ]}
             actions={{
               show: true,

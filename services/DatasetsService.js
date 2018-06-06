@@ -45,7 +45,7 @@ class DatasetsService {
   }
 
   // GET ALL DATA
-  fetchAdminData({ applications = [process.env.APPLICATIONS], includes, filters } = {}) {
+  fetchAdminData({ applications = [process.env.APPLICATIONS], includes, filters, token } = {}) {
     const qParams = {
       application: applications.join(','),
       ...!!includes && { includes },
@@ -62,7 +62,7 @@ class DatasetsService {
           value: 'application/json'
         }, {
           key: 'Authorization',
-          value: this.opts.authorization
+          value: token || this.opts.authorization
         }, {
           key: 'Upgrade-Insecure-Requests',
           value: 1
