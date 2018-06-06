@@ -1,9 +1,7 @@
 import 'isomorphic-fetch';
-import L from 'leaflet';
 
 const BASEMAP_QUERY = 'SELECT the_geom_webmercator FROM gadm28_countries';
 const BASEMAP_CARTOCSS = '#gadm28_countries { polygon-fill: #bbbbbb; polygon-opacity: 1; line-color: #FFFFFF; line-width: 0.5; line-opacity: 0.5; }';
-
 
 function calculateBounds(center, zoom, size) {
   const { w, h } = size;
