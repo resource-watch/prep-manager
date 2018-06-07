@@ -84,7 +84,7 @@ export function getLayers({ applications = [process.env.APPLICATIONS], dataset }
     dispatch({ type: GET_LAYERS_LOADING });
 
     if (dataset && dataset !== '') {
-      service.fetchAllLayers({ applications, dataset })
+      service.fetchAllData({ applications, dataset })
         .then((data) => {
           dispatch({ type: GET_LAYERS_SUCCESS, payload: data });
         })
