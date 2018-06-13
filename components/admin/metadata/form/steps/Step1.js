@@ -39,6 +39,8 @@ class Step1 extends React.Component {
       'small-5': !isRaster
     });
 
+    console.log(form);
+
     return (
       <div>
         <fieldset className="c-field-container">
@@ -66,14 +68,14 @@ class Step1 extends React.Component {
           </Field>
 
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.subtitle = c; }}
-            onChange={value => this.changeMetadata({ info: { subtitle: value } })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.source = c; }}
+            onChange={value => this.changeMetadata({ source: value })}
             hint="Source abbreviated"
             properties={{
-              name: 'subtitle',
+              name: 'source',
               label: 'Subtitle',
               type: 'text',
-              default: form.info.subtitle,
+              default: form.source,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
@@ -164,7 +166,7 @@ class Step1 extends React.Component {
             properties={{
               name: 'published_date',
               label: 'Published Date',
-              type: 'date',
+              type: 'text',
               default: form.info.published_date,
               required: true,
               disabled: !adminUser,
@@ -175,13 +177,13 @@ class Step1 extends React.Component {
           </Field>
 
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.prep_id = c; }}
-            onChange={value => this.changeMetadata({ info: { prep_id: value } })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.wri_rw_id = c; }}
+            onChange={value => this.changeMetadata({ info: { wri_rw_id: value } })}
             properties={{
-              name: 'prep_id',
+              name: 'wri_rw_id',
               label: 'Prep Id',
               type: 'text',
-              default: form.info.prep_id,
+              default: form.info.wri_rw_id,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
@@ -190,14 +192,14 @@ class Step1 extends React.Component {
           </Field>
 
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.api_endpoint = c; }}
-            onChange={value => this.changeMetadata({ info: { api_endpoint: value } })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.endpoint = c; }}
+            onChange={value => this.changeMetadata({ info: { endpoint: value } })}
             validations={['url']}
             properties={{
-              name: 'api_endpoint',
+              name: 'endpoint',
               label: 'API endpoint',
               type: 'text',
-              default: form.info.api_endpoint,
+              default: form.info.endpoint,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
@@ -206,14 +208,14 @@ class Step1 extends React.Component {
           </Field>
 
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.geographic_location = c; }}
-            onChange={value => this.changeMetadata({ info: { geographic_location: value } })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.geographic_coverage = c; }}
+            onChange={value => this.changeMetadata({ info: { geographic_coverage: value } })}
             properties={{
-              name: 'geographic_location',
-              label: 'Geographic Location',
+              name: 'geographic_coverage',
+              label: 'Geographic Coverage',
               type: 'text',
               rows: '6',
-              default: form.info.geographic_location,
+              default: form.info.geographic_coverage,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
@@ -268,14 +270,14 @@ class Step1 extends React.Component {
 
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.citation = c; }}
-            onChange={value => this.changeMetadata({ info: { citation: value } })}
+            onChange={value => this.changeMetadata({ citation: value })}
             hint="Unless otherwise specified on Data Sharing Agreement, format should be: Organization name. “Official data layer name as in the ODP.” Accessed through Resource Watch [date]. www.resourcewatch.org (should always end with: Accessed through Resource Watch on [date]. www.resourcewatch.org)"
             properties={{
               name: 'citation',
               label: 'Citation',
               type: 'text',
               rows: '6',
-              default: form.info.citation,
+              default: form.citation,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
