@@ -26,7 +26,7 @@ class Step1 extends React.Component {
   }
 
   render() {
-    const {loadingColumns, type, columns, form, adminUser} = this.props;
+    const { loadingColumns, type, columns, form, adminUser } = this.props;
     const isRaster = type === 'raster';
 
     const aliasColumnClass = classnames('columns', {
@@ -94,7 +94,7 @@ class Step1 extends React.Component {
               label: 'Description',
               rows: '6',
               required: true,
-              default: form.info.description,
+              default: form.description,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
