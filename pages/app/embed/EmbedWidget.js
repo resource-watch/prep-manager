@@ -11,9 +11,9 @@ import { getWidget } from 'redactions/widget';
 import { setEmbed } from 'redactions/common';
 
 // Components
+import { VegaChart, getVegaTheme } from 'widget-editor';
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import { VegaChart } from 'widget-editor';
 import Spinner from 'components/ui/Spinner';
 import ChartTheme from 'utils/widgets/theme';
 import Icon from 'components/ui/Icon';
@@ -45,7 +45,7 @@ class EmbedWidget extends Page {
   }
 
   isLoadedExternally() {
-    return !/localhost|staging.resourcewatch.org/.test(this.props.referer);
+    return !(/localhost|resourcewatch.org|resource-watch.github.io/.test(this.props.referer));
   }
 
   constructor(props) {
@@ -63,7 +63,7 @@ class EmbedWidget extends Page {
 
   getModal() {
     const { widget, bandDescription, bandStats } = this.props;
-    const { description, metadata } = widget;
+    const { description, metadata } = widget.attributes;
     const widgetLinks = ((metadata || []).length &&
       metadata[0].attributes.info &&
       metadata[0].attributes.info.widgetLinks) || [];
@@ -226,7 +226,7 @@ class EmbedWidget extends Page {
           <div className="widget-content">
             <VegaChart
               data={widget.attributes.widgetConfig}
-              theme={ChartTheme()}
+              theme={getVegaTheme()}
               toggleLoading={l => this.setState({ isLoading: l })}
               reloadOnResize
             />

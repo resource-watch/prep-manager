@@ -22,12 +22,28 @@ class EmbedMyWidgetModal extends React.Component {
     }
   }
 
+  /**
+   * Return the type of embed
+   * @return {string}
+   */
+  getEmbedType() {
+    const { visualizationType } = this.props;
+
+    if (visualizationType === 'map') {
+      return 'map';
+    } else if (visualizationType === 'embed') {
+      return 'embed';
+    }
+
+    return 'widget';
+  }
+
   render() {
-    const { widget, visualizationType } = this.props;
+    const { widget } = this.props;
     const { id } = widget;
     const { protocol, hostname, port } = window && window.location ? window.location : {};
     const embedHost = window && window.location ? `${protocol}//${hostname}${port !== '' ? `:${port}` : port}` : '';
-    const url = `${embedHost}/embed/${visualizationType === 'map' ? 'map' : 'widget'}/${id}`;
+    const url = `${embedHost}/embed/${this.getEmbedType()}/${id}`;
     const iframeText = `<iframe src="${url}" width="100%" height="474" frameBorder="0"></iframe>`;
     return (
       <div className="c-embed-my-widget-modal">

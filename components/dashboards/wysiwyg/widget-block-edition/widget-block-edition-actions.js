@@ -27,7 +27,12 @@ export const fetchWidgets = createThunkAction('WIDGET_BLOCK_EDITION_FETCH_DATA',
     ...payload.filters
   });
 
-  fetch(`${process.env.WRI_API_URL}/widget?${qParams}`)
+  fetch(`${process.env.WRI_API_URL}/widget?${qParams}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Upgrade-Insecure-Requests': 1
+    }
+  })
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);

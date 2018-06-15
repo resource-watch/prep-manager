@@ -18,6 +18,8 @@ class DatasetsService {
       fetch(`${process.env.WRI_API_URL}/dataset?${queryParams}`, {
         method: 'GET',
         headers: {
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': 1,
           Authorization: token
         }
       })
@@ -43,7 +45,7 @@ class DatasetsService {
   }
 
   // GET ALL DATA
-  fetchAdminData({ applications = [process.env.APPLICATIONS], includes, filters } = {}) {
+  fetchAdminData({ applications = [process.env.APPLICATIONS], includes, filters, token } = {}) {
     const qParams = {
       application: applications.join(','),
       ...!!includes && { includes },
@@ -60,7 +62,10 @@ class DatasetsService {
           value: 'application/json'
         }, {
           key: 'Authorization',
-          value: this.opts.authorization
+          value: token || this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: ({ data }) => {
           const datasets = data.map(dataset => ({ ...dataset.attributes, id: dataset.id }));
@@ -91,6 +96,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: ({ data }) => {
           const datasets = data.map(dataset => ({ ...dataset.attributes, id: dataset.id }));
@@ -119,6 +127,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: (response) => {
           resolve({
@@ -214,6 +225,9 @@ class DatasetsService {
         }, {
           key: 'Authorization',
           value: this.opts.authorization
+        }, {
+          key: 'Upgrade-Insecure-Requests',
+          value: 1
         }],
         onSuccess: (data) => {
           resolve(getFields(data, provider, type));

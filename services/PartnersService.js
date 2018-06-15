@@ -11,7 +11,7 @@ export default class PartnersService {
   fetchAllData() {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/partners/?published=all`,
+        url: `${process.env.API_URL}/partners/?published=all&env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
@@ -32,7 +32,7 @@ export default class PartnersService {
   fetchData(id) {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/partners/${id}`,
+        url: `${process.env.API_URL}/partners/${id}?env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'

@@ -28,6 +28,7 @@ export { default as tools } from './admin/tools';
 export { default as indicators } from './admin/indicators';
 export { default as resources } from './admin/resources';
 export { default as sources } from './admin/sources';
+export { default as users } from './admin/users';
 
 // Toastr
 export { reducer as toastr } from 'react-redux-toastr';

@@ -1,11 +1,17 @@
-FROM node:8.1.2
+FROM node:8.9.4
+
+ARG apiEnv=production
+ARG apiUrl=https://prepdata.org/api
+ARG wriApiUrl=https://api.resourcewatch.org/v1
+ARG callbackUrl=https://prepdata.org/auth
 
 ENV NODE_ENV production
-ENV WRI_API_URL https://api.resourcewatch.org/v1
+ENV API_ENV $apiEnv
+ENV WRI_API_URL $wriApiUrl
 ENV BASEMAP_TILE_URL https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
-ENV API_URL https://prepdata.org/api
+ENV API_URL $apiUrl
 ENV CONTROL_TOWER_URL https://production-api.globalforestwatch.org
-ENV CALLBACK_URL https://prepdata.org/auth
+ENV CALLBACK_URL $callbackUrl
 ENV STATIC_SERVER_URL=
 ENV APPLICATIONS prep
 ENV OPBEAT_ORG_ID 17ab8eb501d2418a81f3167c10407e90

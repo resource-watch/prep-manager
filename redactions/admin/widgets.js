@@ -136,6 +136,8 @@ export const getWidgets = createThunkAction('widgets/getWidgets', options =>
     dispatch({ type: GET_WIDGETS_LOADING });
     const { user } = getState();
 
+    console.log(user)
+
     return WidgetsService.getAllWidgets(user.token, { ...options })
       .then(({ data, meta }) => {
         const { 'total-items': totalItems } = meta;

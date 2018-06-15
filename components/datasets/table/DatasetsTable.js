@@ -23,6 +23,7 @@ import PublishedTD from './td/PublishedTD';
 import StatusTD from './td/StatusTD';
 import RelatedContentTD from './td/RelatedContentTD';
 import OwnershipTD from './td/OwnershipTD';
+import OwnerTD from './td/OwnerTD';
 import UpdatedAtTD from './td/UpdatedAtTD';
 
 class DatasetsTable extends React.Component {
@@ -33,12 +34,13 @@ class DatasetsTable extends React.Component {
   }
 
   componentDidMount() {
-    const { getDatasetsFilters } = this.props;
+    const { getDatasetsFilters, user } = this.props;
     this.props.setFilters([]);
 
     this.props.getDatasets({
-      includes: 'widget,layer,metadata,vocabulary',
-      filters: getDatasetsFilters
+      includes: 'widget,layer,metadata,vocabulary,user',
+      filters: getDatasetsFilters,
+      token: user.token
     });
   }
 
@@ -59,7 +61,7 @@ class DatasetsTable extends React.Component {
   }
 
   render() {
-    const { routes, getDatasetsFilters, user } = this.props;
+    const { datasets, routes, getDatasetsFilters, user } = this.props;
 
     return (
       <div className="c-dataset-table">
@@ -81,7 +83,6 @@ class DatasetsTable extends React.Component {
           onSearch={this.onSearch}
         />
 
-
         {!this.props.error && (
           <CustomTable
             columns={[
@@ -89,7 +90,8 @@ class DatasetsTable extends React.Component {
               { label: 'Status', value: 'status', td: StatusTD },
               { label: 'Published', value: 'published', td: PublishedTD },
               { label: 'Provider', value: 'provider' },
-              { label: 'Ownership', value: 'userId', td: OwnershipTD, tdProps: { user } },
+              { label: 'Owner', value: 'user', td: OwnerTD },
+              // { label: 'Ownership', value: 'userId', td: OwnershipTD, tdProps: { user } },
               { label: 'Updated at', value: 'updatedAt', td: UpdatedAtTD },
               { label: 'Related content', value: 'status', td: RelatedContentTD, tdProps: { route: routes.detail } }
             ]}
@@ -105,10 +107,11 @@ class DatasetsTable extends React.Component {
               value: -1
             }}
             filters={false}
-            data={this.getDatasets()}
+            data={datasets}
             onRowDelete={() => this.props.getDatasets({
-              includes: 'widget,layer,metadata,vocabulary',
-              filters: getDatasetsFilters
+              includes: 'widget,layer,metadata,vocabulary,user',
+              filters: getDatasetsFilters,
+              token: user.token
             })}
             pageSize={20}
             pagination={{

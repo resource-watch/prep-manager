@@ -13,7 +13,8 @@ export default class DashboardsService {
     const qParams = {
       ...!!includes && { includes },
       ...filters,
-      ...fields
+      ...fields,
+      env: process.env.API_ENV
     };
     const params = Object.keys(qParams).map(k => `${k}=${qParams[k]}`).join('&');
 
@@ -40,7 +41,7 @@ export default class DashboardsService {
   fetchData({ id }) {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/dashboards/${id}`,
+        url: `${process.env.API_URL}/dashboards/${id}?env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'

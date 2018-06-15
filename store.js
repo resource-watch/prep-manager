@@ -1,5 +1,3 @@
-import initOpbeat from 'opbeat-react';
-import { createOpbeatMiddleware } from 'opbeat-react/redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
@@ -18,12 +16,8 @@ import * as insightBlockModule from 'components/dashboards/wysiwyg/insight-block
 import * as insightBlockEditionModule from 'components/dashboards/wysiwyg/insight-block-edition/insight-block-edition';
 import * as ShareModalModule from 'components/share-modal';
 
-if (process.env.NODE_ENV === 'production') {
-  initOpbeat({
-    orgId: '17ab8eb501d2418a81f3167c10407e90',
-    appId: '7170680c2a'
-  });
-}
+// Widget
+import * as widgetDetail from 'pages/app/widget-detail/widget-detail';
 
 // REDUCERS
 const reducer = combineReducers({
@@ -39,7 +33,8 @@ const reducer = combineReducers({
   toolBlockEdition: handleModule(toolBlockEditionModule),
   insightBlock: handleModule(insightBlockModule),
   insightBlockEdition: handleModule(insightBlockEditionModule),
-  shareModal: handleModule(ShareModalModule)
+  shareModal: handleModule(ShareModalModule),
+  widgetDetail: handleModule(widgetDetail)
 });
 const composeEnhancers = composeWithDevTools({});
 
@@ -49,6 +44,6 @@ export const initStore = (initialState = {}) => createStore(
   composeEnhancers(
     /* The router middleware MUST be before thunk otherwise the URL changes
     * inside a thunk function won't work properly */
-    applyMiddleware(thunk, createOpbeatMiddleware())
+    applyMiddleware(thunk)
   )
 );

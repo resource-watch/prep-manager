@@ -6,7 +6,9 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  webpack: (config) => {
+  webpack: (config, { dev }) => {
+    if (dev) config.devtool = 'cheap-eval-source-map';
+
     config.module.rules.push(
       {
         test: /\.(css|scss)/,
@@ -53,6 +55,7 @@ module.exports = {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
         'process.env.APPLICATIONS': JSON.stringify(process.env.APPLICATIONS),
         'process.env.API_URL': JSON.stringify(process.env.API_URL),
+        'process.env.API_ENV': JSON.stringify(process.env.API_ENV),
         'process.env.BASEMAP_TILE_URL': JSON.stringify(process.env.BASEMAP_TILE_URL),
         'process.env.CALLBACK_URL': JSON.stringify(process.env.CALLBACK_URL),
         'process.env.CONTROL_TOWER_URL': JSON.stringify(process.env.CONTROL_TOWER_URL),

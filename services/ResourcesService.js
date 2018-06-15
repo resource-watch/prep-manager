@@ -10,7 +10,7 @@ export default class ResourcesService {
   fetchAllData() {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/resources/?published=all`,
+        url: `${process.env.API_URL}/resources/?published=all&env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'
@@ -31,7 +31,7 @@ export default class ResourcesService {
   fetchData(id) {
     return new Promise((resolve, reject) => {
       get({
-        url: `${process.env.API_URL}/resources/${id}`,
+        url: `${process.env.API_URL}/resources/${id}?env=${process.env.API_ENV}`,
         headers: [{
           key: 'Content-Type',
           value: 'application/json'

@@ -12,6 +12,7 @@ export default class MainNav extends React.Component {
     super(props);
 
     this.state = {
+      aboutActive: false,
       myprepActive: false
     };
 
@@ -29,11 +30,30 @@ export default class MainNav extends React.Component {
     });
   }
 
+  handleHover(newState) {
+    this.setState(newState);
+  }
+
   render() {
+    const { aboutActive, myprepActive } = this.state;
+
     return (
       <nav className="c-nav -main">
         <ul>
-          <li><a href="/about">About</a></li>
+          <li
+            onMouseEnter={() => this.handleHover({ aboutActive: true })}
+            onMouseLeave={() => this.handleHover({ aboutActive: false })}
+          >
+            <a href="/about">About</a>
+            { aboutActive && <div className="submenu">
+              <ul className="submenu-list">
+                <li><a href="/partners">Partners</a></li>
+                <li><a href="/faqs">FAQs</a></li>
+                <li><a href="/how-to">How to</a></li>
+                <li><a href="/contact">Contact us</a></li>
+              </ul>
+            </div>}
+          </li>
           <li><a href="/explore">Explore</a></li>
           <li><a href="/dashboards">Dashboards</a></li>
           <li><a href="/stories">Stories</a></li>
@@ -41,7 +61,7 @@ export default class MainNav extends React.Component {
           <li>
             <HeaderUser
               user={this.props.user}
-              active={this.state.myprepActive}
+              active={myprepActive}
               onMouseEnter={() => this.toggleDropdown('myprepActive', true)}
               onMouseLeave={() => this.toggleDropdown('myprepActive', false)}
             />

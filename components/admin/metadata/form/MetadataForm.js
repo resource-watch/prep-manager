@@ -4,6 +4,9 @@ import { toastr } from 'react-redux-toastr';
 
 import { Autobind } from 'es-decorators';
 
+// Service
+import DatasetsService from 'services/DatasetsService';
+
 // Utils
 import { get, post } from 'utils/request';
 
@@ -18,10 +21,16 @@ import Step1 from 'components/admin/metadata/form/steps/Step1';
 class MetadataForm extends React.Component {
   constructor(props) {
     super(props);
+    this.service = new DatasetsService({
+      authorization: props.authorization
+    });
+
     const newState = Object.assign({}, STATE_DEFAULT, {
       datasetID: props.dataset,
       datasetName: '',
       metadata: [],
+      columns: [],
+      loadingColumns: true,
       form: Object.assign({}, STATE_DEFAULT.form, {
         application: props.application,
         authorization: props.authorization
@@ -36,28 +45,48 @@ class MetadataForm extends React.Component {
       // Start the loading
       this.setState({ loading: true });
 
-      get({
-        url: `${process.env.WRI_API_URL}/dataset/${this.state.datasetID}/?includes=metadata&application=prep&cache=${Date.now()}`,
-        headers: [{
-          key: 'Content-Type',
-          value: 'application/json'
-        }],
-        onSuccess: response => {
-          const metadata = response.data.attributes.metadata;
-
+      this.service.fetchData({
+        id: this.state.datasetID,
+        includes: 'metadata'
+      })
+        .then(({ name, metadata, type, provider, tableName }) => {
           this.setState({
-            datasetName: response.data.attributes.name,
-            form: (metadata && metadata.length) ? this.setFormFromParams(metadata[0].attributes) : this.state.form,
+            datasetName: name,
+            form: (metadata && metadata.length) ?
+              this.setFormFromParams(metadata[0].attributes) :
+              this.state.form,
             metadata,
             // Stop the loading
             loading: false
           });
-        },
-        onError: error => {
+
+          if (provider !== 'wms') {
+            this.service.fetchFields({
+              id: this.state.datasetID,
+              type,
+              provider,
+              tableName
+            })
+              .then(columns => {
+                this.setState({
+                  columns,
+                  loadingColumns: false
+                });
+              })
+              .catch(err => {
+                this.setState({ loadingColumns: false });
+              });
+          } else {
+            this.setState({ loadingColumns: false })
+          }
+
+          if (!this.props.adminUser) toastr.info('Only administrators are able to update metadata');
+
+        })
+        .catch((err) => {
           this.setState({ loading: false });
-          console.error(error);
-        }
-      });
+          toastr.error('Error', err);
+        });
     }
   }
 
@@ -155,6 +184,8 @@ class MetadataForm extends React.Component {
   }
 
   render() {
+    const {adminUser} = this.props;
+
     return (
       <div className="c-metadata-form">
         <form className="c-form" onSubmit={this.onSubmit} noValidate>
@@ -163,10 +194,14 @@ class MetadataForm extends React.Component {
             <Step1
               onChange={value => this.onChange(value)}
               form={this.state.form}
+              columns={this.state.columns}
+              loadingColumns={this.state.loadingColumns}
+              type={this.state.type}
+              adminUser={adminUser}
             />
           }
 
-          {!this.state.loading &&
+          {(!this.state.loading && adminUser) &&
             <Navigation
               step={this.state.step}
               stepLength={this.state.stepLength}

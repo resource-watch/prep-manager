@@ -32,10 +32,15 @@ routes.add('admin_myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'admin/M
 // INSIGHTS
 routes.add('admin_insights', '/admin/insights/:tab?', 'admin/Insights');
 routes.add('admin_insights_detail', '/admin/insights/:tab/:id/:subtab?', 'admin/InsightsDetail');
+// USERS
+routes.add('admin_users', '/admin/users', 'admin/Users');
 
 // ------ DASHBOARDS ------------
 routes.add('dashboards_detail', '/dashboards/:slug', 'app/DashboardsDetail');
 // routes.add('dashboards', '/dashboards', 'app/Dashboards');
+
+// ------ WIDGETS ------------
+routes.add('widget_detail', '/widget/:id', 'app/widget-detail');
 
 // ------ EMBED -------------
 routes.add('embed_widget', '/embed/widget/:id', 'app/embed/EmbedWidget');
@@ -45,6 +50,9 @@ routes.add('embed_map', '/embed/map/:id', 'app/embed/EmbedMap');
 routes.add('embed_dataset', '/embed/dataset/:id', 'app/embed/EmbedDataset');
 routes.add('embed_table', '/embed/table', 'app/embed/EmbedTable');
 routes.add('embed_dashboard', '/embed/dashboard/:slug', 'app/embed/EmbedDashboard');
+
+// ------ PDF EXPORT -------------
+routes.add('export_ember', '/export/embed/:id', 'app/export/ExportEmbed');
 
 
 module.exports = routes;

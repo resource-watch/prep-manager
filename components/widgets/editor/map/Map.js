@@ -10,10 +10,6 @@ import { connect } from 'react-redux';
 
 import { LABELS } from 'components/widgets/editor/map/constants';
 
-
-// Leaflet can't be imported on the server because it's not isomorphic
-const L = (typeof window !== 'undefined') ? require('leaflet') : null;
-
 const MAP_CONFIG = {
   zoom: 2,
   minZoom: 2,
@@ -195,7 +191,7 @@ class Map extends React.Component {
     if (enabled) {
       this.labelLayer = L.tileLayer(LABELS.value, LABELS.options || {})
         .addTo(this.map)
-        .setZIndex(this.props.layerGroups.length + 1);
+        .setZIndex(1001);
     }
   }
 
@@ -305,7 +301,7 @@ Map.propTypes = {
 
 const mapStateToProps = state => ({
   basemap: state.explore.basemap,
-  labels: state.explore.labels,
+  // labels: state.explore.labels,
   sidebar: state.explore.sidebar
 });
 

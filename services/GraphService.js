@@ -11,7 +11,12 @@ export default class GraphService {
    * Get all tags
    */
   getAllTags() {
-    return fetch(`${this.opts.apiURL}/graph/query/list-concepts?application=${process.env.APPLICATIONS}`)
+    return fetch(`${this.opts.apiURL}/graph/query/list-concepts?application=${process.env.APPLICATIONS}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();
@@ -22,7 +27,12 @@ export default class GraphService {
    * Get inferred tags
    */
   getInferredTags(tags) {
-    return fetch(`${this.opts.apiURL}/graph/query/concepts-inferred?concepts=${tags}&application=${process.env.APPLICATIONS}`)
+    return fetch(`${this.opts.apiURL}/graph/query/concepts-inferred?concepts=${tags}&application=${process.env.APPLICATIONS}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();
@@ -34,7 +44,12 @@ export default class GraphService {
   * Get dataset tags
   */
   getDatasetTags(datasetId) {
-    return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary?application=${process.env.APPLICATIONS}`)
+    return fetch(`${this.opts.apiURL}/dataset/${datasetId}/vocabulary?application=${process.env.APPLICATIONS}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Upgrade-Insecure-Requests': 1
+      }
+    })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();

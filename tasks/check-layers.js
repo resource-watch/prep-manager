@@ -20,7 +20,12 @@ const getFeatureGroupId = ({ layerConfig }) => {
     });
 };
 
-fetch(URL)
+fetch(URL, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Upgrade-Insecure-Requests': 1
+    }
+  })
   .then((response) => {
     if (response.status >= 400) throw new Error(response.statusText);
     return response.json();

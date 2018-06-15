@@ -29,6 +29,23 @@ class DatasetsListCard extends PureComponent {
     onDatasetRemoved: PropTypes.func.isRequired
   };
 
+  getDatasetName() {
+    const { dataset } = this.props;
+    const metadata = dataset.metadata[0];
+
+    if (metadata && metadata.attributes.name) {
+      return metadata.attributes.name;
+    }
+
+    return dataset.name;
+  }
+
+  canUserRemove = (user={}, dataset) => {
+    if (!user.role) return;
+    const userRole = user.role.toLowerCase();
+    return (userRole === 'admin') || (userRole === 'manager' && user.id === dataset.userId);
+  };
+
   handleDelete = () => {
     const { dataset } = this.props;
     this.props.onDatasetRemoved(dataset);
@@ -36,31 +53,38 @@ class DatasetsListCard extends PureComponent {
 
   render() {
     const { dataset, routes, user } = this.props;
-    const metadata = dataset.metadata[0];
     const isInACollection = belongsToACollection(user, dataset);
     const starIconName = classnames({
       'icon-star-full': isInACollection,
       'icon-star-empty': !isInACollection
     });
+    const isOwnerOrAdmin = (dataset.userId === user.id || user.role === 'ADMIN');
 
     return (
       <div className="c-card c-datasets-list-card">
         <div className="card-container">
           <header className="card-header">
-            <Link
-              route={routes.detail}
-              params={{ tab: 'datasets', id: dataset.id }}
-            >
-              <a>
-                <Title className="-default">
-                  {metadata && metadata.attributes.info ? metadata.attributes.info.name :
-                    dataset.name}
-                </Title>
-              </a>
-            </Link>
-            <Title className="-small">
-              {dataset.provider}
-            </Title>
+            {isOwnerOrAdmin &&
+              <Link
+                route={routes.detail}
+                params={{ tab: 'datasets', id: dataset.id }}
+              >
+                <a>
+                  <Title className="-default">
+                    {this.getDatasetName()}
+                  </Title>
+                </a>
+              </Link>
+            }
+
+            {!isOwnerOrAdmin &&
+              <Title className="-default">
+                {this.getDatasetName()}
+              </Title>
+            }
+
+            <div>{dataset.provider}</div>
+
             <Tooltip
               overlay={<CollectionsPanel
                 resource={dataset}
@@ -97,7 +121,7 @@ class DatasetsListCard extends PureComponent {
             }
           </div>
 
-          { (dataset.userId === user.id) &&
+          { this.canUserRemove(user, dataset) &&
             <div className="actions">
               <a
                 role="button"
