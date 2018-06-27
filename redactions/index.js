@@ -19,6 +19,7 @@ export { default as myprepdetail } from './myprepdetail';
 
 // Admin
 export { default as datasets } from './admin/datasets';
+export { default as coreDatasets } from './admin/coredatasets';
 export { default as layers } from './admin/layers';
 export { default as widgets } from './admin/widgets';
 export { default as dashboards } from './admin/dashboards';
