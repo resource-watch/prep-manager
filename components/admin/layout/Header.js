@@ -45,6 +45,12 @@ export default class Header extends React.Component {
         role: 'ADMIN'
       },
       {
+        name: 'Core datasets',
+        pathnames: ['/admin/CoreDatasets', '/admin/ResourcesDetail'],
+        component: <Link route="admin_core_datasets"><a>Core datasets</a></Link>,
+        role: 'ADMIN'
+      },
+      {
         name: 'Dashboards',
         pathnames: ['/admin/Dashboards', '/admin/DashboardsDetail'],
         component: <HeaderDropdownDashboards
