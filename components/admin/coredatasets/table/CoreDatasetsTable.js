@@ -80,7 +80,7 @@ class CoreDatasetsTable extends React.Component {
         {!this.props.error && (
           <CustomTable
             columns={[
-              { label: 'Title', value: 'title', td: TitleTD },
+              // { label: 'Title', value: 'title', td: TitleTD },
               { label: 'ISO', value: 'country_iso' },
               { label: 'Subcategory', value: 'subcategory' },
               { label: 'Nº of datasets', value: 'dataset_ids', td: NumberDatasetsTD },

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Services
-import ResourcesService from 'services/ResourcesService';
+import CoreDatasetsService from 'services/CoreDatasetsService';
 import { toastr } from 'react-redux-toastr';
 
 class DeleteAction extends React.Component {
@@ -12,7 +12,7 @@ class DeleteAction extends React.Component {
     this.handleOnClickDelete = this.handleOnClickDelete.bind(this);
 
     // SERVICES
-    this.service = new ResourcesService();
+    this.service = new CoreDatasetsService();
   }
 
   handleOnClickDelete(e) {

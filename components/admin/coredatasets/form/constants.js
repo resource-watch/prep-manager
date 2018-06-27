@@ -9,7 +9,7 @@ export const STATE_DEFAULT = {
     title: '',
     subcategory: 'Temperature',
     dataset_ids: [],
-    slugs: []
+    tags: []
   }
 };
 

@@ -8,8 +8,8 @@ import { FORM_ELEMENTS, CATEGORIES } from 'components/admin/coredatasets/form/co
 // Components
 import Field from 'components/form/Field';
 import Input from 'components/form/Input';
-import TextArea from 'components/form/TextArea';
-import FileImage from 'components/form/FileImage';
+// import TextArea from 'components/form/TextArea';
+// import FileImage from 'components/form/FileImage';
 import Select from 'components/form/SelectInput';
 import Checkbox from 'components/form/Checkbox';
 import Token from 'components/form/Token';
@@ -45,7 +45,7 @@ class Step1 extends React.Component {
     return (
       <fieldset className="c-field-container">
         {/* TITLE */}
-        <Field
+        {/*<Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.title = c; }}
           onChange={value => this.props.onChange({ title: value })}
           validations={['required']}
@@ -59,7 +59,7 @@ class Step1 extends React.Component {
           }}
         >
           {Input}
-        </Field>
+        </Field>*/}
 
         {/* COUNTRY */}
         <Field
@@ -72,7 +72,8 @@ class Step1 extends React.Component {
             label: 'Country ISO',
             type: 'text',
             required: true,
-            default: this.state.form.country_iso
+            default: this.state.form.country_iso,
+            value: this.state.form.country_iso
           }}
         >
           {Input}
@@ -101,16 +102,16 @@ class Step1 extends React.Component {
 
       {/* SLUGS */}
         <Field
-          ref={(c) => { if (c) FORM_ELEMENTS.elements.slugs = c; }}
-          onChange={value => this.props.onChange({ slugs: value })}
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
+          onChange={value => this.props.onChange({ tags: value })}
           className="-fluid"
           validations={['required']}
           properties={{
-            name: 'slugs',
+            name: 'tags',
             label: 'Tags',
             required: true,
-            default: this.state.form.slugs,
-            value: this.state.form.slugs
+            default: this.state.form.tags,
+            value: this.state.form.tags
           }}
         >
           {Token}
