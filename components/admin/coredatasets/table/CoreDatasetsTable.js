@@ -4,10 +4,10 @@ import { Autobind } from 'es-decorators';
 
 // Redux
 import { connect } from 'react-redux';
-import { getResources, setFilters } from 'redactions/admin/resources';
+import { getCoreDatasets, setFilters } from 'redactions/admin/coredatasets';
 
 // Selectors
-import getFilteredResources from 'selectors/admin/resources';
+import getFilteredCoreDatasets from 'selectors/admin/coredatasets';
 
 // Components
 import Spinner from 'components/ui/Spinner';
@@ -20,14 +20,14 @@ import DeleteAction from './actions/DeleteAction';
 
 // TDs
 import TitleTD from './td/TitleTD';
-import TypeTD from './td/TypeTD';
+import NumberDatasetsTD from './td/NumberDatasetsTD';
 import PublishedTD from './td/PublishedTD';
 
 
 class CoreDatasetsTable extends React.Component {
   componentDidMount() {
     this.props.setFilters([]);
-    this.props.getResources();
+    this.props.getCoreDatasets();
   }
 
   /**
@@ -45,15 +45,15 @@ class CoreDatasetsTable extends React.Component {
 
   /**
    * HELPERS
-   * - getResources
-   * - getFilteredResources
+   * - getCoreDatasets
+   * - getFilteredCoreDatasets
   */
-  getResources() {
-    return this.props.resources;
+  getCoreDatasets() {
+    return this.props.coreDatasets;
   }
 
-  getFilteredResources() {
-    return this.props.filteredResources;
+  getFilteredCoreDatasets() {
+    return this.props.filteredCoreDatasets;
   }
 
   render() {
@@ -71,7 +71,7 @@ class CoreDatasetsTable extends React.Component {
           }}
           link={{
             label: 'Add core dataset',
-            route: 'admin_resources_detail',
+            route: 'admin_core_datasets_detail',
             params: { tab: 'core-datasets', id: 'new' }
           }}
           onSearch={this.onSearch}
@@ -81,15 +81,16 @@ class CoreDatasetsTable extends React.Component {
           <CustomTable
             columns={[
               { label: 'Title', value: 'title', td: TitleTD },
-              { label: 'Type', value: 'resource_type', td: TypeTD },
+              { label: 'ISO', value: 'country_iso' },
+              { label: 'Subcategory', value: 'subcategory' },
+              { label: 'Nº of datasets', value: 'dataset_ids', td: NumberDatasetsTD },
               { label: 'Published', value: 'published', td: PublishedTD }
-
             ]}
             actions={{
               show: true,
               list: [
-                { name: 'Edit', route: 'admin_resources_detail', params: { tab: 'core-datasets', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
-                { name: 'Remove', route: 'admin_resources_detail', params: { tab: 'core-datasets', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
+                { name: 'Edit', route: 'admin_core_datasets_detail', params: { tab: 'core-datasets', subtab: 'edit', id: '{{id}}' }, show: true, component: EditAction },
+                { name: 'Remove', route: 'admin_core_datasets_detail', params: { tab: 'core-datasets', subtab: 'remove', id: '{{id}}' }, component: DeleteAction, componentProps: { authorization: this.props.authorization } }
               ]
             }}
             sort={{
@@ -97,7 +98,7 @@ class CoreDatasetsTable extends React.Component {
               value: 1
             }}
             filters={false}
-            data={this.getFilteredResources()}
+            data={this.getFilteredCoreDatasets()}
             pageSize={20}
             pagination={{
               enabled: true,
@@ -117,31 +118,31 @@ CoreDatasetsTable.defaultProps = {
   columns: [],
   actions: {},
   // Store
-  resources: [],
-  filteredResources: []
+  coreDatasets: [],
+  filteredCoreDatasets: []
 };
 
 CoreDatasetsTable.propTypes = {
   authorization: PropTypes.string,
   // Store
   loading: PropTypes.bool.isRequired,
-  resources: PropTypes.array.isRequired,
-  filteredResources: PropTypes.array.isRequired,
+  coreDatasets: PropTypes.array.isRequired,
+  filteredCoreDatasets: PropTypes.array.isRequired,
   error: PropTypes.string,
 
   // Actions
-  getResources: PropTypes.func.isRequired,
+  getCoreDatasets: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  loading: state.resources.resources.loading,
-  resources: state.resources.resources.list,
-  filteredResources: getFilteredResources(state),
-  error: state.resources.resources.error
+  loading: state.coreDatasets.loading,
+  coreDatasets: state.coreDatasets.list,
+  filteredCoreDatasets: getFilteredCoreDatasets(state),
+  error: state.coreDatasets.error
 });
 const mapDispatchToProps = dispatch => ({
-  getResources: () => dispatch(getResources()),
+  getCoreDatasets: () => dispatch(getCoreDatasets()),
   setFilters: filters => dispatch(setFilters(filters))
 });
 

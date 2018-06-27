@@ -15,7 +15,7 @@ function CoreDatasetsNew(props) {
     <div className="c-resources-new">
       <CoreDatasetsForm
         authorization={user.token}
-        onSubmit={() => Router.pushRoute('admin_resources', { tab: 'core-datasets' })}
+        onSubmit={() => Router.pushRoute('admin_core_datasets', { tab: 'core-datasets' })}
       />
     </div>
   );

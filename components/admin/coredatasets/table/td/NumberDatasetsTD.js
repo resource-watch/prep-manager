@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function TypeTD(props) {
+function NumberDatasetsTD(props) {
   const { value, index } = props;
 
   return (
     <td key={index}>
-      <span >{value}</span>
+      <span >{value.length}</span>
     </td>
   );
 }
 
-TypeTD.propTypes = {
-  value: PropTypes.string,
+NumberDatasetsTD.propTypes = {
+  value: PropTypes.array,
   index: PropTypes.string
 };
 
-export default TypeTD;
+export default NumberDatasetsTD;

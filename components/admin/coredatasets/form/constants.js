@@ -3,13 +3,13 @@ export const STATE_DEFAULT = {
   stepLength: 1,
   submitting: false,
   loading: false,
-  partners: [],
+  coreDatasets: [],
   form: {
     // STEP 1
     title: '',
-    description: '',
-    url: '',
-    photo: ''
+    subcategory: 'Temperature',
+    dataset_ids: [],
+    slugs: []
   }
 };
 
@@ -33,20 +33,33 @@ export const FORM_ELEMENTS = {
   }
 };
 
-export const RESOURCES_TYPES = [
-  {
-    label: 'Understanding Climate Change Impacts',
-    value: 'Understanding Climate Change Impacts'
-  }, {
-    label: 'Climate Assessment & Preparedness Tools',
-    value: 'Climate Assessment & Preparedness Tools'
-  },
-  {
-    label: 'Climate Data Portals',
-    value: 'Climate Data Portals'
-  },
-  {
-    label: 'Multi-resource Platforms',
-    value: 'Multi-resource Platforms'
-  }
-];
+export const CATEGORIES = [{
+  name: 'Climate',
+  subcategories: [
+    { label: 'Temperature', value: 'Temperature' },
+    { label: 'Precipitations', value: 'Precipitations' },
+    { label: 'Extreme events', value: 'Extreme events'},
+    { label: 'Coastal risk', value: 'Coastal risk'},
+    { label: 'Water risk', value: 'Water risk'}
+  ]
+}, {
+  name: 'Exposure',
+  subcategories: [
+    { label: 'People', value: 'People' },
+    { label: 'Agriculture', value: 'Agriculture' },
+    { label: 'Infrastructure', value: 'Infrastructure'}
+  ]
+}, {
+  name: 'Vulnerability',
+  subcategories: [
+    { label: 'Socioeconomic', value: 'Socioeconomic' },
+    { label: 'Indices of vulnerability', value: 'Indices of vulnerability' }
+  ]
+}, {
+  name: 'Physical Features',
+  subcategories: [
+    { label: 'Administrative Boundaries', value: 'Administrative Boundaries' },
+    { label: 'Land', value: 'Land' },
+    { label: 'Water', value: 'Water'}
+  ]
+}];

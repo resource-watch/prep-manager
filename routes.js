@@ -28,6 +28,7 @@ routes.add('admin_resources', '/admin/resources/:tab?', 'admin/Resources');
 routes.add('admin_resources_detail', '/admin/resources/:tab/:id/:subtab?', 'admin/ResourcesDetail');
 // CORE DATASETS
 routes.add('admin_core_datasets', '/admin/core-datasets/:tab?', 'admin/CoreDatasets');
+routes.add('admin_core_datasets_detail', '/admin/core-datasets/:tab/:id/:subtab?', 'admin/CoreDatasetsDetail');
 // MY PREP
 routes.add('admin_myprep', '/myprep/:tab?/:subtab?', 'admin/MyPREP');
 routes.add('admin_myprep_detail', '/myprep-detail/:tab?/:id?/:subtab?', 'admin/MyPREPDetail');

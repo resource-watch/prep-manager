@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Services
-import ResourcesService from 'services/ResourcesService';
+import CoreDatasetsService from 'services/CoreDatasetsService';
 import WidgetsService from 'services/WidgetsService';
 import { toastr } from 'react-redux-toastr';
 
 // Constants
-import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/resources/form/constants';
+import { STATE_DEFAULT, FORM_ELEMENTS } from 'components/admin/coredatasets/form/constants';
 
 // Components
 import Navigation from 'components/form/Navigation';
-import Step1 from 'components/admin/resources/form/steps/Step1';
+import Step1 from 'components/admin/coredatasets/form/steps/Step1';
 import Spinner from 'components/ui/Spinner';
 
-class ResourcesForm extends React.Component {
+class CoreDatasetsForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,7 +29,7 @@ class ResourcesForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onStepChange = this.onStepChange.bind(this);
 
-    this.service = new ResourcesService({ authorization: props.authorization });
+    this.service = new CoreDatasetsService({ authorization: props.authorization });
   }
 
   componentDidMount() {
@@ -88,7 +88,7 @@ class ResourcesForm extends React.Component {
             body: this.state.form
           })
             .then((data) => {
-              toastr.success('Success', `The resource "${data.id}" - "${data.title}" has been uploaded correctly`);
+              toastr.success('Success', `The core dataset "${data.id}" - "${data.title}" has been uploaded correctly`);
 
               if (this.props.onSubmit) this.props.onSubmit();
             })
@@ -167,10 +167,10 @@ class ResourcesForm extends React.Component {
   }
 }
 
-ResourcesForm.propTypes = {
+CoreDatasetsForm.propTypes = {
   authorization: PropTypes.string,
   id: PropTypes.string,
   onSubmit: PropTypes.func
 };
 
-export default ResourcesForm;
+export default CoreDatasetsForm;
