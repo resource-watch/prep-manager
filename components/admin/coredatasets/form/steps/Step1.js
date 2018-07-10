@@ -135,7 +135,7 @@ class Step1 extends React.Component {
         </Field>
 
         {/* PUBLISHED */}
-        {/*<Field
+        <Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.published = c; }}
           onChange={value => this.props.onChange({ published: value.checked })}
           properties={{
@@ -148,7 +148,7 @@ class Step1 extends React.Component {
           }}
         >
           {Checkbox}
-        </Field>*/}
+        </Field>
       </fieldset>
     );
   }
