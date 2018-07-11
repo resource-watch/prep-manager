@@ -14,6 +14,7 @@ import Input from 'components/form/Input';
 import Select from 'components/form/SelectInput';
 import TextArea from 'components/form/TextArea';
 import Checkbox from 'components/form/Checkbox';
+import Token from 'components/form/Token';
 
 // Wysiwyg
 import Wysiwyg from 'components/form/VizzWysiwyg';
@@ -139,6 +140,21 @@ class Step1 extends React.Component {
             }}
           >
             {Checkbox}
+          </Field>
+          {/* TAGS */}
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
+            onChange={value => this.props.onChange({ tags: value })}
+            className="-fluid"
+            properties={{
+              name: 'tags',
+              label: 'Tags',
+              required: false,
+              default: this.state.form.tags,
+              value: this.state.form.tags
+            }}
+          >
+            {Token}
           </Field>
         </fieldset>
 
