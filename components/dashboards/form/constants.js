@@ -9,11 +9,12 @@ export const STATE_DEFAULT = {
     title: '',
     summary: '',
     content: '',
-    // Images
     image: '',
     user_id: null,
-    // States
-    published: false
+    published: false,
+    production: false,
+    preproduction: false,
+    tags: []
   }
 };
 
