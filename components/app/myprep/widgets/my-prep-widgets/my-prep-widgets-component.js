@@ -69,7 +69,9 @@ class MyPREPWidgets extends PureComponent {
   handlePageChange = page => this.props.setPaginationPage(page);
 
   // TO-DO
-  handleWidgetRemoved = () => {}
+  handleWidgetRemoved = () => {
+    this.props.getWidgetsByTab(this.props.subtab);
+  }
 
   // TO-DO
   handleWidgetClick = () => {}
