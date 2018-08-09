@@ -39,8 +39,6 @@ class Step1 extends React.Component {
       'small-5': !isRaster
     });
 
-    console.log(form);
-
     return (
       <div>
         <fieldset className="c-field-container">
