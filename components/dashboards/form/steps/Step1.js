@@ -6,13 +6,15 @@ import { toastr } from 'react-redux-toastr';
 import { connect } from 'react-redux';
 
 // Constants
-import { FORM_ELEMENTS } from 'components/dashboards/form/constants';
+import { FORM_ELEMENTS, TEMPLATES } from 'components/dashboards/form/constants';
 
 // Components
 import Field from 'components/form/Field';
 import Input from 'components/form/Input';
+import Select from 'components/form/SelectInput';
 import TextArea from 'components/form/TextArea';
 import Checkbox from 'components/form/Checkbox';
+import Token from 'components/form/Token';
 
 // Wysiwyg
 import Wysiwyg from 'components/form/VizzWysiwyg';
@@ -30,12 +32,22 @@ class Step1 extends React.Component {
 
     this.state = {
       id: props.id,
-      form: props.form
+      form: props.form,
+      template: null
     };
+
+    this.onChangeTemplate = this.onChangeTemplate.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ form: nextProps.form });
+  }
+
+  onChangeTemplate(value) {
+    const { child: wysiwyg } = FORM_ELEMENTS.elements.content;
+    const template = TEMPLATES.find(t => t.value === value);
+
+    wysiwyg.setValue(JSON.stringify(template.content));
   }
 
   render() {
@@ -112,6 +124,7 @@ class Step1 extends React.Component {
           >
             {Checkbox}
           </Field>
+
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
             onChange={value => this.props.onChange({
@@ -128,9 +141,37 @@ class Step1 extends React.Component {
           >
             {Checkbox}
           </Field>
+          {/* TAGS */}
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
+            onChange={value => this.props.onChange({ tags: value })}
+            className="-fluid"
+            properties={{
+              name: 'tags',
+              label: 'Tags',
+              required: false,
+              default: this.state.form.tags,
+              value: this.state.form.tags
+            }}
+          >
+            {Token}
+          </Field>
         </fieldset>
 
         <fieldset className="c-field-container">
+          {/* TEMPLATE */}
+          <Field
+            onChange={this.onChangeTemplate}
+            className="-fluid"
+            options={TEMPLATES}
+            properties={{
+              name: 'templates',
+              label: 'Templates',
+              instanceId: 'selectTemplates'
+            }}
+          >
+            {Select}
+          </Field>
           {/* CONTENT */}
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.content = c; }}
