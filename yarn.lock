@@ -8035,15 +8035,14 @@ react-dom@15.6.2:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react-dropdown-tree-select@0.0.1-beta.11:
-  version "0.0.1-beta.11"
-  resolved "https://registry.yarnpkg.com/react-dropdown-tree-select/-/react-dropdown-tree-select-0.0.1-beta.11.tgz#bbcc463fc946fba4c508d177d19b08a338dabfa1"
+react-dropdown-tree-select@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-dropdown-tree-select/-/react-dropdown-tree-select-1.0.4.tgz#5b27ecd5e35d027fb81f850d84c7f15e2ddaf241"
   dependencies:
     classnames "^2.2.5"
     lodash "^4.17.4"
     prop-types "^15.5.8"
-    react "^15.5.4"
-    react-simple-dropdown "^2.0.0"
+    react-simple-dropdown "^3.2.0"
 
 react-dropzone@3.13.3:
   version "3.13.3"
@@ -8254,11 +8253,12 @@ react-select@^1.0.0-rc.10:
     prop-types "^15.5.8"
     react-input-autosize "^2.1.2"
 
-react-simple-dropdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-simple-dropdown/-/react-simple-dropdown-2.0.0.tgz#685215e77d69133fe490b06b5cb4c16a7eae3968"
+react-simple-dropdown@^3.2.0:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/react-simple-dropdown/-/react-simple-dropdown-3.2.3.tgz#c9737bcb7a54c7de267a1afeeec04de588a3fa7b"
   dependencies:
     classnames "^2.1.2"
+    prop-types "^15.5.8"
 
 react-slick@^0.14.11:
   version "0.14.11"
@@ -8360,7 +8360,7 @@ react@15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react@15.6.2, react@^15.4.1, react@^15.5.4:
+react@15.6.2, react@^15.4.1:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
   dependencies:
