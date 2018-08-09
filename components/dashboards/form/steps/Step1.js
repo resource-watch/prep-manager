@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 
 // Constants
 import { FORM_ELEMENTS, TEMPLATES } from 'components/dashboards/form/constants';
+import TOPICS from 'static/data/TopicsTreeLite.json';
+import GEOGRAPHIES from 'static/data/GeographiesTreeLite.json';
 
 // Components
 import Field from 'components/form/Field';
@@ -14,7 +16,10 @@ import Input from 'components/form/Input';
 import Select from 'components/form/SelectInput';
 import TextArea from 'components/form/TextArea';
 import Checkbox from 'components/form/Checkbox';
-import Token from 'components/form/Token';
+import TreeSelector from 'components/form/tree-selector';
+
+// Helpers
+import { setInitialTreeState } from 'components/form/tree-selector/tree-selector-helper';
 
 // Wysiwyg
 import Wysiwyg from 'components/form/VizzWysiwyg';
@@ -141,20 +146,37 @@ class Step1 extends React.Component {
           >
             {Checkbox}
           </Field>
-          {/* TAGS */}
+          {/* TOPICS */}
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
             onChange={value => this.props.onChange({ tags: value })}
+            data={this.props.topics}
             className="-fluid"
             properties={{
               name: 'tags',
-              label: 'Tags',
+              label: 'Topics',
               required: false,
               default: this.state.form.tags,
               value: this.state.form.tags
             }}
           >
-            {Token}
+            {TreeSelector}
+          </Field>
+          {/* GEOGRAPHIES */}
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
+            onChange={value => this.props.onChange({ locations: value })}
+            data={this.props.geographies}
+            className="-fluid"
+            properties={{
+              name: 'locations',
+              label: 'Geographies',
+              required: false,
+              default: this.state.form.locations,
+              value: this.state.form.locations
+            }}
+          >
+            {TreeSelector}
           </Field>
         </fieldset>
 
@@ -242,11 +264,15 @@ Step1.propTypes = {
   form: PropTypes.object,
   basic: PropTypes.bool,
   user: PropTypes.object,
+  topics: PropTypes.array,
+  geographies: PropTypes.array,
   onChange: PropTypes.func
 };
 
-export default connect(
-  state => ({
-    user: state.user
-  })
-)(Step1);
+const mapStateToProps = (state, ownProps) => ({
+  user: state.user,
+  topics: setInitialTreeState(TOPICS, (ownProps.form && ownProps.form.tags) || []),
+  geographies: setInitialTreeState(GEOGRAPHIES, (ownProps.form &&ownProps.form.locations) || [])
+});
+
+export default connect(mapStateToProps)(Step1);
