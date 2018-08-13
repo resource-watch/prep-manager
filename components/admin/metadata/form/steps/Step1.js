@@ -321,7 +321,7 @@ class Step1 extends React.Component {
             Links
           </Title>
 
-          <Field
+          {/*<Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.dataDownload = c; }}
             onChange={value => this.changeMetadata({ info: { dataDownload: value } })}
             validations={['url']}
@@ -335,17 +335,17 @@ class Step1 extends React.Component {
             }}
           >
             {Input}
-          </Field>
+          </Field>*/}
 
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.data_download_original_link = c; }}
-            onChange={value => this.changeMetadata({ info: { data_download_original_link: value } })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.learn_more_link = c; }}
+            onChange={value => this.changeMetadata({ info: { learn_more_link: value } })}
             validations={['url']}
             properties={{
-              name: 'data_download_original_link',
+              name: 'learn_more_link',
               label: 'Data Download from Original Source Link',
               type: 'text',
-              default: form.info.data_download_original_link,
+              default: form.info.learn_more_link,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
