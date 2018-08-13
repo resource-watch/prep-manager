@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { VegaChart } from 'widget-editor'
+import { VegaChart, getVegaTheme } from 'widget-editor'
 
 // Components
 import Spinner from 'components/ui/Spinner';
-
-// Helpers
-// import ChartTheme from 'utils/widgets/theme';
-import { getVegaTheme } from 'widget-editor';
 
 class DatasetWidgetChart extends React.Component {
   constructor(props) {
@@ -16,6 +12,7 @@ class DatasetWidgetChart extends React.Component {
 
     this.state = {
       widget: props.widget,
+      theme: getVegaTheme(props.mode === 'thumbnail'),
       loading: false
     };
 
@@ -25,7 +22,8 @@ class DatasetWidgetChart extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      widget: nextProps.widget
+      widget: nextProps.widget,
+      theme: getVegaTheme(nextProps.mode === 'thumbnail'),
     });
   }
 
@@ -46,9 +44,8 @@ class DatasetWidgetChart extends React.Component {
   }
 
   render() {
-    const { widgetConfig } = this.state.widget;
+    const { widgetConfig, theme } = this.state.widget;
     const { mode } = this.props;
-    const themeObj = getVegaTheme(mode === 'thumbnail');
     const classname = classnames({
       'c-widget-chart': true,
       '-thumbnail': (mode === 'thumbnail')
@@ -62,7 +59,7 @@ class DatasetWidgetChart extends React.Component {
         />
         <VegaChart
           data={widgetConfig}
-          theme={themeObj}
+          theme={theme}
           showLegend={mode !== 'thumbnail'}
           reloadOnResize
           toggleLoading={this.triggerToggleLoading}
