@@ -52,7 +52,8 @@ class EmbedWidget extends Page {
     super(props);
     this.state = {
       isLoading: props.isLoading,
-      modalOpened: false
+      modalOpened: false,
+      theme: ChartTheme()
     };
   }
 
@@ -65,73 +66,73 @@ class EmbedWidget extends Page {
     const { widget, bandDescription, bandStats } = this.props;
     const { description, metadata } = widget.attributes;
     const widgetLinks = ((metadata || []).length &&
-      metadata[0].attributes.info &&
-      metadata[0].attributes.info.widgetLinks) || [];
+    metadata[0].attributes.info &&
+    metadata[0].attributes.info.widgetLinks) || [];
     const noAdditionalInfo = !description && !bandDescription &&
-      isEmpty(bandStats) && !widgetLinks.length;
+    isEmpty(bandStats) && !widgetLinks.length;
     return (
       <div className="widget-modal">
-        { noAdditionalInfo &&
-          <p>No additional information is available</p>
-        }
+      { noAdditionalInfo &&
+        <p>No additional information is available</p>
+      }
 
-        { widgetLinks.length > 0 &&
-          <div className="widget-links-container">
-            <h4>Links</h4>
-            <ul>
-              { widgetLinks.map(link => (
-                <li key={link.link}>
-                  <a
-                    href={link.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        }
+      { widgetLinks.length > 0 &&
+        <div className="widget-links-container">
+        <h4>Links</h4>
+        <ul>
+        { widgetLinks.map(link => (
+          <li key={link.link}>
+          <a
+          href={link.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          >
+          {link.name}
+          </a>
+          </li>
+        ))}
+        </ul>
+        </div>
+      }
 
-        { description && (
-          <div>
-            <h4>Description</h4>
-            <p>{description}</p>
-          </div>
-        ) }
+      { description && (
+        <div>
+        <h4>Description</h4>
+        <p>{description}</p>
+        </div>
+      ) }
 
-        { bandDescription && (
-          <div>
-            <h4>Band description</h4>
-            <p>{bandDescription}</p>
-          </div>
-        ) }
+      { bandDescription && (
+        <div>
+        <h4>Band description</h4>
+        <p>{bandDescription}</p>
+        </div>
+      ) }
 
-        { !isEmpty(bandStats) && (
-          <div>
-            <h4>Statistical information</h4>
-            <div className="c-table">
-              <table>
-                <thead>
-                  <tr>
-                    { Object.keys(bandStats).map(name => <th key={name}>{name}</th>) }
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    { Object.keys(bandStats).map((name) => {
-                      const number = d3.format('.4s')(bandStats[name]);
-                      return (
-                        <td key={name}>{number}</td>
-                      );
-                    }) }
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ) }
+      { !isEmpty(bandStats) && (
+        <div>
+        <h4>Statistical information</h4>
+        <div className="c-table">
+        <table>
+        <thead>
+        <tr>
+        { Object.keys(bandStats).map(name => <th key={name}>{name}</th>) }
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        { Object.keys(bandStats).map((name) => {
+          const number = d3.format('.4s')(bandStats[name]);
+          return (
+            <td key={name}>{number}</td>
+          );
+        }) }
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        </div>
+      ) }
       </div>
     );
   }
@@ -141,18 +142,18 @@ class EmbedWidget extends Page {
     const { isLoading, modalOpened } = this.state;
     const { metadata } = widget;
     const widgetLinks = ((metadata || []).length &&
-      metadata[0].attributes.info &&
-      metadata[0].attributes.info.widgetLinks) || [];
+    metadata[0].attributes.info &&
+    metadata[0].attributes.info.widgetLinks) || [];
 
     if (loading) {
       return (
         <EmbedLayout
-          title="Loading widget..."
-          description=""
+        title="Loading widget..."
+        description=""
         >
-          <div className="c-embed-widget">
-            <Spinner isLoading className="-light" />
-          </div>
+        <div className="c-embed-widget">
+        <Spinner isLoading className="-light" />
+        </div>
         </EmbedLayout>
       );
     }
@@ -160,48 +161,48 @@ class EmbedWidget extends Page {
     if (error) {
       return (
         <EmbedLayout
-          title="Partnership for Resilience and Preparedness"
-          description=""
+        title="Partnership for Resilience and Preparedness"
+        description=""
         >
-          <div className="c-embed-widget">
-            <div className="widget-title">
-              <h4>–</h4>
-            </div>
+        <div className="c-embed-widget">
+        <div className="widget-title">
+        <h4>–</h4>
+        </div>
 
-            <div className="widget-content">
-              <p>{'Sorry, the widget couldn\'t be loaded'}</p>
-            </div>
+        <div className="widget-content">
+        <p>{'Sorry, the widget couldn\'t be loaded'}</p>
+        </div>
 
-            { this.isLoadedExternally() && (
-              <div className="widget-footer">
-                <a href="/" target="_blank" rel="noopener noreferrer">
-                  <img
-                    className="prep-logo"
-                    src={'/static/images/logo-blue@2x.png'}
-                    alt="Partnership for Resilience and Preparedness"
-                  />
-                </a>
-                <div>
-                  Powered by
-                  <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
-                    <img
-                      className="embed-logo"
-                      src={'/static/images/logo-embed.png'}
-                      alt="Resource Watch"
-                    />
-                  </a>
-                </div>
-              </div>
-            ) }
+        { this.isLoadedExternally() && (
+          <div className="widget-footer">
+          <a href="/" target="_blank" rel="noopener noreferrer">
+          <img
+          className="prep-logo"
+          src={'/static/images/logo-blue@2x.png'}
+          alt="Partnership for Resilience and Preparedness"
+          />
+          </a>
+          <div>
+          Powered by
+          <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+          <img
+          className="embed-logo"
+          src={'/static/images/logo-embed.png'}
+          alt="Resource Watch"
+          />
+          </a>
           </div>
+          </div>
+        ) }
+        </div>
         </EmbedLayout>
       );
     }
 
     return (
       <EmbedLayout
-        title={`${widget.attributes.name}`}
-        description={`${widget.attributes.description || ''}`}
+      title={`${widget.attributes.name}`}
+      description={`${widget.attributes.description || ''}`}
       >
         <div className="c-embed-widget">
           <Spinner isLoading={isLoading} className="-light" />
@@ -216,8 +217,8 @@ class EmbedWidget extends Page {
             }
             <div className="buttons">
               <button
-                aria-label={`${modalOpened ? 'Close' : 'Open'} information modal`}
-                onClick={() => this.setState({ modalOpened: !modalOpened })}
+              aria-label={`${modalOpened ? 'Close' : 'Open'} information modal`}
+              onClick={() => this.setState({ modalOpened: !modalOpened })}
               >
                 <Icon name={`icon-${modalOpened ? 'cross' : 'info'}`} className="c-icon -small" />
               </button>
@@ -226,7 +227,7 @@ class EmbedWidget extends Page {
           <div className="widget-content">
             <VegaChart
               data={widget.attributes.widgetConfig}
-              theme={ChartTheme()}
+              theme={this.state.theme}
               toggleLoading={l => this.setState({ isLoading: l })}
               reloadOnResize
             />
