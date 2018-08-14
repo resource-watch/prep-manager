@@ -14,6 +14,7 @@ class Wysiwyg extends FormElement {
     }
 
     this.state = {
+      id: Date.now(),
       value: this.props.properties.default,
       valid: null,
       error: []
@@ -45,10 +46,18 @@ class Wysiwyg extends FormElement {
     }
   }
 
+  setValue(value) {
+    this.setState({
+      id: Date.now(),
+      value
+    });
+  }
+
   render() {
     return (
       <div className="c-wysiwyg">
         <Editor
+          id={this.state.id}
           items={this.getValue()}
           blocks={this.props.properties.blocks}
           onChange={this.triggerChange}

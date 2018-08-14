@@ -7,6 +7,7 @@
   .cw-wysiwyg-list-item {
     .list-item-container {
       display: block;
+      page-break-inside: avoid;
     }
   }
 
@@ -29,6 +30,7 @@
       font-size: 2.3125rem;
       text-align: center;
       position: relative;
+      page-break-before: always;
 
       &:after {
         position: absolute;
