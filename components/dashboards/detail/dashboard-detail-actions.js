@@ -11,7 +11,7 @@ export const fetchDashboard = createThunkAction('DASHBOARD_PREVIEW_FETCH_DATA', 
   dispatch(setLoading(true));
   dispatch(setError(null));
 
-  return fetch(new Request(`${process.env.API_URL}/dashboards/${payload.id}?env=${API_ENV}`))
+  return fetch(new Request(`${process.env.API_URL}/dashboards/${payload.id}?env=${process.env.API_ENV}`))
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
