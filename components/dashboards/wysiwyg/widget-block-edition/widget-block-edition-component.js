@@ -59,8 +59,6 @@ export default function WidgetBlockEdition({ data, onChangeTab, onSelectWidget, 
                   showFavourite={false}
                 />
 
-                <Spinner isLoading={data.loading} className="-relative -small -light" />
-
                 <Paginator
                   options={{
                     size: data.total,
