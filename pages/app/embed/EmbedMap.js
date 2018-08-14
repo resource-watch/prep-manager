@@ -210,7 +210,8 @@ class EmbedMap extends Page {
               setLayerGroupsOrder={() => {}}
               setLayerGroupActiveLayer={() => {}}
               interactionDisabled
-              expanded={false}
+              expanded // We want the legend expanded by default
+                       // for when the embed is used to generate a PDF
             />
 
             { modalOpened && this.getModal() }
