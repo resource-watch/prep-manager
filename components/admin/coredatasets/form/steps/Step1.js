@@ -101,7 +101,7 @@ class Step1 extends React.Component {
         </Field>
 
       {/* SLUGS */}
-        <Field
+        {/*<Field
           ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
           onChange={value => this.props.onChange({ tags: value })}
           className="-fluid"
@@ -115,7 +115,7 @@ class Step1 extends React.Component {
           }}
         >
           {Token}
-        </Field>
+        </Field>*/}
 
         {/* DATASET IDS */}
         <Field
@@ -133,6 +133,42 @@ class Step1 extends React.Component {
         >
           {Token}
         </Field>
+
+        {/* PRE-PRODUCTION */}
+        {/*<Field
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.preproduction = c; }}
+          onChange={value => this.props.onChange({
+            preproduction: value.checked
+          })}
+          properties={{
+            name: 'preproduction',
+            label: 'Do you want to set this dashboard as pre-production?',
+            value: 'preproduction',
+            title: 'Pre-production',
+            defaultChecked: true,
+            checked: this.props.form.preproduction
+          }}
+        >
+          {Checkbox}
+        </Field>*/}
+
+        {/* PRODUCTION */}
+        {/*<Field
+          ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
+          onChange={value => this.props.onChange({
+            production: value.checked
+          })}
+          properties={{
+            name: 'production',
+            label: 'Do you want to set this dashboard as production?',
+            value: 'production',
+            title: 'Production',
+            defaultChecked: this.props.form.production,
+            checked: this.props.form.production
+          }}
+        >
+          {Checkbox}
+        </Field>*/}
 
         {/* PUBLISHED */}
         <Field
