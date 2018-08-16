@@ -229,7 +229,9 @@ class Step1 extends React.Component {
               name: 'authorImg',
               label: 'Author\'s logo',
               placeholder: 'Browse file',
-              default: this.state.form.author && this.state.form.author.logo
+              default: (this.state.form.author && this.state.form.author.logo && this.state.form.author.logo !== '/logos/original/missing.png')
+                ? this.state.form.author.logo
+                : null
             }}
           >
             {FileImage}
