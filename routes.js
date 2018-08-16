@@ -55,7 +55,7 @@ routes.add('embed_table', '/embed/table', 'app/embed/EmbedTable');
 routes.add('embed_dashboard', '/embed/dashboard/:slug', 'app/embed/EmbedDashboard');
 
 // ------ PDF EXPORT -------------
-routes.add('export_ember', '/export/embed/:id', 'app/export/ExportEmbed');
+routes.add('export_embed', '/export/embed/:id', 'app/embed/EmbedEmbed');
 
 
 module.exports = routes;

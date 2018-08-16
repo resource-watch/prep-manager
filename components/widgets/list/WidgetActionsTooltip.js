@@ -44,23 +44,23 @@ class WidgetActionsTooltip extends React.Component {
         <ul>
           { this.props.isWidgetOwner &&
             <li>
-              <button onClick={() => this.handleClick('edit_widget')}>
+              <button type="button" onClick={() => this.handleClick('edit_widget')}>
                 Edit widget
               </button>
             </li>
           }
           <li>
-            <button onClick={() => this.handleClick('share_embed')}>
+            <button type="button" onClick={() => this.handleClick('share_embed')}>
               Share/Embed
             </button>
           </li>
           <li>
-            <button onClick={() => this.handleClick('go_to_dataset')}>
+            <button type="button" onClick={() => this.handleClick('go_to_dataset')}>
               Go to dataset
             </button>
           </li>
           <li>
-            <button onClick={() => this.handleClick('download_pdf')}>
+            <button type="button" onClick={() => this.handleClick('download_pdf')}>
               Download as PDF
             </button>
           </li>
