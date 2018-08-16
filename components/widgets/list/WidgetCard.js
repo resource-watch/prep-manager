@@ -356,7 +356,7 @@ class WidgetCard extends PureComponent {
   }
 
   handleGoToDataset() {
-    Router.pushRoute('explore_detail', { id: this.props.widget.dataset });
+    window.location.href = `/dataset/${this.props.widget.dataset}`;
   }
 
   handleDownloadPDF() {
