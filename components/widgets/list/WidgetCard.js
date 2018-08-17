@@ -370,7 +370,7 @@ class WidgetCard extends PureComponent {
 
     const link = document.createElement('a');
     link.setAttribute('download', '');
-    link.href = `${process.env.CONTROL_TOWER_URL}/v1/webshot/pdf?filename=${filename}&width=790&height=580&waitFor=8000&url=${origin}/${path}/${type}/${id}`;
+    link.href = `${process.env.CONTROL_TOWER_URL}/v1/webshot/pdf?filename=${filename}&width=790&height=580&backgrounds=true&waitFor=8000&url=${origin}/${path}/${type}/${id}`;
 
     // link.click() doesn't work on Firefox for some reasons
     // so we have to create an event manually
