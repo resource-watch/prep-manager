@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icons as WEIcons } from 'widget-editor';
 
 // Redux
 import { connect } from 'react-redux';
@@ -48,6 +49,7 @@ class EmbedLayout extends React.Component {
         />
 
         <Icons />
+        <WEIcons />
 
         {this.props.children}
 
