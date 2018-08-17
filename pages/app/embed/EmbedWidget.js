@@ -164,37 +164,37 @@ class EmbedWidget extends Page {
         title="Partnership for Resilience and Preparedness"
         description=""
         >
-        <div className="c-embed-widget">
-        <div className="widget-title">
-        <h4>–</h4>
-        </div>
+          <div className="c-embed-widget">
+            <div className="widget-title">
+              <h4>–</h4>
+            </div>
 
-        <div className="widget-content">
-        <p>{'Sorry, the widget couldn\'t be loaded'}</p>
-        </div>
+            <div className="widget-content">
+              <p>{'Sorry, the widget couldn\'t be loaded'}</p>
+            </div>
 
-        { this.isLoadedExternally() && (
-          <div className="widget-footer">
-          <a href="/" target="_blank" rel="noopener noreferrer">
-          <img
-          className="prep-logo"
-          src={'/static/images/logo-blue@2x.png'}
-          alt="Partnership for Resilience and Preparedness"
-          />
-          </a>
-          <div>
-          Powered by
-          <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
-          <img
-          className="embed-logo"
-          src={'/static/images/logo-embed.png'}
-          alt="Resource Watch"
-          />
-          </a>
+            { this.isLoadedExternally() && (
+              <div className="widget-footer">
+                <a href="/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="prep-logo"
+                    src={'/static/images/logo-blue@2x.png'}
+                    alt="Partnership for Resilience and Preparedness"
+                  />
+                </a>
+                <div>
+                  Powered by
+                  <a href="http://www.resourcewatch.org/" target="_blank" rel="noopener noreferrer">
+                    <img
+                      className="embed-logo"
+                      src={'/static/images/logo-embed.png'}
+                      alt="Resource Watch"
+                    />
+                    </a>
+                </div>
+              </div>
+            ) }
           </div>
-          </div>
-        ) }
-        </div>
         </EmbedLayout>
       );
     }
