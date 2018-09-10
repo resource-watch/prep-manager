@@ -234,6 +234,7 @@ class WidgetsEdit extends React.Component {
                 embedButtonMode="never"
                 titleMode="never"
                 provideWidgetConfig={(func) => { this.onGetWidgetConfig = func; }}
+                allowBoundsCopyPaste
               />
             )}
             { WidgetsEdit.isEmbedWidget(widgetAtts) && (
