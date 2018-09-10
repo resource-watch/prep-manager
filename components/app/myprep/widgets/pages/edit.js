@@ -221,6 +221,9 @@ class WidgetsEdit extends React.Component {
           className="-light"
           isLoading={loading}
         />
+        <WidgetModal />
+        <WidgetTooltip />
+        <WidgetIcons />
         {widget && (
           <div>
             { !WidgetsEdit.isEmbedWidget(widgetAtts) && (
