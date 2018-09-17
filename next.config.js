@@ -1,52 +1,13 @@
 require('dotenv').load();
 
-const path = require('path');
-const glob = require('glob');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const withCSS = require('@zeit/next-css');
+const withSass = require('@zeit/next-sass');
+const commonsChunkConfig = require('@zeit/next-css/commons-chunk-config');
 
-module.exports = {
-  webpack: (config, { dev }) => {
-    if (dev) config.devtool = 'cheap-eval-source-map';
-
-    config.module.rules.push(
-      {
-        test: /\.(css|scss)/,
-        loader: 'emit-file-loader',
-        options: {
-          name: 'dist/[path][name].[ext]'
-        }
-      }
-      ,
-      {
-        test: /\.css$/,
-        use: ['babel-loader', 'raw-loader', 'postcss-loader']
-      }
-      ,
-      {
-        test: /\.s(a|c)ss$/,
-        use: [
-          'babel-loader',
-          'raw-loader',
-          { loader: 'postcss-loader' },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: ['./node_modules']
-                .map(d => path.join(__dirname, d))
-                .map(g => glob.sync(g))
-                .reduce((a, c) => a.concat(c), [])
-            }
-          }
-        ]
-      }
-    );
-
-    // Images task
-    config.module.rules.push({
-      test: /\.(png|jpg|gif|svg)$/,
-      loader: 'url-loader?prefix=image/&limit=5000&context=/static/images'
-    });
+module.exports = withCSS(withSass({
+  webpack: (originalConfig) => {
+    const config = Object.assign({}, originalConfig);
 
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -63,15 +24,9 @@ module.exports = {
         'process.env.STATIC_SERVER_URL': JSON.stringify(process.env.STATIC_SERVER_URL),
         'process.env.ADD_SEARCH_KEY': JSON.stringify(process.env.ADD_SEARCH_KEY),
         'process.env.TRANSIFEX_LIVE_API': JSON.stringify(process.env.TRANSIFEX_LIVE_API)
-      }),
-      new CopyWebpackPlugin([
-        {
-          from: 'node_modules/widget-editor/dist/images',
-          to: 'static/images/widget-editor/'
-        }
-      ])
+      })
     );
 
-    return config;
+    return commonsChunkConfig(config, /\.(sass|scss|css)$/);
   }
-};
+}));

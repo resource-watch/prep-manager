@@ -7,9 +7,7 @@ import styles from 'css/index.scss';
 
 export default class Head extends React.Component {
   static getStyles() {
-    // In development, serve CSS inline (with live reloading) with webpack
-    // NB: Not using dangerouslySetInnerHTML will cause problems with some CSS
-    return <style dangerouslySetInnerHTML={{ __html: styles }} />;
+    return <link rel="stylesheet" type="text/css" href="/_next/static/style.css" />;
   }
 
   render() {

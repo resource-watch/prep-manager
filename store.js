@@ -33,8 +33,8 @@ const reducer = combineReducers({
   toolBlockEdition: handleModule(toolBlockEditionModule),
   insightBlock: handleModule(insightBlockModule),
   insightBlockEdition: handleModule(insightBlockEditionModule),
-  shareModal: handleModule(ShareModalModule),
-  widgetDetail: handleModule(widgetDetail)
+  // shareModal: handleModule(ShareModalModule),
+  // widgetDetail: handleModule(widgetDetail)
 });
 const composeEnhancers = composeWithDevTools({});
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { logEvent } from 'utils/analytics';
 
@@ -67,7 +68,7 @@ function RelatedDashboards(props) {
 }
 
 RelatedDashboards.propTypes = {
-  data: React.PropTypes.array
+  data: PropTypes.array
 };
 
 RelatedDashboards.defaultProps = {

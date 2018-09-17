@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Services
 import IndicatorsService from 'services/IndicatorsService';
@@ -47,8 +48,8 @@ class DeleteAction extends React.Component {
 }
 
 DeleteAction.propTypes = {
-  data: React.PropTypes.object,
-  onRowDelete: React.PropTypes.func
+  data: PropTypes.object,
+  onRowDelete: PropTypes.func
 };
 
 export default DeleteAction;

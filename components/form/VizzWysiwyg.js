@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import Editor from 'vizz-wysiwyg';
+import { Editor } from 'vizz-wysiwyg';
 import FormElement from './FormElement';
 
 class Wysiwyg extends FormElement {
