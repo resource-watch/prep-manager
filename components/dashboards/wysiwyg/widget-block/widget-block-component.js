@@ -21,6 +21,8 @@ import LayerManager from 'components/widgets/editor/helpers/LayerManager';
 // helpers
 import { belongsToACollection } from 'components/collections-panel/collections-panel-helpers';
 
+const theme = getVegaTheme();
+
 export default function WidgetBlock({
   user,
   data,
@@ -116,7 +118,7 @@ export default function WidgetBlock({
         {!widgetError && widgetType === 'vega' && widget.widgetConfig && widget &&
           <VegaChart
             data={widget.widgetConfig}
-            theme={getVegaTheme()}
+            theme={theme}
             toggleLoading={loading => onToggleLoading(loading)}
             reloadOnResize
           />
