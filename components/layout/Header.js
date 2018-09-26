@@ -12,8 +12,8 @@ export default class Header extends React.Component {
         <div className="l-header-nav">
           <div className="row align-middle">
             <div className="column small-10 medium-4">
-              <Link>
-                <a href="/" className="logo">
+              <Link href="/">
+                <a className="logo">
                   <img src="/static/images/logo-cms.png" alt="Partnership for Resilience and Preparedness" />
                 </a>
               </Link>
