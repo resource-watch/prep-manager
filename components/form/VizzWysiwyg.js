@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import { Editor } from 'vizz-wysiwyg';
+import VizzWysiwyg from 'vizz-wysiwyg';
 import FormElement from './FormElement';
 
 class Wysiwyg extends FormElement {
@@ -56,7 +56,7 @@ class Wysiwyg extends FormElement {
   render() {
     return (
       <div className="c-wysiwyg">
-        <Editor
+        <VizzWysiwyg
           id={this.state.id}
           items={this.getValue()}
           blocks={this.props.properties.blocks}
