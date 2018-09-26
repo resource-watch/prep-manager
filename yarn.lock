@@ -9992,9 +9992,9 @@ react-portal@3.2.0:
   dependencies:
     prop-types "^15.5.8"
 
-react-progress-2@4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/react-progress-2/-/react-progress-2-4.4.1.tgz#468f701b7a18c9030f3db594271c0093aaa7a986"
+react-progress-2@4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/react-progress-2/-/react-progress-2-4.4.3.tgz#bcdf97c99aac73ebcf5061f05ec1ba39b547ea58"
 
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
