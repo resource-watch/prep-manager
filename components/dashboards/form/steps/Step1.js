@@ -106,7 +106,6 @@ class Step1 extends React.Component {
                 label: 'Do you want to set this dashboard as published?',
                 value: 'published',
                 title: 'Published',
-                defaultChecked: this.props.form.published,
                 checked: this.props.form.published
               }}
             >
@@ -123,7 +122,6 @@ class Step1 extends React.Component {
               label: 'Do you want to set this dashboard as pre-production?',
               value: 'preproduction',
               title: 'Pre-production',
-              defaultChecked: this.props.form.preproduction,
               checked: this.props.form.preproduction
             }}
           >
@@ -140,7 +138,6 @@ class Step1 extends React.Component {
               label: 'Do you want to set this dashboard as production?',
               value: 'production',
               title: 'Production',
-              defaultChecked: this.props.form.production,
               checked: this.props.form.production
             }}
           >
