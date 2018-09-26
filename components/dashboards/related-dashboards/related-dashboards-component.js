@@ -15,7 +15,7 @@ function RelatedDashboards(props) {
     <div className="l-related-dashboards -inverse">
 
       <style jsx>
-        {styles}
+        {`${styles}`}
       </style>
 
       <div className="l-container">

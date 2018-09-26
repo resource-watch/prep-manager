@@ -13,7 +13,7 @@ function Card(props) {
   return (
     <div className={classes.join(' ')}>
       <style jsx>
-        {styles}
+        {`${styles}`}
       </style>
 
       {props.children}
