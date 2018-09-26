@@ -58,6 +58,23 @@ export default function WidgetBlock({
     'icon-star-empty': !isInACollection
   });
 
+  // We create the mapConfig object
+  const mapConfig = {};
+  if (widgetError && widgetType === 'map' && widget && widget.widgetConfig) {
+    mapConfig.scrollWheelZoom = false
+
+    if (widget.widgetConfig.zoom !== undefined) {
+      mapConfig.zoom = widget.widgetConfig.zoom;
+    }
+
+    if(widget.widgetConfig.lat !== undefined && widget.widgetConfig.lng !== undefined) {
+      mapConfig.widgetConfig.latLng = {
+        lat: widget.widgetConfig.lat,
+        lng: widget.widgetConfig.lng
+      };
+    }
+  }
+
   return (
     <div className="c-dashboard-card">
       <header>
@@ -128,14 +145,7 @@ export default function WidgetBlock({
           <div>
             <Map
               LayerManager={LayerManager}
-              mapConfig={{
-                zoom: widget.widgetConfig.zoom,
-                latLng: {
-                  lat: widget.widgetConfig.lat,
-                  lng: widget.widgetConfig.lng
-                },
-                scrollWheelZoom: false
-              }}
+              mapConfig={mapConfig}
               layerGroups={layers}
               labels={true}
             />
