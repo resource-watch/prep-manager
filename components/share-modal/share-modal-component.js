@@ -30,7 +30,7 @@ class ShareModalComponent extends PureComponent {
     return (
       <div className="c-nav-tab">
         <style jsx>
-          {navStyles}
+          {`${navStyles}`}
         </style>
         <ul>
           {Object.keys(this.props.links).map((t) => {

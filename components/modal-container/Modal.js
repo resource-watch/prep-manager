@@ -31,7 +31,7 @@ class Modal extends React.Component {
       modal = (
         <div className="overlay" onClick={e => this.onClickOverlay(e)}>
           <style jsx>
-            {modalStyles}
+            {`${modalStyles}`}
           </style>
           <div className={`c-share-modal ${className}`}>
             {this.props.navbar && this.props.navbar()}
