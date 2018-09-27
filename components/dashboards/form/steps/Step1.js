@@ -112,37 +112,40 @@ class Step1 extends React.Component {
               {Checkbox}
             </Field>
           }
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.preproduction = c; }}
-            onChange={value => this.props.onChange({
-              preproduction: value.checked
-            })}
-            properties={{
-              name: 'preproduction',
-              label: 'Do you want to set this dashboard as pre-production?',
-              value: 'preproduction',
-              title: 'Pre-production',
-              checked: this.props.form.preproduction
-            }}
-          >
-            {Checkbox}
-          </Field>
-
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
-            onChange={value => this.props.onChange({
-              production: value.checked
-            })}
-            properties={{
-              name: 'production',
-              label: 'Do you want to set this dashboard as production?',
-              value: 'production',
-              title: 'Production',
-              checked: this.props.form.production
-            }}
-          >
-            {Checkbox}
-          </Field>
+          {!this.props.basic && (
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.preproduction = c; }}
+              onChange={value => this.props.onChange({
+                preproduction: value.checked
+              })}
+              properties={{
+                name: 'preproduction',
+                label: 'Do you want to set this dashboard as pre-production?',
+                value: 'preproduction',
+                title: 'Pre-production',
+                checked: this.props.form.preproduction
+              }}
+            >
+              {Checkbox}
+            </Field>
+          )}
+          {!this.props.basic && (
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
+              onChange={value => this.props.onChange({
+                production: value.checked
+              })}
+              properties={{
+                name: 'production',
+                label: 'Do you want to set this dashboard as production?',
+                value: 'production',
+                title: 'Production',
+                checked: this.props.form.production
+              }}
+            >
+              {Checkbox}
+            </Field>
+          )}
           {/* TOPICS */}
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}

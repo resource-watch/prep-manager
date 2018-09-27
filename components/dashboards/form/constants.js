@@ -12,7 +12,7 @@ export const STATE_DEFAULT = {
     image: '',
     user_id: null,
     published: false,
-    production: false,
+    production: true,
     preproduction: false,
     tags: []
   }
