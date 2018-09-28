@@ -62,7 +62,7 @@ export default class DashboardsService {
   saveData({ type, body, id }) {
     return new Promise((resolve, reject) => {
       post({
-        url: `${process.env.API_URL}/dashboards/${id}`,
+        url: `${process.env.API_URL}/dashboards/${id}?env=${process.env.API_ENV}`,
         type,
         body,
         headers: [{
