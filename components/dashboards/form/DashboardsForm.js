@@ -92,6 +92,25 @@ class DashboardsForm extends React.Component {
             delete body.data.id;
           }
 
+          // We make sure to send the ID of the author in the request
+          // otherwise it fails
+          if (body.data.attributes.author_attributes) {
+            body.data.attributes.author_attributes.id = this.state.form.author.id;
+          }
+
+          // The author attributes are sent as "author_attributes" but
+          // returned by the API as "author" so we just remove them before
+          // sending the form
+          if (body.data.attributes.author) {
+            delete body.data.attributes.author;
+          }
+
+          // If the user wants to remove the logo of a dashboard, we need to
+          // make sure to send null and not an empty string
+          if (body.data.attributes.author_attributes && body.data.attributes.author_attributes.logo === '') {
+            body.data.attributes.author_attributes.logo = null;
+          }
+
           // Save data
           this.service.saveData({
             id: id || '',

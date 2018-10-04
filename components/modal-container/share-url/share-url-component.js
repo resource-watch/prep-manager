@@ -44,7 +44,7 @@ class ShareUrl extends React.Component {
 
     return (
       <div className="c-share-url">
-        <style jsx>{styles}</style>
+        <style jsx>{`${styles}`}</style>
         <div className="url-container">
           <input ref={(node) => { this.input = node; }} value={url} className="url" readOnly />
           <Button

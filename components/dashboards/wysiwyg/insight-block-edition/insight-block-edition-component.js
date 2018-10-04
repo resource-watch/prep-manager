@@ -12,7 +12,7 @@ export default function InsightBlockEdition({ data, filteredInsights, onSelectIn
   return (
     <div className="c-insight-block-edition">
       <style jsx>
-        {styles}
+        {`${styles}`}
       </style>
 
       <div className="l-page">

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // styles
@@ -30,7 +31,7 @@ class Modal extends React.Component {
       modal = (
         <div className="overlay" onClick={e => this.onClickOverlay(e)}>
           <style jsx>
-            {modalStyles}
+            {`${modalStyles}`}
           </style>
           <div className={`c-share-modal ${className}`}>
             {this.props.navbar && this.props.navbar()}
@@ -72,29 +73,29 @@ Modal.propTypes = {
   /**
    * The callback method when closing the modal
    */
-  close: React.PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
   /**
    * Define whether the modal is opened or not
    */
-  opened: React.PropTypes.bool.isRequired,
+  opened: PropTypes.bool.isRequired,
   /**
    * Define whether to hide the modal close button or not
    */
-  hideCloseButton: React.PropTypes.bool,
+  hideCloseButton: PropTypes.bool,
   /**
    * Define the modal custom className
    * Required
    */
-  className: React.PropTypes.string,
+  className: PropTypes.string,
   /**
    * Define the content of the modal
    * Required
    */
-  children: React.PropTypes.any,
+  children: PropTypes.any,
   /**
    * Define modal navbar
    */
-  navbar: React.PropTypes.func
+  navbar: PropTypes.func
 };
 
 
