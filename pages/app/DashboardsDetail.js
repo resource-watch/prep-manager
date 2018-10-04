@@ -33,7 +33,6 @@ class DashboardsDetail extends Page {
   static async getInitialProps(context) {
     const props = await super.getInitialProps(context);
     await context.store.dispatch(fetchDashboard({ id: props.url.query.slug }));
-
     return { ...props };
   }
 
@@ -184,7 +183,7 @@ class DashboardsDetail extends Page {
             data={dashboardDetail.dashboard.dashboards}
           />
 
-          <ShareModal />
+          {/*<ShareModal />*/}
         </div>
       </Layout>
     );

@@ -15,7 +15,7 @@ import { updateIsLoading } from 'redactions/page';
 // Components
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-import Head from 'components/admin/layout/head';
+import Head from 'components/app/layout/head';
 import Icons from 'components/admin/layout/icons';
 import Modal from 'components/ui/Modal';
 import Tooltip from 'components/ui/Tooltip';
