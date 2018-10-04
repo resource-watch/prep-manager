@@ -221,6 +221,9 @@ class WidgetsEdit extends React.Component {
           className="-light"
           isLoading={loading}
         />
+        <WidgetModal />
+        <WidgetTooltip />
+        <WidgetIcons />
         {widget && (
           <div>
             { !WidgetsEdit.isEmbedWidget(widgetAtts) && (
@@ -231,6 +234,7 @@ class WidgetsEdit extends React.Component {
                 embedButtonMode="never"
                 titleMode="never"
                 provideWidgetConfig={(func) => { this.onGetWidgetConfig = func; }}
+                allowBoundsCopyPaste
               />
             )}
             { WidgetsEdit.isEmbedWidget(widgetAtts) && (

@@ -133,6 +133,20 @@ class DashboardsDetail extends Page {
                   </div>
                 </div>
               }
+
+              {dashboardDetail.dashboard.author && dashboardDetail.dashboard.author.name && (
+                <div className="row">
+                  <div className="column small-12">
+                    <div className="page-header-partner">
+                      <img
+                        src={dashboardDetail.dashboard.author.logo}
+                        alt={dashboardDetail.dashboard.author.name}
+                      />
+                      <p>{dashboardDetail.dashboard.author.name}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
