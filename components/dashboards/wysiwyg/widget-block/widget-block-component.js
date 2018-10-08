@@ -60,7 +60,7 @@ export default function WidgetBlock({
 
   // We create the mapConfig object
   const mapConfig = {};
-  if (widgetError && widgetType === 'map' && widget && widget.widgetConfig) {
+  if (!widgetError && widgetType === 'map' && widget && widget.widgetConfig) {
     mapConfig.scrollWheelZoom = false
 
     if (widget.widgetConfig.zoom !== undefined) {
@@ -68,7 +68,7 @@ export default function WidgetBlock({
     }
 
     if(widget.widgetConfig.lat !== undefined && widget.widgetConfig.lng !== undefined) {
-      mapConfig.widgetConfig.latLng = {
+      mapConfig.latLng = {
         lat: widget.widgetConfig.lat,
         lng: widget.widgetConfig.lng
       };
