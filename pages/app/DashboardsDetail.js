@@ -7,6 +7,9 @@ import withRedux from 'next-redux-wrapper';
 import { initStore } from 'store';
 import { fetchDashboard } from 'components/dashboards/detail/dashboard-detail-actions';
 
+// Toastr
+import { toastr } from 'react-redux-toastr';
+
 // actions
 import { setOpen, setLinks } from 'components/share-modal/share-modal-actions';
 
@@ -30,7 +33,6 @@ class DashboardsDetail extends Page {
   static async getInitialProps(context) {
     const props = await super.getInitialProps(context);
     await context.store.dispatch(fetchDashboard({ id: props.url.query.slug }));
-
     return { ...props };
   }
 
@@ -63,6 +65,26 @@ class DashboardsDetail extends Page {
 
   handleShare = () => {
     this.props.setOpen(true);
+  }
+
+  handleDownloadPDF = () => {
+    toastr.info('Dashboard download', 'The file is being generated...');
+
+    const { dashboard } = this.props.dashboardDetail;
+    const { origin } = window.location;
+    const filename = encodeURIComponent(dashboard.title);
+
+    const link = document.createElement('a');
+    link.setAttribute('download', '');
+    link.href = `${process.env.CONTROL_TOWER_URL}/v1/webshot/pdf?filename=${filename}&width=790&height=580&waitFor=8000&url=${origin}/embed/dashboard/${dashboard.slug}`;
+    // testing
+    // link.href = `${process.env.CONTROL_TOWER_URL}/v1/webshot/pdf?filename=${filename}&width=790&height=580&waitFor=8000&url=https://prepdata.org/embed/dashboard/forestry-in-madhya-pradesh`;
+
+
+    // link.click() doesn't work on Firefox for some reasons
+    // so we have to create an event manually
+    const event = new MouseEvent('click');
+    link.dispatchEvent(event);
   }
 
   render() {
@@ -111,24 +133,43 @@ class DashboardsDetail extends Page {
                   </div>
                 </div>
               }
+
+              {dashboardDetail.dashboard.author && dashboardDetail.dashboard.author.name && (
+                <div className="row">
+                  <div className="column small-12">
+                    <div className="page-header-partner">
+                      <img
+                        src={dashboardDetail.dashboard.author.logo}
+                        alt={dashboardDetail.dashboard.author.name}
+                      />
+                      <p>{dashboardDetail.dashboard.author.name}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="l-section">
             <div className="l-container">
               <div className="row">
-                <div className="columns small-12 medium-8">
+                <div className="columns small-12">
                   <div className="toolbar-actions">
-                    <div className="left" />
-                    <div className="right">
-                      <button
-                        className="c-button -alternative -action"
-                        onClick={this.handleShare}
-                      >
-                        <Icon name="icon-share" className="-small" />
-                        share
-                      </button>
-                    </div>
+                    <button
+                      className="c-button -alternative -action"
+                      onClick={this.handleShare}
+                    >
+                      <Icon name="icon-share" className="-small" />
+                      share
+                    </button>
+
+                    <button
+                      className="c-button -alternative -action"
+                      onClick={this.handleDownloadPDF}
+                    >
+                      <Icon name="icon-download" className="-small" />
+                      download as PDF
+                    </button>
                   </div>
                 </div>
                 <div className="columns small-12">
@@ -142,7 +183,7 @@ class DashboardsDetail extends Page {
             data={dashboardDetail.dashboard.dashboards}
           />
 
-          <ShareModal />
+          {/*<ShareModal />*/}
         </div>
       </Layout>
     );

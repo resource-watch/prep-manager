@@ -236,6 +236,7 @@ class Step1 extends React.Component {
                   embedButtonMode="never"
                   titleMode="never"
                   provideWidgetConfig={this.props.onGetWidgetConfig}
+                  allowBoundsCopyPaste
                 />
               </div>
             }

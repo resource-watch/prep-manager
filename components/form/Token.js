@@ -126,7 +126,7 @@ class Token extends FormElement {
     const { properties } = this.props;
     const { selected, items } = this.state;
 
-    const menuContent = items.length ?
+    const menuContent = items && items.length ?
       this.renderComboboxOptions() : [];
 
     return (

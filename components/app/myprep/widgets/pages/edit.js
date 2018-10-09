@@ -44,6 +44,30 @@ const FORM_ELEMENTS = {
 };
 
 class WidgetsEdit extends React.Component {
+  /**
+   * Return whether the widget is an embed
+   * @static
+   * @param {any} widget Widget attributes object
+   * @returns {boolean}
+   */
+  static isEmbedWidget(widget) {
+    return !!(widget
+      // Some widgets have not been created with the widget editor
+      // so the paramsConfig attribute doesn't exist
+      && (
+        (
+          widget.widgetConfig.paramsConfig
+          && widget.widgetConfig.paramsConfig.visualizationType === 'embed'
+        )
+        || (
+          // Case of a widget created outside of the widget editor
+          widget.widgetConfig.type
+          && widget.widgetConfig.type === 'embed'
+        )
+      )
+    );
+  }
+
   constructor(props) {
     super(props);
 
@@ -67,7 +91,7 @@ class WidgetsEdit extends React.Component {
     });
 
     this.widgetService = new WidgetService(this.props.id,
-      { apiURL: process.env.CONTROL_TOWER_URL });
+      { apiURL: process.env.WRI_API_URL });
 
     // ------------------- Bindings -----------------------
     this.onSubmit = this.onSubmit.bind(this);
@@ -197,104 +221,117 @@ class WidgetsEdit extends React.Component {
           className="-light"
           isLoading={loading}
         />
-        {widget &&
-        <div>
-          <WidgetEditor
-            datasetId={datasetId}
-            widgetId={widget.id}
-            saveButtonMode="never"
-            embedButtonMode="never"
-            titleMode="never"
-            provideWidgetConfig={(func) => { this.onGetWidgetConfig = func; }}
-          />
-          <div className="form-container">
-            <form ref={(node) => { this.form = node; }} className="form-container" onSubmit={this.onSubmit}>
-              <fieldset className="c-field-container">
-                <Field
-                  ref={(c) => { if (c) FORM_ELEMENTS.elements.title = c; }}
-                  onChange={value => this.handleChange({ name: value })}
-                  validations={['required']}
-                  properties={{
-                    title: 'title',
-                    label: 'Title',
-                    type: 'text',
-                    required: true,
-                    default: widgetAtts.name,
-                    placeholder: 'Widget title'
-                  }}
-                >
-                  {Input}
-                </Field>
-                <Field
-                  ref={(c) => { if (c) FORM_ELEMENTS.elements.description = c; }}
-                  onChange={value => this.handleChange({ description: value })}
-                  properties={{
-                    title: 'description',
-                    label: 'Description',
-                    type: 'text',
-                    default: widgetAtts.description,
-                    placeholder: 'Widget description'
-                  }}
-                >
-                  {Input}
-                </Field>
-                <Field
-                  ref={(c) => { if (c) FORM_ELEMENTS.elements.authors = c; }}
-                  onChange={value => this.handleChange({ authors: value })}
-                  properties={{
-                    title: 'authors',
-                    label: 'Authors',
-                    type: 'text',
-                    default: widgetAtts.authors,
-                    placeholder: 'Author name'
-                  }}
-                >
-                  {Input}
-                </Field>
-                <div className="source-container">
+        <WidgetModal />
+        <WidgetTooltip />
+        <WidgetIcons />
+        {widget && (
+          <div>
+            { !WidgetsEdit.isEmbedWidget(widgetAtts) && (
+              <WidgetEditor
+                datasetId={datasetId}
+                widgetId={widget.id}
+                saveButtonMode="never"
+                embedButtonMode="never"
+                titleMode="never"
+                provideWidgetConfig={(func) => { this.onGetWidgetConfig = func; }}
+                allowBoundsCopyPaste
+              />
+            )}
+            { WidgetsEdit.isEmbedWidget(widgetAtts) && (
+              <iframe
+                title={widgetAtts.name}
+                src={widgetAtts.widgetConfig.url}
+                frameBorder="0"
+              />
+            )}
+            <div className="form-container">
+              <form ref={(node) => { this.form = node; }} className="form-container" onSubmit={this.onSubmit}>
+                <fieldset className="c-field-container">
                   <Field
-                    ref={(c) => { if (c) FORM_ELEMENTS.elements.source = c; }}
-                    onChange={value => this.handleChange({ source: value })}
+                    ref={(c) => { if (c) FORM_ELEMENTS.elements.title = c; }}
+                    onChange={value => this.handleChange({ name: value })}
+                    validations={['required']}
                     properties={{
-                      title: 'source',
-                      label: 'Source name',
+                      title: 'title',
+                      label: 'Title',
                       type: 'text',
-                      default: widgetAtts.source,
-                      placeholder: 'Source name'
+                      required: true,
+                      default: widgetAtts.name,
+                      placeholder: 'Widget title'
                     }}
                   >
                     {Input}
                   </Field>
                   <Field
-                    ref={(c) => { if (c) FORM_ELEMENTS.elements.sourceUrl = c; }}
-                    onChange={value => this.handleChange({ sourceUrl: value })}
+                    ref={(c) => { if (c) FORM_ELEMENTS.elements.description = c; }}
+                    onChange={value => this.handleChange({ description: value })}
                     properties={{
-                      title: 'sourceUrl',
-                      label: 'Source URL',
+                      title: 'description',
+                      label: 'Description',
                       type: 'text',
-                      default: widgetAtts.sourceUrl,
-                      placeholder: 'Paste a URL here'
+                      default: widgetAtts.description,
+                      placeholder: 'Widget description'
                     }}
                   >
                     {Input}
                   </Field>
+                  <Field
+                    ref={(c) => { if (c) FORM_ELEMENTS.elements.authors = c; }}
+                    onChange={value => this.handleChange({ authors: value })}
+                    properties={{
+                      title: 'authors',
+                      label: 'Authors',
+                      type: 'text',
+                      default: widgetAtts.authors,
+                      placeholder: 'Author name'
+                    }}
+                  >
+                    {Input}
+                  </Field>
+                  <div className="source-container">
+                    <Field
+                      ref={(c) => { if (c) FORM_ELEMENTS.elements.source = c; }}
+                      onChange={value => this.handleChange({ source: value })}
+                      properties={{
+                        title: 'source',
+                        label: 'Source name',
+                        type: 'text',
+                        default: widgetAtts.source,
+                        placeholder: 'Source name'
+                      }}
+                    >
+                      {Input}
+                    </Field>
+                    <Field
+                      ref={(c) => { if (c) FORM_ELEMENTS.elements.sourceUrl = c; }}
+                      onChange={value => this.handleChange({ sourceUrl: value })}
+                      properties={{
+                        title: 'sourceUrl',
+                        label: 'Source URL',
+                        type: 'text',
+                        default: widgetAtts.sourceUrl,
+                        placeholder: 'Paste a URL here'
+                      }}
+                    >
+                      {Input}
+                    </Field>
+                  </div>
+                </fieldset>
+                <div className="buttons-container">
+                  <Button
+                    properties={{
+                      type: 'submit',
+                      disabled: submitting,
+                      className: '-a'
+                    }}
+                  >
+                    Save
+                  </Button>
                 </div>
-              </fieldset>
-              <div className="buttons-container">
-                <Button
-                  properties={{
-                    type: 'submit',
-                    disabled: submitting,
-                    className: '-a'
-                  }}
-                >
-                  Save
-                </Button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-        }
+        )}
       </div>
     );
   }

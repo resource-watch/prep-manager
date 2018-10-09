@@ -12,7 +12,7 @@ export default function ToolBlockEdition({ data, filteredTools, onSelectTool, on
   return (
     <div className="c-tool-block-edition">
       <style jsx>
-        {styles}
+        {`${styles}`}
       </style>
 
       <div className="l-page">

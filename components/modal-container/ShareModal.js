@@ -95,7 +95,7 @@ ShareModal.propTypes = {
   /**
    * Define the share modal function to close the modal
    */
-  close: PropTypes.func.isRequired,
+  close: PropTypes.func,
   widgetSlug: PropTypes.string,
   /**
    * Define the category and action for the analytics

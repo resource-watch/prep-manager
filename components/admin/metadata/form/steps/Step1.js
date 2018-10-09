@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { FORM_ELEMENTS, LANGUAGE_OPTIONS } from 'components/admin/metadata/form/constants';
@@ -38,8 +39,6 @@ class Step1 extends React.Component {
       'small-4': isRaster,
       'small-5': !isRaster
     });
-
-    console.log(form);
 
     return (
       <div>
@@ -323,7 +322,7 @@ class Step1 extends React.Component {
             Links
           </Title>
 
-          <Field
+          {/*<Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.dataDownload = c; }}
             onChange={value => this.changeMetadata({ info: { dataDownload: value } })}
             validations={['url']}
@@ -337,17 +336,17 @@ class Step1 extends React.Component {
             }}
           >
             {Input}
-          </Field>
+          </Field>*/}
 
           <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.data_download_original_link = c; }}
-            onChange={value => this.changeMetadata({ info: { data_download_original_link: value } })}
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.learn_more_link = c; }}
+            onChange={value => this.changeMetadata({ info: { learn_more_link: value } })}
             validations={['url']}
             properties={{
-              name: 'data_download_original_link',
+              name: 'learn_more_link',
               label: 'Data Download from Original Source Link',
               type: 'text',
-              default: form.info.data_download_original_link,
+              default: form.info.learn_more_link,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
@@ -493,8 +492,8 @@ class Step1 extends React.Component {
 }
 
 Step1.propTypes = {
-  form: React.PropTypes.object,
-  onChange: React.PropTypes.func
+  form: PropTypes.object,
+  onChange: PropTypes.func
 };
 
 export default Step1;

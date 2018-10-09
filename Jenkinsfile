@@ -37,7 +37,7 @@ node {
           sh("docker -H :2375 build --build-arg secretKey=${secretKey} --build-arg apiEnv=production,preproduction --build-arg apiUrl=https://staging.prepdata.org/api --build-arg wriApiUrl=https://staging-api.globalforestwatch.org/v1 --build-arg callbackUrl=https://staging.prepdata.org/auth -t ${imageTag} .")
           break
         case "preproduction":
-          sh("docker -H :2375 build --build-arg secretKey=${secretKey} --build-arg apiEnv=production,preproduction -t ${imageTag} .")
+          sh("docker -H :2375 build --build-arg secretKey=${secretKey} --build-arg apiEnv=production,preproduction --build-arg callbackUrl=https://preproduction.prepdata.org/auth -t ${imageTag} .")
           break
         case "master":
           sh("docker -H :2375 build --build-arg secretKey=${secretKey} -t ${imageTag} .")
@@ -56,7 +56,9 @@ node {
       withCredentials([usernamePassword(credentialsId: 'Vizzuality Docker Hub', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
         sh("docker -H :2375 login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}")
         sh("docker -H :2375 push ${imageTag}")
-        sh("docker -H :2375 push ${dockerUsername}/${appName}:latest")
+        if ("${env.BRANCH_NAME}" == 'master') {
+          sh("docker -H :2375 push ${dockerUsername}/${appName}:latest")
+        }
         sh("docker -H :2375 rmi ${imageTag}")
       }
     }
