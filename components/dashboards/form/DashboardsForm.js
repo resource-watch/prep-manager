@@ -95,6 +95,7 @@ class DashboardsForm extends React.Component {
           // We make sure to send the ID of the author in the request
           // otherwise it fails
           if (this.state.form.author && this.state.form.author.id !== null && this.state.form.author.id !== undefined) {
+            body.data.attributes.author_attributes = body.data.attributes.author_attributes || {};
             body.data.attributes.author_attributes.id = this.state.form.author.id;
           }
 
