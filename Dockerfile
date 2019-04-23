@@ -1,4 +1,4 @@
-FROM node:8.11.2
+FROM node:8.14.0-alpine
 
 ARG apiEnv=production
 ARG apiUrl=https://prepdata.org/api
@@ -19,19 +19,16 @@ ENV OPBEAT_APP_ID 7170680c2a
 ENV ADD_SEARCH_KEY cb7e797b8a3c0d09c323955f0c4f957a
 ENV TRANSIFEX_LIVE_API fca0343bce994bf8ba3dcdeaab389136
 
-RUN apt-get update && \
-    apt-get install -y bash git build-essential \
-    automake autoconf make g++ libtool libcairo2-dev \
-    && npm install -g node-gyp --loglevel warn \
-    && mkdir -p /usr/src/app
+RUN apk update && apk add --no-cache \
+    build-base gcc bash git \
+    cairo-dev pango-dev jpeg-dev
 
 # Add app directory
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn install
+COPY package.json yarn.lock /usr/src/app/
+RUN yarn install --frozen-lockfile --no-cache --production
 
 # Bundle app source
 COPY . /usr/src/app
