@@ -11,9 +11,9 @@ import { getWidget } from 'redactions/widget';
 import { setEmbed } from 'redactions/common';
 
 // Components
+import { VegaChart, getVegaTheme } from 'widget-editor';
 import Page from 'components/app/layout/Page';
 import EmbedLayout from 'components/app/layout/EmbedLayout';
-import { VegaChart } from 'widget-editor';
 import Spinner from 'components/ui/Spinner';
 import ChartTheme from 'utils/widgets/theme';
 import Icon from 'components/ui/Icon';
@@ -45,7 +45,7 @@ class EmbedWidget extends Page {
   }
 
   isLoadedExternally() {
-    return !/localhost|staging.resourcewatch.org/.test(this.props.referer);
+    return !(/localhost|resourcewatch.org|resource-watch.github.io/.test(this.props.referer));
   }
 
   constructor(props) {
