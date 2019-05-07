@@ -95,7 +95,7 @@ class Step1 extends React.Component {
               label: 'Description',
               rows: '6',
               required: true,
-              default: form.description,
+              default: form.description || form.info.description,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
