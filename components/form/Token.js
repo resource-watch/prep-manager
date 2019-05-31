@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TokenInput, { Option } from 'react-autocomplete';
+import ReactToken, { Option } from 'react-tokeninput';
 import without from 'lodash/without';
 import uniq from 'lodash/uniq';
 
@@ -129,21 +129,19 @@ class Token extends FormElement {
     const menuContent = items && items.length ?
       this.renderComboboxOptions() : [];
 
-    return null;
-
-    // return (
-    //   <TokenInput
-    //     {...properties}
-    //     id={`select-${properties.name}`}
-    //     menuContent={menuContent}
-    //     selected={selected}
-    //     onChange={this.triggerChange}
-    //     onSelect={this.triggerSelected}
-    //     onRemove={this.triggerRemove}
-    //     onInput={this.triggerInput}
-    //     placeholder="Enter tokens here"
-    //   />
-    // );
+    return (
+      <ReactToken
+        {...properties}
+        id={`select-${properties.name}`}
+        menuContent={menuContent}
+        selected={selected}
+        onChange={this.triggerChange}
+        onSelect={this.triggerSelected}
+        onRemove={this.triggerRemove}
+        onInput={this.triggerInput}
+        placeholder="Enter datasets here"
+      />
+    );
   }
 }
 
