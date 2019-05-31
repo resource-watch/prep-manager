@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TokenInput, { Option } from 'react-tokeninput';
+import ReactToken, { Option } from 'react-tokeninput';
 import without from 'lodash/without';
 import uniq from 'lodash/uniq';
 
@@ -29,7 +29,7 @@ class Token extends FormElement {
    * - getSlug
   */
   getSlug(string) {
-    let st = string;
+    let st = string || '';
     st = st.toLowerCase();
     st = st.replace(/[\u00C0-\u00C5]/ig, 'a');
     st = st.replace(/[\u00C8-\u00CB]/ig, 'e');
@@ -130,7 +130,7 @@ class Token extends FormElement {
       this.renderComboboxOptions() : [];
 
     return (
-      <TokenInput
+      <ReactToken
         {...properties}
         id={`select-${properties.name}`}
         menuContent={menuContent}
@@ -139,7 +139,7 @@ class Token extends FormElement {
         onSelect={this.triggerSelected}
         onRemove={this.triggerRemove}
         onInput={this.triggerInput}
-        placeholder="Enter tokens here"
+        placeholder="Enter datasets here"
       />
     );
   }

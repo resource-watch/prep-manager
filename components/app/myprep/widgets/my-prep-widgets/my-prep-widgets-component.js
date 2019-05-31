@@ -73,8 +73,16 @@ class MyPREPWidgets extends PureComponent {
     this.props.getWidgetsByTab(this.props.subtab);
   }
 
-  // TO-DO
-  handleWidgetClick = () => {}
+  /**
+   * Event handler executed when the user
+   * click the name and description of a widget
+   * @param {object} widget Widget
+   */
+  handleWidgetClick = (widget) => {
+    if (widget.userId === this.props.user.id) {
+      Router.pushRoute('admin_myprep_detail', { tab: 'widgets', subtab: 'edit', id: widget.id });
+    }
+  }
 
   render() {
     const { mode } = this.state;

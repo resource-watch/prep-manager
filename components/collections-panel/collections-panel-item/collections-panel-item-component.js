@@ -26,7 +26,7 @@ class CollectionPanelItem extends PureComponent {
     return (
       <li className={collectionItemClass}>
         <style jsx>
-          {styles}
+          {`${styles}`}
         </style>
         {loading && <Spinner
           isLoading={loading}

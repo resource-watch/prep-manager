@@ -25,7 +25,7 @@ export default function InsightBlock({
   return (
     <div className="c-insight-block">
       <style jsx>
-        {styles}
+        {`${styles}`}
       </style>
 
       <Spinner isLoading={insightLoading} className="-light -small" />

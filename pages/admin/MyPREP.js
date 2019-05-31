@@ -108,8 +108,8 @@ class MyPREP extends Page {
 
     return (
       <Layout
-        title="My PReP Edit Profile"
-        description="My PReP Edit Profile description"
+        title="My PREP Edit Profile"
+        description="My PREP Edit Profile description"
         url={url}
         user={user}
         pageHeader

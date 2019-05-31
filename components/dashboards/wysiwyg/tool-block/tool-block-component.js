@@ -27,7 +27,7 @@ export default function ToolBlock({
   return (
     <div className="c-tool-block">
       <style jsx>
-        {styles}
+        {`${styles}`}
       </style>
 
       <Spinner isLoading={toolLoading} className="-light -small" />

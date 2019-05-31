@@ -16,6 +16,7 @@ import Input from 'components/form/Input';
 import Select from 'components/form/SelectInput';
 import TextArea from 'components/form/TextArea';
 import Checkbox from 'components/form/Checkbox';
+import FileImage from 'components/form/FileImage';
 import TreeSelector from 'components/form/tree-selector';
 
 // Helpers
@@ -106,46 +107,46 @@ class Step1 extends React.Component {
                 label: 'Do you want to set this dashboard as published?',
                 value: 'published',
                 title: 'Published',
-                defaultChecked: this.props.form.published,
                 checked: this.props.form.published
               }}
             >
               {Checkbox}
             </Field>
           }
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.preproduction = c; }}
-            onChange={value => this.props.onChange({
-              preproduction: value.checked
-            })}
-            properties={{
-              name: 'preproduction',
-              label: 'Do you want to set this dashboard as pre-production?',
-              value: 'preproduction',
-              title: 'Pre-production',
-              defaultChecked: this.props.form.preproduction,
-              checked: this.props.form.preproduction
-            }}
-          >
-            {Checkbox}
-          </Field>
-
-          <Field
-            ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
-            onChange={value => this.props.onChange({
-              production: value.checked
-            })}
-            properties={{
-              name: 'production',
-              label: 'Do you want to set this dashboard as production?',
-              value: 'production',
-              title: 'Production',
-              defaultChecked: this.props.form.production,
-              checked: this.props.form.production
-            }}
-          >
-            {Checkbox}
-          </Field>
+          {!this.props.basic && (
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.preproduction = c; }}
+              onChange={value => this.props.onChange({
+                preproduction: value.checked
+              })}
+              properties={{
+                name: 'preproduction',
+                label: 'Do you want to set this dashboard as pre-production?',
+                value: 'preproduction',
+                title: 'Pre-production',
+                checked: this.props.form.preproduction
+              }}
+            >
+              {Checkbox}
+            </Field>
+          )}
+          {!this.props.basic && (
+            <Field
+              ref={(c) => { if (c) FORM_ELEMENTS.elements.production = c; }}
+              onChange={value => this.props.onChange({
+                production: value.checked
+              })}
+              properties={{
+                name: 'production',
+                label: 'Do you want to set this dashboard as production?',
+                value: 'production',
+                title: 'Production',
+                checked: this.props.form.production
+              }}
+            >
+              {Checkbox}
+            </Field>
+          )}
           {/* TOPICS */}
           <Field
             ref={(c) => { if (c) FORM_ELEMENTS.elements.tags = c; }}
@@ -177,6 +178,63 @@ class Step1 extends React.Component {
             }}
           >
             {TreeSelector}
+          </Field>
+
+          {/* AUTHOR */}
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.author = c; }}
+            onChange={value => this.props.onChange({
+              author_attributes: Object.assign({}, this.props.form.author_attributes, { name: value })
+            })}
+            validations={['required']}
+            className="-fluid"
+            properties={{
+              name: 'author',
+              label: 'Author',
+              type: 'text',
+              required: true,
+              default: this.state.form.author && this.state.form.author.name
+            }}
+          >
+            {Input}
+          </Field>
+
+          {/* AUTHOR */}
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.authorUrl = c; }}
+            onChange={value => this.props.onChange({
+              author_attributes: Object.assign({}, this.props.form.author_attributes, { url: value })
+            })}
+            validations={['url']}
+            className="-fluid"
+            properties={{
+              name: 'authorUrl',
+              label: 'Author\'s website',
+              type: 'text',
+              required: false,
+              default: this.state.form.author && this.state.form.author.url
+            }}
+          >
+            {Input}
+          </Field>
+
+          {/* IMAGE */}
+          <Field
+            ref={(c) => { if (c) FORM_ELEMENTS.elements.authorImg = c; }}
+            onChange={value => this.props.onChange({
+              author_attributes: Object.assign({}, this.props.form.author_attributes, { logo: value })
+            })}
+            className="-fluid"
+            properties={{
+              name: 'authorImg',
+              label: 'Author\'s logo',
+              placeholder: 'Browse file',
+              default: (this.state.form.author && this.state.form.author.logo && this.state.form.author.logo !== '/logos/original/missing.png')
+                ? this.state.form.author.logo
+                : null
+            }}
+          >
+            {FileImage}
           </Field>
         </fieldset>
 

@@ -97,7 +97,7 @@ class CollectionsPanel extends PureComponent {
     return (
       <ul className="collection-list">
         <style jsx>
-          {styles}
+          {`${styles}`}
         </style>
         {collectionItems}
       </ul>
@@ -110,7 +110,7 @@ class CollectionsPanel extends PureComponent {
     return (
       <div className="c-collections-panel">
         <style jsx>
-          {styles}
+          {`${styles}`}
         </style>
         <div className="new-collection-container">
           <input

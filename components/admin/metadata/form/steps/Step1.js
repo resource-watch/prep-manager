@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { FORM_ELEMENTS, LANGUAGE_OPTIONS } from 'components/admin/metadata/form/constants';
@@ -94,7 +95,7 @@ class Step1 extends React.Component {
               label: 'Description',
               rows: '6',
               required: true,
-              default: form.description,
+              default: form.description || form.info.description,
               disabled: !adminUser,
               readOnly: !adminUser
             }}
@@ -491,8 +492,8 @@ class Step1 extends React.Component {
 }
 
 Step1.propTypes = {
-  form: React.PropTypes.object,
-  onChange: React.PropTypes.func
+  form: PropTypes.object,
+  onChange: PropTypes.func
 };
 
 export default Step1;
