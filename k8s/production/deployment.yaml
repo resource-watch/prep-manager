@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   namespace: prep
   labels:
-    name: {name}
-  name: {name}
+    name: prep-manager
+  name: prep-manager
 spec:
   revisionHistoryLimit: 2
   template:
@@ -12,7 +12,7 @@ spec:
       annotations:
         chaos.alpha.kubernetes.io/enabled: "true"
       labels:
-        name: {name}
+        name: prep-manager
     spec:
       tolerations:
       - key: "type"
@@ -37,11 +37,11 @@ spec:
                 - key: name
                   operator: In
                   values:
-                  - {name}
+                  - prep-manager
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: {name}
-        image: vizzuality/{name}
+      - name: prep-manager
+        image: vizzuality/prep-manager
         imagePullPolicy: Always
         resources:
           requests:
