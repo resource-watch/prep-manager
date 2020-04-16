@@ -45,6 +45,12 @@ class DashboardsDetail extends Page {
       };
     }
 
+    if (dashboardDetail.dashboard.slug === 'the-drought-resilience-impact-platform-drip') {
+      return {
+        backgroundImage: 'url(/static/images/dashboards/DRIP-Banner.jpg)'
+      };
+    }
+
     return {
       backgroundImage: 'url(/static/images/dashboards/bg-dashboard.png)'
     };
