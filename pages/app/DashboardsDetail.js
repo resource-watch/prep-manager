@@ -47,8 +47,7 @@ class DashboardsDetail extends Page {
 
     if (dashboardDetail.dashboard.slug === 'the-drought-resilience-impact-platform-drip') {
       return {
-        backgroundImage: 'url(/static/images/dashboards/DRIP-Banner-1.jpg)',
-        backgroundBlendMode: 'overlay',
+        backgroundImage: 'url(/static/images/dashboards/DRIP-Banner-3.jpg)',
       };
     }
 
