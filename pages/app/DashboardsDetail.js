@@ -51,7 +51,7 @@ class DashboardsDetail extends Page {
       };
     }
 
-    if (dashboardDetail.dashboard.slug === 'the-drought-resilience-impact-platform-drip-0dbb2fac-b9d7-4aac-a4db-e837f3042496') {
+    if (dashboardDetail.dashboard.slug === 'the-u-s-drought-resilience-impact-platform-drip') {
       return {
         backgroundImage: 'url(/static/images/dashboards/DRIP-Banner-5.jpg)',
       };
