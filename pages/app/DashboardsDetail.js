@@ -57,6 +57,12 @@ class DashboardsDetail extends Page {
       };
     }
 
+    if (dashboardDetail.dashboard.slug === 'the-development-resilience-impact-program-drip') {
+      return {
+        backgroundImage: 'url(/static/images/dashboards/DRIP-Banner-6.jpg)',
+      };
+    }
+
     return {
       backgroundImage: 'url(/static/images/dashboards/bg-dashboard.png)'
     };
