@@ -1,12 +1,21 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: prep
   labels:
     name: prep-manager
   name: prep-manager
+  namespace: prep
 spec:
+  progressDeadlineSeconds: 2147483647
   revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      name: prep-manager
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -23,8 +32,7 @@ spec:
                 - webapps
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
+          - podAffinityTerm:
               labelSelector:
                 matchExpressions:
                 - key: name
@@ -32,29 +40,37 @@ spec:
                   values:
                   - prep-manager
               topologyKey: kubernetes.io/hostname
+            weight: 100
       containers:
-      - name: prep-manager
+      - env:
+        - name: SESSION_ENV
+          value: production
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              key: RW_SECRET
+              name: appsecrets
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: REDIS_URI
+              name: dbsecrets
         image: vizzuality/prep-manager
         imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "128Mi"
-          limits:
-            memory: "1Gi"
-        env:
-          - name: SESSION_ENV
-            value: "production"
-          - name: SECRET
-            valueFrom:
-                secretKeyRef:
-                  name: appsecrets
-                  key: RW_SECRET
-          - name: REDIS_URL
-            valueFrom:
-                secretKeyRef:
-                  name: dbsecrets
-                  key: REDIS_URI
-
+        name: prep-manager
         ports:
-          - containerPort: 3000
+        - containerPort: 3000
+          protocol: TCP
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
       restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
