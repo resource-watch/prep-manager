@@ -2,15 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    name: prep-manager
-  name: prep-manager
+    name: prep-manager-staging
+  name: prep-manager-staging
   namespace: prep
 spec:
   progressDeadlineSeconds: 2147483647
-  revisionHistoryLimit: 2
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
-      name: prep-manager
+      name: prep-manager-staging
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       labels:
-        name: prep-manager
+        name: prep-manager-staging
     spec:
       affinity:
         nodeAffinity:
@@ -38,7 +38,7 @@ spec:
                     - key: name
                       operator: In
                       values:
-                        - prep-manager
+                        - prep-manager-staging
                 topologyKey: kubernetes.io/hostname
               weight: 100
       containers:
@@ -46,7 +46,7 @@ spec:
             - name: NODE_ENV
               value: production
             - name: SESSION_ENV
-              value: production
+              value: staging
             - name: SECRET
               valueFrom:
                 secretKeyRef:
@@ -59,15 +59,15 @@ spec:
                   name: dbsecrets
           image: vizzuality/prep-manager
           imagePullPolicy: Always
-          name: prep-manager
+          name: prep-manager-staging
           ports:
             - containerPort: 3000
               protocol: TCP
           resources:
-            limits:
-              memory: 1Gi
             requests:
-              memory: 128Mi
+              memory: "128Mi"
+            limits:
+              memory: "1Gi"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst

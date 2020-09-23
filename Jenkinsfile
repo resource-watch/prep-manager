@@ -46,6 +46,15 @@ node {
     stage ("Deploy Application") {
       switch ("${env.BRANCH_NAME}") {
 
+        // Roll out to staging
+        case "develop":
+          sh("echo Deploying to STAGING cluster")
+          sh("kubectl config use-context ${KUBECTL_CONTEXT_PREFIX}_${CLOUD_PROJECT_NAME}_${CLOUD_PROJECT_ZONE}_${KUBE_PROD_CLUSTER}")
+          sh("sed -i -e 's/{name}/${appName}/g' k8s/staging/*.yaml")
+          sh("kubectl apply -f k8s/staging/")
+          sh("kubectl set image deployment ${appName}-staging ${appName}-staging=${imageTag} --namespace=prep --record")
+          break
+
         // Roll out to production
         case "master":
           def userInput = true

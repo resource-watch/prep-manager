@@ -3,8 +3,8 @@ kind: Service
 metadata:
   namespace: prep
   labels:
-    name: prep-manager
-  name: prep-manager
+    name: prep-manager-staging
+  name: prep-manager-staging
 spec:
   type: NodePort
   ports:
@@ -13,4 +13,4 @@ spec:
       port: 80
       targetPort: 3000
   selector:
-    name: prep-manager
+    name: prep-manager-staging
