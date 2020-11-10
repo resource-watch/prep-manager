@@ -45,7 +45,7 @@ spec:
         - env:
             - name: NODE_ENV
               value: production
-            - namne: API_ENV
+            - name: API_ENV
               value: production,preproduction
             - name: SESSION_ENV
               value: staging
