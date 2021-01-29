@@ -7,6 +7,7 @@ metadata:
   namespace: prep
 spec:
   progressDeadlineSeconds: 2147483647
+  replicas: 1
   revisionHistoryLimit: 2
   selector:
     matchLabels:
@@ -57,7 +58,7 @@ spec:
                 secretKeyRef:
                   key: REDIS_URI
                   name: dbsecrets
-          image: vizzuality/prep-manager
+          image: gfwdockerhub/prep-manager
           imagePullPolicy: Always
           name: prep-manager
           ports:
@@ -71,8 +72,9 @@ spec:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: regcred
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: { }
+      securityContext: {}
       terminationGracePeriodSeconds: 30
-status: { }
