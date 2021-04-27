@@ -93,6 +93,7 @@ class DashboardsList extends React.Component {
           input={{
             placeholder: 'Search dashboard'
           }}
+          helpLink
           link={{
             label: 'New dashboard',
             route: routes.detail,

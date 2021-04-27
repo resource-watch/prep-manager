@@ -37,7 +37,7 @@ class SearchInput extends React.Component {
 
   render() {
     const { value } = this.state;
-    const { link, input, buttonClass } = this.props;
+    const { link, input, buttonClass, helpLink } = this.props;
 
     return (
       <div className="c-search-input">
@@ -51,6 +51,9 @@ class SearchInput extends React.Component {
           />
           <Icon name="icon-search" className="-small" />
         </div>
+        {helpLink && (
+          <a className={`c-button -secondary`} style={{ marginRight: '10px' }} href="/how-to">Help</a>
+        )}
         {link.route &&
           <Link route={link.route} params={link.params}>
             <a className={`c-button ${buttonClass}`}>{link.label}</a>
