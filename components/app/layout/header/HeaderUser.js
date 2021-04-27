@@ -81,7 +81,12 @@ class HeaderUser extends React.Component {
                 onMouseLeave={this.props.onMouseLeave}
               >
                 <li className="header-dropdown-list-item">
-                  <Link route="admin_myprep">
+                  <Link route="admin_myprep" params={{ tab: 'dashboards' }}>
+                    <a>Dashboards</a>
+                  </Link>
+                </li>
+                <li className="header-dropdown-list-item">
+                  <Link route="admin_myprep" params={{ tab: 'profile' }}>
                     <a>Profile</a>
                   </Link>
                 </li>
