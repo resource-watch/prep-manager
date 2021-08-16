@@ -336,7 +336,11 @@ export default class UserService {
     return new Promise((resolve, reject) => {
       fetch(`${process.env.CONTROL_TOWER_URL}/auth/logout`, {
         method: 'GET',
-        credentials: 'include'
+        // credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: user.token
+        }
       })
         .then((response) => {
           const { status, statusText } = response;

@@ -20,7 +20,7 @@ node {
     stage ('Build docker') {
       switch ("${env.BRANCH_NAME}") {
         case "develop":
-          sh("docker -H :2375 build --build-arg secretKey=${secretKey} --build-arg apiEnv=production,preproduction --build-arg apiUrl=https://staging.prepdata.org/api --build-arg wriApiUrl=https://staging-api.globalforestwatch.org/v1 --build-arg callbackUrl=https://staging.prepdata.org/auth -t ${imageTag} .")
+          sh("docker -H :2375 build --build-arg secretKey=${secretKey} --build-arg apiEnv=production,preproduction --build-arg apiUrl=https://staging.prepdata.org/api --build-arg wriApiUrl=https://staging.resourcewatch.org/v1 --build-arg callbackUrl=https://staging.prepdata.org/auth -t ${imageTag} .")
           break
         case "master":
           sh("docker -H :2375 build --build-arg secretKey=${secretKey} -t ${imageTag} .")
