@@ -24,16 +24,6 @@ import AreasTab from 'components/app/myprep/areas/AreasTab';
 import metadata from 'constants/metadata.json';
 
 const MYPREP_TABS = [{
-  label: 'Profile',
-  value: 'profile',
-  route: 'admin_myprep',
-  params: { tab: 'profile' }
-}, {
-  label: 'Datasets',
-  value: 'datasets',
-  route: 'admin_myprep',
-  params: { tab: 'datasets', subtab: 'my_datasets' }
-}, {
   label: 'Dashboards',
   value: 'dashboards',
   route: 'admin_myprep',
@@ -43,12 +33,11 @@ const MYPREP_TABS = [{
   value: 'widgets',
   route: 'admin_myprep',
   params: { tab: 'widgets', subtab: 'my_widgets' }
-},
-{
-  label: 'Areas of interest',
-  value: 'areas',
+}, {
+  label: 'Profile',
+  value: 'profile',
   route: 'admin_myprep',
-  params: { tab: 'areas' }
+  params: { tab: 'profile' }
 }];
 
 class MyPREP extends Page {
@@ -58,7 +47,7 @@ class MyPREP extends Page {
     const { url } = props;
 
     this.state = {
-      tab: url.query.tab || 'profile',
+      tab: url.query.tab || 'dashboards',
       subtab: url.query.subtab
     };
   }
@@ -67,7 +56,7 @@ class MyPREP extends Page {
     const { url } = nextProps;
 
     this.setState({
-      tab: url.query.tab || 'profile',
+      tab: url.query.tab || 'dashboards',
       subtab: url.query.subtab
     });
   }

@@ -10,7 +10,7 @@ ENV API_ENV $apiEnv
 ENV WRI_API_URL $wriApiUrl
 ENV BASEMAP_TILE_URL https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
 ENV API_URL $apiUrl
-ENV CONTROL_TOWER_URL https://production-api.globalforestwatch.org
+ENV CONTROL_TOWER_URL https://api.resourcewatch.org
 ENV CALLBACK_URL $callbackUrl
 ENV STATIC_SERVER_URL=
 ENV APPLICATIONS prep

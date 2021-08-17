@@ -23,10 +23,16 @@ class HeaderUser extends React.Component {
       e.preventDefault();
     }
 
+    const { user } = this.props;
+
     // Get to logout
     get({
       url: `${process.env.CONTROL_TOWER_URL}/auth/logout`,
       withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: user.token
+      },
       onSuccess: () => {
         try {
           localStorage.removeItem('user');
@@ -81,7 +87,12 @@ class HeaderUser extends React.Component {
                 onMouseLeave={this.props.onMouseLeave}
               >
                 <li className="header-dropdown-list-item">
-                  <Link route="admin_myprep">
+                  <Link route="admin_myprep" params={{ tab: 'dashboards' }}>
+                    <a>Dashboards</a>
+                  </Link>
+                </li>
+                <li className="header-dropdown-list-item">
+                  <Link route="admin_myprep" params={{ tab: 'profile' }}>
                     <a>Profile</a>
                   </Link>
                 </li>
@@ -91,7 +102,7 @@ class HeaderUser extends React.Component {
                   </li>
                 }
                 <li className="header-dropdown-list-item">
-                  <a onClick={this.logout} href="/logout">Logout</a>
+                  <a onClick={() => this.logout()} href="/logout">Logout</a>
                 </li>
               </ul>
             }
@@ -129,17 +140,17 @@ class HeaderUser extends React.Component {
               onMouseLeave={this.props.onMouseLeave}
             >
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://api.resourcewatch.org/auth/facebook?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Facebook
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://api.resourcewatch.org/auth/google?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Google
                 </a>
               </li>
               <li className="header-dropdown-list-item">
-                <a href={`https://production-api.globalforestwatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
+                <a href={`https://api.resourcewatch.org/auth/twitter?callbackUrl=${process.env.CALLBACK_URL}&applications=${process.env.APPLICATIONS}&token=true`}>
                   Twitter
                 </a>
               </li>
